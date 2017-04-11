@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.xiyou.domain">
+    
+    <class name="Province" table="PROVINCE">
+    	<id name="provinceId" type="java.lang.Integer">
+    		<column name="PROVINCE_ID"></column>
+    		<generator class="native"></generator>
+    	</id>
+    	
+    	<property name="provinceName" type="java.lang.String">
+    		<column name="PROVINCE_NAME"></column>
+    	</property>
+		
+    </class>
+
+</hibernate-mapping>

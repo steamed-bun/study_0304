@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.xiyou.domain">
+    
+    <class name="Shop" table="SHOP">
+    	<id name="shopId" type="java.lang.Integer">
+    		<column name="SHOP_ID"></column>
+    		<generator class="native"></generator>
+    	</id>
+		
+    	<property name="shopName" type="java.lang.String">
+    		<column name="SHOP_NAME"></column>
+    	</property>
+    	
+		<property name="notice" type="java.lang.String">
+    		<column name="notice"></column>
+    	</property>
+		
+		<property name="established" type="long">
+			<column name="ESTABLISHED" not-null="true"></column>
+		</property>
+
+		<property name="shopGrade" type="int">
+			<column name="SHOP_GRADE" default="0"></column>
+		</property>
+
+		<property name="street" type="java.lang.String">
+			<column name="STREET"></column>
+		</property>
+		<property name="shopImage" type="java.lang.String">
+			<column name="SHOP_IMAGE"></column>
+		</property>
+
+		<many-to-one name="province" class="Province">
+			<column name="PROVINCE_ID"></column>
+		</many-to-one>
+		
+		<many-to-one name="city" class="City">
+			<column name="CITY_ID"></column>
+		</many-to-one>
+		
+		<many-to-one name="county" class="County">
+			<column name="COUNTY_ID"></column>
+		</many-to-one>
+    </class>
+
+</hibernate-mapping>

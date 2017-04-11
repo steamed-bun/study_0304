@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.xiyou.domain">
+    
+    <class name="User" table="USER">
+    	<id name="userId" type="java.lang.Integer">
+    		<column name="USER_ID"></column>
+    		<generator class="native"></generator>
+    	</id>
+    	
+    	<property name="userName" type="java.lang.String">
+    		<column name="USER_NAME"></column>
+    	</property>
+    	
+    	<property name="userPassword" type="java.lang.String">
+    		<column name="USER_PASSWORD"></column>
+    	</property>
+    	
+    	<property name="userAge" type="int">
+    		<column name="USER_AGE"></column>
+    	</property>
+    	
+    	<property name="userWeiXin" type="java.lang.String">
+    		<column name="USER_WEIXIN"></column>
+    	</property>
+
+		<property name="userImage" type="java.lang.String">
+			<column name="USER_IMAGE"></column>
+		</property>
+
+		<property name="userSex" type="java.lang.String">
+			<column name="USER_SEX"></column>
+		</property>
+		
+		<property name="userIdCard" type="java.lang.String">
+			<column name="USER_ID_CARD"></column>
+		</property>
+
+    </class>
+
+</hibernate-mapping>

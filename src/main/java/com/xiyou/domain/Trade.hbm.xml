@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.xiyou.domain">
+    
+    <class name="Trade" table="TRADE">
+    	<id name="tradeId" type="java.lang.Integer">
+    		<column name="TRADE_ID"></column>
+    		<generator class="native"></generator>
+    	</id>
+
+    	<property name="tradeTime" type="java.util.Date">
+    		<column name="TRADE_TIME" not-null="true"></column>
+    	</property>
+
+		<property name="quantity" type="int">
+			<column name="QUANTITY"></column>
+		</property>
+
+        <property name="status" type="int">
+            <column name="STATUS"></column>
+        </property>
+
+        <property name="totalPrice" type="java.lang.Float">
+            <column name="TOTAL_PRICE"></column>
+        </property>
+
+    	<many-to-one name="user" class="User" column="USER_ID"></many-to-one>
+    	
+    	<many-to-one name="seller" class="Seller" column="SEL_ID"></many-to-one>
+
+		<many-to-one name="book" class="Book" column="BOOK_ID"></many-to-one>
+    	
+    </class>
+
+</hibernate-mapping>

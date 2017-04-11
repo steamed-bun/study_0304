@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.xiyou.domain">
+    
+    <class name="Book" table="BOOK">
+    	<id name="bookId" type="java.lang.Integer">
+    		<column name="BOOK_ID"></column>
+    		<generator class="native"></generator>
+    	</id>
+    	
+    	<property name="bookName" type="java.lang.String">
+    		<column name="BOOK_NAME" not-null="true"></column>
+    	</property>
+    	
+    	<property name="author" type="java.lang.String">
+    		<column name="AUTHOR" not-null="true"></column>
+    	</property>
+    	
+    	<many-to-one name="category" class="Category" unique="true">
+    		<column name="CATEGORY_ID"></column>
+    	</many-to-one>
+
+    	<!-- 保存set集合的属性 -->
+    	<set name="bookImages" table="BOOK_IMAGES" cascade="delete">
+    		<!-- 映射集合属性的外键列，关联表BOOK的主键BOOK_ID -->
+	    	<key>
+	    		<column name="BOOK_ID" not-null="true"></column>
+	    	</key>
+	    	<!-- 映射集合属性的数据列 -->
+	    	<element type="java.lang.String">
+	    		<column name="B_IMAGES" not-null="true"></column>
+	    	</element>
+    	</set>
+    	
+    	<property name="bookPrice" type="float">
+    		<column name="BOOK_PRICAE" not-null="true"></column>
+    	</property>
+
+		<property name="quantity" type="int">
+			<column name="QUANTITY" not-null="true"></column>
+		</property>
+		
+		<property name="likes" type="int">
+			<column name="LIKES" default="0"></column>
+		</property>
+		
+		<property name="noLike" type="int">
+			<column name="NO_LIKE" default="0"></column>
+		</property>
+		
+		<property name="publicationDate" type="java.lang.String">
+			<column name="PUBLICATION_DATE"></column>
+		</property>
+		
+		<property name="publisher" type="java.lang.String">
+			<column name="PUBLISHER"></column>
+		</property>
+		
+		<property name="summary" type="java.lang.String">
+			<column name="SUMMARY"></column>
+		</property>
+		
+		<many-to-one name="shop" class="Shop" unique="true" cascade="delete">
+			<column name="SHOP"></column>
+		</many-to-one>
+		
+    </class>
+
+</hibernate-mapping>

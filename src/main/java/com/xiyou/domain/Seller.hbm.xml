@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.xiyou.domain">
+    
+    <class name="Seller" table="SELLER">
+    	<id name="selId" type="java.lang.Integer">
+    		<column name="Sel_ID"></column>
+    		<generator class="native"></generator>
+    	</id>
+    	
+    	<property name="selName" type="java.lang.String">
+    		<column name="SEL_NAME" not-null="true"></column>
+    	</property>
+    	
+    	<property name="selPassword" type="java.lang.String">
+    		<column name="SEL_PASSWORD" not-null="true"></column>
+    	</property>
+    	
+    	<property name="selAge" type="int">
+    		<column name="SEL_AGE" default="0"></column>
+    	</property>
+    	
+    	<property name="selSex" type="java.lang.String">
+    		<column name="SEL_SEX"></column>
+    	</property>
+
+		<property name="selIdCard" type="java.lang.String">
+			<column name="SEL_ID_CARD"></column>
+		</property>
+
+		<property name="selImage" type="java.lang.String">
+			<column name="SEL_IMAGE"></column>
+		</property>
+	
+		<property name="selWeiXin" type="java.lang.String">
+			<column name="SEL_WEIXIN"></column>
+		</property>
+		
+		<property name="selTel" type="java.lang.String">
+			<column name="SEL_TEL"></column>
+		</property>
+
+		<!-- <one-to-one name="shopId" class="Shop" property-ref="selId"></one-to-one> -->
+		<many-to-one name="shop" class="Shop" unique="true" cascade="delete">
+			<column name="SHOP_ID"></column>
+		</many-to-one> 
+
+    </class>
+
+</hibernate-mapping>

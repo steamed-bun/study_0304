@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.xiyou.domain">
+    
+    <class name="Buyer" table="BUYER">
+    	<id name="buyerId" type="java.lang.Integer">
+    		<column name="BUY_ID"></column>
+    		<generator class="native"></generator>
+    	</id>
+    	
+    	<property name="buyerName" type="java.lang.String">
+    		<column name="BUY_NAME" not-null="true"></column>
+    	</property>
+    	
+    	<property name="buyerPassword" type="java.lang.String">
+    		<column name="BUY_PASSWORD" not-null="true"></column>
+    	</property>
+
+    	<property name="buyerImage" type="java.lang.String">
+    		<column name="BUY_IMAGE"></column>
+    	</property>
+
+		<property name="buyerMail" type="java.lang.String">
+			<column name="BUY_MAIL"></column>
+		</property>
+
+    </class>
+
+</hibernate-mapping>

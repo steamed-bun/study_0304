@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.xiyou.domain">
+    
+     <class name="County" table="COUNTY">
+    	<id name="countyId" type="java.lang.Integer">
+    		<column name="COUNTY_ID"></column>
+    		<generator class="native"></generator>
+    	</id>
+    	
+    	<property name="countyName" type="java.lang.String">
+    		<column name="COUNTY_NAME"></column>
+    	</property>
+    	
+    	<many-to-one name="city" class="City" unique="true">
+    		<column name="CITY_ID"></column>
+    	</many-to-one>
+		
+    </class>
+</hibernate-mapping>

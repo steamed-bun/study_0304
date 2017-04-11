@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.xiyou.domain">
+    
+    <class name="TradeItem" table="TRADEITEM">
+    	<id name="itemId" type="java.lang.Integer">
+    		<column name="ITEM_ID"></column>
+    		<generator class="native"></generator>
+    	</id>
+    	
+    	<property name="quantity" type="int">
+    		<column name="QUANTITY" not-null="true"></column>
+    	</property>
+
+    	<property name="deal" type="boolean">
+    		<column name="DEAL" default="0"></column>
+    	</property>
+    	
+    	<many-to-one name="bookId" class="Book" column="BOOK_ID"></many-to-one>
+    	
+    	<many-to-one name="tradeId" class="Trade" column="Trade_ID"></many-to-one>
+    	
+    </class>
+
+</hibernate-mapping>

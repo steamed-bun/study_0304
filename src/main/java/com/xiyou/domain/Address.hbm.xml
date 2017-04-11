@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.xiyou.domain">
+    
+    <class name="Address" table="ADDRESS">
+    	<id name="addressId" type="java.lang.Integer">
+    		<column name="ADDRESS_ID"></column>
+    		<generator class="native"></generator>
+    	</id>
+
+		<property name="street" type="java.lang.String">
+			<column name="STREET"></column>
+		</property>
+
+    	<many-to-one name="province" class="Province">
+			<column name="PROVINCE"></column>
+		</many-to-one>
+
+		<many-to-one name="county" class="County">
+			<column name="COUNTY"></column>
+		</many-to-one>
+
+		<many-to-one name="city" class="City">
+			<column name="CITY"></column>
+		</many-to-one>
+
+		<many-to-one name="buyer" class="Buyer">
+			<column name="BUYER"></column>
+		</many-to-one>
+
+    </class>
+
+</hibernate-mapping>

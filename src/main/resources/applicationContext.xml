@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+	<context:component-scan base-package="com.xiyou"/>
+	<!-- aop 开启 -->
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+
+	<bean id="prop" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<!-- 这里是PropertiesFactoryBean类，它也有个locations属性，也是接收一个数组，跟上面一样  -->
+		<property name="locations">
+			<array>
+				<value>classpath:email.properties</value>
+			</array>
+		</property>
+	</bean>
+	<!-- 引入db.properties文件，即数据库的配置 -->
+	<context:property-placeholder location="classpath:db.properties"/>
+	
+	<!-- 引入数据源 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+	<!-- 配置数据库设置 -->
+	<property name="user" value="${jdbc.username}"></property>
+	<property name="password" value="${jdbc.password}"></property>
+	<property name="jdbcUrl" value="${jdbc.url}"></property>
+	<property name="driverClass" value="${jdbc.driverClass}"></property>
+	<property name="initialPoolSize" value="${jdbc.initPoolSize}"></property>
+	<property name="maxPoolSize" value="${jdbc.maxPoolSize}"></property>
+	</bean>
+	
+	<!-- 配置SessionFactory -->
+	<bean class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" id="sessionFactory">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocation" value="classpath:hibernate.cfg.xml"></property>
+		<property name="mappingLocations" value="classpath:com/xiyou/domain/*.hbm.xml"></property>
+	</bean>
+
+	
+	<!-- 申明式事务 -->
+	<!-- 1、配置hibernate的事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 2、事务的属性 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<!-- <tx:method name="get*" read-only="true"/> -->
+			<tx:method name="*"/>
+		</tx:attributes>
+	</tx:advice>
+	<!-- 3、事务切入点 -->
+	<aop:config>
+		<aop:pointcut expression="execution(* com.xiyou.service.*.*(..))" id="txPointcut"/>
+		<!-- 将事务属性与切入点关联起来 -->
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
+	</aop:config>
+	
+	
+	    
+</beans>
