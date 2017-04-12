@@ -15,8 +15,13 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 	
 	@Override
 	public List<Book> getBooks(String shopId) {
-		String hql = "FROM Book b left outer join fetch b.category left outer join fetch"
-					+ " b.bookImages WHERE b.shop = :shopId order by b.bookId";
+		String hql = "FROM Book b left outer join fetch b.category " +
+				"left outer join fetch b.bookImages " +
+				"left outer join fetch b.shop " +
+				"left outer join fetch b.shop.province " +
+				"left outer join fetch b.shop.city " +
+				"left outer join fetch b.shop.county " +
+				"WHERE b.shop = :shopId order by b.bookId";
 		
 		@SuppressWarnings("unchecked")
 		List<Book> list = getSession().createQuery(hql).setString("shopId", shopId).list();
@@ -44,8 +49,15 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 
 	@Override
 	public Book getBook(String bookId) {
-		String hql = "FROM Book b WHERE b.bookId = :bookId";
-		return (Book) getSession().createQuery(hql).setString("bookId", bookId).uniqueResult();
+		String hql = "FROM Book b left outer join fetch b.category " +
+				"left outer join fetch b.bookImages " +
+				"left outer join fetch b.shop " +
+				"left outer join fetch b.shop.province " +
+				"left outer join fetch b.shop.city " +
+				"left outer join fetch b.shop.county " +
+				"WHERE b.bookId = :bookId";
+		Book book = (Book) getSession().createQuery(hql).setString("bookId", bookId).uniqueResult();
+		return book;
 	}
 
 }

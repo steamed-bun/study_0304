@@ -27,33 +27,6 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
 	private String selId = null;
     private String code = null;
 	
-	public String getChose() {
-		return chose;
-	}
-
-	public void setChose(String chose) {
-		this.chose = chose;
-	}
-
-	public void setSeller(Seller seller) {
-		this.seller = seller;
-	}
-
-	public Seller getSeller() {
-		return seller;
-	}
-
-	public void setSelService(SellerService selService) {
-		this.selService = selService;
-	}
-	
-	public String getSelId() {
-		return selId;
-	}
-
-	public void setSelId(String selId) {
-		this.selId = selId;
-	}
 
 	public String sellectSeller(){
 		if(chose == null){
@@ -142,4 +115,32 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
     public void setCode(String code) {
         this.code = code;
     }
+
+	public String getChose() {
+		return chose;
+	}
+
+	public void setChose(String chose) {
+		this.chose = chose;
+	}
+
+	public void setSeller(Seller seller) {
+		this.seller = seller;
+	}
+
+	public Seller getSeller() {
+		return seller;
+	}
+
+	public void setSelService(SellerService selService) {
+		this.selService = selService;
+	}
+
+	public String getSelId() {
+		return selId;
+	}
+
+	public void setSelId(String selId) {
+		this.selId = selId;
+	}
 }

@@ -8,10 +8,10 @@ public class SellerDAOImpl extends BaseDAOImpl implements SellerDAO {
 	
 	@Override
 	public String addSeller(Seller seller) {
-		String selId = null;
+		String selId;
 		if(seller.getSelId() == null){
-			seller.setSelImage("F:/tomcat8.0/webapps/study/selImage/00.png");
-			seller.setSelWeiXin("F:/tomcat8.0/webapps/study/selWeiXin/00.png");
+			seller.setSelImage("study/selImage/00.png");
+			seller.setSelWeiXin("study/selWeiXin/00.png");
 			seller.getShop().setShopId(1);
 			selId = getSession().save(seller).toString();
 		}else {
@@ -28,8 +28,8 @@ public class SellerDAOImpl extends BaseDAOImpl implements SellerDAO {
 
 	@Override
 	public boolean validateTel(String selTelTem) {
-		String hql ="from Seller s where s.selTel = " + selTelTem; 
-		return !getSession().createQuery(hql).equals("");
+		String hql ="from Seller s where s.selTel = :selTelTem";
+		return !(getSession().createQuery(hql).setString("selTelTem",selTelTem).uniqueResult().equals(""));
 	}
 
 	@Override

@@ -10,6 +10,38 @@ public class User {
 	private String userImage;
 	private String userSex;
 	private String userIdCard;
+	private String email;
+
+	public User() {
+		super();
+	}
+
+	public User(Integer userId, String userName, String userPassword, int userAge, String userWeiXin, String userImage, String userSex, String userIdCard, String email) {
+		this.userId = userId;
+		this.userName = userName;
+		this.userPassword = userPassword;
+		this.userAge = userAge;
+		this.userWeiXin = userWeiXin;
+		this.userImage = userImage;
+		this.userSex = userSex;
+		this.userIdCard = userIdCard;
+		this.email = email;
+	}
+
+	@Override
+	public String toString() {
+		return "User{" +
+				"userId=" + userId +
+				", userName='" + userName + '\'' +
+				", userPassword='" + userPassword + '\'' +
+				", userAge=" + userAge +
+				", userWeiXin='" + userWeiXin + '\'' +
+				", userImage='" + userImage + '\'' +
+				", userSex='" + userSex + '\'' +
+				", userIdCard='" + userIdCard + '\'' +
+				", email='" + email + '\'' +
+				'}';
+	}
 
 	public Integer getUserId() {
 		return userId;
@@ -75,22 +107,11 @@ public class User {
 		this.userIdCard = userIdCard;
 	}
 
-	public User(Integer userId, String userName, String userPassword,
-			int userAge, String userWeiXin, String userImage, String userSex,
-			String userIdCard) {
-		super();
-		this.userId = userId;
-		this.userName = userName;
-		this.userPassword = userPassword;
-		this.userAge = userAge;
-		this.userWeiXin = userWeiXin;
-		this.userImage = userImage;
-		this.userSex = userSex;
-		this.userIdCard = userIdCard;
+	public String getEmail() {
+		return email;
 	}
 
-	public User() {
-		super();
+	public void setEmail(String email) {
+		this.email = email;
 	}
-
 }

@@ -39,6 +39,10 @@
 			<column name="USER_ID_CARD"></column>
 		</property>
 
+		<property name="email" type="java.lang.String">
+			<column name="EMAIL"></column>
+		</property>
+
     </class>
 
 </hibernate-mapping>

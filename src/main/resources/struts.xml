@@ -72,6 +72,11 @@
 				<param name="excludeNullProperties">true</param>
 			</result>
 		</action>
+
+		<action name="cart-*" class="shopCartAction" method="{1}">
+			<result name="addShopItem">/test.html</result>
+		</action>
+
     </package>
 
 </struts>

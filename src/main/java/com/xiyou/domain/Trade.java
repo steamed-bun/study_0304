@@ -7,7 +7,6 @@ public class Trade {
 	private Integer tradeId;
 	private Date tradeTime;
 	private User user;
-	private Seller seller;
 	private Integer status;
     private Book book;
     private int quantity;
@@ -42,14 +41,6 @@ public class Trade {
         this.status = status;
     }
 
-    public Seller getSeller() {
-        return seller;
-    }
-
-    public void setSeller(Seller seller) {
-        this.seller = seller;
-    }
-
     public Book getBook() {
         return book;
     }
@@ -74,11 +65,10 @@ public class Trade {
         this.totalPrice = totalPrice;
     }
 
-    public Trade(Integer tradeId, Date tradeTime, User user, Seller seller, Integer status, Book book, int quantity, float totalPrice) {
+    public Trade(Integer tradeId, Date tradeTime, User user, Integer status, Book book, int quantity, float totalPrice) {
         this.tradeId = tradeId;
         this.tradeTime = tradeTime;
         this.user = user;
-        this.seller = seller;
         this.status = status;
         this.book = book;
         this.quantity = quantity;
