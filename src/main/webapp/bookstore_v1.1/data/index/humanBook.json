@@ -1,0 +1,34 @@
+[
+	{
+		"id":"E00001",
+		"img":"images/index/y00001.jpg",
+		"title":"追风筝的人",
+		"price":"18.9",
+		"isGoodBook":"1",
+		"recommend":"关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。"
+	},
+	{
+		"id":"E00001",
+		"img":"images/index/y00002.jpg",
+		"title":"追风筝的人",
+		"price":"18.9",
+		"isGoodBook":"0",
+		"recommend":"关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。"
+	},
+	{
+		"id":"E00001",
+		"img":"images/index/y00003.jpg",
+		"title":"追风筝的人",
+		"price":"18.9",
+		"isGoodBook":"0",
+		"recommend":"关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。"
+	},
+	{
+		"id":"E00001",
+		"img":"images/index/y00004.jpg",
+		"title":"追风筝的人",
+		"price":"18.9",
+		"isGoodBook":"1",
+		"recommend":"关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。"
+	}
+]

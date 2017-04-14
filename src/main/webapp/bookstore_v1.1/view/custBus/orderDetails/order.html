@@ -1,0 +1,141 @@
+<div class="order-details">
+	<p class="order-time"><span>下单时间：<i>2017-04-11 09:05:20</i></span><span>订单号：<i>11353829</i></span></p>
+	<ul class="user-info">
+		<li>
+			<p><span>收货人：</span><i>黄小霞</i></p>
+			<p><span>手机号：</span><i>18829289125</i></p>
+		</li>
+		<li>
+			<p class="receive-addr"><span >收货地址：</span><i>陕西省西安市长安区西安邮电大学南校区西区</i></p>
+			<p class="real-pay"><span>实付款：</span><i class="money">￥34.6</i></p>
+		</li>
+	</ul>
+	<div class="display-order-box">
+		<table class="dealSucc-info-box">
+			<thead>
+				<tr class="dealSucc-title">
+					<th colspan="2">书籍信息</th>
+					<th>单价</th>
+					<th>数量</th>
+					<th>实付</th>
+					<th>状态</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody class="dealSucc-content">
+				<tr>
+					<td class="book-img" style="background-image: url('./images/index/e00001.jpg')"></td>
+					<td class="book-name">三生花三生三世三生十里桃花</td>
+					<td>12</td>
+					<td>1</td>
+					<td>12</td>
+					<td>待发货</td>
+					<td class="book-delete"><span>返回订单</span><span>确认收货</span></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<style>
+	.order-details{
+		padding:20px 30px;
+	}
+	.order-time{
+		height:57px;
+		line-height: 57px;
+		border-bottom:#DDD dashed 1px;
+		color:#999;
+	}
+	.order-time i{
+		color:#000;
+		font-style: normal;
+	}
+	.order-time>span{
+		margin-right:100px;
+	}
+	.user-info{
+		padding-bottom: 20px;
+		border-bottom: #DDD solid 1px;
+		margin-bottom: 30px;
+	}
+	.user-info>li{
+		height:41px;
+		line-height: 41px;
+		font-size:14px;
+	}
+	.user-info p{
+		display:inline-block;
+		margin-right:100px;
+		width:310px;
+		color:#999;
+	}
+	.user-info span{
+		display:inline-block;
+		width:80px;
+	}
+	.receive-addr{
+		position: relative;
+	}
+	.real-pay{
+		position: relative;
+		top:-24px;
+	}
+	.receive-addr span:first-child{
+		position: absolute;
+		top:-11px;
+		width:80px;
+	}
+	.receive-addr i{
+		margin-left:80px;
+		line-height:24px;
+	}
+	.user-info i{
+		display: inline-block;
+		font-style: normal;
+		color:#000;
+		width:230px;
+	}
+	.money{
+		color:#d4282d !important;
+		font-size:16px;
+	}
+	.dealSucc-info-box{
+		width:100%;
+		border-collapse: collapse;
+		text-align: center;
+	}
+	.dealSucc-title{
+		height:41px;
+		font-size:16px;
+		background:#f5f5f5;
+		border-bottom: #DDD solid 1px;
+		color:#999;
+	}
+	.dealSucc-content>tr{
+		height:150px;
+		border-bottom: #DDD dashed 1px;
+		font-size:14px;
+	}
+	.dealSucc-content>tr:last-child{
+		border-bottom: #DDD solid 1px;
+	}
+	.book-img{
+		width:90px;
+		height:90p;
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: contain;
+	}
+	.book-name{
+		width:110px;
+	}
+	.book-delete>span{
+		display:block;
+		width:60px;
+		height:30px;
+		line-height: 30px;
+		color:#69c;
+		cursor:pointer;
+		margin:0 auto 5px auto;
+	}
+</style>

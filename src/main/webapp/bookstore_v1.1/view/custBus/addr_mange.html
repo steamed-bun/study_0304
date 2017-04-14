@@ -1,0 +1,225 @@
+<!-- 注：此页面没有地址、新建地址的情况我已写了 -->
+<div>
+	<div class="no-addr-box"  style="display:none">
+		<div>
+			<p class="addr-img"><span></span></p>
+			<p class="addr-hint"><span>您还没有收货地址</span></p>
+			<p class="addr-add-text"><a href="javascript:;">+ 新建地址</a></p>
+		</div>
+	</div>
+	<div class="operate-addr-box" style="display:none">
+		<div class="mask"></div>
+		<div class="add-addr">
+			<p class="addr-title"><span>新建地址</span><i></i></p>
+			<from>
+				<ul class="input-addr">
+					<li><span>收货地址：</span><textarea></textarea></li>
+					<li><span>收货人：</span><input type="text"/></li>
+					<li><span>手机号:</span><input type="text"/></li>
+				</ul>
+			</from>
+			<p class="addr-default"><span><input type="checkbox" id="default"/><label for="default">设为默认</label></span><span class="add-addr-sure">确认</span><span class="add-addr-cancel">取消</span></p>
+		</div>
+	</div>
+	<div class="display-addr">
+		<p class="display-addr-hint clearfix"><span class="fl">已保存收货地址（最多保存3条）</span><span class="fr">+ 新建地址</span></p>
+		<table class="addr-info-box">
+			<thead>
+				<tr style="height:43px"><th>收货人</th><th>地址</th><th>联系方式</th><th>操作</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>黄小霞</td><td>陕西省西安市长安区西安邮电大学南校区</td><td>18829289125</td><td class="display-addr-oper"><span>编辑</span><span>删除</span><span>默认地址</span></td></tr>
+				<tr><td>黄小霞</td><td>陕西省西安市长安区西安邮电大学南校区</td><td>18829289125</td><td class="display-addr-oper"><span>编辑</span><span>删除</span><span>默认地址</span></td></tr>
+				<tr><td>黄小霞</td><td>陕西省西安市长安区西安邮电大学南校区</td><td>18829289125</td><td class="display-addr-oper"><span>编辑</span><span>删除</span><span>默认地址</span></td></tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<style type="text/css">
+	/* 没有地址开始 */
+	.no-addr-box{
+		width:100%;
+		min-height:480px;
+		display:flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.addr-img>span{
+		display:block;
+		width:50px;
+		height:50px;
+		background:url("./images/more-img.png") 0 0 no-repeat;
+		margin:0 auto;
+	}
+	.addr-hint>span{
+		display:block;
+		font-size:16px;
+		font-weight:500;
+		margin-top:10px;
+	}
+	.addr-add-text>a{
+		display:block;
+		font-size:14px;
+		font-weight:500;
+		margin-top:10px;
+		color:#69c;
+		text-align: center;
+	}
+	/* 没有地址结束 */
+
+	/* 新建地址开始 */
+	.mask{
+		position:fixed;
+		left:0;
+		top:0;
+		width:100%;
+		height:100%;
+		background:#000;
+		z-index: 99999;
+		opacity:0.6;
+	}
+	.add-addr{
+		position:fixed;
+		top:50%;
+		left:50%;
+		transform: translate(-50%, -50%);
+		width:660px;
+		height:414px;
+		background:#FFF;
+		z-index:99999;
+		padding:30px 40px;
+	}
+	.addr-title{
+		position:relative;
+		font-size:18px;
+		margin-bottom:43px;
+	}
+	.addr-title>i{
+		position:absolute;
+		right:-4px;
+		top:-10px;
+		width:24px;
+		height:24px;
+		background:url("./images/close.png") center center no-repeat;
+		cursor:pointer;
+	}
+	.input-addr>li{
+		position:relative;
+		height:41px;
+		line-height:41px;
+		font-size:14px;
+		margin-bottom:14px;
+	}
+	.input-addr>li:first-child{
+		height:100px;
+	}
+	.input-addr>li>span{
+		position:absolute;
+		top:0;
+		left:0;
+		width:80px;
+		height:100%;
+	}
+	.input-addr>li>input,.input-addr>li>textarea{
+		border:#DDD solid 1px;
+		width:500px;
+		margin-left:80px;
+		border-radius: 3px;
+		padding:5px 10px;
+	}
+	.input-addr>li>textarea{
+		height:100px;
+		resize: none;
+	}
+	.input-addr>li>input{
+		height:100%;
+	}
+	.addr-default input{
+		position: relative;
+		top:-6px;
+	}
+	#default+label{
+		position: relative;
+		top:-8px;
+		margin-left:5px;
+	}
+	.add-addr-sure,.add-addr-cancel{
+		display:inline-block;
+		width:144px;
+		height:42px;
+		line-height:42px;
+		border-radius: 3px;
+		cursor: pointer;
+		text-align: center;
+		font-size:18px;
+	}
+	.add-addr-sure{
+		background:#c0ae8a;
+		border:#c0ae8a solid 1px;
+		color:#FFF;
+		margin:20px 0 0 206px;
+	}
+	.add-addr-cancel{
+		background:#fff;
+		border:#CCC solid 1px;
+		margin-left:20px;
+	}
+	/* 新建地址结束 */
+	/* 已保存收货地址开始 */
+	.display-addr{
+		padding:20px 30px;
+	}
+	.display-addr-hint{
+		height:14px;
+		line-height: 14px;
+		font-size:14px;
+		margin-bottom:14px;
+	}
+	.display-addr-hint>span:last-child{
+		color:#69c;
+		cursor:pointer;
+	}
+	.addr-info-box{
+		width:100%;
+		border-top:#DDD solid 1px;
+		border-bottom:#DDD solid 1px;
+		border-collapse: collapse;
+		text-align: center;
+	}
+	.addr-info-box>thead>tr{
+		background:#f5f5f5;
+		font-size:14px;
+		border-bottom:#DDD solid 1px;
+	}
+	.addr-info-box>tbody>tr{
+		height:100px;
+		border-bottom:#DDD dashed 1px;
+	}
+	.addr-info-box>tbody>tr:last-child{
+		border-bottom: none;
+	}
+	.display-addr-oper>span{
+		display:inline-block;
+		width:28px;
+		height:19px;
+		line-height: 19px;
+		color:#69c;
+		cursor:pointer;
+	}
+	.display-addr-oper>span:last-child{
+		position:relative;
+		right:-38px;
+		width:96px;
+		height:28px;
+		line-height:28px;
+		border:#c0ae8a solid 1px;
+		color:#c0ae8a;
+		background:#f5f3ef;
+		border-radius: 3px;
+	}
+	.display-addr-oper>span:last-child:hover{
+		background:#FFF;
+	}
+	/* 已保存收货地址结束 */
+</style>

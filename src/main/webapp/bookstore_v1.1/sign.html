@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>江南缘书城</title>
+		<meta charset="UTF-8"/>
+		<link rel="stylesheet" href="css/reset.css"/>
+		<link rel="stylesheet" href="css/sign.css"/>
+	</head>
+	<body ng-app="sign">
+		<div class="sign-box">
+			<span class="sign-logo-img"></span>
+			<div ng-controller="signTitleBox">
+				<p class="sign-txt">
+					<span ng-class="{'sign-select':isLogin}" ng-click="login()">登录</span>
+					<i></i>
+					<span ng-class="{'sign-select':isRegister}" ng-click="register()">注册</span>
+				</p>
+			</div>
+			<!-- 模板开始 -->
+			<ng-view></ng-view>
+			<!-- 模板结束 -->
+		</div>
+		<script src="js/angular.js"></script>
+		<script src="js/angular-route.js"></script>
+		<script src="js/jquery-1.12.3.js"></script>
+		<script src="js/jquery.cookie.js"></script>
+		<script src="app/sign.js"></script>
+		<script src="app/sign-controller.js"></script>
+	</body>
+</html>

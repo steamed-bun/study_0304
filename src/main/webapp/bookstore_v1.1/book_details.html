@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>江南缘书城</title>
+		<link rel="stylesheet" href="./css/reset.css"/>
+		<link rel="stylesheet" href="./css/base.css"/>
+		<link rel="stylesheet" href="./css/book_details.css"/>
+	</head>
+	<body>
+		<!-- 头部开始 -->
+		<header>
+			<div class="header-nav">
+				<div class="container clearfix">
+				<span class="fl">好的生活，与书为伴</span>
+				<div class="fr">
+					<div class="user-box">
+						<span class="user-txt">花开半夏</span>
+						<ul class="user-bus">
+							<li><a href="javascript:;">个人资料</a></li>
+							<li><a href="javascript:;">订单管理</a></li>
+							<li><a href="javascript:;">地址管理</a></li>
+							<li><a href="javascript:;">账号安全</a></li>
+							<li><a href="javascript:;">退出登录</a></li>
+							<p></p>
+						</ul>
+					</div>
+				</div>
+			</div>
+			</div>
+			<div class="header-logo-box container">
+				<div class="logo-box-top clearfix">
+					<div class="fl">
+						<img src="images/logo.png"/>
+					</div>
+					<div class="fr">
+						<input type="text" placeholder="请输入关键字进行搜索" class="keywords-search"/>
+						<a class="search-icon" href="javascript:;"><a>
+						<a class="shopcar-icon" href="javascript:;"><a>
+					</div>
+				</div>
+				<nav>
+					<ul class="header-items clearfix">
+						<li><a href="javascript:;" class="cur-header-item">首页</a></li>
+						<li><a href="javascript:;">教育</a></li>
+						<li><a href="javascript:;">小说</a></li>
+						<li><a href="javascript:;">文艺</a></li>
+						<li><a href="javascript:;">青春</a></li>
+						<li><a href="javascript:;">童书</a></li>
+						<li><a href="javascript:;">生活</a></li>
+						<li><a href="javascript:;">人文社科</a></li>
+						<li><a href="javascript:;">经管</a></li>
+						<li><a href="javascript:;">励志</a></li>
+						<li><a href="javascript:;">科技</a></li>
+						<li><a href="javascript:;">工具书</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+		<!-- 头部结束 -->
+
+		<!-- 书籍详情页开始 -->
+		<section ng-app="bookDetail">
+			<div class="container" ng-controller="bookDetailCtrl">
+				<nav class="crumbs"><span>首页</span><i></i><span>教育</span><i></i><span>高等数学</span></nav>
+				<div class="book-info clearfix">
+					<div class="fl">
+						<div class="book-big-img">
+							<img src="./images/bigImg/m00001.jpg" class="demo-img pos-center"/>
+						</div>
+						<ul class="book-small-img clearfix">
+							<li><img src="./images/bigImg/m00001-s.jpg"/></li>
+							<li><img src="./images/bigImg/m00002-s.jpg"/></li>
+							<li><img src="./images/bigImg/m00003-s.jpg"/></li>
+							<li><img src="./images/bigImg/m00004-s.jpg"/></li>
+						</ul>
+					</div>
+					<div class="book-price-box fr">
+						<p class="book-buy-name">愿所有的姑娘都能嫁给爱情 </p>
+						<p class="book-buy-recommend">18个爱情故事，18种爱恨别离，你会找回爱情里的自己。亲爱的姑娘，愿有人能以爱的名义陪你颠沛流离相偎相依，也愿所有曾经爱而不得的姑娘，最后都能嫁给爱情。所有的等待都不是徒然，谨以此书献给不愿将就的你。</p>
+						<p class="book-buy-author"><span>每天读点故事</span>著</p>
+						<p class="book-buy-price">惊喜价：<span>￥34.6</span></p>
+						<p class="book-buy-num">数量：<i class="disabled-mask"></i><span class="reduce-num">-</span><input class="input-num" type="text" value="1"/><span class="add-num">+</span></p>
+						<p class="book-buy-operate"><span class="shop-now">立即购买</span><span class="add-shopcar">加入购物车</span></p>
+					</div>
+				</div>
+				<!-- <div class="book-details-box">
+				</div> -->
+			</div>
+		</section>
+		<!-- 书籍详情页结束 -->
+
+		<!-- 页面滚动时的固定定位部分开始 -->
+		<aside>
+			<div class="container clearfix">
+				<ul class="header-items fl clearfix">
+					<li><a href="javascript:;" class="cur-header-item">首页</a></li>
+					<li><a href="javascript:;">教育</a></li>
+					<li><a href="javascript:;">小说</a></li>
+					<li><a href="javascript:;">文艺</a></li>
+					<li><a href="javascript:;">青春</a></li>
+					<li><a href="javascript:;">童书</a></li>
+					<li><a href="javascript:;">生活</a></li>
+					<li><a href="javascript:;">人文</a></li>
+					<li><a href="javascript:;">经管</a></li>
+					<li><a href="javascript:;">励志</a></li>
+					<li><a href="javascript:;">科技</a></li>
+					<li><a href="javascript:;">工具书</a></li>
+				</ul>
+				<div class="aside-img-box fr">
+					<div class="aside-user-box">
+						<span class="aside-user-img"></span>
+						<ul class="aside-user-bus">
+							<li><a href="javascript:;">个人资料</a></li>
+							<li><a href="javascript:;">订单管理</a></li>
+							<li><a href="javascript:;">地址管理</a></li>
+							<li><a href="javascript:;">账号安全</a></li>
+							<li><a href="javascript:;">退出登录</a></li>
+							<p></p>
+						</ul>
+					</div>
+					<a href="javascript:;"></a>
+				</div>
+			</div>
+		</aside>
+		<!-- 页面滚动时的固定定位部分结束 -->
+
+		<!-- 页面底部开始-->
+		<footer>
+			<div class="container clearfix footer-box">
+				<div class="footer-left-box fl">
+					<span>客服电话</span>
+					<span>400-820-531</span>
+					<span>9:00-22:00</span>
+					<span><a href="#">用户反馈</a></span>
+				</div>
+				<div class="footer-middle-box fl">
+					<span>何为江南缘</span>
+					<p>江南缘书店品牌，秉承网易一贯的严谨态度，我们深入世界各地，从源头全程严格把控商品生产环节，力求帮消费者甄选到最优质的商品 </p>
+					<p class="footer-attention">
+						<span>关注我们：</span>
+						<span class="footer-weixin footer-icon">
+							<i></i>
+						</span>
+						<span class="footer-qq footer-icon">
+							<i></i>
+						</span>
+					</p>
+				</div>
+				<div class="footer-right-box fl clearfix">
+					<div class="fl">
+						<span>商家</span>
+						<p><a href="">商家入驻</a></p>
+						<p><a href="">商家后台</a></p>
+					</div>
+					<div class="fr">
+						<span>品质保证</span>
+						<i class="footer-qa"></i>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<!-- 页面底部结束-->
+		<script src="./js/jquery-1.12.3.js"></script>
+		<script src="./js/angular.js"></script>
+		<script src="./js/blowup.min.js"></script>
+		<script src="./app/base.js"></script>
+		<script src="./app/book_details.js"></script>
+	</body>
+</html>

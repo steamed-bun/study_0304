@@ -1,0 +1,277 @@
+@charset "utf-8";
+/*买家登录后的开始*/
+.user-box{
+	position:relative;
+}
+.user-txt:hover{
+	color:#B4A078;
+	cursor:pointer;
+}
+.user-bus,.aside-user-bus{
+	position:absolute;
+	top:36px;
+	left:-18px;
+	width:100px;
+	height:175px;
+	border:#EEE solid 1px;
+	box-shadow:0 1px 2px #EEE,1px 0 2px #EEE,0 -1px 2px #EEE,-1px 0 2px #EEE;
+	background:#FFF;
+	z-index:3000;
+	padding:5px 10px 0 10px;
+	display:none;
+}
+.aside-user-bus{
+	top:40px;
+	left:-28px;
+}
+.user-bus>p,.aside-user-bus>p{
+	position:absolute;
+	left:30px;
+	top:-24px;
+	display:block;
+	border-width:12px;
+	border-style:solid;
+	border-color:transparent transparent #FFF transparent;
+}
+.user-bus>li,.aside-user-bus>li{
+	width:100%;
+	height:32px;
+	line-height:32px;
+	border-bottom:#EEE solid 1px;
+	text-align:center;
+}
+.user-bus>li:last-of-type,.aside-user-bus>li:last-of-type{
+	border-bottom:none;
+}
+.user-bus>li>a,.aside-user-bus>li>a{
+	display:block;
+	width:100%;
+	height:100%;
+}
+.user-bus>li>a:hover,.aside-user-bus>li>a:hover{
+	color:#B4A078;
+}
+.aside-user-box{
+	display:inline-block;
+	position:relative;
+}
+.aside-user-img{
+	position:relative;
+	top:-3px;
+	display:block;
+	width:30px;
+	height:30px;
+	background:url("../images/userImg.jpg") center center no-repeat;
+	background-size:contain;
+	border-radius:50%;
+	overflow:hidden;
+	cursor:pointer;
+}
+/*买家登录后的结束*/
+
+/*顾客各种业务开始*/
+/*左边栏开始*/
+.cust-bus{
+	margin-top:20px;
+	border-top:#EEE solid 1px;
+	box-shadow:0 -1px 1px #EEE;
+}
+.cust-bus-box{
+	margin:40px auto;
+}
+.cust-bus-title{
+	width:178px;
+	height:530px;
+	border:#E8E8E8 solid 1px;
+	padding:0 10px;
+	text-align:center;
+}
+.custBus-icon-box{
+	width:100%;
+	height:271px;
+	border-bottom:#E8E8E8 dashed 1px;
+	margin:30px 0;
+	padding-top:24px;
+}
+.custBus-icon-box>span{
+	display:block;
+}
+.custBus-icon{
+	width:100px;
+	height:100px;
+	margin:0 auto;
+	border-radius:50%;
+	overflow:hidden;
+	cursor:pointer;
+	border:#e8e8e8 solid 1px;
+}
+.custBus-icon>img{
+	display:inline-block;
+	width:100%;
+	border-radius:180px;
+	box-shadow:0px 0px 12px #7E7E7E;
+}
+.custBus-icon-box>span:nth-child(2){
+	height:18px;
+	width:100%;
+	margin-top:26px;
+}
+.custBus-icon-box>span:last-child{
+	width:94px;
+	height:30px;
+	line-height:30px;
+	background:#EAEAEA;
+	margin:15px 31px 0 31px;
+	border:#CCC solid 1px;
+	border-radius:2px;
+	cursor:pointer;
+}
+.custBus-icon-box>span:last-child:hover{
+	background:#FFF;
+}
+.custBus-items{
+	margin:45px 0 30px 0;
+}
+.custBus-items>li{
+	height:20px;
+	line-height:20px;
+	margin-bottom:18px;
+	cursor:pointer;
+}
+.custBus-items>li:hover{
+	color:#B4A078;
+}
+/*更换头像开始*/
+.cust-box-addi{
+	position:fixed;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	background:rgba(0,0,0,0.7);
+	z-index:2000;
+	display:none;
+}
+.cust-content{
+	position:absolute;
+	left:0;
+	right:0;
+	bottom:0;
+	top:0;
+	margin:auto;
+	width:500px;
+	height:480px;
+	background:#FFF;
+	padding:40px;
+}
+.cust-content>h4{
+	font-size:18px;
+	font-weight:normal;
+}
+.cust-img-box{
+	position:relative;
+	margin:20px 0;
+	width:100%;
+	height:295px;
+	text-align:center;
+	border:#e8e8e8 solid 1px;
+	overflow:hidden;
+	cursor:move;
+	box-shadow:0 -2px 4px #e8e8e8,2px 0 4px #e8e8e8,0 2px 4px #e8e8e8,-2px 0 4px #e8e8e8;
+}
+.cust-btn-box{
+	font-size:16px;
+	text-align:center;
+	height:40px;
+	line-height:40px;
+	text-align:center;
+}
+.cust-img-close{
+	position:absolute;
+	right:32px;
+	top:24px;
+	display:block;
+	width:30px;
+	height:30px;
+	background:url("../images/close.png") center center no-repeat;
+	background-size:cover;
+	cursor:pointer;
+}
+.thumbBox {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 200px;
+	height: 200px;
+	margin-top: -100px;
+	border-radius:200px;
+	margin-left: -100px;
+	box-sizing: border-box;
+	border: 1px solid rgb(102, 102, 102);
+	box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5);
+	background: none repeat scroll 0% 0% transparent;
+}
+.spinner {
+  	position: absolute;
+  	top: 0;
+  	left: 0;
+  	bottom: 0;
+  	right: 0;
+  	text-align: center;
+  	line-height: 400px;
+  	color: #2F2A2A;
+  	background: rgba(213, 211, 211, 0.7);
+}
+.select-img{
+	position:relative;
+	float:left;
+	background:#AE9769;
+	color:#FFF;
+	width:150px;
+	height:100%;
+	overflow:hidden;
+	border-radius:4px;
+}
+#loadImg{
+	position:absolute;
+	top:-20px;
+	left:-20px;
+	width:200%;
+	height:200%;
+	opacity:0;
+	cursor:pointer;
+}
+.bigger-img,.smaller-img,.save-img{
+	display:inline-block;
+	cursor:pointer;
+	float:left;
+	width:50px;
+	height:100%;
+	border-radius:4px;
+	background:#AE9769;
+	color:#FFF;
+	font-size:24px;
+	margin-left:10px;
+}
+.save-img{
+	float:right;
+	width:100px;
+	font-size:16px;
+}
+.operHint{
+	margin-top:8px;
+	color:#E48A78;
+	text-align:center;
+}
+/*更换头像结束*/
+/*左边栏结束*/
+
+/*右边栏开始*/
+.cust-bus-info{
+	width:890px;
+	min-height:480px;
+	border:#E8E8E8 solid 1px;
+}
+/*右边栏结束*/
+/*顾客各种业务结束*/
+

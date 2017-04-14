@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ShoppingCart {
-	
+
+
+
 	private Map<Integer, ShopCartItem> ShopCartItems = new HashMap<Integer, ShopCartItem>();
 
 	/**
@@ -85,7 +87,7 @@ public class ShoppingCart {
 	 * 获取当前购物车的所有交易记录
 	 * @return
 	 */
-	public Map<Integer, ShopCartItem> getBooks() {
+	public Map<Integer, ShopCartItem> getShopCartItems() {
 		return ShopCartItems;
 	}
 

@@ -1,0 +1,129 @@
+<div>
+  <div class="change-tel-box">
+  	<h3>更换手机号码</h3>
+  	<ul class="progress-bar-box clearfix">
+		  <li>1</li>
+		  <li>2</li>
+		  <li>3</li>
+  	</ul>
+  	<ul class="progress-bar-txt clearfix">
+  	 	<li>身份验证</li>
+  	 	<li>更换新的手机号码</li>
+  	 	<li>完成</li>
+  	</ul>
+  	<p class="already-bind-tel">已绑定的手机号：{{ oldTel }}</p>
+  	<div class="veri-code-box">
+  	 	<input type="text" placeholder="请输入验证码" ng-model="veriCode" ng-keyup="checkPast()"/><span ng-click="getVeriCode()">获得验证码</span>
+  	</div>
+    <p class="veri-error-hint">验证码错误</p>
+  	<p class="change-next-btn" ng-click="nextStep()">下一步</p>
+  </div>
+</div>
+<style type="text/css">
+   .change-tel-box{
+   	  padding:33px 44px;
+   	  height:480px;
+   }
+   .change-tel-box>h3{
+	  font-size:18px;
+   }
+   .progress-bar-box{
+   	  margin:16px auto 0 auto;
+   	  width:390px;
+   	  height:28px;
+   }
+   .progress-bar-box>li{
+   	  float:left;
+   	  height:28px;
+   	  color:#FFF;
+   	  line-height:28px;
+   	  background-image:url('images/progressBar.png');
+   }
+   .progress-bar-box>li:nth-child(1){
+   	  width:100px;
+   	  background-position:0 -4px;
+   	  text-indent:10px;
+   }
+   .progress-bar-box>li:nth-child(2){
+	  width:184px;
+	  text-align:center;
+	  background-position:0 -42px;
+   }
+   .progress-bar-box>li:nth-child(3){
+   	  width:100px;
+   	  background-position:-9px -118px;
+   	  text-indent:83px;
+   }
+   .progress-bar-txt{
+   	  height:29px;
+   	  width:392px;
+   	  margin:10px 180px 0 196px;
+   }
+   .progress-bar-txt>li{
+   	  float:left;
+   }
+   .progress-bar-txt>li:nth-child(1){
+   	  width:120px;
+      text-align:left;
+   }
+   .progress-bar-txt>li:nth-child(2){
+	  width:176px;
+	  text-align:center;
+   }
+   .progress-bar-txt>li:nth-child(3){
+      width:96px;
+      text-align:right;
+   }
+   .already-bind-tel{
+   	  margin-top:48px;
+   	  text-align:center;
+   	  color:#333;
+   	  font-size:14px;
+   }
+   .veri-code-box{
+   	  width:300px;
+   	  height:43px;
+   	  margin:21px auto;
+   }
+   .veri-code-box>input{
+   	  width:200px;
+   	  height:100%;
+   	  border:#e8e8e8 solid 1px;
+   	  padding:5px 10px;
+   }
+   .veri-code-box>span{
+   	  position:relative;
+   	  top:2px;
+   	  display:inline-block;
+   	  width:100px;
+   	  height:45px;
+   	  text-align:center;
+   	  line-height:45px;
+   	  background:#AE9769;
+   	  color:#FFF;
+   	  font-size:14px;
+   	  border:#e8e8e8 solid 1px;
+   	  border-left:none;
+   	  cursor:pointer;
+   }
+   .veri-code-box>span:hover{
+      background:#B49E73;
+   }
+   .change-next-btn{
+   	  margin:34px auto 13px auto;
+   	  width:144px;
+   	  height:42px;
+   	  line-height:42px;
+   	  background:#CCC;
+   	  text-align:center;
+   	  font-size:14px;
+   	  color:#FFF;
+   	  border-radius:5px;
+      cursor:pointer;
+   }
+   .veri-error-hint{
+      text-align:center;
+      color:#E48B7B;
+      display:none;
+   }
+</style>

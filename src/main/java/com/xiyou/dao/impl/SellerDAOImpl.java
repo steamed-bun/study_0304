@@ -12,7 +12,7 @@ public class SellerDAOImpl extends BaseDAOImpl implements SellerDAO {
 		if(seller.getSelId() == null){
 			seller.setSelImage("study/selImage/00.png");
 			seller.setSelWeiXin("study/selWeiXin/00.png");
-			seller.getShop().setShopId(1);
+			seller.setShop(new Shop(1));
 			selId = getSession().save(seller).toString();
 		}else {
 			String shopId = seller.getShop().getShopId().toString();
@@ -33,7 +33,7 @@ public class SellerDAOImpl extends BaseDAOImpl implements SellerDAO {
 	}
 
 	@Override
-	public Seller selectSel(String selId) {
+	public Seller getSellerById(String selId) {
 		String hql = "from Seller s " +
                 "LEFT OUTER JOIN FETCH s.shop " +
                 "LEFT OUTER JOIN FETCH s.shop.city " +
@@ -45,6 +45,21 @@ public class SellerDAOImpl extends BaseDAOImpl implements SellerDAO {
 		//System.out.println(seller);
 		return seller;
 }
+
+	@Override
+	public Seller getSellerByEmial(String selEmail, String password) {
+		String hql = "from Seller s " +
+				"LEFT OUTER JOIN FETCH s.shop " +
+				"LEFT OUTER JOIN FETCH s.shop.city " +
+				"LEFT OUTER JOIN FETCH s.shop.county " +
+				"LEFT OUTER JOIN FETCH s.shop.province " +
+				"WHERE s.selTel = :selEmail AND s.selPassword = :password";
+		@SuppressWarnings("unchecked")
+		Seller seller = (Seller) getSession().createQuery(hql).setString("selEmail",selEmail)
+				.setString("password",password).uniqueResult();
+		return seller;
+	}
+
 
 	@Override
 	public void updateSelImage(String selImage,String selId) {

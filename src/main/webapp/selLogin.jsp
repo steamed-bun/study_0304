@@ -21,7 +21,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     <center>
     	<s:form action="sel-sellectSeller.action" method="post" namespace="/">
-    		<s:textfield name="seller.selId" label="selId" value="13"></s:textfield>
+			<s:textfield name="seller.selTel" label="seller.selTel" value="12@"></s:textfield>
+    		<s:textfield name="seller.selPassword" label="seller.selPassword" value="1234"></s:textfield>
     		<s:submit></s:submit>
     	</s:form>
     </center>

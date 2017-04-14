@@ -1,0 +1,91 @@
+<div>
+  <ul class="cust-info-box">
+  	<li>
+		<span class="cust-info-title">用户ID：</span>
+		<span>{{ cust.id }}</span>
+	</li>
+	<li>
+		<span class="cust-info-title">昵称：</span>
+		<input type="text" ng-model="cust.name" class="cust-info-name"/>
+	</li>
+	<li>
+		<span class="cust-info-title">性别：</span>
+		<input type="radio" id="custMale" name="sex" ng-model="cust.sex" value="男"/>
+		<label for="custMale">男</label>
+		<input type="radio" id="custFemale" name="sex" ng-model="cust.sex" value="女"/>
+		<label for="custFemale">女</label>
+	</li>
+	<li>
+		<span class="cust-info-title">手机号：</span>
+		<span>{{ cust.tel }}</span>
+		<span class="cust-change-tel" ng-click="changeTel()">更换号码</span>
+	</li>
+	<li>
+	  <span class="cust-info-title">出生日期：</span><input type="text" id="cust-info-birth" ng-model="cust.birth" />
+	</li>
+	<li><span id="cust-info-save" ng-click="saveInfo()">保存</span></li>
+  </ul>
+</div>
+<style type="text/css">
+  .cust-info-box{
+  	padding:33px 44px;
+    height:480px;
+  }
+  .cust-info-box>li{
+	 height:40px;
+	 line-height:40px;
+	 margin-bottom:20px;
+	 font-size:14px;
+  }
+  .cust-info-box>li:last-child{
+    margin-top:54px;
+    border-top:#E8E8E8 dashed 1px;
+  }
+  .cust-info-title{
+  	display:inline-block;
+  	width:70px;
+  }
+  .cust-info-name,#cust-info-birth{
+  	height:100%;
+  	border:#EEE solid 1px;
+  	padding:5px 10px;
+    width:224px;
+    border-radius:5px;
+  }
+  #custMale,#custFemale{
+  	position:relative;
+  	top:2px;
+  }
+  #custMale+label{
+	margin-right:40px;
+  }
+  .cust-change-tel{
+  	margin-left:30px;
+  	color:#6D9ECE;
+  	cursor:pointer;
+  }
+  .cust-change-tel:hover{
+	text-decoration:underline;
+  }
+  #cust-info-save{
+  	display:block;
+  	width:144px;
+  	height:42px;
+  	line-height:42px;
+  	background:#8E784C;
+  	color:#FFF;
+  	text-align:center;
+  	margin:20px 0 0 60px;
+  	border-radius:2px;
+  	cursor:pointer;
+  }
+  #cust-info-save:hover{
+  	background:#AE9769;
+  }
+  /*修改日历的样式开始*/
+  .ui-widget-header{
+    background:#B4A078;
+    border:#C6B699 solid 1px;
+  }
+  /*修改日历的样式结束*/
+</style>

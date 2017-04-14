@@ -29,7 +29,10 @@ public class ShopDAOImpl extends BaseDAOImpl implements ShopDAO {
 	public Shop selectShop(String shopId){
 		//String hql = "FROM Shop s left outer join fetch s.province left outer join fetch s.city"
 			//	+ "left outer join fetch s.county WHERE s.shopId = :shopId";
-		String hql = "FROM Shop s WHERE s.shopId = :shopId";
+		String hql = "FROM Shop s LEFT OUTER JOIN FETCH s.province " +
+				"LEFT OUTER JOIN FETCH s.city " +
+				"LEFT OUTER JOIN FETCH s.county " +
+				"WHERE s.shopId = :shopId";
 		Shop shop = (Shop) getSession().createQuery(hql).setString("shopId", shopId).uniqueResult();
 		System.out.println(shop);
 		return shop;
@@ -37,7 +40,10 @@ public class ShopDAOImpl extends BaseDAOImpl implements ShopDAO {
 
 	@Override
 	public Shop getShopByShopId(String shopId) {
-		String hql = "from Shop s WHERE s.shopId = :shopId";
+		String hql = "FROM Shop s LEFT OUTER JOIN FETCH s.province " +
+				"LEFT OUTER JOIN FETCH s.city " +
+				"LEFT OUTER JOIN FETCH s.county " +
+				"WHERE s.shopId = :shopId";
 		return (Shop)getSession().createQuery(hql).setString("shopId", shopId).uniqueResult();
 	}
 
@@ -61,7 +67,9 @@ public class ShopDAOImpl extends BaseDAOImpl implements ShopDAO {
 
 	@Override
 	public List<County> selectCounty(String cityId) {
-		String hql = "from County c left outer join fetch c.city WHERE c.city = :cityId";
+		String hql = "from County c left outer join fetch c.city " +
+				"LEFT OUTER JOIN FETCH c.city.province " +
+				"WHERE c.city = :cityId";
 		
 		@SuppressWarnings("unchecked")
 		List<County> list = getSession().createQuery(hql).setString("cityId", cityId).list();

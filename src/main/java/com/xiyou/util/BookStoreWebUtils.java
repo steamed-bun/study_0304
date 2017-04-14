@@ -5,20 +5,20 @@ import javax.servlet.http.HttpSession;
 
 import com.xiyou.domain.ShoppingCart;
 
+import java.util.Map;
+
 public class BookStoreWebUtils {
 
 	/**
 	 * 获取ShoppingCar ，如果session中有直接获取，如果没有则新建一个
-	 * @param request
+	 * @param session
 	 * @return
 	 */
-	public static ShoppingCart getShoppingCart(HttpServletRequest request){
-		HttpSession session = request.getSession();
-		
-		ShoppingCart shoppingCart = (ShoppingCart) session.getAttribute("ShoppingCart");
+	public static ShoppingCart getShoppingCart(Map<String, Object> session){
+		ShoppingCart shoppingCart = (ShoppingCart) session.get("ShoppingCart");
 		if(shoppingCart == null){
 			shoppingCart = new ShoppingCart();
-			session.setAttribute("ShoppingCart", shoppingCart);
+			session.put("ShoppingCart", shoppingCart);
 		}
 		
 		return shoppingCart;

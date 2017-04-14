@@ -17,6 +17,16 @@ public class SellectAction extends ActionSupport {
 	private List<City> cities;
 	private List<County> counties;
 
+	public String selectCities(){
+		cities = shopService.selectCity(provinceId);
+		return "selectCities";
+	}
+	
+	public String selectCounties(){
+		counties = shopService.selectCounty(cityId);
+		return "selectCounties";
+	}
+
 	public List<City> getCities() {
 		return cities;
 	}
@@ -44,15 +54,4 @@ public class SellectAction extends ActionSupport {
 	public void setProvinceId(String provinceId) {
 		this.provinceId = provinceId;
 	}
-
-	public String selectCities(){
-		cities = shopService.selectCity(provinceId);
-		return "selectCities";
-	}
-	
-	public String selectCounties(){
-		counties = shopService.selectCounty(cityId);
-		return "selectCounties";
-	}
-
 }

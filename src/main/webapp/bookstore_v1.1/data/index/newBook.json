@@ -1,0 +1,26 @@
+[
+	{
+		"id":"n00001",
+		"img":"images/index/u00001.jpg",
+		"nNanme":"教育类",
+		"nPrice":"26元起"
+	},
+	{
+		"id":"n00001",
+		"img":"images/index/u00002.jpg",
+		"nNanme":"小说类",
+		"nPrice":"13元起"
+	},
+	{
+		"id":"n00001",
+		"img":"images/index/u00003.jpg",
+		"nNanme":"文艺类",
+		"nPrice":"8元起"
+	},
+	{
+		"id":"n00001",
+		"img":"images/index/u00004.jpg",
+		"nNanme":"青春类",
+		"nPrice":"10元起"
+	}
+]

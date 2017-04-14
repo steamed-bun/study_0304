@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>江南缘书城</title>
+		<meta charset="UTF-8"/>
+		<link rel="stylesheet" href="./css/reset.css"/>
+		<link rel="stylesheet" href="./css/email_reset.css"/>
+	</head>
+	<body ng-app="emailReset">
+		<div class="emailReset-box">
+			<span class="emailReset-logo-img"></span>
+			<div ng-controller="emailResetTitleBox">
+				<p class="emailReset-txt">
+					<span>用邮箱重置密码</span>
+				</p>
+			</div>
+			<div>
+				<ul class="reset-box">
+					<li>
+						<label for="tel">邮箱：</label><input class="regi-text-area regi_input"  placeholder="请输入您的邮箱" type="tel" id="tel" ng-model="regi.utel"/><i class="regi-err-hint tel-hint">有错误啦</i>
+					</li>
+					<li>
+						<label for="pwd">密码：</label><input placeholder="请输入您的密码" class="regi-text-area regi_input" type="password" id="pwd" ng-model="regi.pwd"/><i class="regi-err-hint pwd-hint">有错误啦</i>
+					</li>
+					<li>
+						<label for="repwd">重复密码：</label><input placeholder="请再次输入您的密码" class="regi-text-area regi_input" type="password" id="repwd" ng-model="regi.repwd"/><i class="regi-err-hint repwd-hint">有错误啦</i>
+					</li>
+					<li class="regi-veri-box">
+						<input type="text" class="regi_input" id="veri" placeholder="请输入验证码" ng-model="regi.veri"/><span class="send-veriCode" ng-click="sendMessage()">发送验证码</span><i class="regi-err-hint veri-hint">有错误啦</i>
+					</li>
+					<li class="regi-btn" ng-click="reset()">重置密码</li>
+					<li class="return-loginAngRegi"><a href="./sign.html">返回登录注册</a></li>
+				</ul>
+			</div>
+		</div>
+		<script src="./js/angular.js"></script>
+		<script src="./js/jquery-1.12.3.js"></script>
+		<script src="./app/email_reset.js"></script>
+	</body>
+</html>

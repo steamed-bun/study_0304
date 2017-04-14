@@ -17,7 +17,7 @@ public class UserDAOImplTest {
     @Transactional
     @Test
     public void addUserTest(){
-        User user = new User(1,"nihu","123",1,"23","32","13","32","32");
+        User user = new User(null,"nihu","123",1,"23","32","13","32","32");
         System.out.println(user);
         userDAO.addUser(user);
     }

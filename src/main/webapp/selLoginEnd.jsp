@@ -15,6 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <base href="<%=basePath%>">
     <script type="text/javascript">
 		$(function(){
+
 			$("#selImage").change(function(){
 		  		$.ajaxFileUpload({
 					url:"upLoad-addSelImage.action",// 文件上传服务器请求Action
@@ -22,6 +23,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					fileElementId:"selImage",// 文件类型的id
 					dataType:"json",// 返回值类型
 					success:function(data){// 服务器响应成功
+						/*alert(${seller.selAge });*/
+						console.log(${seller});
 						alert("success2");
 					},
 					error:function(data){// 服务器响应失败
@@ -62,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		身份证号:${seller.selIdCard }<br>
 		年龄:${seller.selAge }<br>
 		性别:${seller.selSex }<br>
-		 <a href="sel-forUpdateSeller?selId=${seller.selId }">修改SELLER</a>
+		 <a href="sel-forUpdateSeller.action?selId=${seller.selId }">修改SELLER</a>
 		<%--<a href="sel-addSeller?selId=${seller.selId }">修改SELLER</a> --%>
 		<h3>交易管理</h3><br>
 		<h3>我的书屋</h3><br>

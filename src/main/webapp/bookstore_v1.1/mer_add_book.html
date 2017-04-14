@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>商家添加新书</title>
+		<meta charset="UTF-8"/>
+		<link rel="stylesheet" href="./css/reset.css"/>
+		<link rel="stylesheet" href="./css/mer_add_book.css"/>
+	</head>
+	<body ng-app="merAddBook">
+		<header>
+			<div class="container clearfix">
+				<div class="logo-img fl">
+					<img src="./images/logo.png"/>
+				</div>
+				<div class="wel-merchant fr" ng-controller="merNameCtrl">
+					<p>欢迎您！<a>{{ mer.name }}</a><i>|</i><a href="javascript:;">退出</a></p>
+				</div>
+			</div>
+		</header>
+		<section class="add-book-box">
+			<div class="container">
+				<from>
+					<ul class="book-info-items">
+						<li>
+							<span>类别：</span>
+							<span>
+								<select class="book-cate-select">
+									<option>教育</option>
+									<option>小说</option>
+									<option>文艺</option>
+									<option>青春</option>
+									<option>童书</option>
+									<option>生活</option>
+									<option>人文社科</option>
+									<option>经管</option>
+									<option>励志</option>
+									<option>科技</option>
+									<option>工具书</option>
+								</select>
+							</span>
+						</li>
+						<li>
+							<span>名称：</span>
+							<span class="book-info-input"><input type="text" class="add-book-input"/></span>
+						</li>
+						<li>
+							<span>价格：</span>
+							<span class="book-info-input"><input type="text" class="add-book-input"/></span>
+							<span><i class="book-add-hint">价格必须为数字</i></span>
+						</li>
+						<li>
+							<span>作者：</span>
+							<span class="book-info-input"><input type="text" class="add-book-input"/></span>
+						</li>
+						<li>
+							<span>出版日期：</span>
+							<span class="book-info-input"><input type="text" class="add-book-input"/></span>
+							<span><i class="book-add-hint">时间不能早于当前</i></span>
+						</li>
+						<li>
+							<span>出版商：</span>
+							<span class="book-info-input"><input type="text" class="add-book-input"/></span>
+						</li>
+						<li>
+							<span class="brief-text">简介：</span>
+							<div class="book-brief-box"><textarea class="add-book-input"></textarea></div>
+						</li>
+						<li>
+							<span class="img-text">图片：</span>
+							<div class="book-img-box" ng-controller="mulImgUploadCtrl">
+								<form id="uploadForm" action="upload.php" method="post" enctype="multipart/form-data">
+				                    <div class="upload_box">
+				                        <div class="upload_main">
+				                            <div class="upload_choose">
+				                                <input id="fileImage" type="file" size="30" name="fileselect[]" multiple />
+				                                <span id="fileDragArea" class="upload_drag_area">或者将图片拖到此处</span>
+				                            </div>
+				                            <div id="preview" class="upload_preview"></div>
+				                        </div>
+				                        <div class="upload_submit">
+				                            <button type="button" id="fileSubmit" class="upload_submit_btn">确认上传图片</button>
+				                        </div>
+				                        <div id="uploadInf" class="upload_inf"></div>
+				                    </div>
+				                </form>
+							</div>
+						</li>
+					</ul>
+				</from>
+			</div>
+		</section>
+		<section class="add-book-operate container">
+			<span>保存</span><span>重置</span>
+		</section>
+		<script src="./js/jquery-1.12.3.js"></script>
+		<script src="./js/angular.js"></script>
+		<script src="./js/zxxFile.js"></script>
+		<script src="./app/merAddBook.js"></script>
+	</body>
+</html>

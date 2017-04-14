@@ -22,7 +22,9 @@ public interface SellerDAO {
 	 * @param selId
 	 * @return
 	 */
-	Seller selectSel(String selId);
+	Seller getSellerById(String selId);
+
+	Seller getSellerByEmial(String selEmail, String password);
 	
 	/**
 	 * 跟新seller的selImage

@@ -26,22 +26,40 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
 	private Map<String, Object> session;
 	private String selId = null;
     private String code = null;
-	
+//	private String selTel;
+//	private String selPassword;
+    private String status = "yes";
 
+    /**
+     * 1、登录方法  url: sel-sellectSeller.action
+     * 需传入seller.selTel 和 seller.selPassword
+     * 2、注册完 查找显示seller的信息 url: sel-sellectSeller.action?chose=CHOSE
+     *
+     * @return status {success: 1} {error: 0} 会返回到data中
+     */
 	public String sellectSeller(){
 		if(chose == null){
-			this.seller = selService.selectSeller(seller.getSelId().toString());
+
+			this.seller = selService.getSellerByEmial(seller.getSelTel(),seller.getSelPassword());
 			if(session.get("selId") == null){
 				session.put("selId", seller.getSelId());
 				session.put("shopId", seller.getShop().getShopId());
 			}
 		}else{
-			this.seller = selService.selectSeller(session.get("selId").toString());
+			this.seller = selService.getSellerById(session.get("selId").toString());
+			if (seller == null){
+				status = "no";
+			}
 		}
 	
 		return "sellectSeller";
 	}
-	
+
+    /**
+     * 1、注册 seller 需要selId字段为空串
+     * 2、更新 seller 需要selId字段
+     * @return
+     */
 	public String addSeller() {
 		if(selId.equals("")){
 			selId = selService.addSeller(seller);
@@ -57,7 +75,7 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
         if(selId.equals("")){
 			seller = new Seller();
 		}else {
-			seller = selService.selectSeller(selId);
+			seller = selService.getSellerById(selId);
 		}
 	}
 	
@@ -71,7 +89,7 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
         if(selId.equals("")){
 			seller = new Seller();
 		}else{
-			seller = selService.selectSeller(selId);
+			seller = selService.getSellerById(selId);
 		}
 	}
 
@@ -143,4 +161,28 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
 	public void setSelId(String selId) {
 		this.selId = selId;
 	}
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+//    public String getSelTel() {
+//        return selTel;
+//    }
+//
+//    public void setSelTel(String selTel) {
+//        this.selTel = selTel;
+//    }
+//
+//    public String getSelPassword() {
+//        return selPassword;
+//    }
+//
+//    public void setSelPassword(String selPassword) {
+//        this.selPassword = selPassword;
+//    }
 }

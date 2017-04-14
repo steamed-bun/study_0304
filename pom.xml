@@ -29,8 +29,13 @@
              </resource>
          </resources>
     </build>
-<!--
+    <!--
     <repositories>
+        <repository>
+            <id>ckfinder-mvn-repo-on-github</id>
+            <url>https://raw.github.com/buzheng/ckfinder-mvn-repo/master/</url>
+        </repository>
+
         <repository>
             <id>mvn</id>
             <name>mvn repository</name>
@@ -220,6 +225,27 @@
             <version>1.4.7</version>
         </dependency>
         <!--send email end-->
+
+        <!-- ckeditor start -->
+        <dependency>
+            <groupId>com.ckeditor</groupId>
+            <artifactId>ckeditor-java-core</artifactId>
+            <version>3.5.3</version>
+        </dependency>
+        <!-- ckeditor end-->
+
+        <!-- CKFditor start-->
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+            <version>0.4.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss</groupId>
+            <artifactId>jboss-vfs</artifactId>
+            <version>3.1.0.Final</version>
+        </dependency>
+        <!-- CKFditor end-->
 
         <!--
         <dependency>

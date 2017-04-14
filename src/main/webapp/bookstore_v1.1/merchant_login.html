@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>商家登录</title>
+		<meta charset="UTF-8"/>
+		<link rel="stylesheet" href="./css/reset.css"/>
+		<link rel="stylesheet" href="./css/merchant_login.css"/>
+		<link rel="stylesheet" href="./css/cypager.min.css"/>
+	</head>
+	<body ng-app="merchantLogin">
+		<header>
+			<div class="container clearfix">
+				<div class="logo-img fl">
+					<img src="./images/logo.png"/>
+				</div>
+				<div class="wel-merchant fr" ng-controller="merNameCtrl">
+					<p>欢迎您！<a>{{ mer.name }}</a><i>|</i><a href="javascript:;">退出</a></p>
+				</div>
+			</div>
+		</header>
+		<section class="container clearfix mer-info-box">
+			<ul class="left-menus fl">
+				<li><a href="#/merchantInfo" class="my-info height-left-mean">我的信息</a></li>
+				<li>
+					<a href="#/merchantInfo" class="order-query child-menu-par" data-id="1">订单查询<i class="arrow-icon arrIcon-one"></i></a>
+					<ul class="order-items">
+						<li><a href="#/dealSuccess">交易成功</a></li>
+						<li><a href="#/dealing">正在交易</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#/merchantInfo" class="my-bookstore child-menu-par" data-id="2">我的书屋<i class="arrow-icon arrIcon-two"></i></a>
+					<ul class="book-items">
+						<li><a href="#/bookAdmin">书本管理</a></li>
+						<li><a href="#/shopAdmin">店铺管理</a></li>
+					</ul>
+				</li>
+			</ul>
+			<div class="menu-details fr">
+				<ng-view ></ng-view>
+			</div>
+		</section>
+		<script src="./js/jquery-1.12.3.js"></script>
+		<script src="./js/angular.js"></script>
+		<script src="./js/angular-route.js"></script>
+		<script src="js/cropbox.js"></script>
+		<script src="./js/cypager.min.js"></script>
+		<script src="./app/merchantLogin.js"></script>
+		<script src="./app/merchantLogin-controller.js"></script>
+	</body>
+</html>

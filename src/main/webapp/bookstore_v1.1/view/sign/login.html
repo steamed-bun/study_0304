@@ -1,0 +1,107 @@
+<div>
+	<ul class="login-box">
+		<li class="login-error-txt"></li>
+		<li>
+			<label for="loginEmail" class="login-email-img"><span></span></label><input type="text"  placeholder="请输入邮箱" id="loginEmail" ng-model="user.email" class="user_info"/>
+		</li>
+		<li>
+			<label for="loginPwd" class="login-pwd-img"><span></span></label><input type="password"  placeholder="请输入密码" id="loginPwd" ng-model="user.pwd" class="user_info"/>
+		</li>
+		<li class="clearfix">
+			<label class="myCustomer fl"><input type="radio" name="userRole"  ng-value=true ng-model="userRole" ng-checked=true /><span>我要购物</span></label>
+			<label class="myMerchant fr"><input type="radio" name="userRole" ng-value=false ng-model="userRole" /><span>我要开店</span></label>
+		</li>
+		<li class="login-btn" ng-click="checkUser()">登录</li>
+		<li class="login-select-item clearfix">
+			<label><input type="checkbox" ng-model="userIsRem" name="userIsRem"/><span>一周免登录</span></label><a href="./email_reset.html">忘记密码?</a>
+		</li>
+	</ul>
+</div>
+<style type="text/css">
+	.login-box{
+		position:relative;
+		width:342px;
+		margin:0 auto;
+	}
+	.login-box>li{
+		margin-bottom:10px;
+	}
+	.login-email-img,.login-pwd-img{
+		display:inline-block;
+		width:46px;
+		height:44px;
+		padding:16px 18px;
+		border:#CCC solid 1px;
+		border-right:none;
+		border-radius:5px 0 0 5px;
+	}
+	.login-email-img>span,.login-pwd-img>span{
+		display:block;
+		width:100%;
+		height:100%;
+	}
+	.login-email-img>span{
+		background:url("images/email.png") center center no-repeat;
+		background-size:cover;
+	}
+	.login-pwd-img>span{
+		background:url("images/lock.png") center center no-repeat;
+		background-size:cover;
+	}
+	.login-email-img+input,.login-pwd-img+input{
+		position:relative;
+		top:-19px;
+		width:296px;
+		height:44px;
+		border:#CCC solid 1px;
+		border-radius:0 5px 5px 0;
+		padding:2px 10px;
+		font-size:14px;
+	}
+	.myCustomer>span,.myMerchant>span{
+		position:relative;
+		top:-2px;
+		margin-left:8px;
+		cursor:pointer;
+	}
+	.login-btn{
+		width:342px;
+		height:50px;
+		line-height:50px;
+		background:#3DBCF5;
+		text-align:center;
+		color:#FFF;
+		font-size:18px;
+		border-radius:5px;
+		cursor:pointer;
+	}
+	.login-select-item>label{
+		float:left;
+	}
+	.login-select-item>label>span{
+		position:relative;
+		top:-2px;
+		margin-left:8px;
+		cursor:pointer;
+	}
+	.login-select-item>a{
+		float:right;
+		cursor:pointer;
+	}
+	.login-select-item>a:hover{
+		color:#000;
+	}
+	.login-error-txt{
+		position:absolute;
+		top:-340px;
+		text-align:center;
+		width:100%;
+		height:40px;
+		line-height:40px;
+		background:#E78170;
+		color:#FFF;
+		font-size:16px;
+		border-radius:5px;
+		display:none;
+	}
+</style>

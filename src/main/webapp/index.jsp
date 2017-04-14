@@ -112,5 +112,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</select> --%>
 		<a href="book-deleteBook.action?bookId=5">删书</a>
    </center>
+  <s:debug></s:debug>
   </body>
 </html>

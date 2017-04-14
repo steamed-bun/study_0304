@@ -1,0 +1,75 @@
+/*有logo图片开始*/
+header{
+	margin-top:30px;
+	box-shadow: 2px 2px 4px #EEE;
+}
+.wel-merchant>p{
+	margin-top:70px;
+	font-size:16px;
+	line-height:16px;
+}
+.wel-merchant a{
+	color:#000;
+}
+.wel-merchant a:hover{
+	color:#B4A078;
+}
+.wel-merchant a:first-child{
+	margin-left:10px;
+	color:#B4A078;
+} 
+.wel-merchant i{
+	display:inline-block;
+	padding:0 20px;
+	font-style: normal;
+}
+/*有logo图片结束*/
+
+/*商家具体信息开始*/
+.mer-info-box{
+	margin-top:30px;
+}
+.left-menus a{
+	box-sizing: border-box;
+	display:inline-block;
+	width:178px;
+	height:50px;
+	padding-left:40px;
+	position:relative;
+	line-height:50px;
+	background:#3b414f;
+	border-bottom:#c8e3de solid 1px;
+	font-size:16px;
+	color:#FFF;
+}
+.left-menus a:hover{
+	color:#B4A078;
+}
+.left-menus>li:last-child{
+	border-bottom:none;
+}
+.child-menu-par+ul{
+	 display:none; 
+}
+.arrow-icon{
+	position:absolute;
+	left:124px;
+	top:18px;
+	width:16px;
+	height:16px;
+	background-image:url("../images/down-arrow.png");
+}
+.height-left-mean{
+	background:#ddbea1 !important;;
+}
+/*商家具体信息结束*/
+
+/* 商家对应的信息开始 */
+.menu-details{
+	margin-left:20px;
+	border:#ddbea1 solid 2px;
+	width:890px;
+	padding:33px 44px;
+	margin-bottom: 20px;
+}
+/* 商家对应的信息结束 */

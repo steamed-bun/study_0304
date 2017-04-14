@@ -1,0 +1,132 @@
+<!-- 注：此页面没有购买书籍、新建地址的情况我已写了 -->
+<div>
+	<div class="no-addr-box" style="display:none">
+		<div>
+			<p class="addr-img"><span></span></p>
+			<p class="addr-hint"><span>您还没有任何订单呢</span></p>
+			<p class="addr-add-text"><a href="javascript:;">去挑选好书>></a></p>
+		</div>
+	</div>
+	<div class="display-order-box">
+		<table class="dealSucc-info-box">
+			<thead>
+				<tr class="dealSucc-title">
+					<th colspan="2">书籍信息</th>
+					<th>单价</th>
+					<th>数量</th>
+					<th>实付</th>
+					<th>状态</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody class="dealSucc-content">
+				<tr>
+					<td class="book-img" style="background-image: url('./images/index/e00001.jpg')"><i class="book-num">共3本</i></td>
+					<td class="book-name">三生花三生三世三生十里桃花</td>
+					<td>12</td>
+					<td>1</td>
+					<td>12</td>
+					<td>待发货</td>
+					<td class="book-delete"><span>订单详情</span><span>确认收货</span></td>
+				</tr>
+				<tr>
+					<td class="book-img" style="background-image: url('./images/index/e00001.jpg')"><i class="book-num">共1本</i></td>
+					<td class="book-name">三生花三生三世三生十里桃花</td>
+					<td>12</td>
+					<td>1</td>
+					<td>12</td>
+					<td>待确认</td>
+					<td class="book-delete"><span>订单详情</span><span>确认收货</span></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<style type="text/css">
+	/* 没有订单开始 */
+	.no-addr-box{
+		width:100%;
+		min-height:480px;
+		display:flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.addr-img>span{
+		display:block;
+		width:50px;
+		height:50px;
+		background:url("./images/more-img.png") 0 -4058px no-repeat;
+		margin:0 auto;
+	}
+	.addr-hint>span{
+		display:block;
+		font-size:16px;
+		font-weight:500;
+		margin-top:10px;
+	}
+	.addr-add-text>a{
+		display:block;
+		font-size:14px;
+		font-weight:500;
+		margin-top:10px;
+		color:#69c;
+		text-align: center;
+	}
+	/* 没有订单结束 */
+	/* 已有订单开始 */
+	.display-order-box{
+		padding:20px 30px;
+	}
+	.dealSucc-info-box{
+		width:100%;
+		border-collapse: collapse;
+		text-align: center;
+	}
+	.dealSucc-title{
+		height:41px;
+		font-size:16px;
+		background:#f5f5f5;
+		border-bottom: #DDD solid 1px;
+		color:#999;
+	}
+	.dealSucc-content>tr{
+		height:150px;
+		border-bottom: #DDD dashed 1px;
+		font-size:14px;
+	}
+	.dealSucc-content>tr:last-child{
+		border-bottom: #DDD solid 1px;
+	}
+	.book-img{
+		position:relative;
+		width:90px;
+		height:90p;
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: contain;
+	}
+	.book-num{
+		position:absolute;
+		top:42px;
+		left:0;
+		font-style: normal;
+		background:url("./images/more-img.png") 0 -2061px no-repeat;
+		width:54px;
+		height:24px;
+		color:#FFF;
+	}
+	.book-name{
+		width:110px;
+	}
+	.book-delete>span{
+		display:block;
+		width:60px;
+		height:30px;
+		line-height: 30px;
+		color:#69c;
+		cursor:pointer;
+		margin:0 auto 5px auto;
+	}
+	/* 已有订单结束 */
+</style>

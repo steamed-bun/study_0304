@@ -1,0 +1,126 @@
+<div>
+  <div class="change-tel-box">
+  	<h3>更换手机号码</h3>
+  	<ul class="progress-bar-box clearfix">
+		  <li>1</li>
+		  <li>2</li>
+		  <li>3</li>
+  	</ul>
+  	<ul class="progress-bar-txt clearfix">
+  	 	<li>身份验证</li>
+  	 	<li>更换新的手机号码</li>
+  	 	<li>完成</li>
+  	</ul>
+    <div class="new-tel-box"><input type="text" placeholder="请输入手机号码" ng-model="user.newTel" ng-keyup="checkTel()"/></div>
+  	<div class="veri-code-box">
+  	 	<input type="text" placeholder="请输入验证码" ng-model="user.verCode" ng-keyup="checkPast()"/><span ng-click="getVeriCode()">获取验证码</span>
+  	</div>
+    <p class="change-tel-hint">手机号格式错误</p>
+  	<p class="change-submit-btn" ng-click="submitTel()">提交</p>
+  </div>
+</div>
+<style type="text/css">
+   .change-tel-box{
+   	  padding:33px 44px;
+   	  height:480px;
+   }
+   .change-tel-box>h3{
+	  font-size:18px;
+   }
+   .progress-bar-box{
+   	  margin:16px auto 0 auto;
+   	  width:390px;
+   	  height:28px;
+   }
+   .progress-bar-box>li{
+   	  float:left;
+   	  height:28px;
+   	  color:#FFF;
+   	  line-height:28px;
+   	  background-image:url('images/progressBar.png');
+   }
+   .progress-bar-box>li:nth-child(1){
+   	  width:100px;
+   	  background-position:0 -4px;
+   	  text-indent:10px;
+   }
+   .progress-bar-box>li:nth-child(2){
+	  width:184px;
+	  text-align:center;
+	  background-position:0 -80px;
+   }
+   .progress-bar-box>li:nth-child(3){
+   	  width:100px;
+   	  background-position:-9px -118px;
+   	  text-indent:83px;
+   }
+   .progress-bar-txt{
+   	  height:29px;
+   	  width:392px;
+   	  margin:10px 180px 0 196px;
+   }
+   .progress-bar-txt>li{
+   	  float:left;
+   }
+   .progress-bar-txt>li:nth-child(1){
+   	  width:120px;
+      text-align:left;
+   }
+   .progress-bar-txt>li:nth-child(2){
+	  width:176px;
+	  text-align:center;
+   }
+   .progress-bar-txt>li:nth-child(3){
+      width:96px;
+      text-align:right;
+   }
+  .veri-code-box,.new-tel-box{
+   	  width:300px;
+   	  height:43px;
+   	  margin:21px auto;
+   }
+   .new-tel-box>input{
+      width:100%;
+      height:100%;
+      padding:5px 10px;
+      border:#e8e8e8 solid 1px;
+   }
+   .veri-code-box>input{
+   	  width:200px;
+   	  height:100%;
+   	  border:#e8e8e8 solid 1px;
+   	  padding:5px 10px;
+   }
+   .veri-code-box>span{
+   	  position:relative;
+   	  top:2px;
+   	  display:inline-block;
+   	  width:100px;
+   	  height:45px;
+   	  text-align:center;
+   	  line-height:45px;
+   	  background:#CCC;
+   	  color:#FFF;
+   	  font-size:14px;
+   	  border:#e8e8e8 solid 1px;
+   	  border-left:none;
+   	  cursor:pointer;
+   }
+   .change-submit-btn{
+   	  margin:34px auto 133px auto;
+   	  width:144px;
+   	  height:42px;
+   	  line-height:42px;
+   	  background:#CCC;
+   	  text-align:center;
+   	  font-size:14px;
+   	  color:#FFF;
+   	  border-radius:5px;
+      cursor:pointer;
+   }
+   .change-tel-hint{
+      text-align:center;
+      color:#E38572;
+      display:none;
+   }
+</style>

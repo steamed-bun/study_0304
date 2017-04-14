@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="mavenrepository">
+    <CLASSES>
+      <root url="jar://F:/mavenrepository/CKFinderPlugin-FileEditor-2.4.3.jar!/" />
+      <root url="jar://F:/mavenrepository/CKFinderPlugin-ImageResize-2.4.3.jar!/" />
+      <root url="jar://F:/mavenrepository/CKFinderPlugin-Watermark-2.4.3.jar!/" />
+      <root url="file://F:/mavenrepository" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://F:/mavenrepository" recursive="false" />
+  </library>
+</component>
