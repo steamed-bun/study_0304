@@ -102,7 +102,7 @@ public class ShoppingCart {
 
 	/**
 	 * 添加一条交易到购物车,如果购物车没有购买此书的记录,则新建一条购物车记录,否则只需将原有 记录quantity++;
-	 * @param book
+	 * @param
 	 */
 /*
 	public void addBook(Book book){
@@ -118,4 +118,10 @@ public class ShoppingCart {
 	}
 */
 
+	@Override
+	public String toString() {
+		return "ShoppingCart{" +
+				"ShopCartItems=" + ShopCartItems +
+				'}';
+	}
 }

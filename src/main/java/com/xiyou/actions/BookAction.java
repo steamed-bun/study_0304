@@ -24,27 +24,6 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 	Map<String, Object> session;
 	Map<String, Object> request;
 	private String bookId;
-	
-	public Book getBook() {
-		return book;
-	}
-
-	public void setBook(Book book) {
-		this.book = book;
-	}
-
-
-	public void setBookService(BookService bookService) {
-		this.bookService = bookService;
-	}
-
-	public String getBookId() {
-		return bookId;
-	}
-
-	public void setBookId(String bookId) {
-		this.bookId = bookId;
-	}
 
 	public String deleteBook(){
 		bookService.deleteBook(bookId);
@@ -104,6 +83,24 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 	public void setRequest(Map<String, Object> request) {
 		this.request = request;
 	}
-	
-	
+
+	public Book getBook() {
+		return book;
+	}
+
+	public void setBook(Book book) {
+		this.book = book;
+	}
+
+	public void setBookService(BookService bookService) {
+		this.bookService = bookService;
+	}
+
+	public String getBookId() {
+		return bookId;
+	}
+
+	public void setBookId(String bookId) {
+		this.bookId = bookId;
+	}
 }

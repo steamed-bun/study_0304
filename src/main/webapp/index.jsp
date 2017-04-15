@@ -110,7 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<select id="county">
 			<option value="">请选择..</option>
 		</select> --%>
-		<a href="book-deleteBook.action?bookId=5">删书</a>
+		<a href="test.html">删书</a>
    </center>
   <s:debug></s:debug>
   </body>

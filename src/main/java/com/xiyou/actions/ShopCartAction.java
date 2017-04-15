@@ -41,8 +41,8 @@ public class ShopCartAction implements SessionAware, ModelDriven<ShopCartItem>,
 
         //String userId = session.get("userId").toString();
         String userId = "1";
-        shopCartItem.setCartItemId(1);
-        shopCartItem.setQuantity(7);
+        //shopCartItem.setCartItemId(3);
+        shopCartItem.setQuantity(3);
         shopCartItem.setItemTime(new Date(new java.util.Date().getTime()));
         if(userId == null){
             //即用户未登录,应返回登录页面，或提示未登录
@@ -53,14 +53,17 @@ public class ShopCartAction implements SessionAware, ModelDriven<ShopCartItem>,
             shopCartItem.setBook(bookService.getBook(bookId));
         }else{
             //出错页面
+            System.out.println("出错页面！");
         }
-        //向虚拟购物车中添加
-        shoppingCart = BookStoreWebUtils.getShoppingCart(session);
-        shoppingCart.getShopCartItems().put(shopCartItem.getCartItemId(),shopCartItem);
         //向数据库中添加
         System.out.println(session.get("ShoppingCart"));
-        shopCartService.addShopCartItem(shopCartItem);
-
+        cartItemId = shopCartService.addShopCartItem(shopCartItem);
+        //向虚拟购物车中添加
+        //1、获得虚拟购物车
+        shoppingCart = BookStoreWebUtils.getShoppingCart(session);
+        //2、
+        shopCartItem = shopCartService.getShopCartItemById(cartItemId);
+        shoppingCart.getShopCartItems().put(shopCartItem.getCartItemId(),shopCartItem);
         return "addShopItem";
     }
 
@@ -102,4 +105,8 @@ public class ShopCartAction implements SessionAware, ModelDriven<ShopCartItem>,
     public void setCartItemId(String cartItemId) {
         this.cartItemId = cartItemId;
     }
+/*
+    public ShoppingCart getShoppingCart() {
+        return shoppingCart;
+    }*/
 }

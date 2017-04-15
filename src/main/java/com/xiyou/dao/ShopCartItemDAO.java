@@ -11,7 +11,13 @@ public interface ShopCartItemDAO {
      * 添加一条记录购物
      * @param shopCartItem
      */
-    void addShopItem(ShopCartItem shopCartItem);
+    String addShopItem(ShopCartItem shopCartItem);
+
+    /**
+     * 获取一条ShopCartItem数据
+     * @return
+     */
+    ShopCartItem getShopCartItemById(String cartItemId);
 
     /**
      * 已测

@@ -77,12 +77,21 @@
 		</action>
 
 		<action name="cart-*" class="shopCartAction" method="{1}">
-			<result name="addShopItem">/test.html</result>
+			<result name="addShopItem" type="json">
+				<param name="root"></param>
+			</result>
+			<!--<result name="addShopItem">/test.jsp</result>-->
 		</action>
 
 		<action name="mail-*" class="emialAction" method="{1}">
 			<result name="sendEmail" type="json">
 				<param name="root">verifiCode</param>
+			</result>
+		</action>
+		
+		<action name="cKAction" class="cKAction" method="execute">
+			<result type="json">
+				<param name="root"></param>
 			</result>
 		</action>
 

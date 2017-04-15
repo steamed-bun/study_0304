@@ -33,9 +33,9 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
     /**
      * 1、登录方法  url: sel-sellectSeller.action
      * 需传入seller.selTel 和 seller.selPassword
-     * 2、注册完 查找显示seller的信息 url: sel-sellectSeller.action?chose=CHOSE
+     * 2、注册完 或 更新完 查找显示seller的信息 url: sel-sellectSeller.action?chose=CHOSE
      *
-     * @return status {success: 1} {error: 0} 会返回到data中
+     * @return status {success: yes} {error: no} 会返回到data中
      */
 	public String sellectSeller(){
 		if(chose == null){

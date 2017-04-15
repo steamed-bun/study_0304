@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-
+    <s:debug></s:debug>
 	<a href="sel-checkCaptcha.action">点击</a>
     <form action="sel-checkCaptcha.action">
       <s:textfield name="code" label="code"></s:textfield>

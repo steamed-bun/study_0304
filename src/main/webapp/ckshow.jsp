@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    	<form action="cktest.action" method="post">
+    	<form action="cKAction.action" method="post">
     		<textarea rows="10" cols="80" id="editor" name="editor"
     			class="ckeditor">请输入...</textarea>
     		<input type="submit" value="保存">	

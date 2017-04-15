@@ -62,7 +62,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
-    <orderEntry type="library" name="CKFinder-2.4.3" level="project" />
     <orderEntry type="library" name="Maven: org.apache.struts:struts2-core:2.3.28.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.struts.xwork:xwork-core:2.3.28.1" level="project" />
     <orderEntry type="library" name="Maven: asm:asm-commons:3.3" level="project" />
@@ -112,8 +111,11 @@
     <orderEntry type="library" name="Maven: javax.mail:mail:1.4.7" level="project" />
     <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
     <orderEntry type="library" name="Maven: com.ckeditor:ckeditor-java-core:3.5.3" level="project" />
+    <orderEntry type="library" name="Maven: ckfinder:ckfinder:2.4.3" level="project" />
+    <orderEntry type="library" name="Maven: ckfinder:ckfinderPlugin-FileEditor:2.4.3" level="project" />
+    <orderEntry type="library" name="Maven: ckfinder:ckfinderPlugin-ImageResize:2.4.3" level="project" />
+    <orderEntry type="library" name="Maven: ckfinder:ckfinderPlugin-Watermark:2.4.3" level="project" />
     <orderEntry type="library" name="Maven: net.coobird:thumbnailator:0.4.5" level="project" />
     <orderEntry type="library" name="Maven: org.jboss:jboss-vfs:3.1.0.Final" level="project" />
-    <orderEntry type="library" name="mavenrepository" level="project" />
   </component>
 </module>

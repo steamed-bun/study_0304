@@ -11,8 +11,12 @@ public class ShopCartService {
     @Autowired
     private ShopCartItemDAO shopCartItemDAO;
 
-    public void addShopCartItem(ShopCartItem shopCartItem){
-        shopCartItemDAO.addShopItem(shopCartItem);
+    public String addShopCartItem(ShopCartItem shopCartItem){
+        return shopCartItemDAO.addShopItem(shopCartItem);
+    }
+
+    public ShopCartItem getShopCartItemById(String cartItemId){
+        return shopCartItemDAO.getShopCartItemById(cartItemId);
     }
 
 }

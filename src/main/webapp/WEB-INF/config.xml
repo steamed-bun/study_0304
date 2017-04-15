@@ -17,8 +17,8 @@
 	Configure the location of uploaded files. See the following article for more details:
 	http://docs.cksource.com/CKFinder_2.x/Developers_Guide/Java/Configuration/baseURL_and_baseDir
 	-->
-	<baseDir></baseDir>
-	<baseURL>/userfiles/</baseURL>
+	<baseDir>F:/tomcat8.0/webapps/userfiles</baseDir>
+	<baseURL>http://localhost:8090/userfiles/</baseURL>
 	<licenseKey></licenseKey>
 	<licenseName></licenseName>
 	<!--
