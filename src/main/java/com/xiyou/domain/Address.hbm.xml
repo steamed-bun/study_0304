@@ -27,8 +27,8 @@
 			<column name="CITY"></column>
 		</many-to-one>
 
-		<many-to-one name="buyer" class="Buyer">
-			<column name="BUYER"></column>
+		<many-to-one name="user" class="User">
+			<column name="USER"></column>
 		</many-to-one>
 
     </class>

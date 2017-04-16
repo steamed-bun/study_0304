@@ -1,16 +1,16 @@
 (function(){
   /*--------路由设置与获取基础信息开始--------------*/
   angular.module('merchantLogin',['ngRoute','merchantLogin-controller'])
-	.factory('MerchantName',function(){
-		//此处需要从数据库中获得商家昵称
-		return {
-			name:'花开半夏'
-		}
-	})
-	.controller('merNameCtrl',function($scope,MerchantName){
-		$scope.mer={
-			name:MerchantName.name
-		};
+	.controller('merNameCtrl',function($scope,$http){
+		//从数据库中获得商家姓名
+		$http({
+            method:'GET',
+            url:'sel-sellectSeller.action?chose=CHOSE',
+        }).success(function(data){
+            $scope.mer={
+				name:data.selName
+			};
+        });
 	})
 	.config(function($routeProvider){
 	   $routeProvider

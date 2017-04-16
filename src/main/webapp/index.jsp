@@ -93,7 +93,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					});
 				}
 			});
-		})
+		})//user-sellectUser.action?user.email=12@&user.userPassword=123
+		function getJson(){
+			$.post("sel-sellectSeller.action?seller.selTel=514156689@qq.com&seller.selPassword=123asdASD",{},function(data){
+				console.log(data);
+				alert(${seller.selId});
+				console.log(${seller});
+			})
+		}
 	</script>
   </head>
   
@@ -111,6 +118,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<option value="">请选择..</option>
 		</select> --%>
 		<a href="test.html">删书</a>
+		<input type="button" value="testJson" onclick="getJson();">
+
    </center>
   <s:debug></s:debug>
   </body>

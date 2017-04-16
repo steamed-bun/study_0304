@@ -13,6 +13,15 @@ public interface UserDAO {
 
     /**
      * 已测
+     * user login
+     * @param email
+     * @param userPassword
+     * @return
+     */
+    User getUser(String email, String userPassword);
+
+    /**
+     * 已测
      * 添加一个User,或修改User
      * @param user
      * @return

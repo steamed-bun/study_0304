@@ -43,15 +43,27 @@
 			<result name="sellectSeller" type="json">
 				<param name="root">status</param>
 			</result>
+			<result name="login" type="json">
+				<param name="root">seller</param>
+			</result>
 			<!--
 			<result name="sellectSeller">/selLoginEnd.jsp</result>
 			<result name="sellectSeller" type="json">
 				<param name="seller">seller</param>
 			</result>
 			-->
-			<result name="updateSeller" type="redirectAction">sel-sellectSeller.action?chose=SESSION</result>
+			<result name="updateSeller" type="json">
+				<param name="root">status</param>
+			</result>
 		</action>
-		
+
+		<action name="user-*" class="userAction" method="{1}">
+			<result name="addUser">/test.html</result>
+			<result name="sellectUser" type="json">
+				<param name="excludeNullProperties">false</param>
+			</result>
+		</action>
+
 		<action name="shop-*" class="shopAction" method="{1}">
 			<result name="selectSelect">/updateShop.jsp</result>
 			<result name="addShop" type="redirectAction">sel-sellectSeller.action?chose=SESSION</result>
@@ -64,8 +76,8 @@
 			<result name="getSelect">/addBook.jsp</result>
 			<result name="deleteBook">/index.jsp</result>
 		</action>
-	
-		<action name="select-*" class="sellectAction" method="{1}">
+
+		<action name="select-*" class="sellectAction " method="{1}">
 			<result name="selectCities" type="json">
 				<param name="root">cities</param>
 				<param name="excludeNullProperties">true</param>

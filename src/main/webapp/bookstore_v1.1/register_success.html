@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>江南缘书城</title>
+		<meta charset="UTF-8"/>
+		<link rel="stylesheet" href="./css/reset.css"/>
+		<link rel="stylesheet" href="./css/register_success.css"/>
+	</head>
+	<body ng-app="registerSucc">
+		<div class="emailReset-box">
+			<span class="emailReset-logo-img"></span>
+			<div ng-controller="registerSuccCtrl" class="register-succ">
+				<p class="register-succ-txt"><i></i><span>恭喜您注册成功！</span></p>
+				<p class="count-down"><span ng-bind="time"></span>秒后进入登录页面</p>
+			</div>
+		</div>
+		<script src="./js/angular.js"></script>
+		<script src="./js/jquery-1.12.3.js"></script>
+		<script src="./app/register_success.js"></script>
+	</body>
+</html>

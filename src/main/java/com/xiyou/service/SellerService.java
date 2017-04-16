@@ -1,41 +1,34 @@
 package com.xiyou.service;
 
-import com.xiyou.dao.ShopDAO;
-import com.xiyou.dao.impl.SellerDAOImpl;
-import com.xiyou.dao.impl.ShopDAOImpl;
+import com.xiyou.dao.SellerDAO;
 import com.xiyou.domain.Seller;
-import com.xiyou.domain.Shop;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service("sellerService")
 public class SellerService {
 
-	private SellerDAOImpl sellerDAOImpl;
-
 	@Autowired
-	private ShopDAO shopDAO;
-
-	public void setSellerDAOImpl(SellerDAOImpl sellerDAOImpl) {
-		this.sellerDAOImpl = sellerDAOImpl;
-	}
+	private SellerDAO sellerDAO;
 
 	public String addSeller(Seller seller){
-		return sellerDAOImpl.addSeller(seller);
+		return sellerDAO.addSeller(seller);
 	}
 	
 	public Seller getSellerByEmial(String selTel,String selPassword){
-		Seller seller = sellerDAOImpl.getSellerByEmial(selTel,selPassword);
+		Seller seller = sellerDAO.getSellerByEmial(selTel,selPassword);
 		return seller;
 	}
 
 	public Seller getSellerById(String selId){
-		return sellerDAOImpl.getSellerById(selId);
+		return sellerDAO.getSellerById(selId);
 	}
 
 	public void updateSelImage(String selImage, String selId){
-		sellerDAOImpl.updateSelImage(selImage, selId);
+		sellerDAO.updateSelImage(selImage, selId);
 	}
 	
 	public void updateSelWeiXin(String selWeiXin, String selId){
-		sellerDAOImpl.updateSelWeiXin(selWeiXin, selId);
+		sellerDAO.updateSelWeiXin(selWeiXin, selId);
 	}
 }

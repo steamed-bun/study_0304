@@ -5,7 +5,7 @@ import com.xiyou.domain.ShopCartItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("shopCartService")
 public class ShopCartService {
 
     @Autowired

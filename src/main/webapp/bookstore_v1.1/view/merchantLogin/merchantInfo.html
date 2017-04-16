@@ -1,13 +1,13 @@
 <div>
 	<ul class="my-info-box">
 		<li><span>头像：</span><span class="my-img"><img ng-src="{{ user.img }}" align="absmiddle" ng-click="showChangeImg()"/><i ng-click="showChangeImg()">修改</i></span></li>
-		<li><span>昵称：</span><span class="my-name"><input type="text" ng-model="user.name"/></span></li>
-		<li><span>年龄：</span><span  class="my-age"><input type="text" ng-model="user.age"/></span></li>
+		<li><span>昵称：</span><span class="my-name"><input type="text" ng-model="user.name" class="user-input" id="username"  data-id="0"/></span><b class="regi-hint name-hint"></b></li>
+		<li><span>年龄：</span><span  class="my-age"><input type="text" ng-model="user.age" class="user-input" id="myAge"  data-id="1"/></span><b class="regi-hint sellerAge-hint"></b></li>
 		<li><span>性别：</span><span class="my-sex"><input type="radio" name="sex" value="男" ng-model="user.sex"/>男<input type="radio" name="sex"  ng-model="user.sex" value="女"/>女</span></li>
-		<li><span>邮箱：</span><span  class="my-mail"><input type="text" ng-model="user.mail"/></span><b>恭喜您！正确</b></li>
-		<li><span>身份证：</span><span class="my-id"><input type="text" ng-model="user.id"/></span><b>恭喜您！正确</b></li>
-		<li><span>密码：</span><span class="my-pass"><input type="password" ng-model="user.pwd"/></span><b>恭喜您！正确</b></li>
-		<li><span>重复密码：</span><span class="my-repass"><input type="password" ng-model="user.rePwd"/></span><b>恭喜您！正确</b></li>
+		<li><span>邮箱：</span><span  class="my-mail"><input type="text" ng-model="user.mail" class="user-input" id="tel"  data-id="2"/></span><b class="regi-hint tel-hint" ></b></li>
+		<li><span>身份证：</span><span class="my-id"><input type="text" ng-model="user.id" class="user-input" id="myId"  data-id="3"/></span><b class="regi-hint sellerId-hint" ></b></li>
+		<li><span>密码：</span><span class="my-pass"><input type="password" ng-model="user.pwd" class="user-input" id="pwd"  data-id="4"/></span><b class="regi-hint pwd-hint" ></b></li>
+		<li><span>重复密码：</span><span class="my-repass"><input type="password" ng-model="user.rePwd" class="user-input" id="repwd"  data-id="5"/></span><b class="regi-hint repwd-hint"></b></li>
 	</ul>
 	<p class="save-info" ng-click="saveMerInfo()"><span>保存</span></p>
 	<aside>
@@ -86,6 +86,7 @@
 		line-height: 40px;
 		border:#EEE  solid 1px;
 		padding:5px 10px;
+		border-radius: 3px;
 	}
 	.my-pass>input,.my-repass>input{
 		font-size:30px;
@@ -113,16 +114,29 @@
 	.save-info>span:hover{
 		background:#ddbea1;
 	}
-	.my-info-box b{
+	.regi-hint{
 		display:inline-block;
 		margin-left:30px;
 		font-weight:normal;
 		font-size:12px;
-		color:#10d158;
+		color:#BD2D30;
 		padding-left:20px;
 		background-image:url("./images/right.png");
 		background-repeat:no-repeat;
 		background-position:-1px 12px;
+	}
+	.regi-right-hint{
+		background-image:url("images/right.png");
+		background-position:left center;
+		background-repeat:no-repeat;
+		display: inline-block;
+		color:#10d158;
+	}
+	.regi-error-hint{
+		background-image:url("images/error.png");
+		background-position:left center;
+		background-repeat:no-repeat;
+		display: inline-block;
 	}
 
 	/*更换头像开始*/

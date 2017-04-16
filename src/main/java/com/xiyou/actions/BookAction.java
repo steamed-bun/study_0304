@@ -14,13 +14,19 @@ import com.xiyou.domain.Book;
 import com.xiyou.domain.Category;
 import com.xiyou.domain.Shop;
 import com.xiyou.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+@Controller("bookAction")
 public class BookAction extends ActionSupport implements ModelDriven<Book>, 
 						SessionAware, Preparable, RequestAware{
 
 	private static final long serialVersionUID = 1L;
-	private Book book; 
-	private BookService bookService; 
+
+	@Autowired
+	private BookService bookService;
+
+	private Book book;
 	Map<String, Object> session;
 	Map<String, Object> request;
 	private String bookId;
@@ -90,10 +96,6 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 
 	public void setBook(Book book) {
 		this.book = book;
-	}
-
-	public void setBookService(BookService bookService) {
-		this.bookService = bookService;
 	}
 
 	public String getBookId() {

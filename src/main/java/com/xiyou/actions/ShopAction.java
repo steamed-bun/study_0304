@@ -10,37 +10,22 @@ import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 import com.xiyou.domain.Shop;
 import com.xiyou.service.ShopService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+@Controller("shopAction")
 public class ShopAction extends ActionSupport implements SessionAware, RequestAware,
 			ModelDriven<Shop>, Preparable {
 
 	private static final long serialVersionUID = 1L;
-	
+
+	@Autowired
+	private ShopService shopService;
+
 	private Shop shop;
 	private String shopId;
-	private ShopService shopService;
 	private Map<String, Object> session;
 	Map<String, Object> request;
-
-	public void setShop(Shop shop) {
-		this.shop = shop;
-	}
-
-	public Shop getShop() {
-		return shop;
-	}
-
-	public String getShopId() {
-		return shopId;
-	}
-
-	public void setShopId(String shopId) {
-		this.shopId = shopId;
-	}
-
-	public void setShopService(ShopService shopService) {
-		this.shopService = shopService;
-	}
 
 	public String delete(){
 		String shopId = session.get("shopId").toString();
@@ -98,4 +83,19 @@ public class ShopAction extends ActionSupport implements SessionAware, RequestAw
 		this.request = arg0;
 	}
 
+	public void setShop(Shop shop) {
+		this.shop = shop;
+	}
+
+	public Shop getShop() {
+		return shop;
+	}
+
+	public String getShopId() {
+		return shopId;
+	}
+
+	public void setShopId(String shopId) {
+		this.shopId = shopId;
+	}
 }

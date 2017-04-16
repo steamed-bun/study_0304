@@ -24,32 +24,45 @@ angular.module('sign-controller',[])
           $scope.isRegister=true;
        }
    })
-   .controller('loginCtrl',function($scope,$http,$location){
-       $scope.userIsRem=false;//初始化用户是记住密码
-       if($.cookie('userEmail')!= undefined && $.cookie('userPwd')!= undefined){
+   .controller('loginCtrl',function($scope,$http,$location,$window){
+      $scope.userIsRem=false;//初始化用户是记住密码
+      if($.cookie('userEmail')!= undefined && $.cookie('userPwd')!= undefined){
          //当用户曾记住过密码
           $scope.userMaster={
             email:$.cookie('userEmail'),
             pwd:$.cookie('userPwd')
           };//初始化数据模型为曾记住过的东西
           $scope.userIsRem=true;
-       }else{
+      }else{
           $scope.userMaster={
             email:'',
             pwd:''
           };//初始化数据模型为空
-       }
-       $scope.user=angular.copy($scope.userMaster);//实现对象的copy
-       $scope.userRole=true;//初始化用户的角色为顾客
+      }
+      $scope.user=angular.copy($scope.userMaster);//实现对象的copy
+      $scope.userRole=true;//初始化用户的角色为顾客
 
-       //为登录按钮添加事件
-       $scope.checkUser=function(){
+      //为登录按钮添加事件
+      $scope.checkUser=function(){
+          //将用户输入的信息拼接成查询字符串
+          var seller={};
+          var postData='';
+          var absUrl=$location.absUrl();
+          var markIndex=absUrl.lastIndexOf('#');
+          var newUrl;
+          seller.selTel=$scope.user.email;
+          seller.selPassword=$scope.user.pwd;
+          $.each(seller,function(key,value) {
+                postData+='seller.'+key+'='+value+'&'
+          });
+          postData=postData.slice(0,postData.length-1);
+          console.log(postData);
           //根据用户的角色进入不同的页面
           if($scope.userRole){
             //当用户的角色是顾客时
             $http({
               method:'POST',
-              url:'data/sign/check_customer.php',
+              url:'sel-sellectSeller.action',
               data:$.param($scope.user),//序列化用户输入的数据
               headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
             }).success(function(data){
@@ -66,20 +79,22 @@ angular.module('sign-controller',[])
                   setTimeout(function(){
                     $errorInfo.slideUp();
                   },3000);
-               } 
+               }
             });
           }else{
             //当用户的角色是商家时
             $http({
               method:'POST',
-              url:'data/sign/check_merchant.php',
-              data:$.param($scope.user),//序列化用户输入的数据
+              url:'sel-sellectSeller.action',
+              data:postData,//已经序列化的用户输入的数据
               headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
             }).success(function(data){
-               if(data=='yes'){
-                  //TODO   页面跳转到商家登录页
-                  alert("商家登录成功！");
-               }else{
+                newUrl=absUrl.slice(0,markIndex-9)+'merchant_login.html';
+                if(data=='yes'){
+                  //页面跳转到商家登录页
+                  $window.location.href=newUrl;
+                  console.log('商家登录成功');
+                }else{
                   //显示错误提示信息
                   //此处是用jquery实现
                   var $errorInfo=$('.login-error-txt');
@@ -88,7 +103,7 @@ angular.module('sign-controller',[])
                   setTimeout(function(){
                     $errorInfo.slideUp();
                   },3000);
-              } 
+                }
             });
           }
           //根据用户的选择，来确定是否记住密码----用的是jquery中的cookie插件
@@ -101,7 +116,7 @@ angular.module('sign-controller',[])
             $.cookie('userEmail',$scope.user.email,{path:'/',expires:-10});
             $.cookie('userPwd',$scope.user.pwd,{path:'/',expires:-10});
           }
-       };
+      };
 
        //使用jquery中的方法，为input加获得和失去焦点事件
        $('.user_info').focus(function(){//获得焦点
@@ -111,7 +126,7 @@ angular.module('sign-controller',[])
           $(this).css('border-color','#CCC');
        });
    })
-   .controller('registerCtrl',function($scope,$http,$location){
+   .controller('registerCtrl',function($scope,$http,$location,$window){
         $scope.masterMer={sellerId:'',sellerAge:'',sellerSex:'男',uname:'',uEmail:'',pwd:'',veri:''};
         $scope.masterRegi={uname:'',uEmail:'',pwd:'',veri:''};
         $scope.mer=angular.copy($scope.masterMer);//实现对象的copy
@@ -373,6 +388,9 @@ angular.module('sign-controller',[])
             var postData='';
             var postUrl;
             var seller={};
+            var absUrl;
+            var markIndex;
+            var newUrl;
             if(!newVal){
                 //当是商家时
                 postUrl='sel-addSeller.action';
@@ -409,9 +427,12 @@ angular.module('sign-controller',[])
             }).success(function(data){
                 console.log(data);
                 if(data=='yes'){
-                    //TODO   页面跳转到顾客注册成功页
-                    alert("注册成功！");
-                    console.log("提交的数据是："+$.param(postData));
+                    //页面跳转到注册成功页
+                    absUrl=$location.absUrl();
+                    markIndex=absUrl.lastIndexOf('#');
+                    newUrl=absUrl.slice(0,markIndex-9)+'register_success.html';
+                    $window.location.href=newUrl;
+                    console.log("注册成功！");
                 }else{
                     //顾客注册失败，请重新注册
                     $location.path("/regist");

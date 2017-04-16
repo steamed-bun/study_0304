@@ -5,7 +5,9 @@ import java.util.List;
 import com.xiyou.dao.BookDAO;
 import com.xiyou.domain.Book;
 import com.xiyou.domain.Category;
+import org.springframework.stereotype.Repository;
 
+@Repository("bookDAOImpl")
 public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 
 	@Override

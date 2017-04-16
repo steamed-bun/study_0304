@@ -8,43 +8,25 @@ import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.xiyou.service.SellerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
+@Controller("upLoadAction")
 public class UpLoadAction extends ActionSupport implements SessionAware{
 
 	private static final long serialVersionUID = 1L;
+
+	@Autowired
+	private SellerService sellerService;
+
 	private File photo;
 	private String photoContentType;
-	
 	@SuppressWarnings("unused")
 	private String photoFileName;
 	
 	private String path;
-	private SellerService sellerService;
+
 	Map<String, Object> session;
-
-	public void setSellerService(SellerService sellerService) {
-		this.sellerService = sellerService;
-	}
-
-	public void setPhoto(File photo) {
-		this.photo = photo;
-	}
-
-	public void setPhotoContentType(String photoContentType) {
-		this.photoContentType = photoContentType;
-	}
-
-	public void setPhotoFileName(String photoFileName) {
-		this.photoFileName = photoFileName;
-	}
-	
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
 
 	public String addSelImage() throws Exception {
 		path = "F:/tomcat8.0/webapps/upload/seller/avatar";
@@ -85,5 +67,25 @@ public class UpLoadAction extends ActionSupport implements SessionAware{
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
 	}
-	
+
+
+	public void setPhoto(File photo) {
+		this.photo = photo;
+	}
+
+	public void setPhotoContentType(String photoContentType) {
+		this.photoContentType = photoContentType;
+	}
+
+	public void setPhotoFileName(String photoFileName) {
+		this.photoFileName = photoFileName;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
 }

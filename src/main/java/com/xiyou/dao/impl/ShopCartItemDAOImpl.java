@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+@Repository("shopCartItemDAOImpl")
 public class ShopCartItemDAOImpl extends BaseDAOImpl implements ShopCartItemDAO {
 
 

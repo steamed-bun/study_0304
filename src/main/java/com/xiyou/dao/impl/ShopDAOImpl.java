@@ -7,7 +7,9 @@ import com.xiyou.domain.City;
 import com.xiyou.domain.County;
 import com.xiyou.domain.Province;
 import com.xiyou.domain.Shop;
+import org.springframework.stereotype.Repository;
 
+@Repository("shopDAOImpl")
 public class ShopDAOImpl extends BaseDAOImpl implements ShopDAO {
 
 	@Override
@@ -25,7 +27,8 @@ public class ShopDAOImpl extends BaseDAOImpl implements ShopDAO {
 		}
 		return shopId;
 	}
-	
+
+	@Override
 	public Shop selectShop(String shopId){
 		//String hql = "FROM Shop s left outer join fetch s.province left outer join fetch s.city"
 			//	+ "left outer join fetch s.county WHERE s.shopId = :shopId";

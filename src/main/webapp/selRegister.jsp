@@ -17,21 +17,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+  private Integer userId;
+  private String userName;
+  private String userPassword;
+  private int userAge;
+  private String userWeiXin;
+  private String userImage;
+  private String userSex;
+  private String userIdCard;
+  private String email;
   	<center>
   		注册<br/>
-  		 
-  		<s:form action="sel-addSeller.action" method="post" namespace="/">
-  			<s:textfield label="昵称" name="seller.selName"></s:textfield>
-  			<s:textfield label="年龄" name="seller.selAge"></s:textfield>
-  			<s:textfield label="性别" name="seller.selSex"></s:textfield>
-  			<s:textfield label="邮箱" name="seller.selTel"></s:textfield>
-  			<s:textfield label="身份证" name="seller.selIdCard"></s:textfield>
-  			<s:textfield label="密码" name="seller.selPassword"></s:textfield>
-  			<s:textfield label="重复密码" value="gfdsa"></s:textfield>
-			
-  				<s:hidden name="selId"></s:hidden>
-  				<s:hidden name="seller.shop.shopId"></s:hidden>
-  			
+  		<s:form action="user-addUser.action" method="post" namespace="/">
+  			<s:textfield label="昵称" name="user.userName"></s:textfield>
+  			<s:textfield label="年龄" name="user.userAge"></s:textfield>
+  			<s:textfield label="性别" name="user.userSex"></s:textfield>
+  			<s:textfield label="密码" name="user.userPassword"></s:textfield>
+  				<%--<s:hidden name="userId"></s:hidden>--%>
+			<s:textfield abel="Id" name="userId" value="29"></s:textfield>
   			<s:submit></s:submit>
   		</s:form>
 	</center>

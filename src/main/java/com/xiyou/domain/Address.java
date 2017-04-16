@@ -7,15 +7,7 @@ public class Address {
 	private County county;
 	private City city;
 	private String street;
-	private Buyer buyer;
-
-	public Buyer getBuyer() {
-		return buyer;
-	}
-
-	public void setBuyer(Buyer buyer) {
-		this.buyer = buyer;
-	}
+	private User user;
 
 	public Integer getAddressId() {
 		return addressId;
@@ -57,13 +49,21 @@ public class Address {
 		this.street = street;
 	}
 
-	public Address(Integer addressId, Province province, County county, City city, String street, Buyer buyer) {
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Address(Integer addressId, Province province, County county, City city, String street, User user) {
 		this.addressId = addressId;
 		this.province = province;
 		this.county = county;
 		this.city = city;
 		this.street = street;
-		this.buyer = buyer;
+		this.user = user;
 	}
 
 	public Address() {

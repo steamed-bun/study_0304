@@ -1,0 +1,49 @@
+@charset "utf-8";
+/*用邮箱重置密码上面部分结束*/
+.emailReset-box{
+	margin:125px auto 50px auto;
+	width:940px;
+}
+.emailReset-logo-img{
+	display:block;
+	width:290px;
+	height:123px;
+	background:url("../images/logo-txt.png") center center no-repeat;
+	background-size:cover;
+	margin:0 auto;
+}
+/*用邮箱重置密码上面部分结束*/
+
+/* 注册成功提示语开始 */
+.register-succ{
+	margin-top:70px;
+	text-align: center;
+}
+.register-succ-txt{
+	display: inline-block;
+	position: relative;
+	height:80px;
+	width:480px;
+	line-height: 80px;
+}
+.register-succ-txt>i{
+	position:absolute;
+	top:2px;
+	display: inline-block;
+	width:70px;
+	height:70px;
+	background:url("../images/register_success.png") center center no-repeat;
+	background-size: contain;
+}
+.register-succ-txt>span{
+	font-size:45px;
+	margin-left: 100px;
+}
+.count-down>span{
+	margin-right:5px;
+	color:#dd2726;
+	font-weight: 600;
+	font-size: 22px;
+}
+/* 注册成功提示语结束 */
+

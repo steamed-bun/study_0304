@@ -3,9 +3,11 @@ package com.xiyou.dao.impl;
 import com.xiyou.dao.SellerDAO;
 import com.xiyou.domain.Seller;
 import com.xiyou.domain.Shop;
+import org.springframework.stereotype.Repository;
 
+@Repository("sellerDAOImpl")
 public class SellerDAOImpl extends BaseDAOImpl implements SellerDAO {
-	
+//
 	@Override
 	public String addSeller(Seller seller) {
 		String selId;

@@ -9,24 +9,26 @@ import com.xiyou.domain.Shop;
 
 public interface ShopDAO {
 
-	public abstract void delete(String shopId);
+	void delete(String shopId);
 	
 	/**
 	 * ���һ��shop��ͬʱ�޸�seller��shopId
 	 * @param shop
 	 */
-	public abstract String addShop(String selId,Shop shop);
+	String addShop(String selId,Shop shop);
 	
 	/**
 	 * 鏌ユ壘Shop閫氳繃shopId
 	 * @param shopId
 	 * @return
 	 */
-	public abstract Shop getShopByShopId(String shopId);
+	Shop getShopByShopId(String shopId);
+
+	Shop selectShop(String shopId);
+
+	List<Province> selectProvinces();
 	
-	public abstract List<Province> selectProvinces();
+	List<City> selectCity(String provinceId);
 	
-	public abstract List<City> selectCity(String provinceId);
-	
-	public abstract List<County> selectCounty(String cityId);
+	List<County> selectCounty(String cityId);
 }

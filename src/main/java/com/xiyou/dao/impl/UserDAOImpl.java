@@ -4,7 +4,7 @@ import com.xiyou.dao.UserDAO;
 import com.xiyou.domain.User;
 import org.springframework.stereotype.Repository;
 
-@Repository
+@Repository("userDAOImpl")
 public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 
 
@@ -15,11 +15,18 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
     }
 
     @Override
+    public User getUser(String email, String userPassword) {
+        String hql = "FROM User u WHERE u.email = :email AND u.userPassword = :userPassword";
+        return (User)getSession().createQuery(hql).setString("email",email)
+                .setString("userPassword",userPassword).uniqueResult();
+    }
+
+    @Override
     public String addUser(User user) {
         String userId;
         if (user.getUserId() == null){
-            user.setUserImage("");
-            user.setUserWeiXin("");
+//            user.setUserImage("");
+//            user.setUserWeiXin("");
             userId = getSession().save(user).toString();
         }else {
             userId = user.getUserId().toString();
