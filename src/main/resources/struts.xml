@@ -42,10 +42,10 @@
 				<param name="root">status</param>
 			</result>
 			<result name="forUpdateSeller">/selRegister.jsp</result>
-			<result name="sellectSeller" type="json">
+			<result name="login" type="json">
 				<param name="root">status</param>
 			</result>
-			<result name="login" type="json">
+			<result name="sellectSeller" type="json">
 				<param name="root">seller</param>
 			</result>
 			<!--
@@ -54,21 +54,26 @@
 				<param name="seller">seller</param>
 			</result>
 			-->
-			<result name="updateSeller" type="json">
-				<param name="root">status</param>
-			</result>
 		</action>
 
 		<action name="user-*" class="userAction" method="{1}">
-			<result name="addUser">/test.html</result>
+			<result name="addUser" type="json">
+				<param name="root">status</param>
+			</result>
+			<result name="login" type="json">
+				<param name="root">status</param>
+			</result>
 			<result name="sellectUser" type="json">
+				<param name="root">user</param>
 				<param name="excludeNullProperties">false</param>
 			</result>
 		</action>
 
 		<action name="shop-*" class="shopAction" method="{1}">
 			<result name="selectSelect">/updateShop.jsp</result>
-			<result name="addShop" type="redirectAction">sel-sellectSeller.action?chose=SESSION</result>
+			<result name="updateShop" type="json">
+				<param name="root">status</param>
+			</result>
 			<result name="delete">/selRegister.jsp</result>
 		</action>
 

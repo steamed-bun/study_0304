@@ -15,8 +15,8 @@ public class UserService {
         return userDAO.getUserById(userId);
     }
 
-    public String addUser(User user){
-        return userDAO.addUser(user);
+    public void addUser(User user){
+         userDAO.addUser(user);
     }
 
     public User getUser(String email, String userPassword){

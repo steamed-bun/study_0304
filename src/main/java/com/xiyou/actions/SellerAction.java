@@ -23,6 +23,8 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
 		SessionAware ,Preparable{
 
 	private static final long serialVersionUID = 1L;
+	private static final String SELLER_IMAGE_URL = "http://localhost:8090/study/selImage/00.png";
+	private static final String SELLER_WEIXIN_URL = "http://localhost:8090/study/selWeiXin/00.png";
 
 	@Autowired
 	private SellerService selService;
@@ -35,26 +37,28 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
     private String status = "yes";
 
 	/**
-     * 1、登录方法  url: sel-sellectSeller.action
+	 * 已测
+     * 1、登录方法  url: sel-sellectSeller.action?chose=login
      * 需传入seller.selTel 和 seller.selPassword
-     * 2、登录完 或 更新完 查找显示seller的信息 url: sel-sellectSeller.action?chose=CHOSE
-     *
-     * @return status {success: yes} {error: no} 会返回到data中
+	 * return status {success: yes} {error: no} 会返回到data中
+     * 2、登录完 即其它页面需要显示时
+	 * 查找显示seller的信息 url: sel-sellectSeller.action?chose=CHOSE
+     * @return seller 会返回到data中
      */
 	public String sellectSeller(){
-		if(chose == null){
+		if(chose.equals("login")){
 			this.seller = selService.getSellerByEmial(seller.getSelTel(),seller.getSelPassword());
-			if(session.get("selId") == null){
+			if (seller != null){
 				session.put("selId", seller.getSelId());
 				session.put("shopId", seller.getShop().getShopId());
-			}
-			return "sellectSeller";
-		}else{
-			this.seller = selService.getSellerById(session.get("selId").toString());
-			if (seller == null){
+			}else {
 				status = "no";
 			}
 			return "login";
+		}else{
+			this.seller = selService.getSellerById(session.get("selId").toString());
+//			status = (seller == null) ? "yes" : "no";
+			return "sellectSeller";
 		}
 	
 	}
@@ -71,14 +75,13 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
      * @return
      */
 	public String addSeller() {
+		seller.setSelImage(SELLER_IMAGE_URL);
+		seller.setSelWeiXin(SELLER_WEIXIN_URL);
 		selService.addSeller(seller);
 		if(selId.equals("")){
 			session.put("selId", seller.getSelId());
-			return "addSeller";
-		}else {
-//			selService.addSeller(seller);
-			return "updateSeller";
 		}
+		return "addSeller";
 	}
 	
 	public void prepareAddSeller(){

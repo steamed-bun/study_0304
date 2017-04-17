@@ -35,9 +35,10 @@ public class ShopService {
 
 	public List<County> selectCounty(String cityId) {
 		return shopDAO.selectCounty(cityId);
-	}	
-	public String addShop(String selId, Shop shop){
-		return shopDAO.addShop(selId,shop);
 	}
-		
+
+	public void addShop(Shop shop){
+		shopDAO.addShop(shop);
+	}
+
 }

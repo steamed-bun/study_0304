@@ -7,8 +7,7 @@ public class TestAction {
 
     @Test
     public void testJsonUtil(){
-        Book book = new Book();
-        book.setAuthor("haha");
-       // System.out.println( JsonUtils.obj2Json(book));
+       Object object = "haha";
+
     }
 }

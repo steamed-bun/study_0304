@@ -95,21 +95,6 @@ public class Seller {
 
 	public Seller(Integer selId, String selName, String selPassword,
 			int selAge, String selSex, String selIdCard, String selImage,
-			String selWeiXin, String selTel) {
-		super();
-		this.selId = selId;
-		this.selName = selName;
-		this.selPassword = selPassword;
-		this.selAge = selAge;
-		this.selSex = selSex;
-		this.selIdCard = selIdCard;
-		this.selImage = selImage;
-		this.selWeiXin = selWeiXin;
-		this.selTel = selTel;
-	}
-
-	public Seller(Integer selId, String selName, String selPassword,
-			int selAge, String selSex, String selIdCard, String selImage,
 			String selWeiXin, String selTel, Shop shop) {
 		super();
 		this.selId = selId;
@@ -121,10 +106,6 @@ public class Seller {
 		this.selImage = selImage;
 		this.selWeiXin = selWeiXin;
 		this.selTel = selTel;
-		this.shop = shop;
-	}
-
-	public Seller(Shop shop) {
 		this.shop = shop;
 	}
 

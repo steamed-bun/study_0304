@@ -12,6 +12,7 @@ public interface ShopDAO {
 	void delete(String shopId);
 
 	/**
+	 * 已测
 	 * 添加一条shop数据
 	 * @param shop
      */

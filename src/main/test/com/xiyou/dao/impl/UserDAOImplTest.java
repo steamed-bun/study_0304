@@ -1,14 +1,13 @@
 package com.xiyou.dao.impl;
 
 import com.xiyou.dao.UserDAO;
+import com.xiyou.domain.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
-
-import static org.junit.Assert.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -31,7 +30,10 @@ public class UserDAOImplTest {
 
     @Test
     public void testAddUser() throws Exception {
-
+        User user = new User();
+        user.setUserSex("nv");
+        System.out.println(user);
+        userDAO.addUser(user);
     }
 
     @Test

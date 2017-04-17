@@ -33,24 +33,20 @@ public class ShopAction extends ActionSupport implements SessionAware, RequestAw
 		System.out.println(shopId);
 		return "delete";
 	}
-	
-	public String addShop(){
-		String selId = session.get("selId").toString();
-		if(shopId == null){
-			shopId = shopService.addShop(selId, shop);
-			session.put("shopId", shopId);
-		}else{
-			shopService.addShop(selId, shop);
-		}
-		return "addShop";
+
+	/**
+	 * shop本是自动注册的，所以只有修改
+	 * 必须传参shop.shopId
+	 * @return
+     */
+	public String updateShop(){
+		shopService.addShop(shop);
+		session.put("shopId", shop.getShopId());
+		return "updateShop";
 	}
 	
 	public void prepareAddShop(){
-		if(shopId == null){
-			shop = new Shop();
-		}else {
-			shop = shopService.sellectShop(shopId);
-		}
+		shop = shopService.sellectShop(shopId);
 	}
 	
 	public String selectSelect(){

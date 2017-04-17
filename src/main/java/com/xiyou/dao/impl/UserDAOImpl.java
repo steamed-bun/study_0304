@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository("userDAOImpl")
 public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 
-
     @Override
     public User getUserById(String userId) {
         String hql = "FROM User u WHERE u.id = :userId";
@@ -22,17 +21,8 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
     }
 
     @Override
-    public String addUser(User user) {
-        String userId;
-        if (user.getUserId() == null){
-//            user.setUserImage("");
-//            user.setUserWeiXin("");
-            userId = getSession().save(user).toString();
-        }else {
-            userId = user.getUserId().toString();
+    public void addUser(User user) {
             getSession().saveOrUpdate(user);
-        }
-        return userId;
     }
 
     @Override

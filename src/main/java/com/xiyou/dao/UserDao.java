@@ -26,7 +26,7 @@ public interface UserDAO {
      * @param user
      * @return
      */
-    String addUser(User user);
+    void addUser(User user);
 
     /**
      * 已测

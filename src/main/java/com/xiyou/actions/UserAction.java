@@ -18,8 +18,10 @@ import java.util.Map;
 public class UserAction extends ActionSupport implements ModelDriven<User>,
         SessionAware,Preparable {
 //
+    private static final String USER_IMAGE_URL = "http://localhost:8090/study/userImage/00.png";
+    private static final String USER_WEIXIN_URL = "http://localhost:8090/study/userWeiXin/00.png";
 
-    private String status;
+    private String status = "yes";
     private User user;
     private String userId;
     private String chose;
@@ -34,16 +36,14 @@ public class UserAction extends ActionSupport implements ModelDriven<User>,
     /**
      * 已测
      * url:user-addUser.action?user.userName=你好&user.userPassword=123asd&user.email=123@qq.com&userId=
-     * 可以直接将user返回!
+     * @return status {success: yes} {error: no}
      */
     public String addUser(){
+        user.setUserImage(USER_IMAGE_URL);
+        user.setUserWeiXin(USER_WEIXIN_URL);
+        userService.addUser(user);
         if(userId.equals("")){
-            user.setUserImage("UserImageURL");
-            user.setUserWeiXin("UserWeiXinURL");
-            userId = userService.addUser(user);
-            session.put("userId", userId);
-        }else {
-            userService.addUser(user);
+            session.put("userId", user.getUserId());
         }
         return "addUser";
     }
@@ -60,18 +60,16 @@ public class UserAction extends ActionSupport implements ModelDriven<User>,
 
     /**
      * 已测
-     * 1、登录方法  url: user-sellectUser.action?user.email=12@&user.userPassword=123
+     * 1、登录方法  url: user-sellectUser.action?chose=login&user.email=123@qq.com&user.userPassword=123asd
      * 需传入seller.selTel 和 seller.selPassword
-     * 2、注册完 或 更新完 查找显示seller的信息
-     * 登录url：user-sellectUser.action
+     * return status {success: yes} {error: no} 会返回到data中
+     * 2、其它地方需要User信息时，查找显示seller的信息
      * 更新url：user-sellectUser.action?chose=CHOSE
-     * @return status {success: yes} {error: no} 会返回到data中
+     * @return user 会返回到data中
      */
     public String sellectUser(){
-        if(chose == null){
-            System.out.println("刚进来-->" + status);
+        if(chose.equals("login")){
             this.user = userService.getUser(user.getEmail(),user.getUserPassword());
-            System.out.println(user);
             if (user != null){
                 if(session.get("userId") == null){
                     session.put("userId", user.getUserId());
@@ -79,14 +77,12 @@ public class UserAction extends ActionSupport implements ModelDriven<User>,
             }else {
                 status = "no";
             }
-            System.out.println(status);
+            return "login";
         }else{
             this.user = userService.getUserById(session.get("userId").toString());
-            if (user == null){
-                status = "no";
-            }
+//            status = (user == null) ? "no" : "yes";
+            return "sellectUser";
         }
-        return "sellectUser";
     }
 
     public void prepareSellectUser(){
@@ -104,7 +100,6 @@ public class UserAction extends ActionSupport implements ModelDriven<User>,
         }
         return "deleteUser";
     }
-
 
     @Override
     public User getModel() {
@@ -124,6 +119,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>,
         this.user = user;
     }
 
+    @JSON(serialize = false)
     public User getUser() {
         return user;
     }
@@ -132,7 +128,6 @@ public class UserAction extends ActionSupport implements ModelDriven<User>,
         this.userId = userId;
     }
 
-    @JSON(name = "status")
     public String getStatus() {
         return status;
     }
