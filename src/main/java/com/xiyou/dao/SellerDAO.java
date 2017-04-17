@@ -8,8 +8,10 @@ public interface SellerDAO {
 	 * 添加一个买家
 	 * @param seller
 	 */
-	String addSeller(Seller seller);
-	
+//	String addSeller(Seller seller);
+
+	void addSeller(Seller seller);
+
 	/**
 	 * 验证电话号码是否已注册
 	 * @param selTelTem

@@ -57,7 +57,6 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
 			return "login";
 		}
 	
-
 	}
 	public void prepareSellectSeller(){
 		if(selId == null){
@@ -72,12 +71,12 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
      * @return
      */
 	public String addSeller() {
+		selService.addSeller(seller);
 		if(selId.equals("")){
-			selId = selService.addSeller(seller);
-			session.put("selId", selId);
+			session.put("selId", seller.getSelId());
 			return "addSeller";
 		}else {
-			selService.addSeller(seller);
+//			selService.addSeller(seller);
 			return "updateSeller";
 		}
 	}

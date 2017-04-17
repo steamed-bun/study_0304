@@ -436,6 +436,7 @@ angular.module('sign-controller',[])
                 }else{
                     //顾客注册失败，请重新注册
                     $location.path("/regist");
+                    console.log("服务器失败");
                 } 
             });
         }

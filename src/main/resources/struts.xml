@@ -38,7 +38,9 @@
 		</action>
 		
 		<action name="sel-*" class="sellerAction" method="{1}">
-			<result name="addSeller" type="redirectAction">shop-addShop.action</result>
+			<result name="addSeller" type="json">
+				<param name="root">status</param>
+			</result>
 			<result name="forUpdateSeller">/selRegister.jsp</result>
 			<result name="sellectSeller" type="json">
 				<param name="root">status</param>

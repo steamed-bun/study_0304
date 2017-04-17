@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository("sellerDAOImpl")
 public class SellerDAOImpl extends BaseDAOImpl implements SellerDAO {
 //
-	@Override
+/*	@Override
 	public String addSeller(Seller seller) {
 		String selId;
 		if(seller.getSelId() == null){
@@ -26,6 +26,12 @@ public class SellerDAOImpl extends BaseDAOImpl implements SellerDAO {
 						.setString("selId",selId).executeUpdate();
 		}
 		return selId;
+	}*/
+
+
+	@Override
+	public void addSeller(Seller seller) {
+		getSession().saveOrUpdate(seller);
 	}
 
 	@Override

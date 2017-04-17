@@ -93,6 +93,17 @@ public class Shop {
 		this.shopImage = shopImage;
 	}
 
+	public static Shop getShop(){
+
+		Shop shop = new Shop();
+		shop.setNotice("他很懒...");
+		shop.setEstablished(System.currentTimeMillis());
+		shop.setShopGrade(0);
+		shop.setShopName("快来开店啦...");
+		shop.setShopImage("http://localhost:8090/study/shopImage/00.pnng");
+		return shop;
+	}
+
 	public Shop(Integer shopId, String shopName, String notice,
 			long established, int shopGrade, Province province, City city,
 			County county, String street, String shopImage) {

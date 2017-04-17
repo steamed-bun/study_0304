@@ -21,7 +21,8 @@ public class SellerServiceTest {
     @Transactional
     @Test
     public void testAddSeller() throws Exception {
-        Seller seller = new Seller(1,"133","erdd",13,"sssz","fssa","gdfsd","rssa","fdds");
+        Seller seller = new Seller(null,"133","erdd",13,"sssz","fssa","gdfsd","rssa","fdds");
         sellerService.addSeller(seller);
     }
+
 }

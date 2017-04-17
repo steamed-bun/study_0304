@@ -1,7 +1,9 @@
 package com.xiyou.service;
 
 import com.xiyou.dao.SellerDAO;
+import com.xiyou.dao.ShopDAO;
 import com.xiyou.domain.Seller;
+import com.xiyou.domain.Shop;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +13,14 @@ public class SellerService {
 	@Autowired
 	private SellerDAO sellerDAO;
 
-	public String addSeller(Seller seller){
-		return sellerDAO.addSeller(seller);
+	@Autowired
+	private ShopDAO shopDAO;
+
+	public void addSeller(Seller seller){
+		Shop shop = Shop.getShop();
+		shopDAO.addShop(shop);
+		seller.setShop(shop);
+		sellerDAO.addSeller(seller);
 	}
 	
 	public Seller getSellerByEmial(String selTel,String selPassword){

@@ -13,19 +13,8 @@ import org.springframework.stereotype.Repository;
 public class ShopDAOImpl extends BaseDAOImpl implements ShopDAO {
 
 	@Override
-	public String addShop(String selId,Shop shop) {
-		String shopId;
-		if(shop.getShopId() == null){
-			shop.setEstablished(System.currentTimeMillis());
-			shop.setShopImage("D:/study/shopImage/00.png");
-			shopId = getSession().save(shop).toString();
-			String hql = "UPDATE Seller s SET s.shop = :shopId WHERE s.selId = :selId";
-			getSession().createQuery(hql).setString("shopId", shopId).setString("selId",selId).executeUpdate();
-		}else{
-			shopId = shop.getShopId().toString();
-			getSession().saveOrUpdate(shop);
-		}
-		return shopId;
+	public void addShop(Shop shop) {
+		getSession().saveOrUpdate(shop);
 	}
 
 	@Override

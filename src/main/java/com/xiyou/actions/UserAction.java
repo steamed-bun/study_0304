@@ -69,7 +69,6 @@ public class UserAction extends ActionSupport implements ModelDriven<User>,
      */
     public String sellectUser(){
         if(chose == null){
-            this.setStatus("yes");
             System.out.println("刚进来-->" + status);
             this.user = userService.getUser(user.getEmail(),user.getUserPassword());
             System.out.println(user);

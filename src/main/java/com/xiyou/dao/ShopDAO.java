@@ -10,12 +10,12 @@ import com.xiyou.domain.Shop;
 public interface ShopDAO {
 
 	void delete(String shopId);
-	
+
 	/**
-	 * ���һ��shop��ͬʱ�޸�seller��shopId
+	 * 添加一条shop数据
 	 * @param shop
-	 */
-	String addShop(String selId,Shop shop);
+     */
+	void addShop(Shop shop);
 	
 	/**
 	 * 鏌ユ壘Shop閫氳繃shopId
