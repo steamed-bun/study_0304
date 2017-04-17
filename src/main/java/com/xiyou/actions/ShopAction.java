@@ -36,6 +36,7 @@ public class ShopAction extends ActionSupport implements SessionAware, RequestAw
 
 	/**
 	 * shop本是自动注册的，所以只有修改
+	 * url：shop-updateShop.action
 	 * 必须传参shop.shopId
 	 * @return
      */
@@ -45,7 +46,7 @@ public class ShopAction extends ActionSupport implements SessionAware, RequestAw
 		return "updateShop";
 	}
 	
-	public void prepareAddShop(){
+	public void prepareUpdateShop(){
 		shop = shopService.sellectShop(shopId);
 	}
 	

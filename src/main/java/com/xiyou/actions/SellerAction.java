@@ -63,7 +63,7 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
 	
 	}
 	public void prepareSellectSeller(){
-		if(selId == null){
+		if(seller.getSelId() == null){
 			seller = new Seller();
 		}else {
 			seller = selService.getSellerById(selId);

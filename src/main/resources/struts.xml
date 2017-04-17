@@ -78,8 +78,12 @@
 		</action>
 
 		<action name="book-*" class="bookAction" method="{1}">
-			<result name="addBook" type="redirectAction">book-getBooks.action</result>
-			<result name="getBooks">/showBooks.jsp</result>
+			<result name="addBook" type="json">
+				<param name="root">status</param>
+			</result>
+			<result name="getBooks" type="json">
+				<param name="root">books</param>
+			</result>
 			<result name="getSelect">/addBook.jsp</result>
 			<result name="deleteBook">/index.jsp</result>
 		</action>

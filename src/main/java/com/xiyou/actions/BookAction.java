@@ -29,7 +29,9 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 	private Book book;
 	Map<String, Object> session;
 	Map<String, Object> request;
+	List<Book> books;
 	private String bookId;
+	private String status = "yes";
 
 	public String deleteBook(){
 		bookService.deleteBook(bookId);
@@ -50,23 +52,32 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 	
 	public String  getBooks(){
 		String shopId = session.get("shopId").toString();
-		request.put("books", bookService.getBooks(shopId));
+		books = bookService.getBooks(shopId);
+		System.out.println(books);
+//		request.put("books", bookService.getBooks(shopId));
 		return "getBooks";
 	}
-	
+
+
 	public String addBook(){
 		//Seller seller = bookService.selectShopBySelId(session.get("selId").toString());
-		Shop shop = bookService.getShopByShopId(session.get("shopId").toString());
-		book.setShop(shop);
-		bookService.addBook(book);
+		if (book.getBookId() == null){
+			Shop shop = bookService.getShopByShopId(session.get("shopId").toString());
+			book.setShop(shop);
+			bookService.addBook(book);
+			this.setBook(null);
+		}else {
+			bookService.addBook(book);
+			this.setBook(null);
+		}
 		return "addBook";
 	}
 	
 	public void prepareAddBook(){
-		if(bookId == null){
+		if(book.getBookId() == null){
 			book = new Book(); 
 		}else {
-			bookService.getBook(bookId);
+			book = bookService.getBook(book.getBookId().toString());
 		}
 	}
 
@@ -105,4 +116,9 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 	public void setBookId(String bookId) {
 		this.bookId = bookId;
 	}
+
+	public String getStatus() {
+		return status;
+	}
+
 }
