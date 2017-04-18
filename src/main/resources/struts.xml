@@ -70,7 +70,6 @@
 		</action>
 
 		<action name="shop-*" class="shopAction" method="{1}">
-			<result name="selectSelect">/updateShop.jsp</result>
 			<result name="updateShop" type="json">
 				<param name="root">status</param>
 			</result>
@@ -85,7 +84,7 @@
 				<param name="root">status</param>
 			</result>
 			<result name="getBooks" type="json">
-				<param name="root">books</param>
+				<param name="root">dataMap</param>
 			</result>
 			<result name="getSelect">/addBook.jsp</result>
 			<result name="deleteBook">/index.jsp</result>
@@ -99,6 +98,12 @@
 			<result name="selectCounties" type="json">
 				<param name="root">counties</param>
 				<param name="excludeNullProperties">true</param>
+			</result>
+			<result name="selectProvince" type="json">
+				<param name="root">dataMap</param>
+			</result>
+			<result name="success" type="json">
+				<param name="root">dataMap</param>
 			</result>
 		</action>
 

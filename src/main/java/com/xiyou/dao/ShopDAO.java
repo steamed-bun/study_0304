@@ -27,9 +27,4 @@ public interface ShopDAO {
 
 	Shop selectShop(String shopId);
 
-	List<Province> selectProvinces();
-	
-	List<City> selectCity(String provinceId);
-	
-	List<County> selectCounty(String cityId);
 }

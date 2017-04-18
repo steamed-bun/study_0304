@@ -3,7 +3,7 @@ package com.xiyou.actions;
 import java.util.List;
 import java.util.Map;
 
-//import com.coocaa.fire.utils.JsonUtils;
+import com.xiyou.util.BookStoreWebUtils;
 import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.SessionAware;
 
@@ -19,17 +19,16 @@ import org.springframework.stereotype.Controller;
 
 @Controller("bookAction")
 public class BookAction extends ActionSupport implements ModelDriven<Book>, 
-						SessionAware, Preparable, RequestAware{
+						SessionAware, Preparable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
 	private BookService bookService;
 
-	private Book book;
+	Map<String, Object> dataMap;
 	Map<String, Object> session;
-	Map<String, Object> request;
-	List<Book> books;
+	private Book book;
 	private String bookId;
 	private String status = "yes";
 
@@ -38,23 +37,27 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 		return "deleteBook";
 	}
 	
-	public String getSelect(){
+/*	public String getSelect(){
 		List<Category> categories = bookService.selectCategory();
 		request.put("categories", categories);
 		return "getSelect";
-	}
+	}*/
 	
 	public void prepareGetSelect(){
 		if(bookId != null){
 			bookService.getBook(bookId);
 		}
 	}
-	
-	public String  getBooks(){
+
+	/**
+	 * 获取当前登录shop的所有书籍
+	 * url：book-getBooks.action
+	 * @return
+     */
+	public String getBooks(){
+		dataMap = BookStoreWebUtils.getDataMap(session);
 		String shopId = session.get("shopId").toString();
-		books = bookService.getBooks(shopId);
-		System.out.println(books);
-		request.put("books", bookService.getBooks(shopId));
+		dataMap.put("books",bookService.getBooks(shopId));
 		return "getBooks";
 	}
 
@@ -90,14 +93,8 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 		this.session = session;
 	}
 
-
 	@Override
 	public void prepare() throws Exception {
-	}
-
-	@Override
-	public void setRequest(Map<String, Object> request) {
-		this.request = request;
 	}
 
 	public Book getBook() {
@@ -118,6 +115,10 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 
 	public String getStatus() {
 		return status;
+	}
+
+	public Map<String, Object> getDataMap() {
+		return dataMap;
 	}
 
 }

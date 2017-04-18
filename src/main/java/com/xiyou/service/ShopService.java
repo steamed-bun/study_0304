@@ -24,18 +24,6 @@ public class ShopService {
 	public void delete(String shopId){
 		shopDAO.delete(shopId);
 	}
-	
-	public List<Province> selectProvinces() {
-		return shopDAO.selectProvinces();
-	}
-
-	public List<City> selectCity(String provinceId) {
-		return shopDAO.selectCity(provinceId);
-	}
-
-	public List<County> selectCounty(String cityId) {
-		return shopDAO.selectCounty(cityId);
-	}
 
 	public void addShop(Shop shop){
 		shopDAO.addShop(shop);

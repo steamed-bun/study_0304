@@ -43,12 +43,6 @@ public class ShopDAOImplTest {
 
     }
 
-    @Transactional
-    @Test
-    public void testSelectCounty() throws Exception {
-        System.out.println(shopDAO.selectCounty("1"));
-    }
-
     @Test
     public void testDelete() throws Exception {
 

@@ -40,36 +40,6 @@ public class ShopDAOImpl extends BaseDAOImpl implements ShopDAO {
 	}
 
 	@Override
-	public List<Province> selectProvinces() {
-		String hql = "from Province";
-		
-		@SuppressWarnings("unchecked")
-		List<Province> list = getSession().createQuery(hql).list();
-		return list;
-	}
-
-	@Override
-	public List<City> selectCity(String provinceId) {
-		String hql = "from City c left outer join fetch c.province WHERE c.province = :provinceId";
-
-		@SuppressWarnings("unchecked")
-		List<City> list = getSession().createQuery(hql).setString("provinceId", provinceId).list();
-		return list;
-	}
-
-	@Override
-	public List<County> selectCounty(String cityId) {
-		String hql = "from County c left outer join fetch c.city " +
-				"LEFT OUTER JOIN FETCH c.city.province " +
-				"WHERE c.city = :cityId";
-		
-		@SuppressWarnings("unchecked")
-		List<County> list = getSession().createQuery(hql).setString("cityId", cityId).list();
-		System.out.println("Impl-->" + list);//不能删,防止懒加载..
-		return list;
-	}
-
-	@Override
 	public void delete(String shopId) {
 		String hql = "DELETE Shop s WHERE s.shopId = :shopId";
 		getSession().createQuery(hql).setString("shopId", shopId).executeUpdate();

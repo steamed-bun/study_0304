@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import com.xiyou.domain.ShoppingCart;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class BookStoreWebUtils {
@@ -22,6 +23,16 @@ public class BookStoreWebUtils {
 		}
 		
 		return shoppingCart;
+	}
+
+	public static Map<String, Object> getDataMap(Map<String, Object> session){
+		Map<String, Object> dataMap = (Map<String, Object>) session.get("dataMap");
+		if (dataMap == null){
+			dataMap = new HashMap<String, Object>();
+			session.put("dataMap",dataMap);
+		}
+		dataMap.clear();
+		return dataMap;
 	}
 	
 }

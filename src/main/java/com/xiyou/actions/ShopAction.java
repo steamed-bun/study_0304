@@ -1,7 +1,10 @@
 package com.xiyou.actions;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import com.xiyou.domain.Province;
 import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.SessionAware;
 
@@ -14,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 @Controller("shopAction")
-public class ShopAction extends ActionSupport implements SessionAware, RequestAware,
+public class ShopAction extends ActionSupport implements SessionAware,
 			ModelDriven<Shop>, Preparable {
 
 	private static final long serialVersionUID = 1L;
@@ -25,8 +28,14 @@ public class ShopAction extends ActionSupport implements SessionAware, RequestAw
 	private Shop shop;
 	private String shopId;
 	private Map<String, Object> session;
+	private List<Province> provinces;
 	private String status;
-	Map<String, Object> request;
+
+	Map<String, Object> dataMap;
+
+	public ShopAction() {
+		this.dataMap = new HashMap<String, Object>();
+	}
 
 	public String delete(){
 		String shopId = session.get("shopId").toString();
@@ -60,17 +69,16 @@ public class ShopAction extends ActionSupport implements SessionAware, RequestAw
 	}
 
 
-	public String selectSelect(){
-		request.put("province", shopService.selectProvinces());
-		return "selectSelect";
-	}
+
 	
+/*
 	public void prepareSelectSelect(){
 		if(shopId != null){
 			shopService.sellectShop(shopId);
 		}
 	}
-	
+*/
+
 	@Override
 	public Shop getModel() {
 		return shop;
@@ -83,11 +91,6 @@ public class ShopAction extends ActionSupport implements SessionAware, RequestAw
 	
 	@Override
 	public void prepare() throws Exception {
-	}
-	
-	@Override
-	public void setRequest(Map<String, Object> arg0) {
-		this.request = arg0;
 	}
 
 	public void setShop(Shop shop) {
@@ -104,5 +107,15 @@ public class ShopAction extends ActionSupport implements SessionAware, RequestAw
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+
+
+	public List<Province> getProvinces() {
+		return provinces;
+	}
+
+	public Map<String, Object> getDataMap() {
+		return dataMap;
 	}
 }
