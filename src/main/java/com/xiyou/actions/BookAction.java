@@ -54,10 +54,9 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 		String shopId = session.get("shopId").toString();
 		books = bookService.getBooks(shopId);
 		System.out.println(books);
-//		request.put("books", bookService.getBooks(shopId));
+		request.put("books", bookService.getBooks(shopId));
 		return "getBooks";
 	}
-
 
 	public String addBook(){
 		//Seller seller = bookService.selectShopBySelId(session.get("selId").toString());

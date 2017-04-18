@@ -75,6 +75,9 @@
 				<param name="root">status</param>
 			</result>
 			<result name="delete">/selRegister.jsp</result>
+			<result name="selectShop" type="json">
+				<param name="root">shop</param>
+			</result>
 		</action>
 
 		<action name="book-*" class="bookAction" method="{1}">

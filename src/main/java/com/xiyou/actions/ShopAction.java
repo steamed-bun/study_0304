@@ -25,6 +25,7 @@ public class ShopAction extends ActionSupport implements SessionAware, RequestAw
 	private Shop shop;
 	private String shopId;
 	private Map<String, Object> session;
+	private String status;
 	Map<String, Object> request;
 
 	public String delete(){
@@ -49,7 +50,16 @@ public class ShopAction extends ActionSupport implements SessionAware, RequestAw
 	public void prepareUpdateShop(){
 		shop = shopService.sellectShop(shopId);
 	}
-	
+
+	public String selectShop(){
+		shopId = session.get("shopId").toString();
+		if(shopId != null){
+			shop = shopService.sellectShop(shopId);
+		}
+		return "selectShop";
+	}
+
+
 	public String selectSelect(){
 		request.put("province", shopService.selectProvinces());
 		return "selectSelect";
@@ -88,11 +98,11 @@ public class ShopAction extends ActionSupport implements SessionAware, RequestAw
 		return shop;
 	}
 
-	public String getShopId() {
-		return shopId;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setShopId(String shopId) {
-		this.shopId = shopId;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }
