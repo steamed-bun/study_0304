@@ -106,9 +106,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     <center>
-    	<%-- <s:file name="selImage" id="selImage"></s:file>
+    	 <s:file name="selImage" id="selImage"></s:file>
    		<s:file name="photo" label="photo" id="photo"></s:file>
-   		<s:select list="#request.province" listKey="provinceId" listValue="provinceName" 
+<%--   		<s:select list="#request.province" listKey="provinceId" listValue="provinceName"
 			name="shop.province.provinceId" label="省份" id="province" headerKey="" 
 			headerValue="请选择.."></s:select>
 		<select id="city">
@@ -116,7 +116,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</select>
 		<select id="county">
 			<option value="">请选择..</option>
-		</select> --%>
+		</select>--%>
 		<a href="test.html">删书</a>
 		<input type="button" value="testJson" onclick="getJson();">
 

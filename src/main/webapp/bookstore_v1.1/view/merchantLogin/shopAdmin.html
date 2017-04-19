@@ -4,15 +4,36 @@
 		<div class="shop-info-box">
 			<ul class="my-info-box">
 				<li><span>店铺图标：</span><span class="my-img"><img ng-src="{{ user.img }}" align="absmiddle" ng-click="showChangeImg()"/><i ng-click="showChangeImg()">修改</i></span></li>
-				<li><span>店铺名称：</span><span class="my-name"><input type="text" ng-model="user.name"/></span></li>
+				<li><span>店铺名称：</span><span class="my-name"><input type="text" ng-model="user.name" placeholder="请为您的小店起名" class="user-input"/></span></li>
 				<li><span>店铺等级：</span><span class="my-degree"><input type="text" ng-model="user.degree" readonly="true" /></li>
-				<li><span>所在省：</span><span  class="my-mail"><input type="text" ng-model="user.province"/></span><b>恭喜您！正确</b></li>
-				<li><span>所在市：</span><span class="my-id"><input type="text" ng-model="user.city"/></span><b>恭喜您！正确</b></li>
-				<li><span>所在区：</span><span class="my-pass"><input type="text" ng-model="user.countryName"/></span><b>恭喜您！正确</b></li>
-				<li><span>所在街道：</span><span class="my-repass"><input type="text" ng-model="user.street"/></span><b>恭喜您！正确</b></li>
-				<li><span>店铺简介：</span><span  class="my-age"><input type="text" ng-model="user.notice" maxlength="30" /></span><b>恭喜您！正确</b></li>
+				<li class="mer_position">
+					<span>所在地区：</span>
+					<div class="area-box">
+						<div class="province-box">
+							<div id="display-pro"><input type="text" ng-model="user.selectProvince" readonly="true" class="mer-province"/><i class="mer-pro-icon"></i></div>
+							<ul id="all-provinces">
+								<!--此处用js生成省的信息-->
+							</ul>
+						</div>
+						<div class="city-box">
+							<div id="display-city"><input type="text" ng-model="user.selectCity" readonly="true" class="mer-city"/><i class="mer-city-icon"></i></div>
+							<ul id="all-citys">
+								<!--此处用js生成市信息-->
+							</ul>
+						</div>
+						<div class="regi-box">
+							<div id="display-regi"><input type="text" ng-model="user.selectRegi" readonly="true" class="mer-regi"/><i class="mer-area-icon"></i></div>
+							<ul id="all-regis">
+								<!--此处用js生成区信息-->
+							</ul>
+						</div>
+					</div>
+				</li>
+				<li class="mer-detail-addr"><span>详细地址：</span><span class="my-repass"><textarea ng-model="user.street" placeholder="街道、门牌号等" class="user-input"></textarea></span></li>
+				<li><span>店铺简介：</span><span  class="my-age"><input type="text" ng-model="user.notice" maxlength="30" placeholder="用一句话简介您的小店，不超过30字"  class="user-input"/></span><b></b></li>
 			</ul>
 			<p class="save-info" ng-click="saveMerInfo()"><span>保存</span></p>
+			<p class="save-data">修改失败，请检查输入信息格式！</p>
 			<aside>
 				<div class="cust-box-addi" ng-style="changeImgBox">
 					<div class="cust-content">
@@ -126,7 +147,7 @@
 		text-align: center;
 		cursor:pointer;
 	}
-	.my-name>input,.my-age>input,.my-mail>input,.my-id>input,.my-pass>input,.my-repass>input,.my-degree>input{
+	.my-name>input,.my-age>input,.my-degree>input{
 		display:inline-block;
 		height:40px;
 		width:300px;
@@ -135,8 +156,26 @@
 		padding:5px 10px;
 		border-radius: 3px;
 	}
+	.mer-detail-addr{
+		position:relative;
+		margin-bottom: 20px;
+		height:90px !important;
+	}
+	.mer-detail-addr>span:first-child{
+		position:absolute;
+		top:0;
+	}
+	.my-repass>textarea{
+		width:485px;
+		height:90px;
+		border:#DDD solid 1px;
+		padding:9px;
+		border-radius: 3px;
+		margin-left:92px;
+		resize: none;
+	}
 	.my-age>input{
-		width:450px;
+		width:485px;
 	}
 	.save-info{
 		height:42px;
@@ -150,13 +189,13 @@
 		width:144px;
 		height:100%;
 		color:#FFF;
-		background: #fae7d6;
+		background: #E78170;
 		text-align:center;
 		border-radius: 2px;
 		cursor:pointer;
 	}
 	.save-info>span:hover{
-		background:#ddbea1;
+		background:#e48a78;
 	}
 	.my-info-box b{
 		display:inline-block;
@@ -297,4 +336,86 @@
 
 	/* 信息统计开始 */
 	/* 信息统计结束 */
+
+	/* 选择地区开始 */
+	.mer_position{
+		position:relative;
+	}
+	.mer_position>span{
+		position: absolute;
+		top:0;
+		left:0;
+	}
+	.area-box{
+		margin-top:5px;
+		display: inline-block;
+		height:40px;
+		margin-left:92px;
+	}
+	.area-box>div{
+		position: relative;
+		display:inline-block;
+		width:152px;
+		height:28px;
+		margin-right:10px;
+	}
+	.mer-province,.mer-city,.mer-regi{
+		position: absolute;
+		top:0;
+		width:132px;
+		height:100%;
+		border:#DDD solid 1px;
+		padding:2px 5px;
+	}
+	#display-pro,#display-city,#display-regi{
+		height:28px;
+	}
+	.mer-pro-icon,.mer-city-icon,.mer-area-icon{
+		position: absolute;
+		top:0;
+		right:0;
+		display:inline-block;
+		width:20px;
+		height:28px;
+		border-left:none;
+		background:url("./images/down.png") center center no-repeat;
+		border:#DDD solid 1px;
+		border-left:none;
+	}
+	#all-provinces,#all-citys,#all-regis{
+		position: absolute;
+		top:28px;
+		background:#FFFFFF;
+		width:152px;
+		height:200px;
+		z-index:100000;
+		border:#DDD solid 1px;
+		border-top:none;
+		overflow-y: auto;
+		display:none;
+	}
+	#all-provinces>li,#all-citys>li,#all-regis>li{
+		line-height: 16px;
+		padding:2px 5px;
+		font-size:12px;
+	}
+	#all-provinces>li:hover,#all-citys>li:hover,#all-regis>li:hover{
+		background:#a1c1c0;
+	}
+	/* 选择地区结束 */
+	.save-data{
+		position:fixed;
+		top:30px;
+		right:250px;
+		width:300px;
+		height:40px;
+		line-height: 40px;
+		font-size:16px;
+		border-radius: 5px;
+		background-color:#E78170;
+		text-align: center;
+		color:#FFF;
+		margin:0 auto;
+		display:none;
+	}
 </style>

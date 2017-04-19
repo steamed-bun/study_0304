@@ -10,6 +10,7 @@
 		<li><span>重复密码：</span><span class="my-repass"><input type="password" ng-model="user.rePwd" class="user-input" id="repwd"  data-id="5"/></span><b class="regi-hint repwd-hint"></b></li>
 	</ul>
 	<p class="save-info" ng-click="saveMerInfo()"><span>保存</span></p>
+	<p class="save-data">修改失败，请检查输入信息格式！</p>
 	<aside>
 		<div class="cust-box-addi" ng-style="changeImgBox">
 				<div class="cust-content">
@@ -106,13 +107,13 @@
 		width:144px;
 		height:100%;
 		color:#FFF;
-		background: #fae7d6;
+		background: #E78170;
 		text-align:center;
-		border-radius: 2px;
+		border-radius: 5px;
 		cursor:pointer;
 	}
 	.save-info>span:hover{
-		background:#ddbea1;
+		background:#e48a78;
 	}
 	.regi-hint{
 		display:inline-block;
@@ -262,4 +263,19 @@
 		text-align:center;
 	}
 	/*更换头像结束*/
+	.save-data{
+		position:fixed;
+		top:30px;
+		right:250px;
+		width:300px;
+		height:40px;
+		line-height: 40px;
+		font-size:16px;
+		border-radius: 5px;
+		background-color:#E78170;
+		text-align: center;
+		color:#FFF;
+		margin:0 auto;
+		display:none;
+	}
 </style>

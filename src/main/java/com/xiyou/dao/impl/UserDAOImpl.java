@@ -22,7 +22,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 
     @Override
     public void addUser(User user) {
-            getSession().saveOrUpdate(user);
+        getSession().saveOrUpdate(user);
     }
 
     @Override

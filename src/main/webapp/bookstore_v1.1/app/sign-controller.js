@@ -85,7 +85,7 @@ angular.module('sign-controller',[])
             //当用户的角色是商家时
             $http({
               method:'POST',
-              url:'sel-sellectSeller.action',
+              url:'sel-sellectSeller.action?chose=login',
               data:postData,//已经序列化的用户输入的数据
               headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
             }).success(function(data){
@@ -434,9 +434,9 @@ angular.module('sign-controller',[])
                     $window.location.href=newUrl;
                     console.log("注册成功！");
                 }else{
-                    //顾客注册失败，请重新注册
-                    $location.path("/regist");
-                    console.log("服务器失败");
+                    //注册失败，请重新注册
+                    $window.location.href=$location.absUrl();
+                    console.log("注册失败，服务器有问题，请重新注册！");         
                 } 
             });
         }
