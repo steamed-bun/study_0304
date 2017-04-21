@@ -29,7 +29,7 @@ public class ShopAction extends ActionSupport implements SessionAware,
 	private String shopId;
 	private Map<String, Object> session;
 	private List<Province> provinces;
-	private String status;
+	private String status = "yes";
 
 	Map<String, Object> dataMap;
 
@@ -57,7 +57,7 @@ public class ShopAction extends ActionSupport implements SessionAware,
 	}
 	
 	public void prepareUpdateShop(){
-		shop = shopService.sellectShop(shopId);
+		shop = shopService.sellectShop(session.get("shopId").toString());
 	}
 
 	public String selectShop(){

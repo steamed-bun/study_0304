@@ -61,7 +61,6 @@ public class UserAction extends ActionSupport implements ModelDriven<User>,
     /**
      * 已测
      * 1、登录方法  url: user-sellectUser.action?chose=login&user.email=123@qq.com&user.userPassword=123asd
-     * 需传入seller.selTel 和 seller.selPassword
      * return status {success: yes} {error: no} 会返回到data中
      * 2、其它地方需要User信息时，查找显示seller的信息
      * 更新url：user-sellectUser.action?chose=CHOSE

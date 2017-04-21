@@ -411,12 +411,16 @@ angular.module('merchantLogin-controller',[])
             console.log('我获得数据了');
             $scope.user={
                 img:data.shopImage,
+                //shopId:data.shopId,
                 name:data.shopName,
                 notice:data.notice,
                 degree:data.shopGrade,
                 selectProvince:data.province.provinceName,
+                selectProvinceId:data.province.provinceId,
                 selectCity:data.city.cityName,
+                selectCityId:data.city.cityId,
                 selectRegi:data.county.countyName,
+                selectRegiId:data.county.countyId,
                 street:data.street
             };
            // console.log($scope.user);
@@ -432,7 +436,6 @@ angular.module('merchantLogin-controller',[])
             selectRegi:'请选择',
 	  	    street:''
 	  	};
-
 	  	$scope.changeImgHint='成功了吗';
 	  	/*-----------基础的数据设置结束-----------*/
 	  	
@@ -496,7 +499,50 @@ angular.module('merchantLogin-controller',[])
 
 	  	/*-----保存商家信息开始--------*/
 	  	$scope.saveMerInfo=function(){
-	  		alert('已保存商家信息');
+            var postData='',
+                provinceId=$('.mer-province').attr('data-id'),
+                cityId=$('.mer-city').attr('data-id'),
+                regiId=$('.mer-regi').attr('data-id');
+            var shopInfo={
+                //shopId:$scope.user.shopId,
+                shopName:$scope.user.name,
+                notice:$scope.user.notice,
+                shopGrade:$scope.user.degree,
+                street:$scope.user.street
+            };
+            for (var key in shopInfo){
+                postData+='shop.'+key+'='+shopInfo[key]+'&';
+            }
+            postData+='shop.province.provinceId='+provinceId+'&shop.city.cityId='+cityId+'&shop.county.countyId='+regiId;
+            console.log(postData);
+            //将商家的信息提交到数据库中
+
+            $http({
+                method:'POST',
+                url:'shop-updateShop.action',
+                data:postData,//已序列化用户输入的数据
+                headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+            }).success(function(data){
+                if(data=='yes'){
+                    console.log("商家店铺信息修改成功");
+                    //修改成功，显示修改成功提示信息
+                    var $errorInfo=$('.save-data');
+                    $errorInfo.html('修改成功！');
+                    $errorInfo.slideDown();//错误提示信息缓慢出现
+                    setTimeout(function(){
+                        $errorInfo.slideUp();
+                    },3000);
+                }else{
+                    //修改失败，显示错误提示信息
+                    var $errorInfo=$('.save-data');
+                    $errorInfo.html('修改失败，请稍后再次修改！');
+                    $errorInfo.slideDown();//错误提示信息缓慢出现
+                    setTimeout(function(){
+                        $errorInfo.slideUp();
+                    },3000);
+                }
+            });
+
 	  	}
 	  	/*-----保存商家信息结束--------*/
   		
@@ -545,79 +591,126 @@ angular.module('merchantLogin-controller',[])
                 switch (inputElem){
                     case "$('.mer-province')":
                         $scope.user.selectProvince=$(event.target).html();
+                        $('.mer-province').attr('data-id',$(event.target).attr('data-id'));
                         $scope.$apply(); //传播Model的变化，否则view不能更新
                         break;
                     case "$('.mer-city')":
                         $scope.user.selectCity=$(event.target).html();
+                        $('.mer-city').attr('data-id',$(event.target).attr('data-id'));
                         $scope.$apply(); //传播Model的变化，否则view不能更新
                         break;
                     case "$('.mer-regi')":
                         $scope.user.selectRegi=$(event.target).html();
+                        $('.mer-regi').attr('data-id',$(event.target).attr('data-id'));
                         $scope.$apply(); //传播Model的变化，否则view不能更新
                         break;
                 }
                 hideArea($area,$icon);
             });
         }
-        //当省的选择框被点击时，显示省信息
+        //从数据库中获得省的信息
         $('#display-pro').click(function(){
             var html='';
             var i;
             var len;
-            var provinces;
-            //TODO:从数据库中拿到省的信息
-            /*
+            var provinces=[];
+            var provincesId=[];
+            var $options=$('#all-provinces').children();
+            if($options.length != 0){
+                //当省中已经有信息时，显示省信息，并将选择的写入input框中
+                displayArea($('#all-provinces'),$('.mer-pro-icon'));
+                selectInfo($('#all-provinces'),"$('.mer-province')",$('.mer-pro-icon'));
+                return ;
+            }
+            //从数据库中拿到省的信息
             $http({
                 method:'GET',
-                url:'shop-selectShop.action',
+                url:'select-getProvince.action',
             }).success(function(data){
-                console.log(data);
-                console.log('我获得数据了');
-
+                for(var i in data.province){
+                    provinces[i]=data.province[i].provinceName;
+                    provincesId[i]=data.province[i].provinceId;
+                }
+                for(i=0,len=provinces.length;i<len;i++){
+                    html+='<li data-id='+provincesId[i]+'>'+provinces[i]+'</li>'
+                }
+                $('#all-provinces').append(html);
+                displayArea($('#all-provinces'),$('.mer-pro-icon'));
+                selectInfo($('#all-provinces'),"$('.mer-province')",$('.mer-pro-icon'));
             });
-            */
-            provinces=['陕西1','陕西2','陕西3','陕西4','陕西5','陕西6','陕西7','陕西8','陕西9','陕西10','陕西11','陕西12','陕西13','陕西14'];
-            for(i=0,len=provinces.length;i<len;i++){
-                html+='<li>'+provinces[i]+'</li>'
-            }
-            $('#all-provinces').append(html);
-            displayArea($('#all-provinces'),$('.mer-pro-icon'));
-            selectInfo($('#all-provinces'),"$('.mer-province')",$('.mer-pro-icon'));
+            //provinces=['陕西1','陕西2','陕西3','陕西4','陕西5','陕西6','陕西7','陕西8','陕西9','陕西10','陕西11','陕西12','陕西13','陕西14'];
         });
+
         //当市的选择框被点击时，显示市信息
         $('#display-city').click(function(){
             var html='';
             var i;
             var len;
-            //TODO:从数据库中拿到省的信息
-            var citys=['西安1','西安2','西安3','西安4','西安5','西安6','西安7','西安8','西安9','西安10','西安11','西安12','西安13','西安14'];
-            for(i=0,len=citys.length;i<len;i++){
-                html+='<li>'+citys[i]+'</li>'
+            var citys=[];
+            var cityId=[];
+            var provinceId=$('.mer-province').attr('data-id');
+            var postData='provinceId='+provinceId;
+            var $options=$('#all-citys').children();
+            if($options != 0){
+                $options.remove();
             }
-            $('#all-citys').append(html);
-            displayArea($('#all-citys'),$('.mer-city-icon'));
-            selectInfo($('#all-citys'),"$('.mer-city')",$('.mer-city-icon'));
+            //从数据库中拿到市的信息
+            $http({
+                method:'POST',
+                url:'select-getCities.action',
+                data:postData,//序列化用户输入的数据
+                headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+            }).success(function(data){
+                for(var i in data.cities){
+                    citys[i]=data.cities[i].cityName;
+                    cityId[i]=data.cities[i].cityId;
+                }
+                for(i=0,len=citys.length;i<len;i++){
+                    html+='<li data-id='+cityId[i]+'>'+citys[i]+'</li>'
+                }
+                $('#all-citys').append(html);
+                displayArea($('#all-citys'),$('.mer-city-icon'));
+                selectInfo($('#all-citys'),"$('.mer-city')",$('.mer-city-icon'));
+            });
+            //citys=['西安1','西安2','西安3','西安4','西安5','西安6','西安7','西安8','西安9','西安10','西安11','西安12','西安13','西安14'];
         });
         //当区的选择框被点击时，显示区信息
         $('#display-regi').click(function(){
             var html='';
             var i;
             var len;
-            //TODO:从数据库中拿到省的信息
-            var regis=['长安1','长安2','长安3','长安4','长安5','长安6','长安7','长安8','长安9','长安10','长安11','长安12','长安13','长安14'];
-            for(i=0,len=regis.length;i<len;i++){
-                html+='<li>'+regis[i]+'</li>'
+            var regis=[];
+            var regisId=[];
+            var cityId=$('.mer-city').attr('data-id');
+            var postData='cityId='+cityId;
+            var $options=$('#all-regis').children();
+            if($options != 0){
+                $options.remove();
             }
-            $('#all-regis').append(html);
-            $('#all-regis').css('display','block');
-            displayArea($('#all-regis'),$('.mer-area-icon'));
-            selectInfo($('#all-regis'),"$('.mer-regi')",$('.mer-area-icon'));
+            //从数据库中拿到区的信息
+            $http({
+                method:'POST',
+                url:'select-getCounties.action',
+                data:postData,//序列化用户输入的数据
+                headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+            }).success(function(data){
+                for(var i in data.counties){
+                    regis[i]=data.counties[i].countyName;
+                    regisId[i]=data.counties[i].countyId;
+                }
+                for(i=0,len=regis.length;i<len;i++){
+                    html+='<li data-id='+regisId[i]+'>'+regis[i]+'</li>'
+                }
+                $('#all-regis').append(html);
+                $('#all-regis').css('display','block');
+                displayArea($('#all-regis'),$('.mer-area-icon'));
+                selectInfo($('#all-regis'),"$('.mer-regi')",$('.mer-area-icon'));
+            });
+            //var regis=['长安1','长安2','长安3','长安4','长安5','长安6','长安7','长安8','长安9','长安10','长安11','长安12','长安13','长安14'];
         });
         /*------显示省市区信息结束-------*/
     })
     .controller('dealSuccCtrl',function($scope){
-
     })
     .controller('dealingCtrl', function($scope) {
-
     });

@@ -1,0 +1,166 @@
+@charset "utf-8";
+/*大家都在说开始*/
+.we-say{
+	height:488px;
+	padding:36px 0;
+	background: #f5f5f5;
+}
+.we-say-title{
+	font-size:28px;
+	font-weight:700;
+}
+.we-say-prev,.we-say-next{
+	position:relative;
+	top:10px;
+	display:inline-block;
+	width:12px;
+	height:18px;
+	margin-left:15px;
+	cursor:pointer;
+}
+.we-say-prev{
+	background:url("../images/lArrow-s-weight.png") center center no-repeat;
+	background-size:cover;
+}
+.we-say-next{
+	background:url("../images/rArrow-s-weight.png") center center no-repeat;
+	background-size:cover;
+}
+.we-say-box{
+	margin-top:20px;
+	width:100%;
+	height:326px;
+	overflow:hidden;
+	background:#FFF;
+}
+.say-book-list{
+	position:relative;
+	left:0;
+	background:#FFF;
+	width:4401px;
+}
+.say-book-list>li{
+	float:left;
+	width:261px;
+	height:326px;
+	margin-right:15px;
+	box-shadow:0 -2px 2px #EEE,2px 0 2px #EEE,0 2px 2px #EEE,-2px 0 2px #EEE;
+}
+.say-img-box{
+	width:100%;
+	height:266px;
+	overflow:hidden;
+}
+.say-img-box>img{
+	width:100%;
+	height:100%;
+	transition:all 0.8s;
+}
+.say-img-box>img:hover{
+	width:110%;
+	height:110%;
+}
+.say-book-list>li:last-child{
+	margin-right:0;
+}
+.say-book-info{
+	line-height:60px;
+	padding:0 10px;
+}
+.say-book-info>a{
+	float:left;
+	font-size:14px;
+	font-weight:700;
+}
+.say-book-info>a:hover{
+	color:#B4A078;
+}
+.say-book-info>i{
+	float:right;
+	font-size:12px;
+	color:#D4282D;
+	font-style:normal;
+}
+/*大家都在说结束*/
+.no-book{
+	padding:30px 0 40px 0;
+	height:197px;
+	line-height: 127px;
+	text-align: center;
+	font-size: 24px;
+	background: #f5f5f5;
+}
+.no-book-hint{
+	height:100%;
+	background: #FFF;
+} 
+/*买家登录后的开始*/
+.user-box{
+	position:relative;
+}
+.user-txt:hover{
+	color:#B4A078;
+	cursor:pointer;
+}
+.user-bus,.aside-user-bus{
+	position:absolute;
+	top:36px;
+	left:-18px;
+	width:100px;
+	height:175px;
+	border:#EEE solid 1px;
+	box-shadow:0 1px 2px #EEE,1px 0 2px #EEE,0 -1px 2px #EEE,-1px 0 2px #EEE;
+	background:#FFF;
+	z-index:3000;
+	padding:5px 10px 0 10px;
+	display:none;
+}
+.aside-user-bus{
+	top:40px;
+	left:-28px;
+}
+.user-bus>p,.aside-user-bus>p{
+	position:absolute;
+	left:30px;
+	top:-24px;
+	display:block;
+	border-width:12px;
+	border-style:solid;
+	border-color:transparent transparent #FFF transparent;
+}
+.user-bus>li,.aside-user-bus>li{
+	width:100%;
+	height:32px;
+	line-height:32px;
+	border-bottom:#EEE solid 1px;
+	text-align:center;
+}
+.user-bus>li:last-of-type,.aside-user-bus>li:last-of-type{
+	border-bottom:none;
+}
+.user-bus>li>a,.aside-user-bus>li>a{
+	display:block;
+	width:100%;
+	height:100%;
+}
+.user-bus>li>a:hover,.aside-user-bus>li>a:hover{
+	color:#B4A078;
+}
+.aside-user-box{
+	display:inline-block;
+	position:relative;
+}
+.aside-user-img{
+	position:relative;
+	top:-3px;
+	display:block;
+	width:30px;
+	height:30px;
+	background:url("../images/userImg.jpg") center center no-repeat;
+	background-size:contain;
+	border-radius:50%;
+	overflow:hidden;
+	cursor:pointer;
+}
+/*买家登录后的结束*/
+

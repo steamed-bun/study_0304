@@ -46,65 +46,72 @@ angular.module('sign-controller',[])
       $scope.checkUser=function(){
           //将用户输入的信息拼接成查询字符串
           var seller={};
+          var user={};
           var postData='';
           var absUrl=$location.absUrl();
           var markIndex=absUrl.lastIndexOf('#');
           var newUrl;
-          seller.selTel=$scope.user.email;
-          seller.selPassword=$scope.user.pwd;
-          $.each(seller,function(key,value) {
-                postData+='seller.'+key+'='+value+'&'
-          });
-          postData=postData.slice(0,postData.length-1);
-          console.log(postData);
           //根据用户的角色进入不同的页面
           if($scope.userRole){
-            //当用户的角色是顾客时
-            $http({
-              method:'POST',
-              url:'sel-sellectSeller.action',
-              data:$.param($scope.user),//序列化用户输入的数据
-              headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-            }).success(function(data){
-               if(data=='yes'){
-                  //TODO   页面跳转到顾客登录页
-                  location.href="index_login.html";
-                  //alert("顾客登录成功！");
-               }else{
-                  //显示错误提示信息
-                  //此处是用jquery实现
-                  var $errorInfo=$('.login-error-txt');
-                  $errorInfo.html('登录失败，用户名或密码错误！');
-                  $errorInfo.slideDown();//错误提示信息缓慢出现
-                  setTimeout(function(){
-                    $errorInfo.slideUp();
-                  },3000);
-               }
-            });
+              //当用户的角色是顾客时
+              user.email=$scope.user.email;
+              user.userPassword=$scope.user.pwd;
+              $.each(user,function(key,value) {
+                  postData+='user.'+key+'='+value+'&'
+              });
+              postData=postData.slice(0,postData.length-1);
+              console.log(postData);
+              $http({
+                  method:'POST',
+                  url:'user-sellectUser.action?chose=login',
+                  data:postData,//序列化用户输入的数据
+                  headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+              }).success(function(data){
+                  console.log(data);
+                   if(data=='yes'){
+                       console.log("顾客登录成功！");
+                       location.href="index_login.html";
+                   }else{
+                      //显示错误提示信息
+                      //此处是用jquery实现
+                      var $errorInfo=$('.login-error-txt');
+                      $errorInfo.html('登录失败，用户名或密码错误！');
+                      $errorInfo.slideDown();//错误提示信息缓慢出现
+                      setTimeout(function(){
+                        $errorInfo.slideUp();
+                      },3000);
+                   }
+              });
           }else{
-            //当用户的角色是商家时
-            $http({
-              method:'POST',
-              url:'sel-sellectSeller.action?chose=login',
-              data:postData,//已经序列化的用户输入的数据
-              headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-            }).success(function(data){
-                newUrl=absUrl.slice(0,markIndex-9)+'merchant_login.html';
-                if(data=='yes'){
-                  //页面跳转到商家登录页
-                  $window.location.href=newUrl;
-                  console.log('商家登录成功');
-                }else{
-                  //显示错误提示信息
-                  //此处是用jquery实现
-                  var $errorInfo=$('.login-error-txt');
-                  $errorInfo.html('登录失败，用户名或密码错误！');
-                  $errorInfo.slideDown();//错误提示信息缓慢出现
-                  setTimeout(function(){
-                    $errorInfo.slideUp();
-                  },3000);
-                }
-            });
+              //当用户的角色是商家时
+              seller.selTel=$scope.user.email;
+              seller.selPassword=$scope.user.pwd;
+              $.each(seller,function(key,value) {
+                  postData+='seller.'+key+'='+value+'&'
+              });
+              postData=postData.slice(0,postData.length-1);
+              $http({
+                  method:'POST',
+                  url:'sel-sellectSeller.action?chose=login',
+                  data:postData,//已经序列化的用户输入的数据
+                  headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+              }).success(function(data){
+                  newUrl=absUrl.slice(0,markIndex-9)+'merchant_login.html';
+                  if(data=='yes'){
+                      //页面跳转到商家登录页
+                      $window.location.href=newUrl;
+                      console.log('商家登录成功');
+                  }else{
+                      //显示错误提示信息
+                      //此处是用jquery实现
+                      var $errorInfo=$('.login-error-txt');
+                      $errorInfo.html('登录失败，用户名或密码错误！');
+                      $errorInfo.slideDown();//错误提示信息缓慢出现
+                      setTimeout(function(){
+                        $errorInfo.slideUp();
+                      },3000);
+                  }
+              });
           }
           //根据用户的选择，来确定是否记住密码----用的是jquery中的cookie插件
           if( $scope.userIsRem){
@@ -388,6 +395,7 @@ angular.module('sign-controller',[])
             var postData='';
             var postUrl;
             var seller={};
+            var user={};
             var absUrl;
             var markIndex;
             var newUrl;
@@ -396,7 +404,7 @@ angular.module('sign-controller',[])
                 postUrl='sel-addSeller.action';
                 console.log($scope.isThrough);
                 if($scope.isThrough[0]&&$scope.isThrough[1]&&$scope.isThrough[2]&&$scope.isThrough[3]&&$scope.isThrough[4]&&$scope.isThrough[5]&&$scope.isThrough[6]){
-                    console.log('可以提交');
+                    console.log('商家可以注册');
                     seller.selIdCard=$scope.mer.sellerId;
                     seller.selAge=$scope.mer.sellerAge;
                     seller.selSex=$scope.mer.sellerSex;
@@ -411,12 +419,27 @@ angular.module('sign-controller',[])
                     console.log(postData);  
                     console.log(seller);
                 }else{
-                    console.log('不可以提交');
+                    console.log('商家不可以注册');
                 }
             }else{
                 //当是顾客时
-                postData=$scope.regi;
-                postUrl='data/sign/check_regist.php';
+                postUrl='user-addUser.action';
+                console.log($scope.isThrough);
+                if($scope.isThrough[3]&&$scope.isThrough[4]&&$scope.isThrough[5]&&$scope.isThrough[6]){
+                    console.log('顾客可以注册');
+                    user.userName=$scope.regi.uname;
+                    user.userPassword=$scope.regi.pwd;
+                    user.email=$scope.regi.uEmail;
+                    //将用户输入的信息拼接成查询字符串
+                    $.each(user,function(key,value) {
+                        postData+='user.'+key+'='+value+'&'
+                    });
+                    postData+='userId='+'';
+                    console.log(postData);
+                    console.log(user);
+                }else{
+                    console.log('顾客不可以注册');
+                }
             }
 
             $http({

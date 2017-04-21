@@ -10,19 +10,19 @@
 					<span>所在地区：</span>
 					<div class="area-box">
 						<div class="province-box">
-							<div id="display-pro"><input type="text" ng-model="user.selectProvince" readonly="true" class="mer-province"/><i class="mer-pro-icon"></i></div>
+							<div id="display-pro"><input type="text" ng-model="user.selectProvince" data-id="{{ user.selectProvinceId }}" readonly="true" class="mer-province"/><i class="mer-pro-icon"></i></div>
 							<ul id="all-provinces">
 								<!--此处用js生成省的信息-->
 							</ul>
 						</div>
 						<div class="city-box">
-							<div id="display-city"><input type="text" ng-model="user.selectCity" readonly="true" class="mer-city"/><i class="mer-city-icon"></i></div>
+							<div id="display-city"><input type="text" ng-model="user.selectCity" data-id="{{ user.selectCityId }}" readonly="true" class="mer-city"/><i class="mer-city-icon"></i></div>
 							<ul id="all-citys">
 								<!--此处用js生成市信息-->
 							</ul>
 						</div>
 						<div class="regi-box">
-							<div id="display-regi"><input type="text" ng-model="user.selectRegi" readonly="true" class="mer-regi"/><i class="mer-area-icon"></i></div>
+							<div id="display-regi"><input type="text" ng-model="user.selectRegi" data-id="{{ user.selectRegiId }}" readonly="true" class="mer-regi"/><i class="mer-area-icon"></i></div>
 							<ul id="all-regis">
 								<!--此处用js生成区信息-->
 							</ul>
@@ -387,7 +387,7 @@
 		top:28px;
 		background:#FFFFFF;
 		width:152px;
-		height:200px;
+		max-height:200px;
 		z-index:100000;
 		border:#DDD solid 1px;
 		border-top:none;

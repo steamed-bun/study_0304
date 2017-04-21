@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>江南缘书城</title>
+		<link rel="stylesheet" href="./css/reset.css"/>
+		<link rel="stylesheet" href="./css/base.css"/>
+		<link rel="stylesheet" href="./css/cypager.min.css"/>
+		<link rel="stylesheet" href="./css/new_book_list.css"/>
+	</head>
+	<body ng-app="bookList">
+		<!-- 头部开始 -->
+		<header>
+			<div class="header-nav">
+				<div class="container clearfix">
+				<span class="fl">好的生活，与书为伴</span>
+				<div class="fr">
+					<div class="user-box">
+						<span class="user-txt">花开半夏</span>
+						<ul class="user-bus">
+							<li><a href="javascript:;">个人资料</a></li>
+							<li><a href="javascript:;">订单管理</a></li>
+							<li><a href="javascript:;">地址管理</a></li>
+							<li><a href="javascript:;">账号安全</a></li>
+							<li><a href="javascript:;">退出登录</a></li>
+							<p></p>
+						</ul>
+					</div>
+				</div>
+			</div>
+			</div>
+			<div class="header-logo-box container">
+				<div class="logo-box-top clearfix">
+					<div class="fl">
+						<img src="images/logo.png"/>
+					</div>
+					<div class="fr">
+						<input type="text" placeholder="请输入关键字进行搜索" class="keywords-search"/>
+						<a class="search-icon" href="javascript:;"><a>
+						<a class="shopcar-icon" href="javascript:;"><a>
+					</div>
+				</div>
+				<nav>
+					<ul class="header-items clearfix">
+						<li><a href="javascript:;" class="cur-header-item">首页</a></li>
+						<li><a href="javascript:;">教育</a></li>
+						<li><a href="javascript:;">小说</a></li>
+						<li><a href="javascript:;">文艺</a></li>
+						<li><a href="javascript:;">青春</a></li>
+						<li><a href="javascript:;">童书</a></li>
+						<li><a href="javascript:;">生活</a></li>
+						<li><a href="javascript:;">人文社科</a></li>
+						<li><a href="javascript:;">经管</a></li>
+						<li><a href="javascript:;">励志</a></li>
+						<li><a href="javascript:;">科技</a></li>
+						<li><a href="javascript:;">工具书</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+		<!-- 头部结束 -->
+
+		<!-- 书籍列表开始 -->
+		<section>
+			<div class="container" ng-controller="bookListCtrl">
+				<div class="mainbox">
+					<ul class="clearfix">
+						<li><span style="background-image:url('./images/spotlight/s00001.jpg');background-size:cover;"></span></li>
+						<li><span style="background-image:url('./images/spotlight/s00002.jpg');background-size:cover;"></span></li>
+						<li><span style="background-image:url('./images/spotlight/s00003.jpg');background-size:cover;"></span></li>
+						<li><span style="background-image:url('./images/spotlight/s00004.jpg');background-size:cover;"></span></li>
+						<li><span style="background-image:url('./images/spotlight/s00005.jpg');background-size:cover;"></span></li>
+					</ul>
+					<div class="butBox">
+						<a class="butLeft">&lt;</a>
+						<a class="butRight">&gt;</a>
+					</div>
+					<h2>新品首发</h2>
+				</div>
+				<div class="more-books">
+					<div class="select-condition">
+						<p class="new-book-title"><span>新书推荐</span><span>周一周四，准时上新</span></p>
+						<div class="clearfix">
+							<p class="classify fl">
+								<span>分类：</span>
+								<a class="all-books">全部</a>
+								<a>教育[1]</a>
+								<a>小说[3]</a>
+								<a>文艺[13]</a>
+								<a>青春[6]</a>
+								<a>童书[5]</a>
+								<a>生活[2]</a>
+								<a>人文社科[6]</a>
+								<a>经管[15]</a>
+								<a>励志[21]</a>
+								<a>科技[5]</a>
+								<a>工具书[8]</a>
+							</p>
+							<p class="sort fr">
+								<span>排序：</span>
+								<a class="sort-default">默认</a>
+								<a class="book-price">价格</a>
+							</p>
+						</div>
+					</div>
+					<div>
+						<ul class="book-list clearfix edu-book-list">
+							<li>
+								<a href="javascript:;">
+									<img src="images/index/y00001.jpg"/>
+									<i class="good-book"></i>
+								</a>
+								<div class="book-sell-info">
+									<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+									<h4>追风筝的人</h4>
+									<span>￥23.5</span>
+								</div>
+							</li>
+							<li>
+								<a href="javascript:;">
+									<img src="images/index/y00002.jpg"/>
+									<i></i>
+								</a>
+								<div class="book-sell-info">
+									<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+									<h4>追风筝的人</h4>
+									<span>￥23.5</span>
+								</div>
+							</li>
+							<li>
+								<a href="javascript:;">
+									<img src="images/index/y00003.jpg"/>
+									<i class="good-book"></i>
+								</a>
+								<div class="book-sell-info">
+									<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+									<h4>追风筝的人</h4>
+									<span>￥23.5</span>
+								</div>
+							</li>
+							<li>
+								<a href="javascript:;">
+									<img src="images/index/y00004.jpg"/>
+									<i class="good-book"></i>
+								</a>
+								<div class="book-sell-info">
+									<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+									<h4>追风筝的人</h4>
+									<span>￥23.5</span>
+								</div>
+							</li>
+							<li>
+								<a href="javascript:;">
+									<img src="images/index/y00004.jpg"/>
+									<i class="good-book"></i>
+								</a>
+								<div class="book-sell-info">
+									<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+									<h4>追风筝的人</h4>
+									<span>￥23.5</span>
+								</div>
+							</li>
+							<li>
+								<a href="javascript:;">
+									<img src="images/index/y00004.jpg"/>
+									<i class="good-book"></i>
+								</a>
+								<div class="book-sell-info">
+									<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+									<h4>追风筝的人</h4>
+									<span>￥23.5</span>
+								</div>
+							</li>
+							<li>
+								<a href="javascript:;">
+									<img src="images/index/y00004.jpg"/>
+									<i class="good-book"></i>
+								</a>
+								<div class="book-sell-info">
+									<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+									<h4>追风筝的人</h4>
+									<span>￥23.5</span>
+								</div>
+							</li>
+							<li>
+								<a href="javascript:;">
+									<img src="images/index/y00004.jpg"/>
+									<i class="good-book"></i>
+								</a>
+								<div class="book-sell-info">
+									<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+									<h4>追风筝的人</h4>
+									<span>￥23.5</span>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="page-area">
+				</div>
+			</div>
+		</section>
+		<!-- 书籍列表结束 -->
+
+		<!-- 页面滚动时的固定定位部分开始 -->
+		<aside>
+			<div class="container clearfix">
+				<ul class="header-items fl clearfix">
+					<li><a href="javascript:;" class="cur-header-item">首页</a></li>
+					<li><a href="javascript:;">教育</a></li>
+					<li><a href="javascript:;">小说</a></li>
+					<li><a href="javascript:;">文艺</a></li>
+					<li><a href="javascript:;">青春</a></li>
+					<li><a href="javascript:;">童书</a></li>
+					<li><a href="javascript:;">生活</a></li>
+					<li><a href="javascript:;">人文</a></li>
+					<li><a href="javascript:;">经管</a></li>
+					<li><a href="javascript:;">励志</a></li>
+					<li><a href="javascript:;">科技</a></li>
+					<li><a href="javascript:;">工具书</a></li>
+				</ul>
+				<div class="aside-img-box fr">
+					<div class="aside-user-box">
+						<span class="aside-user-img"></span>
+						<ul class="aside-user-bus">
+							<li><a href="javascript:;">个人资料</a></li>
+							<li><a href="javascript:;">订单管理</a></li>
+							<li><a href="javascript:;">地址管理</a></li>
+							<li><a href="javascript:;">账号安全</a></li>
+							<li><a href="javascript:;">退出登录</a></li>
+							<p></p>
+						</ul>
+					</div>
+					<a href="javascript:;"></a>
+				</div>
+			</div>
+		</aside>
+		<!-- 页面滚动时的固定定位部分结束 -->
+
+		<!-- 页面底部开始-->
+		<footer>
+			<div class="container clearfix footer-box">
+				<div class="footer-left-box fl">
+					<span>客服电话</span>
+					<span>400-820-531</span>
+					<span>9:00-22:00</span>
+					<span><a href="#">用户反馈</a></span>
+				</div>
+				<div class="footer-middle-box fl">
+					<span>何为江南缘</span>
+					<p>江南缘书店品牌，秉承网易一贯的严谨态度，我们深入世界各地，从源头全程严格把控商品生产环节，力求帮消费者甄选到最优质的商品 </p>
+					<p class="footer-attention">
+						<span>关注我们：</span>
+						<span class="footer-weixin footer-icon">
+							<i></i>
+						</span>
+						<span class="footer-qq footer-icon">
+							<i></i>
+						</span>
+					</p>
+				</div>
+				<div class="footer-right-box fl clearfix">
+					<div class="fl">
+						<span>商家</span>
+						<p><a href="">商家入驻</a></p>
+						<p><a href="">商家后台</a></p>
+					</div>
+					<div class="fr">
+						<span>品质保证</span>
+						<i class="footer-qa"></i>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<!-- 页面底部结束-->
+		<script src="./js/jquery-1.12.3.js"></script>
+		<script src="./js/angular.js"></script>
+		<script src="./js/jquery.transit.js"></script>
+		<script src="./js/cypager.min.js"></script>
+		<script src="./app/base.js"></script>
+		<script src="./app/new_book_list.js"></script>
+	</body>
+</html>
