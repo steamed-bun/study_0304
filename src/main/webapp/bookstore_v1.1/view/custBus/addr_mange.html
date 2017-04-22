@@ -1,4 +1,4 @@
-<!-- 注：此页面没有地址、新建地址的情况我已写了 -->
+<!-- 注：此页面没有地址、已有地址的情况我已写了 -->
 <div>
 	<div class="no-addr-box"  style="display:none">
 		<div>
@@ -7,21 +7,46 @@
 			<p class="addr-add-text"><a href="javascript:;">+ 新建地址</a></p>
 		</div>
 	</div>
-	<div class="operate-addr-box" style="display:none">
+	<div class="operate-addr-box" >
 		<div class="mask"></div>
 		<div class="add-addr">
 			<p class="addr-title"><span>新建地址</span><i></i></p>
 			<from>
-				<ul class="input-addr">
-					<li><span>收货地址：</span><textarea></textarea></li>
-					<li><span>收货人：</span><input type="text"/></li>
-					<li><span>手机号:</span><input type="text"/></li>
+				<ul class="input-addr clearfix">
+					<li class="mer_position">
+						<span>所在地区：</span>
+						<div class="area-box">
+							<div class="province-box">
+								<div id="display-pro"><input type="text" ng-model="user.selectProvince" data-id="{{ user.selectProvinceId }}" readonly="true" class="mer-province"/><i class="mer-pro-icon"></i></div>
+								<ul id="all-provinces">
+									<!--此处用js生成省的信息-->
+								</ul>
+							</div>
+							<div class="city-box">
+								<div id="display-city"><input type="text" ng-model="user.selectCity" data-id="{{ user.selectCityId }}" readonly="true" class="mer-city"/><i class="mer-city-icon"></i></div>
+								<ul id="all-citys">
+									<!--此处用js生成市信息-->
+								</ul>
+							</div>
+							<div class="regi-box">
+								<div id="display-regi"><input type="text" ng-model="user.selectRegi" data-id="{{ user.selectRegiId }}" readonly="true" class="mer-regi"/><i class="mer-area-icon"></i></div>
+								<ul id="all-regis">
+									<!--此处用js生成区信息-->
+								</ul>
+							</div>
+						</div>
+					</li>
+					<li class="mer-detail-addr"><span>详细地址：</span><textarea ng-model="user.street" placeholder="街道、门牌号等" class="user-input"></textarea></li>
+					<li class="clearfix">
+						<p class="user-name fl"><span>收货人：</span><input type="text" placeholder="请输入您的姓名" /></p>
+						<p class="user-tel fl"><span>手机号:</span><input type="text" placeholder="请输入您的手机号" /></p>
+					</li>
 				</ul>
 			</from>
 			<p class="addr-default"><span><input type="checkbox" id="default"/><label for="default">设为默认</label></span><span class="add-addr-sure">确认</span><span class="add-addr-cancel">取消</span></p>
 		</div>
 	</div>
-	<div class="display-addr">
+	<div class="display-addr" style="display:none">
 		<p class="display-addr-hint clearfix"><span class="fl">已保存收货地址（最多保存3条）</span><span class="fr">+ 新建地址</span></p>
 		<table class="addr-info-box">
 			<thead>
@@ -104,40 +129,131 @@
 		background:url("./images/close.png") center center no-repeat;
 		cursor:pointer;
 	}
+	/*新建地址主要部分开始*/
 	.input-addr>li{
-		position:relative;
-		height:41px;
-		line-height:41px;
+		position: relative;
 		font-size:14px;
-		margin-bottom:14px;
-	}
-	.input-addr>li:first-child{
-		height:100px;
 	}
 	.input-addr>li>span{
 		position:absolute;
+		display:inline-block;
+		width:84px;
+		margin-right:6px;
+		height:28px;
+		line-height: 28px;
+	}
+	.mer_position{
+		position:relative;
+	}
+	.mer_position>span{
+		position: absolute;
 		top:0;
 		left:0;
-		width:80px;
+	}
+	.area-box{
+		margin-top:5px;
+		display: inline-block;
+		height:40px;
+		margin-left:92px;
+	}
+	.area-box>div{
+		position: relative;
+		display:inline-block;
+		width:149px;
+		height:28px;
+		margin-right:10px;
+	}
+	.mer-province,.mer-city,.mer-regi{
+		position: absolute;
+		top:0;
+		width:131px;
 		height:100%;
+		border:1px solid #e8e8e8;
+		padding:2px 5px;
 	}
-	.input-addr>li>input,.input-addr>li>textarea{
-		border:#DDD solid 1px;
-		width:500px;
-		margin-left:80px;
-		border-radius: 3px;
-		padding:5px 10px;
+	#display-pro,#display-city,#display-regi{
+		height:28px;
 	}
-	.input-addr>li>textarea{
-		height:100px;
+	.mer-pro-icon,.mer-city-icon,.mer-area-icon{
+		position: absolute;
+		top:0;
+		right:0;
+		display:inline-block;
+		width:20px;
+		height:28px;
+		border-left:none;
+		background:url("./images/down.png") center center no-repeat;
+		border:1px solid #e8e8e8;
+		border-left:none;
+	}
+	#all-provinces,#all-citys,#all-regis{
+		position: absolute;
+		top:28px;
+		background:#FFFFFF;
+		width:152px;
+		max-height:200px;
+		z-index:100000;
+		border:1px solid #e8e8e8;
+		border-top:none;
+		overflow-y: auto;
+		display:none;
+	}
+	#all-provinces>li,#all-citys>li,#all-regis>li{
+		line-height: 16px;
+		padding:2px 5px;
+		font-size:12px;
+	}
+	#all-provinces>li:hover,#all-citys>li:hover,#all-regis>li:hover{
+		background:#a1c1c0;
+	}
+	.mer-detail-addr>textarea{
+		height:90px;
+		width:474px;
+		border:1px solid #e8e8e8;
 		resize: none;
+		margin-left: 92px;
+		border-radius: 2px;
+		padding:2px 5px;
 	}
-	.input-addr>li>input{
-		height:100%;
+	.input-addr>li:last-child{
+		height: 28px;
+		line-height: 28px;
+		margin-top:10px;
 	}
+	.user-name>span,.user-tel>span{
+		display:inline-block;
+		width:84px;
+		height:28px;
+		line-height: 28px;
+		font-size:14px;
+		letter-spacing: 4px;
+	}
+	.user-tel>span{
+		text-align: right;
+	}
+	.user-name>input{
+		width:150px;
+		height:28px;
+		line-height: 28px;
+		border:1px solid #e8e8e8;
+		margin-left: 7px;
+		border-radius: 2px;
+		padding:2px 5px;
+	}
+	.user-tel>input{
+		margin:0 3px 0 12px;
+		width:228px;
+		height:28px;
+		line-height: 28px;
+		border:1px solid #e8e8e8;
+		border-radius: 2px;
+		padding:2px 5px;
+	}
+	/*新建地址主要部分结束*/
 	.addr-default input{
 		position: relative;
 		top:-6px;
+		left:3px;
 	}
 	#default+label{
 		position: relative;
@@ -148,7 +264,7 @@
 		display:inline-block;
 		width:144px;
 		height:42px;
-		line-height:42px;
+		line-height:40px;
 		border-radius: 3px;
 		cursor: pointer;
 		text-align: center;
@@ -158,7 +274,7 @@
 		background:#c0ae8a;
 		border:#c0ae8a solid 1px;
 		color:#FFF;
-		margin:20px 0 0 206px;
+		margin:42px 0 0 186px;
 	}
 	.add-addr-cancel{
 		background:#fff;
