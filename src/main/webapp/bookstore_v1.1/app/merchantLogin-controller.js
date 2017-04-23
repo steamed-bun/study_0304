@@ -1,40 +1,40 @@
 angular.module('merchantLogin-controller',[])
-  .controller('merInfoCtrl',function($scope,$http){
+    .controller('merInfoCtrl',function($scope,$http){
   		/*-----------基础的数据设置开始----------*/
 	  	//从数据库中获得该商家的信息
 	  	$http({
             method:'GET',
             url:'sel-sellectSeller.action?chose=CHOSE',
-      }).success(function(data){
-          console.log(data);
-          console.log('我获得数据了');
-          $scope.user={
-    		  	  img:data.selImage,
-    		  	  name:data.selName,
-    		  	  age:data.selAge,
-    		  	  sex:data.selSex,
-    		  	  mail:data.selTel,
-    		  	  id:data.selIdCard,
-    		  	  pwd:data.selPassword,
-    		  	  rePwd:data.selPassword,
-              keyId:data.selId
-		  	  };
-		  	  console.log($scope.user);
-      });
+        }).success(function(data){
+            console.log(data);
+            console.log('我获得数据了');
+            $scope.user={
+                img:data.selImage,
+                name:data.selName,
+                age:data.selAge,
+                sex:data.selSex,
+                mail:data.selTel,
+                id:data.selIdCard,
+                pwd:data.selPassword,
+                rePwd:data.selPassword,
+                keyId:data.selId
+            };
+            console.log($scope.user);
+        });
 
-        
+
 	  	$scope.user={
-	  	  img:'./images/userImg.jpg',
-	  	  name:'小布点儿',
-	  	  age:20,
-	  	  sex:'女',
-	  	  mail:'2814241400@qq.com',
-	  	  id:'611111199301131229',
-	  	  pwd:'hzx121314?',
-	  	  rePwd:'hzx121314?',
-        keyId:'112'
+	  	    img:'./images/userImg.jpg',
+	  	    name:'小布点儿',
+	  	    age:20,
+	  	    sex:'女',
+	  	    mail:'2814241400@qq.com',
+	  	    id:'611111199301131229',
+	  	    pwd:'hzx121314?',
+	  	    rePwd:'hzx121314?',
+            keyId:'112'
 	  	};
-	  	
+
 	  	$scope.changeImgHint='成功了吗';
 	  	/*-----------基础的数据设置结束-----------*/
 	  	
@@ -58,8 +58,8 @@ angular.module('merchantLogin-controller',[])
 	  	//对所选择的图片做处理
 	  	var options={
 	  		 thumbBox: '.thumbBox',
-			   spinner: '.spinner',
-			   imgSrc: $scope.user.img
+             spinner: '.spinner',
+             imgSrc: $scope.user.img
 	  	};
 	  	var cropper = $('.cust-img-box').cropbox(options);//调用图片上传插件的方法
 	  	//实现用户头像的更新
@@ -92,58 +92,94 @@ angular.module('merchantLogin-controller',[])
   		$scope.saveImg=function(){
   			//TODO 将用户新的头像保存到数据库中
   			//TODO 此处要根据后台给的反馈实时给用户提示
-  			alert("我要保存到数据库中了");
+  			console.log("我要保存到数据库中了");
+            console.log(subImg);
+            $http({
+                method:'POST',
+                url:'sel-sellectSeller.action?chose=CHOSE',
+            }).success(function(data){
+                console.log(data);
+                console.log('我获得数据了');
+                $scope.user={
+                    img:data.selImage,
+                    name:data.selName,
+                    age:data.selAge,
+                    sex:data.selSex,
+                    mail:data.selTel,
+                    id:data.selIdCard,
+                    pwd:data.selPassword,
+                    rePwd:data.selPassword,
+                    keyId:data.selId
+                };
+                console.log($scope.user);
+            });
   		};
 	  	/*----------与更换头像相关的事件结束-------*/
 
 	  	/*-----保存商家信息开始--------*/
 	  	$scope.saveMerInfo=function(){
-        //将用户输入的信息按指定名称拼接成查询字符串
-        var seller={};
-        var postData='';
-        console.log($scope.isThrough);
-        if($scope.isThrough[0]&&$scope.isThrough[1]&&$scope.isThrough[2]&&$scope.isThrough[3]&&$scope.isThrough[4]&&$scope.isThrough[5]){
-          console.log('可以保存');
-          seller.selIdCard=$scope.user.id;
-          seller.selAge=$scope.user.age;
-          seller.selSex=$scope.user.sex;
-          seller.selName=$scope.user.name;
-          seller.selTel=$scope.user.mail;
-          seller.selPassword=$scope.user.pwd;
-          $.each(seller,function(key,value) { 
-            postData+='seller.'+key+'='+value+'&'
-          });
-          postData+='selId='+$scope.user.keyId;
-          console.log(postData); 
-          //提交到服务器保存用户修改的数据
-          $http({
-              method:'POST',
-              url:'sel-addSeller.action',
-              data:postData,//序列化用户输入的数据
-              headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-          }).success(function(data){
-              console.log(data);
-              if(data=='yes'){
-                  //页面跳转到注册成功页
-                  console.log('修改成功');
-              }else{
-                  console.log('修改失败');
-              } 
-          });
-          console.log('已保存商家信息');
-        }else{
-          console.log('不可以保存');
-        }
+            //将用户输入的信息按指定名称拼接成查询字符串
+            var seller={};
+            var postData='';
+            var $errorInfo=$('.save-data');
+            console.log($scope.isThrough);
+            if($scope.isThrough[0]&&$scope.isThrough[1]&&$scope.isThrough[2]&&$scope.isThrough[3]&&$scope.isThrough[4]&&$scope.isThrough[5]){
+                console.log('可以保存');
+                seller.selIdCard=$scope.user.id;
+                seller.selAge=$scope.user.age;
+                seller.selSex=$scope.user.sex;
+                seller.selName=$scope.user.name;
+                seller.selTel=$scope.user.mail;
+                seller.selPassword=$scope.user.pwd;
+                $.each(seller,function(key,value) {
+                    postData+='seller.'+key+'='+value+'&'
+                });
+                postData+='selId='+$scope.user.keyId;
+                console.log(postData);
+                //提交到服务器保存用户修改的数据
+                $http({
+                    method:'POST',
+                    url:'sel-addSeller.action',
+                    data:postData,//序列化用户输入的数据
+                    headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+                }).success(function(data){
+                    console.log(data);
+                    if(data=='yes'){
+                        console.log('修改成功');
+                        //修改成功后，给用户提示
+                        $errorInfo.html('修改成功！');
+                        $errorInfo.slideDown();//提示信息缓慢出现
+                        setTimeout(function(){
+                            $errorInfo.slideUp();
+                        },3000);
+                    }else{
+                        console.log('修改失败');
+                        $errorInfo.html('修改失败，服务器暂时不可用！');
+                        $errorInfo.slideDown();//提示信息缓慢出现
+                        setTimeout(function(){
+                            $errorInfo.slideUp();
+                        },3000);
+                    }
+                });
+                console.log('已保存商家信息');
+            }else{
+                console.log('不可以保存');
+                $errorInfo.html('修改失败，请检查输入信息格式！');
+                $errorInfo.slideDown();//提示信息缓慢出现
+                setTimeout(function(){
+                    $errorInfo.slideUp();
+                },3000);
+            }
 	  	}
 	  	/*-----保存商家信息结束--------*/
 
 	  	/*------与页面样式相关的JS特效开始-------*/
 	  	//输入框获得焦点
 	  	$('.user-input').focus(function(){
-        var dataId=parseInt($(this).attr('data-id'));
+            var dataId=parseInt($(this).attr('data-id'));
 	  		$(this).css('border','#3dbcf5 solid 1px');
-        console.log(dataId);
-        $scope.isThrough[dataId]=false;
+            console.log(dataId);
+            $scope.isThrough[dataId]=false;
 	  	});
 	  	//输入框获得焦点
 	  	$('.user-input').blur(function(){
@@ -305,7 +341,7 @@ angular.module('merchantLogin-controller',[])
         });
         /*------------表单验证结束-----------*/
   })
-  .controller('bookAdminCtrl',function($scope){
+    .controller('bookAdminCtrl',function($scope,$window,$location){
 	  	/*-------书籍管理获取基础信息开始-----------*/
 	  	//此处应从数据库中获得书籍信息
 	  	$scope.bookNum={
@@ -325,6 +361,13 @@ angular.module('merchantLogin-controller',[])
 
 
 	  	/*-----与页面样式相关的功能函数开始------*/
+        //点击加号时，页面跳转到添加新书页面
+        $scope.jumpAddNewBook=function(){
+            var absUrl=$location.absUrl();
+            var markIndex=absUrl.lastIndexOf('#');
+            var newUrl=absUrl.slice(0,markIndex-19)+'mer_add_book.html';
+            $window.location.href=newUrl;
+        }
 	  	//展开、折叠更多书籍类别
 	  	$scope.showMoreCate=function(){
 	  		$('.book-cate-more').toggle(500);
@@ -351,24 +394,47 @@ angular.module('merchantLogin-controller',[])
 	    	pg_call_fun:function(count){
 	    		//此处应到数据库中拿数据
 	    		console.log('当前要请求第'+count+'页');
+          //TODO 根据商家点击不同的数字显示不同的内容
 	    	}
 	    });
-	    //根据商家点击不同的数字显示不同的内容
-	    
+	   
 	  	/*-----与页面样式相关的功能函数结束------*/
   })
-  .controller('shopAdminCtrl', function($scope){
+    .controller('shopAdminCtrl', function($scope,$http){
   		/*----------基础数据设置开始--------------*/
-  			//TODO   此处应该从数据库中取得相关信息
+        //从数据库中取得店铺相关信息
+        $http({
+            method:'GET',
+            url:'shop-selectShop.action',
+        }).success(function(data){
+            console.log(data);
+            console.log('我获得数据了');
+            $scope.user={
+                img:data.shopImage,
+                //shopId:data.shopId,
+                name:data.shopName,
+                notice:data.notice,
+                degree:data.shopGrade,
+                selectProvince:data.province.provinceName,
+                selectProvinceId:data.province.provinceId,
+                selectCity:data.city.cityName,
+                selectCityId:data.city.cityId,
+                selectRegi:data.county.countyName,
+                selectRegiId:data.county.countyId,
+                street:data.street
+            };
+           // console.log($scope.user);
+        });
+
 	  	$scope.user={
-	  	  img:'./images/userImg.jpg',
-	  	  name:'妖精的口袋',
-	  	  notice:'主营儿童书籍主营儿童书籍主营儿童书籍主营儿童书籍主营儿童书籍',
-	  	  degree:2,
-	  	  province:'陕西',
-	  	  city:'西安',
-	  	  countryName:'长安',
-	  	  street:'子午'
+            img:'./images/userImg.jpg',
+	  	    name:'',
+	  	    notice:'',
+	  	    degree:2,
+	  	    selectProvince:'请选择',
+            selectCity:'请选择',
+            selectRegi:'请选择',
+	  	    street:''
 	  	};
 	  	$scope.changeImgHint='成功了吗';
 	  	/*-----------基础的数据设置结束-----------*/
@@ -379,22 +445,22 @@ angular.module('merchantLogin-controller',[])
   		// 改变头像---开始
 	  	//显示改变头像box
 	  	$scope.showChangeImg=function(){
-	  	  $scope.changeImgBox={
-	  	  	"display":"block"
-	  	  };
+	  	    $scope.changeImgBox={
+	  	  	    "display":"block"
+	  	     };
 	  	};
 	  	//隐藏改变头像box
 	  	$scope.hideChangeImg=function(){
-	  	  $scope.changeImgBox={
-	  	  	"display":"none"
-	  	  };
+	  	     $scope.changeImgBox={
+	  	  	    "display":"none"
+             };
 	  	};
 	 
 	  	//对所选择的图片做处理
 	  	var options={
-	  		thumbBox: '.thumbBox',
-			spinner: '.spinner',
-			imgSrc: $scope.user.img
+	  		 thumbBox: '.thumbBox',
+             spinner: '.spinner',
+             imgSrc: $scope.user.img
 	  	};
 	  	var cropper = $('.cust-img-box').cropbox(options);//调用图片上传插件的方法
 	  	//实现用户头像的更新
@@ -433,7 +499,50 @@ angular.module('merchantLogin-controller',[])
 
 	  	/*-----保存商家信息开始--------*/
 	  	$scope.saveMerInfo=function(){
-	  		alert('已保存商家信息');
+            var postData='',
+                provinceId=$('.mer-province').attr('data-id'),
+                cityId=$('.mer-city').attr('data-id'),
+                regiId=$('.mer-regi').attr('data-id');
+            var shopInfo={
+                //shopId:$scope.user.shopId,
+                shopName:$scope.user.name,
+                notice:$scope.user.notice,
+                shopGrade:$scope.user.degree,
+                street:$scope.user.street
+            };
+            for (var key in shopInfo){
+                postData+='shop.'+key+'='+shopInfo[key]+'&';
+            }
+            postData+='shop.province.provinceId='+provinceId+'&shop.city.cityId='+cityId+'&shop.county.countyId='+regiId;
+            console.log(postData);
+            //将商家的信息提交到数据库中
+
+            $http({
+                method:'POST',
+                url:'shop-updateShop.action',
+                data:postData,//已序列化用户输入的数据
+                headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+            }).success(function(data){
+                if(data=='yes'){
+                    console.log("商家店铺信息修改成功");
+                    //修改成功，显示修改成功提示信息
+                    var $errorInfo=$('.save-data');
+                    $errorInfo.html('修改成功！');
+                    $errorInfo.slideDown();//错误提示信息缓慢出现
+                    setTimeout(function(){
+                        $errorInfo.slideUp();
+                    },3000);
+                }else{
+                    //修改失败，显示错误提示信息
+                    var $errorInfo=$('.save-data');
+                    $errorInfo.html('修改失败，请稍后再次修改！');
+                    $errorInfo.slideDown();//错误提示信息缓慢出现
+                    setTimeout(function(){
+                        $errorInfo.slideUp();
+                    },3000);
+                }
+            });
+
 	  	}
 	  	/*-----保存商家信息结束--------*/
   		
@@ -456,19 +565,152 @@ angular.module('merchantLogin-controller',[])
   			}
   		});
   		//当输入框获得焦点时，高亮显示输入框
-  		$('input[type="text"]').focus(function(){
+  		$('.user-input').focus(function(){
   			$(this).css('border','#a1c1c0 solid 1px');
   		});
   		//当输入框失去焦点时，正常显示输入框
-  		$('input[type="text"]').blur(function(){
+  		$('.user-input').blur(function(){
   			$(this).css('border','#DDD solid 1px');
   		});
-
   		/*--------与页面样式相关的功能函数结束-----------*/
-  })
-  .controller('dealSuccCtrl',function($scope){
+  
+        /*------显示省市区信息开始-------*/
+        //显示下拉选择框 $area:将要显示的那个下拉框，$icon该下拉框对应的小图标
+        var displayArea=function($area,$icon){
+            $area.css('display','block');
+            $icon.css('background-image','url("./images/up.png")');
+        }
+        //隐藏下拉选择框 $area:将要显示的那个下拉框，$icon该下拉框对应的小图标
+        var hideArea=function($area,$icon){
+            $area.css('display','none');
+            $icon.css('background-image','url("./images/down.png")');
+        }
+        //获得商家选择的地址值  $area:下拉选项【$('#all-provinces')】 inputElem:显示选择的值的那个输入框【$('.mer-province')】的字符串形式（字符串只是为了方便用switch语句）$icon:下拉列表旁边的小图标
+        var selectInfo=function($area,inputElem,$icon){
+            $area.click(function(){
+                switch (inputElem){
+                    case "$('.mer-province')":
+                        $scope.user.selectProvince=$(event.target).html();
+                        $('.mer-province').attr('data-id',$(event.target).attr('data-id'));
+                        $scope.$apply(); //传播Model的变化，否则view不能更新
+                        break;
+                    case "$('.mer-city')":
+                        $scope.user.selectCity=$(event.target).html();
+                        $('.mer-city').attr('data-id',$(event.target).attr('data-id'));
+                        $scope.$apply(); //传播Model的变化，否则view不能更新
+                        break;
+                    case "$('.mer-regi')":
+                        $scope.user.selectRegi=$(event.target).html();
+                        $('.mer-regi').attr('data-id',$(event.target).attr('data-id'));
+                        $scope.$apply(); //传播Model的变化，否则view不能更新
+                        break;
+                }
+                hideArea($area,$icon);
+            });
+        }
+        //从数据库中获得省的信息
+        $('#display-pro').click(function(){
+            var html='';
+            var i;
+            var len;
+            var provinces=[];
+            var provincesId=[];
+            var $options=$('#all-provinces').children();
+            if($options.length != 0){
+                //当省中已经有信息时，显示省信息，并将选择的写入input框中
+                displayArea($('#all-provinces'),$('.mer-pro-icon'));
+                selectInfo($('#all-provinces'),"$('.mer-province')",$('.mer-pro-icon'));
+                return ;
+            }
+            //从数据库中拿到省的信息
+            $http({
+                method:'GET',
+                url:'select-getProvince.action',
+            }).success(function(data){
+                for(var i in data.province){
+                    provinces[i]=data.province[i].provinceName;
+                    provincesId[i]=data.province[i].provinceId;
+                }
+                for(i=0,len=provinces.length;i<len;i++){
+                    html+='<li data-id='+provincesId[i]+'>'+provinces[i]+'</li>'
+                }
+                $('#all-provinces').append(html);
+                displayArea($('#all-provinces'),$('.mer-pro-icon'));
+                selectInfo($('#all-provinces'),"$('.mer-province')",$('.mer-pro-icon'));
+            });
+            //provinces=['陕西1','陕西2','陕西3','陕西4','陕西5','陕西6','陕西7','陕西8','陕西9','陕西10','陕西11','陕西12','陕西13','陕西14'];
+        });
 
-  })
-  .controller('dealingCtrl', function($scope){
-
-  });
+        //当市的选择框被点击时，显示市信息
+        $('#display-city').click(function(){
+            var html='';
+            var i;
+            var len;
+            var citys=[];
+            var cityId=[];
+            var provinceId=$('.mer-province').attr('data-id');
+            var postData='provinceId='+provinceId;
+            var $options=$('#all-citys').children();
+            if($options != 0){
+                $options.remove();
+            }
+            //从数据库中拿到市的信息
+            $http({
+                method:'POST',
+                url:'select-getCities.action',
+                data:postData,//序列化用户输入的数据
+                headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+            }).success(function(data){
+                for(var i in data.cities){
+                    citys[i]=data.cities[i].cityName;
+                    cityId[i]=data.cities[i].cityId;
+                }
+                for(i=0,len=citys.length;i<len;i++){
+                    html+='<li data-id='+cityId[i]+'>'+citys[i]+'</li>'
+                }
+                $('#all-citys').append(html);
+                displayArea($('#all-citys'),$('.mer-city-icon'));
+                selectInfo($('#all-citys'),"$('.mer-city')",$('.mer-city-icon'));
+            });
+            //citys=['西安1','西安2','西安3','西安4','西安5','西安6','西安7','西安8','西安9','西安10','西安11','西安12','西安13','西安14'];
+        });
+        //当区的选择框被点击时，显示区信息
+        $('#display-regi').click(function(){
+            var html='';
+            var i;
+            var len;
+            var regis=[];
+            var regisId=[];
+            var cityId=$('.mer-city').attr('data-id');
+            var postData='cityId='+cityId;
+            var $options=$('#all-regis').children();
+            if($options != 0){
+                $options.remove();
+            }
+            //从数据库中拿到区的信息
+            $http({
+                method:'POST',
+                url:'select-getCounties.action',
+                data:postData,//序列化用户输入的数据
+                headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+            }).success(function(data){
+                for(var i in data.counties){
+                    regis[i]=data.counties[i].countyName;
+                    regisId[i]=data.counties[i].countyId;
+                }
+                for(i=0,len=regis.length;i<len;i++){
+                    html+='<li data-id='+regisId[i]+'>'+regis[i]+'</li>'
+                }
+                $('#all-regis').append(html);
+                $('#all-regis').css('display','block');
+                displayArea($('#all-regis'),$('.mer-area-icon'));
+                selectInfo($('#all-regis'),"$('.mer-regi')",$('.mer-area-icon'));
+            });
+            //var regis=['长安1','长安2','长安3','长安4','长安5','长安6','长安7','长安8','长安9','长安10','长安11','长安12','长安13','长安14'];
+        });
+        /*------显示省市区信息结束-------*/
+    })
+    .controller('dealSuccCtrl',function($scope){
+    })
+    .controller('dealingCtrl', function($scope) {
+    });

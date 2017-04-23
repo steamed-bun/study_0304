@@ -1,0 +1,211 @@
+section{
+	margin-top:20px;
+	width:100%;
+	min-height: 500px;
+}
+/* 多图旋转轮播图开始 */
+.mainbox{
+	width:100%;
+	height:310px;
+	overflow: hidden;
+	position: relative;
+}
+.mainbox ul li{
+	position:relative;
+	float:left;
+	width:232px;
+	height:324px;
+	overflow: hidden;
+	border:#FFF solid 17px;
+	margin-left:-60px;
+	box-sizing: content-box !important;
+	background:#FFF;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.mainbox ul li:first-child{
+	margin-left:0;
+}
+.mainbox ul li span{
+	position: absolute;
+	display: inline-block;
+	width:100%;
+	height:100%;
+	background-position: center center;
+	background-repeat: no-repeat;
+	overflow: hidden;
+}
+.mainbox h2{
+	position: absolute;
+	bottom: 16px;
+	right:50px;
+	background:rgba(0,0,0,0.6);
+	padding:5px;
+	letter-spacing: 0.6em;
+	color:#FFF;
+}
+.mainbox .butBox a{
+	position: absolute;
+	opacity: 0.6;
+	cursor: pointer;
+}
+.mainbox .butBox a:hover{
+	opacity: 1;
+}
+.mainbox .butBox .butLeft{
+	top:138px;
+	left:54px;
+	color:#FFF;
+	font-size: 60px;
+}
+.mainbox .butBox .butRight{
+	top:138px;
+	right:54px;
+	color:#FFF;
+	font-size: 60px;
+}
+/* 多图旋转轮播图结束 */
+.more-books{
+	margin-top:30px;
+}
+.new-book-title{
+	width:100%;
+	height:60px;
+	line-height: 60px;
+	text-align: center;
+}
+.new-book-title>span:first-child{
+	font-size:24px;
+	font-weight:700;
+	margin-right:14px;
+}
+.new-book-title>span:last-child{
+	font-size:14px;
+	color:#999;
+}
+.select-condition{
+	font-size: 14px;
+	line-height: 60px;
+	margin-bottom:24px;
+	border-bottom: #DDD solid 1px;
+}
+.classify{
+	display:inline-block;
+	padding-left:4px;
+}
+.sort{
+	display: inline-block;
+	padding-right:4px;
+}
+.classify span,.sort span{
+	display: inline-block;
+	width:42px;
+	height:100%;
+	color:#999;
+}
+.select-condition a{
+	padding:0 8px;
+	text-align: center;
+	cursor:pointer;
+	color:#000;
+}
+.select-condition a:hover{
+	color:#b4a078;
+}
+.all-books,.sort-default{
+	color:#b4a078 !important;
+}
+.book-price{
+	padding-right:20px !important;
+	background:url("../images/toDown.png") right center no-repeat;
+}
+/*书籍展示开始*/
+.good-book{
+	display:block;
+	position:absolute;
+	width:106px;
+	height:100px;
+	background:url("../images/good-book.png") center center no-repeat;
+	background-size:cover;
+}
+.book-list{
+	width:100%;
+	min-height:308px;
+}
+.book-list img{
+	position:absolute;
+	top:50%;
+	left:50%;
+	-webkit-transform:translate(-50%,-50%);
+	transform:translate(-50%,-50%);
+}
+.book-list>li>a{
+	display:block;
+	width:100%;
+	height:208px;
+	position:relative;
+	border-bottom:#E0E0E0 dashed 1px;
+}
+.book-list>li:last-child{
+	margin-right:0;
+}
+.book-list>li{
+	float:left;
+	width:263px;
+	height:308px;
+	margin:0 9px 24px 0;
+	border:#E0E0E0 solid 1px;
+}
+.book-list>li:first-child{
+	margin-left:2px;
+}
+.recom-txt{
+	position:absolute;
+	left:0;
+	bottom:-100px;
+	transition:bottom 0.4s;
+	width:100%;
+	height:100px;
+	font-size:14px;
+	line-height:18px;
+	color:#FFF;
+	background:#474747;
+	opacity:0.9;
+	padding:6px 8px 6px 10px;
+}
+.book-list>li:hover .recom-txt{
+	bottom:0;
+}
+.book-sell-info{
+	position:relative;
+	top:0;
+	left:-1px;
+	width:263px;
+	height:100px;
+	text-align:center;
+	padding:28px 10px 20px 10px;
+	overflow:hidden;
+}
+.book-sell-info>h4{
+	font-size:16px;
+	line-height:34px;
+}
+.book-sell-info>span{
+	color:#E06669;
+}
+/*书籍展示结束*/
+
+/* 与分页页码插件相关开始 */
+.page-area{
+	margin:20px 0 80px 0;
+	text-align: center;
+}
+.pager li{
+	line-height:16px;
+}
+.pager li.pg-selected{
+	border:#a1c1c0  solid 1px;
+	background:#ddbea1 ;
+}
+/* 与分页页码插件相关结束 */
