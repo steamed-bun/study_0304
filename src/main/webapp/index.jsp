@@ -95,10 +95,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			});
 		})//user-sellectUser.action?user.email=12@&user.userPassword=123
 		function getJson(){
-			$.post("sel-sellectSeller.action?seller.selTel=514156689@qq.com&seller.selPassword=123asdASD",{},function(data){
+			$.post("book-addImages.action",{"test":"1","test":"2"},function(data){
 				console.log(data);
-				alert(${seller.selId});
-				console.log(${seller});
+				<%--alert(${seller.selId});--%>
+				<%--console.log(${seller});--%>
 			})
 		}
 	</script>

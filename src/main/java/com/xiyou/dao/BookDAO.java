@@ -3,9 +3,18 @@ package com.xiyou.dao;
 import java.util.List;
 
 import com.xiyou.domain.Book;
+import com.xiyou.domain.BookImages;
 import com.xiyou.domain.Category;
 
 public interface BookDAO {
+
+	/**
+	 * 批量插入bookImages
+	 * @param bookImages
+     */
+	void batchImages(List<BookImages> bookImages);
+
+	List<Book> getBooksByCategory(String categoryId);
 
 	/**
 	 * 删除一本书
@@ -26,7 +35,9 @@ public interface BookDAO {
 	 * @return
      */
 	Book getBook(String bookId);
-	
+
+	Book getBookTo(String bookId);
+
 	/**
 	 * 已测
 	 * 获取所有书籍
@@ -34,7 +45,7 @@ public interface BookDAO {
 	 * @return
 	 */
 	List<Book> getBooks(String shopId);
-	
+
 	List<Category> selectCategory();
 	
 }

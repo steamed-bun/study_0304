@@ -19,7 +19,10 @@
     	</interceptors>
 		
 		<default-interceptor-ref name="study"></default-interceptor-ref>
-		
+
+		<action name="test-*" class="testAction" method="{1}">
+			<result name="success">/show.jsp</result>
+		</action>
 		
 		<action name="upLoad-*" class="upLoadAction" method="{1}">
 			<interceptor-ref name="fileUpload">
@@ -39,16 +42,17 @@
 		
 		<action name="sel-*" class="sellerAction" method="{1}">
 			<result name="addSeller" type="json">
-				<param name="root">status</param>
+				<param name="root">dataMap</param>
 			</result>
 			<result name="forUpdateSeller">/selRegister.jsp</result>
 			<result name="login" type="json">
-				<param name="root">status</param>
-			</result>
-			<result name="sellectSeller" type="json">
-				<param name="root">seller</param>
+				<param name="root">dataMap</param>
 			</result>
 			<!--
+			<result name="sellectSeller" type="json">
+				<param name="root">dataMap</param>
+			</result>
+
 			<result name="sellectSeller">/selLoginEnd.jsp</result>
 			<result name="sellectSeller" type="json">
 				<param name="seller">seller</param>
@@ -61,7 +65,7 @@
 				<param name="root">status</param>
 			</result>
 			<result name="login" type="json">
-				<param name="root">status</param>
+				<param name="root">dataMap</param>
 			</result>
 			<result name="sellectUser" type="json">
 				<param name="root">user</param>
@@ -71,23 +75,34 @@
 
 		<action name="shop-*" class="shopAction" method="{1}">
 			<result name="updateShop" type="json">
-				<param name="root">status</param>
+				<param name="root">dataMap</param>
 			</result>
 			<result name="delete">/selRegister.jsp</result>
 			<result name="selectShop" type="json">
-				<param name="root">shop</param>
+				<param name="root">dataMap</param>
 			</result>
 		</action>
 
 		<action name="book-*" class="bookAction" method="{1}">
+			<!--
 			<result name="addBook" type="json">
 				<param name="root">status</param>
+			</result>
+			-->
+			<result name="getBooksByCategory" type="json">
+				<param name="root">dataMap</param>
+			</result>
+			<result name="addBook" type="json">
+				<param name="root">dataMap</param>
 			</result>
 			<result name="getBooks" type="json">
 				<param name="root">dataMap</param>
 			</result>
 			<result name="getSelect">/addBook.jsp</result>
 			<result name="deleteBook">/index.jsp</result>
+			<result name="addImages" type="json">
+				<param name="root">dataMap</param>
+			</result>
 		</action>
 
 		<action name="select-*" class="sellectAction " method="{1}">
@@ -120,9 +135,9 @@
 			</result>
 		</action>
 		
-		<action name="cKAction" class="cKAction" method="execute">
+		<action name="cKAction" class="cKAction" method="addBookDetail">
 			<result type="json">
-				<param name="root"></param>
+				<param name="root">bookDetailURL</param>
 			</result>
 		</action>
 

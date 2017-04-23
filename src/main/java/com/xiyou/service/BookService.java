@@ -7,6 +7,7 @@ import com.xiyou.dao.ShopDAO;
 import com.xiyou.dao.impl.BookDAOImpl;
 import com.xiyou.dao.impl.ShopDAOImpl;
 import com.xiyou.domain.Book;
+import com.xiyou.domain.BookImages;
 import com.xiyou.domain.Category;
 import com.xiyou.domain.Shop;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,18 @@ public class BookService {
 
 	@Autowired
 	private ShopDAO shopDAO;
-	@Autowired
-	private BookDAOImpl bookDAOImpl;
+
+	public void addImages(String bookId, List<BookImages> bookImages){
+		Book book = bookDAO.getBook(bookId);
+		for (BookImages bookImage: bookImages ) {
+			bookImage.setBook(book);
+		}
+		bookDAO.batchImages(bookImages);
+	}
+
+	public List<Book> getBooksByCategory(String categoryId){
+		return bookDAO.getBooksByCategory(categoryId);
+	}
 
 	public Shop getShopByShopId(String shopId){
 		return shopDAO.getShopByShopId(shopId);

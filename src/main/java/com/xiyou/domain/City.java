@@ -6,6 +6,26 @@ public class City {
 	private String cityName;
 	private Province province;
 
+	public City(Integer cityId) {
+		this.cityId = cityId;
+	}
+
+	@Override
+	public String toString() {
+		return "City [cityId=" + cityId + ", cityName=" + cityName
+				+ ", province=" + province + "]";
+	}
+
+	public City(Integer cityId, String cityName) {
+		super();
+		this.cityId = cityId;
+		this.cityName = cityName;
+	}
+
+	public City() {
+		super();
+	}
+
 	public Integer getCityId() {
 		return cityId;
 	}
@@ -28,23 +48,6 @@ public class City {
 
 	public void setProvince(Province province) {
 		this.province = province;
-	}
-
-	@Override
-	public String toString() {
-		return "City [cityId=" + cityId + ", cityName=" + cityName
-				+ ", province=" + province + "]";
-	}
-
-	public City(Integer cityId, String cityName, Province province) {
-		super();
-		this.cityId = cityId;
-		this.cityName = cityName;
-		this.province = province;
-	}
-
-	public City() {
-		super();
 	}
 
 }

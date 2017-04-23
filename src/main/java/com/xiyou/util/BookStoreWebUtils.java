@@ -32,6 +32,7 @@ public class BookStoreWebUtils {
 			session.put("dataMap",dataMap);
 		}
 		dataMap.clear();
+		dataMap.put("status", "yes");
 		return dataMap;
 	}
 	

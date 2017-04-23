@@ -5,23 +5,31 @@ import java.io.File;
 import java.io.FileWriter;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.xiyou.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 @Controller("cKAction")
 public class CKAction extends ActionSupport{
 
 	private static final long serialVersionUID = 1L;
-	
+
+	@Autowired
+	private BookService bookService;
+
 	private String editor;
 
 	private String fileName;
-	@Override
-	public String execute(){
+
+	private String bookDetailURL;
+
+	public String addBookDetail(){
 		//editorTmp = editorTmp.replaceAll("http://localhost:8090/", "F:/tomcat8.0/webapps/");
 		System.out.println(editor);
 		//editor = editor.replaceAll("http://localhost:8090/", "http://localhost:8090/F:/tomcat8.0/webapps/");
 		fileName = String.valueOf(System.currentTimeMillis()) + ".html";
-		System.out.println(fileName);
+		bookDetailURL = "http://localhost:8090/study/book_details/" +fileName;
+		System.out.println(bookDetailURL);
 		File f = new File("F:/tomcat8.0/webapps/study/book_details/"+ fileName);
 			FileWriter fw;
 			BufferedWriter bw;
@@ -38,21 +46,15 @@ public class CKAction extends ActionSupport{
 		return SUCCESS;
 	}
 
-/*
-	public String getEditor() {
-		return editor;
-	}
-*/
-
 	public void setEditor(String editor) {
 		this.editor = editor;
 	}
 
-	public String getFileName() {
-		return fileName;
-	}
-
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
+	}
+
+	public String getBookDetailURL() {
+		return bookDetailURL;
 	}
 }

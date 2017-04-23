@@ -44,12 +44,12 @@ public class ShopCartAction implements SessionAware, ModelDriven<ShopCartItem>,
         //shopCartItem.setCartItemId(3);
         shopCartItem.setQuantity(3);
         shopCartItem.setItemTime(new Date(new java.util.Date().getTime()));
-        if(userId == null){
+        if (userId == null){
             //即用户未登录,应返回登录页面，或提示未登录
         }else{
             shopCartItem.setUser(userService.getUserById(userId));
         }
-        if(bookId != null){
+        if (bookId != null){
             shopCartItem.setBook(bookService.getBook(bookId));
         }else{
             //出错页面

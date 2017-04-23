@@ -1,11 +1,8 @@
 package com.xiyou.actions;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import com.xiyou.domain.Province;
-import org.apache.struts2.interceptor.RequestAware;
+import com.xiyou.util.BookStoreWebUtils;
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -28,14 +25,8 @@ public class ShopAction extends ActionSupport implements SessionAware,
 	private Shop shop;
 	private String shopId;
 	private Map<String, Object> session;
-	private List<Province> provinces;
-	private String status;
-
-	Map<String, Object> dataMap;
-
-	public ShopAction() {
-		this.dataMap = new HashMap<String, Object>();
-	}
+	private Map<String, Object> dataMap;
+	private String status = "yes";
 
 	public String delete(){
 		String shopId = session.get("shopId").toString();
@@ -51,26 +42,27 @@ public class ShopAction extends ActionSupport implements SessionAware,
 	 * @return
      */
 	public String updateShop(){
+		dataMap = BookStoreWebUtils.getDataMap(session);
 		shopService.addShop(shop);
 		session.put("shopId", shop.getShopId());
 		return "updateShop";
 	}
 	
 	public void prepareUpdateShop(){
-		shop = shopService.sellectShop(shopId);
+		shop = shopService.sellectShop(session.get("shopId").toString());
 	}
 
 	public String selectShop(){
+		dataMap = BookStoreWebUtils.getDataMap(session);
 		shopId = session.get("shopId").toString();
 		if(shopId != null){
 			shop = shopService.sellectShop(shopId);
 		}
+		dataMap.put("shop",shop);
+		this.setShop(null);
 		return "selectShop";
 	}
 
-
-
-	
 /*
 	public void prepareSelectSelect(){
 		if(shopId != null){
@@ -107,12 +99,6 @@ public class ShopAction extends ActionSupport implements SessionAware,
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-
-
-	public List<Province> getProvinces() {
-		return provinces;
 	}
 
 	public Map<String, Object> getDataMap() {

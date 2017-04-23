@@ -6,6 +6,26 @@ public class County {
 	private String countyName;
 	private City city;
 
+	public County(Integer countyId) {
+		this.countyId = countyId;
+	}
+
+	public County(Integer countyId, String countyName) {
+		super();
+		this.countyId = countyId;
+		this.countyName = countyName;
+	}
+
+	@Override
+	public String toString() {
+		return "County [countyId=" + countyId + ", countyName=" + countyName
+				+ ", city=" + city + "]";
+	}
+
+	public County() {
+		super();
+	}
+
 	public Integer getCountyId() {
 		return countyId;
 	}
@@ -28,23 +48,6 @@ public class County {
 
 	public void setCity(City city) {
 		this.city = city;
-	}
-
-	public County(Integer countyId, String countyName, City city) {
-		super();
-		this.countyId = countyId;
-		this.countyName = countyName;
-		this.city = city;
-	}
-
-	@Override
-	public String toString() {
-		return "County [countyId=" + countyId + ", countyName=" + countyName
-				+ ", city=" + city + "]";
-	}
-
-	public County() {
-		super();
 	}
 
 }

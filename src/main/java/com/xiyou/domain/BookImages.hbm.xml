@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.xiyou.domain">
+    
+    <class name="BookImages" table="BOOK_IMAGES">
+    	<id name="imageId" type="java.lang.Integer">
+    		<column name="IMAGE_ID"></column>
+    		<generator class="native"></generator>
+    	</id>
+    	
+    	<property name="imageURL" type="java.lang.String">
+    		<column name="IMAGE_URL" not-null="true"></column>
+    	</property>
+    	
+    	<many-to-one name="book" class="Book" unique="true">
+    		<column name="BOOK_ID"></column>
+    	</many-to-one>
+
+    </class>
+
+</hibernate-mapping>

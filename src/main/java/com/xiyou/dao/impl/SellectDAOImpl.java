@@ -21,7 +21,7 @@ public class SellectDAOImpl extends BaseDAOImpl implements SellectDAO{
 
     @Override
     public List<City> selectCity(String provinceId) {
-        String hql = "from City c left outer join fetch c.province WHERE c.province = :provinceId";
+        String hql = "SELECT new City(c.cityId, c.cityName) from City c WHERE c.province = :provinceId";
 
         @SuppressWarnings("unchecked")
         List<City> list = getSession().createQuery(hql).setString("provinceId", provinceId).list();
@@ -30,13 +30,10 @@ public class SellectDAOImpl extends BaseDAOImpl implements SellectDAO{
 
     @Override
     public List<County> selectCounty(String cityId) {
-        String hql = "from County c left outer join fetch c.city " +
-                "LEFT OUTER JOIN FETCH c.city.province " +
+        String hql = "SELECT new County (c.countyId, c.countyName) from County c " +
                 "WHERE c.city = :cityId";
-
         @SuppressWarnings("unchecked")
         List<County> list = getSession().createQuery(hql).setString("cityId", cityId).list();
-        System.out.println("Impl-->" + list);//不能删,防止懒加载..
         return list;
     }
 

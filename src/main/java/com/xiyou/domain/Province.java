@@ -5,6 +5,13 @@ public class Province {
 	private Integer provinceId;
 	private String provinceName;
 
+	public Province(Integer provinceId) {
+		this.provinceId = provinceId;
+	}
+
+	public Province() {
+	}
+
 	public Integer getProvinceId() {
 		return provinceId;
 	}
@@ -26,5 +33,6 @@ public class Province {
 		return "Province [provinceId=" + provinceId + ", provinceName="
 				+ provinceName + "]";
 	}
+
 	
 }

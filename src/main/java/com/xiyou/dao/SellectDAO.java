@@ -11,8 +11,20 @@ public interface SellectDAO {
 
     List<Province> selectProvinces();
 
+    /**
+     * 已测
+     * 实现不关联查询
+     * @param provinceId
+     * @return
+     */
     List<City> selectCity(String provinceId);
 
+    /**
+     * 已测
+     * 同上
+     * @param cityId
+     * @return
+     */
     List<County> selectCounty(String cityId);
 
 }

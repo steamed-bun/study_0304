@@ -100,6 +100,10 @@ public class Shop {
 		shop.setEstablished(System.currentTimeMillis());
 		shop.setShopGrade(0);
 		shop.setShopName("快来开店啦...");
+		shop.setProvince(new Province(1));
+		shop.setCity(new City(1));
+		shop.setCounty(new County(1));
+		shop.setStreet("子午大道");
 		shop.setShopImage("http://localhost:8090/study/shopImage/00.pnng");
 		return shop;
 	}

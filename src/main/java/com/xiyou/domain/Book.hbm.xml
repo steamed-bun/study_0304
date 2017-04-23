@@ -24,17 +24,19 @@
     	</many-to-one>
 
     	<!-- 保存set集合的属性 -->
-    	<set name="bookImages" table="BOOK_IMAGES" cascade="delete">
-    		<!-- 映射集合属性的外键列，关联表BOOK的主键BOOK_ID -->
+    	<!--<set name="bookImages" table="BOOK_IMAGES" inverse="true" cascade="delete">
+    		&lt;!&ndash; 映射集合属性的外键列，关联表BOOK的主键BOOK_ID &ndash;&gt;
 	    	<key>
-	    		<column name="BOOK_ID" not-null="true"></column>
+	    		<column name="IMAGE_ID"></column>
 	    	</key>
-	    	<!-- 映射集合属性的数据列 -->
+	    	&lt;!&ndash; 映射集合属性的数据列 &ndash;&gt;
+	    	&lt;!&ndash;
 	    	<element type="java.lang.String">
 	    		<column name="B_IMAGES" not-null="true"></column>
 	    	</element>
-    	</set>
-    	
+	    	&ndash;&gt;
+			<one-to-many class="BookImages"></one-to-many>
+    	</set>-->
     	<property name="bookPrice" type="float">
     		<column name="BOOK_PRICAE" not-null="true"></column>
     	</property>

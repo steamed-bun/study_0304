@@ -8,7 +8,6 @@ public class Book {
 	private String bookName;
 	private String author;
 	private Category category;
-	private Set<String> bookImages;
 	private float bookPrice;
 	private int quantity;
 	private int likes;
@@ -17,6 +16,27 @@ public class Book {
 	private String publisher;// 出版社
 	private String summary;// 简介
 	private Shop shop;
+
+	public Book(Integer bookId, String bookName, float bookPrice, int quantity, int likes) {
+		this.bookId = bookId;
+		this.bookName = bookName;
+		this.bookPrice = bookPrice;
+		this.quantity = quantity;
+		this.likes = likes;
+	}
+
+	public Book(Integer bookId, String bookName, String author, float bookPrice, int quantity, int likes, int noLike, String publicationDate, String publisher, String summary) {
+		this.bookId = bookId;
+		this.bookName = bookName;
+		this.author = author;
+		this.bookPrice = bookPrice;
+		this.quantity = quantity;
+		this.likes = likes;
+		this.noLike = noLike;
+		this.publicationDate = publicationDate;
+		this.publisher = publisher;
+		this.summary = summary;
+	}
 
 	public Integer getBookId() {
 		return bookId;
@@ -48,14 +68,6 @@ public class Book {
 
 	public void setCategory(Category category) {
 		this.category = category;
-	}
-
-	public Set<String> getBookImages() {
-		return bookImages;
-	}
-
-	public void setBookImages(Set<String> bookImages) {
-		this.bookImages = bookImages;
 	}
 
 	public float getBookPrice() {
@@ -122,31 +134,11 @@ public class Book {
 		this.shop = shop;
 	}
 
-	public Book(Integer bookId, String bookName, String author,
-			Category category, Set<String> bookImages, float bookPrice,
-			int quantity, int likes, int noLike, String publicationDate,
-			String publisher, String summary, Shop shop) {
-		super();
-		this.bookId = bookId;
-		this.bookName = bookName;
-		this.author = author;
-		this.category = category;
-		this.bookImages = bookImages;
-		this.bookPrice = bookPrice;
-		this.quantity = quantity;
-		this.likes = likes;
-		this.noLike = noLike;
-		this.publicationDate = publicationDate;
-		this.publisher = publisher;
-		this.summary = summary;
-		this.shop = shop;
-	}
-
 	public Book() {
 		super();
 	}
 
-	@Override
+/*	@Override
 	public String toString() {
 		return "Book [bookId=" + bookId + ", bookName=" + bookName
 				+ ", author=" + author + ", category=" + category
@@ -155,7 +147,6 @@ public class Book {
 				+ noLike + ", publicationDate=" + publicationDate
 				+ ", publisher=" + publisher + ", summary=" + summary
 				+ ", shop=" + shop + "]";
-	}
+	}*/
 
-	
 }

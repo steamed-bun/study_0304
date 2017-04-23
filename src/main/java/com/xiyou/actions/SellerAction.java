@@ -3,6 +3,7 @@ package com.xiyou.actions;
 import java.util.Map;
 
 import com.xiyou.domain.CaptchaBean;
+import com.xiyou.util.BookStoreWebUtils;
 import com.xiyou.util.HttpSessionUtils;
 import org.apache.struts2.interceptor.SessionAware;
 
@@ -32,9 +33,9 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
 	private Seller seller;
 	private String chose;
 	private Map<String, Object> session;
+	private Map<String, Object> dataMap;
 	private String selId = null;
     private String code = null;
-    private String status = "yes";
 
 	/**
 	 * 已测
@@ -46,21 +47,22 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
      * @return seller 会返回到data中
      */
 	public String sellectSeller(){
-		if(chose.equals("login")){
+        dataMap = BookStoreWebUtils.getDataMap(session);
+        if(chose.equals("login")){
 			this.seller = selService.getSellerByEmial(seller.getSelTel(),seller.getSelPassword());
 			if (seller != null){
 				session.put("selId", seller.getSelId());
 				session.put("shopId", seller.getShop().getShopId());
 			}else {
-				status = "no";
+				dataMap.put("status","no");
 			}
-			return "login";
+            this.setSeller(null);
+
 		}else{
 			this.seller = selService.getSellerById(session.get("selId").toString());
-//			status = (seller == null) ? "yes" : "no";
-			return "sellectSeller";
+            dataMap.put("seller",seller);
 		}
-	
+        return "login";
 	}
 	public void prepareSellectSeller(){
 		if(seller.getSelId() == null){
@@ -75,6 +77,7 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
      * @return
      */
 	public String addSeller() {
+        dataMap = BookStoreWebUtils.getDataMap(session);
 		seller.setSelImage(SELLER_IMAGE_URL);
 		seller.setSelWeiXin(SELLER_WEIXIN_URL);
 		selService.addSeller(seller);
@@ -173,12 +176,7 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
 		this.selId = selId;
 	}
 
-    public String getStatus() {
-        return status;
+    public Map<String, Object> getDataMap() {
+        return dataMap;
     }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
 }

@@ -1,11 +1,6 @@
 package com.xiyou.dao.impl;
 
-import java.util.List;
-
 import com.xiyou.dao.ShopDAO;
-import com.xiyou.domain.City;
-import com.xiyou.domain.County;
-import com.xiyou.domain.Province;
 import com.xiyou.domain.Shop;
 import org.springframework.stereotype.Repository;
 
@@ -26,7 +21,6 @@ public class ShopDAOImpl extends BaseDAOImpl implements ShopDAO {
 				"LEFT OUTER JOIN FETCH s.county " +
 				"WHERE s.shopId = :shopId";
 		Shop shop = (Shop) getSession().createQuery(hql).setString("shopId", shopId).uniqueResult();
-		System.out.println(shop);
 		return shop;
 	}
 

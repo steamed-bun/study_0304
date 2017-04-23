@@ -1,10 +1,5 @@
 package com.xiyou.dao;
 
-import java.util.List;
-
-import com.xiyou.domain.City;
-import com.xiyou.domain.County;
-import com.xiyou.domain.Province;
 import com.xiyou.domain.Shop;
 
 public interface ShopDAO {
