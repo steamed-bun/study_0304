@@ -27,7 +27,7 @@ public class ShopCartItemDAOImplTest {
     @Test
     @Transactional
     public void getShopItemByUserIdTest(){
-        System.out.println(shopCartItemDAO.getShopItemByUserId("1"));
+        System.out.println(shopCartItemDAO.getShopItemByUserId("37"));
     }
 
     @Transactional
@@ -41,6 +41,12 @@ public class ShopCartItemDAOImplTest {
         shopCartItem.setUser(userDao.getUserById("1"));
         System.out.println(shopCartItem);
         shopCartItemDAO.addShopItem(shopCartItem);
+    }
+
+    @Transactional
+    @Test
+    public void TestUpdateQuantity(){
+        shopCartItemDAO.updateQuantity("6","1");
     }
 
 }

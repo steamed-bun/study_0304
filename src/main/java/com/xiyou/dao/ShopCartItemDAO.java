@@ -11,7 +11,7 @@ public interface ShopCartItemDAO {
      * 添加一条记录购物
      * @param shopCartItem
      */
-    String addShopItem(ShopCartItem shopCartItem);
+    void addShopItem(ShopCartItem shopCartItem);
 
     /**
      * 获取一条ShopCartItem数据
@@ -27,4 +27,10 @@ public interface ShopCartItemDAO {
      */
     List<ShopCartItem> getShopItemByUserId(String userId);
 
+    /**
+     * 更新当前cartItemId的quantity
+     * @param quantity
+     * @param cartItemId
+     */
+    void updateQuantity(String quantity, String cartItemId);
 }

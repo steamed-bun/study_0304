@@ -44,6 +44,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 			bookService.addImages(book.getBookId().toString(),bookImages);
 		}
 		dataMap = BookStoreWebUtils.getDataMap(session);
+		book = null;
 		return "addImages";
 	}
 
@@ -65,6 +66,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 		String id = book.getCategory().getCategoryId().toString();
 		List<Book> list = bookService.getBooksByCategory(id);
 		dataMap.put("books",list);
+		book = null;
 		return "getBooksByCategory";
 	}
 
@@ -89,7 +91,6 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 		dataMap = BookStoreWebUtils.getDataMap(session);
 		String shopId = session.get("shopId").toString();
 		dataMap.put("books",bookService.getBooks(shopId));
-
 		return "getBooks";
 	}
 

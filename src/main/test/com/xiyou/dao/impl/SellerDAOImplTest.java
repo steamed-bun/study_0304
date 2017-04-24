@@ -54,4 +54,10 @@ public class SellerDAOImplTest {
     public void testUpdateSelWeiXin() throws Exception {
 
     }
+
+    @Transactional
+    @Test
+    public void testGetWeixinURLByShopId(){
+        System.out.println(sellerDAO.getWeixinURLByShopId("25"));
+    }
 }

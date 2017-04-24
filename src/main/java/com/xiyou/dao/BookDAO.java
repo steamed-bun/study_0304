@@ -30,12 +30,17 @@ public interface BookDAO {
 
 	/**
 	 * 已测
-	 * 根据Id获得Book对象
+	 * 根据Id获得Book对象全部
 	 * @param bookId
 	 * @return
      */
 	Book getBook(String bookId);
 
+	/**
+	 * 获取Book仅仅包含BookId
+	 * @param bookId
+	 * @return
+     */
 	Book getBookTo(String bookId);
 
 	/**

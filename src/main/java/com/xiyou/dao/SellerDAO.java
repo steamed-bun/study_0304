@@ -5,6 +5,7 @@ import com.xiyou.domain.Seller;
 public interface SellerDAO {
 
 	/**
+	 * 已测
 	 * 添加一个买家
 	 * @param seller
 	 */
@@ -20,25 +21,41 @@ public interface SellerDAO {
 	boolean validateTel(String selTelTem);
 	
 	/**
+	 * 已测
 	 * 根据selId查找对应的Seller
 	 * @param selId
 	 * @return
 	 */
 	Seller getSellerById(String selId);
 
+	/**
+	 * 已测
+	 * 登录
+	 * @param selEmail
+	 * @param password
+     * @return
+     */
 	Seller getSellerByEmial(String selEmail, String password);
 	
 	/**
-	 * 跟新seller的selImage
+	 * 更新seller的selImage
 	 * @param selImage
 	 */
-	void updateSelImage(String selImage,String selId);
+	String updateSelImage(String selImage,String selId);
 
 	/**
-	 * 跟新seller的selWeiXin
+	 * 更新seller的selWeiXin
 	 * @param selWeiXin
 	 * @param selId
      */
-	void updateSelWeiXin(String selWeiXin,String selId);
-	
+	String updateSelWeiXin(String selWeiXin,String selId);
+
+	/**
+	 * 已测
+	 * 根据shopId得到seller的weixin
+	 * @param shopId
+	 * @return
+     */
+	String getWeixinURLByShopId(String shopId);
+
 }

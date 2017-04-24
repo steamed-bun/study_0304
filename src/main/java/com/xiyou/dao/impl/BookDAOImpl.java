@@ -37,10 +37,8 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 	@Override
 	public List<Category> selectCategory() {
 		String hql = "from Category";
-		
 		@SuppressWarnings("unchecked")
 		List<Category> categories = getSession().createQuery(hql).list();
-		
 		return categories;
 	}
 
@@ -49,6 +47,7 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 		String hql = "SELECT new Book (b.bookId, b.bookName,b.bookPrice, b.quantity, b.likes) " +
 				"FROM Book b " +
 				"WHERE b.category = :categoryId";
+		@SuppressWarnings("unchecked")
 		List<Book> books = getSession().createQuery(hql).setString("categoryId",categoryId).list();
 		return books;
 	}
@@ -75,8 +74,11 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 	@Override
 	public Book getBookTo(String bookId) {
 		//Integer bookId, String bookName, String author, float bookPrice, int quantity, int likes, int noLike, String publicationDate, String publisher, String summary
+		/*
 		String hql = "SELECT new Book (b.bookId, b.bookName, b.author, b.bookPrice, b.quantity, b.likes, b.noLike, b.publicationDate, b.publisher, b.summary) " +
 				"FROM Book b WHERE b.bookId = :bookId";
+		*/
+		String hql = "SELECT new Book ( b.bookId ) FROM Book b WHERE b.bookId = :bookId";
 		Book book = (Book) getSession().createQuery(hql).setString("bookId", bookId).uniqueResult();
 		return book;
 	}

@@ -17,6 +17,10 @@ public class Book {
 	private String summary;// 简介
 	private Shop shop;
 
+	public Book(Integer bookId) {
+		this.bookId = bookId;
+	}
+
 	public Book(Integer bookId, String bookName, float bookPrice, int quantity, int likes) {
 		this.bookId = bookId;
 		this.bookName = bookName;

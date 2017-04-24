@@ -7,7 +7,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository("sellerDAOImpl")
 public class SellerDAOImpl extends BaseDAOImpl implements SellerDAO {
-//
+
+	private static final String SELLER_IMAGE_URL = "http://localhost:8090/study/selImage";
+	private static final String SELLER_WEIXIN_URL = "http://localhost:8090/study/selWeiXin/";
+
 /*	@Override
 	public String addSeller(Seller seller) {
 		String selId;
@@ -70,17 +73,26 @@ public class SellerDAOImpl extends BaseDAOImpl implements SellerDAO {
 
 
 	@Override
-	public void updateSelImage(String selImage,String selId) {
-		selImage = "upload/seller/avatar/" + selImage;
+	public String updateSelImage(String selImage,String selId) {
+		selImage = SELLER_IMAGE_URL + selImage;
 		String hql = "UPDATE Seller s SET s.selImage = :selImage WHERE s.selId = :selId";
 		getSession().createQuery(hql).setString("selImage", selImage).setString("selId", selId).executeUpdate();
+		return selImage;
 	}
 
 	@Override
-	public void updateSelWeiXin(String selWeiXin, String selId) {
-		selWeiXin = "D:/study/selWeiXin/" + selWeiXin;
+	public String updateSelWeiXin(String selWeiXin, String selId) {
+		selWeiXin = SELLER_WEIXIN_URL + selWeiXin;
 		String hql = "UPDATE Seller s SET s.selWeiXin = :selWeiXin WHERE s.selId = :selId";
 		getSession().createQuery(hql).setString("selWeiXin", selWeiXin).setString("selId", selId).executeUpdate();
+		return selWeiXin;
+	}
+
+	@Override
+	public String getWeixinURLByShopId(String shopId) {
+		String hql = "SELECT s.selWeiXin FROM Seller s WHERE s.shop = :shopId";
+		String weixinURL = getSession().createQuery(hql).setString("shopId",shopId).uniqueResult().toString();
+		return weixinURL;
 	}
 
 }

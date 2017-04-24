@@ -11,9 +11,8 @@ public class ShopCartItemDAOImpl extends BaseDAOImpl implements ShopCartItemDAO 
 
 
     @Override
-    public String addShopItem(ShopCartItem shopCartItem) {
-        //getSession().saveOrUpdate(shopCartItem);
-        return getSession().save(shopCartItem).toString();
+    public void addShopItem(ShopCartItem shopCartItem) {
+        getSession().saveOrUpdate(shopCartItem);
     }
 
     @Override
@@ -21,7 +20,6 @@ public class ShopCartItemDAOImpl extends BaseDAOImpl implements ShopCartItemDAO 
         String hql = "FROM ShopCartItem s " +
                 "left outer join fetch s.user " +
                 "left outer join fetch s.book " +
-                "left outer join fetch s.book.bookImages " +
                 "left outer join fetch s.book.category " +
                 "left outer join fetch s.book.shop " +
                 "left outer join fetch s.book.shop.province " +
@@ -36,18 +34,19 @@ public class ShopCartItemDAOImpl extends BaseDAOImpl implements ShopCartItemDAO 
 
     @Override
     public List<ShopCartItem> getShopItemByUserId(String userId) {
-
-        String hql = "FROM ShopCartItem s " +
-               "left outer join fetch s.user " +
-                "left outer join fetch s.book " +
-                "left outer join fetch s.book.category " +
-                "left outer join fetch s.book.shop " +
-                "left outer join fetch s.book.shop.province " +
-                "left outer join fetch s.book.shop.county " +
-                "left outer join fetch s.book.shop.city " +
-                "WHERE s.user = :userId";
+        String hql = "SELECT s.cartItemId, s.itemTime, s.quantity, s.book.bookId, " +
+                "s.book.bookName, s.book.bookPrice, s.book.shop.shopId " +
+                "FROM ShopCartItem s WHERE s.user = :userId";
         @SuppressWarnings("unchecked")
-        List<ShopCartItem> list = (List<ShopCartItem>) getSession().createQuery(hql).setString("userId",userId).list();
+        List<ShopCartItem> list = (List<ShopCartItem>) getSession().createQuery(hql)
+                .setString("userId",userId).list();
         return list;
+    }
+
+    @Override
+    public void updateQuantity(String quantity, String cartItemId) {
+        String hql = "UPDATE ShopCartItem s SET s.quantity = :quantity " +
+                "WHERE s.cartItemId = :cartItemId";
+        getSession().createQuery(hql).setString("quantity",quantity).setString("cartItemId",cartItemId).executeUpdate();
     }
 }

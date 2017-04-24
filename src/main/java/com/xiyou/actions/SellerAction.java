@@ -37,6 +37,10 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
 	private String selId = null;
     private String code = null;
 
+	public String getWeixinUrlByShopId(){
+		return "";
+	}
+
 	/**
 	 * 已测
      * 1、登录方法  url: sel-sellectSeller.action?chose=login
@@ -56,21 +60,24 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
 			}else {
 				dataMap.put("status","no");
 			}
-            this.setSeller(null);
 
 		}else{
 			this.seller = selService.getSellerById(session.get("selId").toString());
             dataMap.put("seller",seller);
 		}
+		seller = null;
         return "login";
 	}
+	/*
 	public void prepareSellectSeller(){
 		if(seller.getSelId() == null){
 			seller = new Seller();
 		}else {
-			seller = selService.getSellerById(selId);
+			seller = selService.getSellerById(seller.getSelId().toString());
 		}
 	}
+	*/
+
     /**
      * 1、注册 seller 需要selId字段为空串
      * 2、更新 seller 需要selId字段
@@ -78,12 +85,13 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
      */
 	public String addSeller() {
         dataMap = BookStoreWebUtils.getDataMap(session);
-		seller.setSelImage(SELLER_IMAGE_URL);
-		seller.setSelWeiXin(SELLER_WEIXIN_URL);
-		selService.addSeller(seller);
 		if(selId.equals("")){
-			session.put("selId", seller.getSelId());
+			seller.setSelImage(SELLER_IMAGE_URL);
+			seller.setSelWeiXin(SELLER_WEIXIN_URL);
 		}
+		selService.addSeller(seller);
+		session.put("selId", seller.getSelId());
+		seller = null;
 		return "addSeller";
 	}
 	

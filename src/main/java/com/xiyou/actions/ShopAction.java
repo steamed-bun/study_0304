@@ -37,6 +37,7 @@ public class ShopAction extends ActionSupport implements SessionAware,
 
 	/**
 	 * shop本是自动注册的，所以只有修改
+	 * 需要seller是登录状态
 	 * url：shop-updateShop.action
 	 * 必须传参shop.shopId
 	 * @return
@@ -45,6 +46,7 @@ public class ShopAction extends ActionSupport implements SessionAware,
 		dataMap = BookStoreWebUtils.getDataMap(session);
 		shopService.addShop(shop);
 		session.put("shopId", shop.getShopId());
+		shop = null;
 		return "updateShop";
 	}
 	
@@ -62,14 +64,6 @@ public class ShopAction extends ActionSupport implements SessionAware,
 		this.setShop(null);
 		return "selectShop";
 	}
-
-/*
-	public void prepareSelectSelect(){
-		if(shopId != null){
-			shopService.sellectShop(shopId);
-		}
-	}
-*/
 
 	@Override
 	public Shop getModel() {

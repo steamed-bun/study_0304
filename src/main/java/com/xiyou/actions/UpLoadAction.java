@@ -15,70 +15,74 @@ import org.springframework.stereotype.Controller;
 public class UpLoadAction extends ActionSupport implements SessionAware{
 
 	private static final long serialVersionUID = 1L;
+	//物理地址
+	private static final String SELLER_IMAGE_DirURL = "F:/tomcat8.0/webapps/study/selWeiXin/";
+	private static final String SELLER_WEIXIN_DirURL = "F:/tomcat8.0/webapps/study/selWeiXin/";
 
 	@Autowired
 	private SellerService sellerService;
 
-	private File photo;
-	private String photoContentType;
+	private File selImage;
+	private File selWeixin;
+	private String selImageContentType;
+	private String selWeixinContentType;
 	@SuppressWarnings("unused")
-	private String photoFileName;
+	private String selImageFileName;
+	@SuppressWarnings("unused")
+	private String selWeixinFileName;
 	
 	private String path;
 
 	Map<String, Object> session;
 
 	public String addSelImage() throws Exception {
-		path = "F:/tomcat8.0/webapps/upload/seller/avatar";
+		path = SELLER_IMAGE_DirURL;
 		File file = new File(path);
 		if (!file.exists()) {
 			file.mkdir();
 		}
-		String selImage = getPhotoName();
-		FileUtils.copyFile(photo, new File(file, selImage));
-		sellerService.updateSelImage(selImage, session.get("selId").toString());
+		String selImageName = getSelImageName();
+		FileUtils.copyFile(selImage, new File(file, selImageName));
+		path = sellerService.updateSelImage(selImageName, session.get("selId").toString());
 		return SUCCESS;
 	}
 	
-	public String getPhotoName(){
+	public String getSelImageName(){
 		String photoName = ".jpg";
-			if(photoContentType.equals("image/png")){
+			if(selImageContentType.equals("image/png")){
 				photoName = ".png";
-			}else if(photoContentType.equals("image/gif")){
+			}else if(selImageContentType.equals("image/gif")){
 				photoName = ".gif";
 			}
 		return String.valueOf(System.currentTimeMillis()) + photoName;
 	}
 	
 	public String addSelWeiXin() throws Exception {
-		path = "D:/study/selWeiXin";
+		path = SELLER_WEIXIN_DirURL;
 		System.out.println(path);
 		File file = new File(path);
 		if (!file.exists()) {
 			file.mkdir();
 		}
-		String selWeiXin = getPhotoName();
-		FileUtils.copyFile(photo, new File(file, selWeiXin));
-		sellerService.updateSelWeiXin(selWeiXin, session.get("selId").toString());
+		String selWeixinName = getSelWeixinName();
+		FileUtils.copyFile(selWeixin, new File(file, selWeixinName));
+		path = sellerService.updateSelWeiXin(selWeixinName, session.get("selId").toString());
 		return SUCCESS;
 	}
-	
+
+	public String getSelWeixinName(){
+		String photoName = ".jpg";
+		if(selImageContentType.equals("image/png")){
+			photoName = ".png";
+		}else if(selImageContentType.equals("image/gif")){
+			photoName = ".gif";
+		}
+		return String.valueOf(System.currentTimeMillis()) + photoName;
+	}
+
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
-	}
-
-
-	public void setPhoto(File photo) {
-		this.photo = photo;
-	}
-
-	public void setPhotoContentType(String photoContentType) {
-		this.photoContentType = photoContentType;
-	}
-
-	public void setPhotoFileName(String photoFileName) {
-		this.photoFileName = photoFileName;
 	}
 
 	public String getPath() {
@@ -87,5 +91,29 @@ public class UpLoadAction extends ActionSupport implements SessionAware{
 
 	public void setPath(String path) {
 		this.path = path;
+	}
+
+	public void setSelImage(File selImage) {
+		this.selImage = selImage;
+	}
+
+	public void setSelWeixin(File selWeixin) {
+		this.selWeixin = selWeixin;
+	}
+
+	public void setSelImageContentType(String selImageContentType) {
+		this.selImageContentType = selImageContentType;
+	}
+
+	public void setSelWeixinContentType(String selWeixinContentType) {
+		this.selWeixinContentType = selWeixinContentType;
+	}
+
+	public void setSelImageFileName(String selImageFileName) {
+		this.selImageFileName = selImageFileName;
+	}
+
+	public void setSelWeixinFileName(String selWeixinFileName) {
+		this.selWeixinFileName = selWeixinFileName;
 	}
 }

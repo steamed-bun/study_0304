@@ -2,9 +2,9 @@ package com.xiyou.actions;
 
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
-import com.xiyou.domain.Seller;
+import com.xiyou.domain.Book;
+import com.xiyou.domain.User;
 import com.xiyou.domain.ShopCartItem;
-import com.xiyou.domain.ShoppingCart;
 import com.xiyou.service.BookService;
 import com.xiyou.service.ShopCartService;
 import com.xiyou.service.UserService;
@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Map;
 
 @Controller("shopCartAction")
@@ -30,50 +31,93 @@ public class ShopCartAction implements SessionAware, ModelDriven<ShopCartItem>,
     private ShopCartService shopCartService;
 
     private ShopCartItem shopCartItem;
-    private ShoppingCart shoppingCart;
-    private String cartItemId;
-
-    Map<String, Object> session;
+    private String userId;
+    private Map<String, Object> session;
+    private Map<String, Object> dataMap;
     private String bookId;
+//    private ShoppingCart shoppingCart;
 
-    //已测
+    /**
+     * 已测
+     * 1、添加
+     * url:cart-addShopItem.action?bookId=4&shopCartItem.quantity=3
+     * 测试时user必须是登录状态
+     * @return
+     */
     public String addShopItem(){
-
-        //String userId = session.get("userId").toString();
-        String userId = "1";
-        //shopCartItem.setCartItemId(3);
-        shopCartItem.setQuantity(3);
+        dataMap = BookStoreWebUtils.getDataMap(session);
+        userId = session.get("userId").toString();
         shopCartItem.setItemTime(new Date(new java.util.Date().getTime()));
-        if (userId == null){
-            //即用户未登录,应返回登录页面，或提示未登录
-        }else{
-            shopCartItem.setUser(userService.getUserById(userId));
-        }
+        User user = userService.getUserById(userId);
+        shopCartItem.setUser(user);
         if (bookId != null){
-            shopCartItem.setBook(bookService.getBook(bookId));
+            Book book = bookService.getBook(bookId);
+            if (book != null){
+                shopCartItem.setBook(book);
+            }else {
+                dataMap.put("status","no");
+                System.out.println("查无此书！");
+            }
         }else{
-            //出错页面
-            System.out.println("出错页面！");
+            dataMap.put("status","no");
+            System.out.println("未传入bookId！");
         }
-        //向数据库中添加
-        System.out.println(session.get("ShoppingCart"));
-        cartItemId = shopCartService.addShopCartItem(shopCartItem);
-        //向虚拟购物车中添加
-        //1、获得虚拟购物车
+        shopCartService.addShopCartItem(shopCartItem);
+        shopCartItem = null;
+        /*
+        向虚拟购物车中添加
+        1、获得虚拟购物车
         shoppingCart = BookStoreWebUtils.getShoppingCart(session);
-        //2、
+        2、加入购物车
         shopCartItem = shopCartService.getShopCartItemById(cartItemId);
         shoppingCart.getShopCartItems().put(shopCartItem.getCartItemId(),shopCartItem);
+        */
         return "addShopItem";
     }
 
     public void prepareAddShopItem(){
-        if(cartItemId.equals("")){
+        if(shopCartItem.getCartItemId() == null){
             shopCartItem = new ShopCartItem();
         }else {
-            //seller = selService.selectSeller(cartItemId);
-            //shopCartItem =
+            shopCartItem = shopCartService
+                    .getShopCartItemById(shopCartItem.getCartItemId().toString());
         }
+    }
+
+    /**
+     * 已测
+     * 获取当前user的购物车信息
+     * url:cart-getAllCartItem.action
+     * 必须在user登录状态
+     * @return 返回至data中,需先查看 status {购物车有值：yes , 无值 ：no}
+     * 有值再查看信息 name是shopCartItems，如下:
+     * {"status":"yes","shopCartItems":[[1,"2017-04-23T00:00:00",3,4,"不爱了",25.7],[2,"2017-04-23T00:00:00",6,5,"不爱了",12.65]]}
+     * 对应的值分别是 此条购物信息的Id、添加购物车时间、quantity、bookId、price、shopId
+     */
+    public String getAllCartItem(){
+        dataMap = BookStoreWebUtils.getDataMap(session);
+        String userId = session.get("userId").toString();
+        List<ShopCartItem> shopCartItems = shopCartService.getShopItemByUserId(userId);
+        if(shopCartItems == null | shopCartItems.size() <= 0){
+            dataMap.put("status","no");
+        }else {
+            dataMap.put("shopCartItems", shopCartItems);
+        }
+        return "getAllCartItem";
+    }
+
+    /**
+     * 已测
+     * 更新quantity
+     * url:cart-updateCartItem.action?shopCartItem.quantity=5&shopCartItem.cartItemId=1
+     * @return
+     */
+    public String updateCartItem(){
+        dataMap = BookStoreWebUtils.getDataMap(session);
+        String quatity = shopCartItem.getQuantity().toString();
+        String cartItemId = shopCartItem.getCartItemId().toString();
+        shopCartService.updateQuantity(quatity, cartItemId);
+        return "updateCartItem";
     }
 
     @Override
@@ -98,15 +142,16 @@ public class ShopCartAction implements SessionAware, ModelDriven<ShopCartItem>,
     public void prepare() throws Exception {
     }
 
-    public String getCartItemId() {
-        return cartItemId;
+    public Map<String, Object> getDataMap() {
+        return dataMap;
     }
 
-    public void setCartItemId(String cartItemId) {
-        this.cartItemId = cartItemId;
+    public ShopCartItem getShopCartItem() {
+        return shopCartItem;
     }
-/*
-    public ShoppingCart getShoppingCart() {
-        return shoppingCart;
-    }*/
+
+    public void setShopCartItem(ShopCartItem shopCartItem) {
+        this.shopCartItem = shopCartItem;
+    }
+
 }

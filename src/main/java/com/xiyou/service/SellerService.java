@@ -36,11 +36,11 @@ public class SellerService {
 		return sellerDAO.getSellerById(selId);
 	}
 
-	public void updateSelImage(String selImage, String selId){
-		sellerDAO.updateSelImage(selImage, selId);
+	public String updateSelImage(String selImage, String selId){
+		return sellerDAO.updateSelImage(selImage, selId);
 	}
 	
-	public void updateSelWeiXin(String selWeiXin, String selId){
-		sellerDAO.updateSelWeiXin(selWeiXin, selId);
+	public String updateSelWeiXin(String selWeiXin, String selId){
+		return sellerDAO.updateSelWeiXin(selWeiXin, selId);
 	}
 }

@@ -24,9 +24,6 @@ public class CKAction extends ActionSupport{
 	private String bookDetailURL;
 
 	public String addBookDetail(){
-		//editorTmp = editorTmp.replaceAll("http://localhost:8090/", "F:/tomcat8.0/webapps/");
-		System.out.println(editor);
-		//editor = editor.replaceAll("http://localhost:8090/", "http://localhost:8090/F:/tomcat8.0/webapps/");
 		fileName = String.valueOf(System.currentTimeMillis()) + ".html";
 		bookDetailURL = "http://localhost:8090/study/book_details/" +fileName;
 		System.out.println(bookDetailURL);
