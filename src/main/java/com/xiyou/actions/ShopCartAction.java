@@ -90,9 +90,7 @@ public class ShopCartAction implements SessionAware, ModelDriven<ShopCartItem>,
      * url:cart-getAllCartItem.action
      * 必须在user登录状态
      * @return 返回至data中,需先查看 status {购物车有值：yes , 无值 ：no}
-     * 有值再查看信息 name是shopCartItems，如下:
-     * {"status":"yes","shopCartItems":[[1,"2017-04-23T00:00:00",3,4,"不爱了",25.7],[2,"2017-04-23T00:00:00",6,5,"不爱了",12.65]]}
-     * 对应的值分别是 此条购物信息的Id、添加购物车时间、quantity、bookId、price、shopId
+     * 有值再查看信息 name是shopCartItems
      */
     public String getAllCartItem(){
         dataMap = BookStoreWebUtils.getDataMap(session);

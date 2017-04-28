@@ -1,15 +1,18 @@
 package com.xiyou.util;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import com.xiyou.domain.Book;
+import com.xiyou.domain.Seller;
+import com.xiyou.domain.User;
+import com.xiyou.domain.ShopCartItem;
 import com.xiyou.domain.ShoppingCart;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class BookStoreWebUtils {
 
+	private static User user = new User();
 	/**
 	 * 获取ShoppingCar ，如果session中有直接获取，如果没有则新建一个
 	 * @param session
@@ -35,5 +38,32 @@ public class BookStoreWebUtils {
 		dataMap.put("status", "yes");
 		return dataMap;
 	}
-	
+
+	//将book的部分置空
+	public static List<Book> setNull(List<Book> books){
+		for (Book book :books) {
+			book.setShop(null);
+			book.setCategory(null);
+		}
+		return books;
+	}
+
+	//将seller的部分置空
+	public static Seller setNull(Seller seller){
+		seller.setShop(null);
+		return seller;
+	}
+
+	public static List<ShopCartItem> setNullTo(List<ShopCartItem> shopCartItems){
+		for (ShopCartItem shopCartItem : shopCartItems ) {
+//			Hibernate.initialize(shopCartItem.getBook());
+//			Hibernate.initialize(shopCartItem.getUser());
+			shopCartItem.getBook().setShop(null);
+			shopCartItem.getBook().setCategory(null);
+			user.setUserId(shopCartItem.getUser().getUserId());
+			shopCartItem.setUser(user);
+		}
+		return shopCartItems;
+	}
+
 }

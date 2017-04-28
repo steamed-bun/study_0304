@@ -9,12 +9,30 @@ import com.xiyou.domain.Category;
 public interface BookDAO {
 
 	/**
+	 * 获取一张book的图片
+	 * @return
+     */
+	String getBookImageByBookId(List<String> bookIds);
+
+	/**
 	 * 批量插入bookImages
 	 * @param bookImages
      */
 	void batchImages(List<BookImages> bookImages);
 
+	/**
+	 * 获取当前类型的书本信息，供买家和后台管理使用
+	 * @param categoryId
+	 * @return
+     */
 	List<Book> getBooksByCategory(String categoryId);
+
+	/**
+	 * 获取当前类型的书本信息，需要当前shopId
+	 * @param categoryId
+	 * @return
+	 */
+	List<Book> getBooksByCategoryTo(String categoryId, String shopId);
 
 	/**
 	 * 删除一本书

@@ -38,8 +38,5 @@ public class ShopDAOImpl extends BaseDAOImpl implements ShopDAO {
 		String hql = "DELETE Shop s WHERE s.shopId = :shopId";
 		getSession().createQuery(hql).setString("shopId", shopId).executeUpdate();
 	}
-	
-	
-
 }
  

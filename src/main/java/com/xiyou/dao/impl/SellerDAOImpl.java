@@ -39,31 +39,21 @@ public class SellerDAOImpl extends BaseDAOImpl implements SellerDAO {
 
 	@Override
 	public boolean validateTel(String selTelTem) {
-		String hql ="from Seller s where s.selTel = :selTelTem";
+		String hql ="FROM Seller s WHERE s.selTel = :selTelTem";
 		return !(getSession().createQuery(hql).setString("selTelTem",selTelTem).uniqueResult().equals(""));
 	}
 
 	@Override
 	public Seller getSellerById(String selId) {
-		String hql = "from Seller s " +
-                "LEFT OUTER JOIN FETCH s.shop " +
-                "LEFT OUTER JOIN FETCH s.shop.city " +
-                "LEFT OUTER JOIN FETCH s.shop.county " +
-                "LEFT OUTER JOIN FETCH s.shop.province " +
-                "where s.selId = :selId";
+		String hql = "FROM Seller s " +
+                "WHERE s.selId = :selId";
 		Seller seller = (Seller)getSession().createQuery(hql).setString("selId", selId).uniqueResult();
-
-		//System.out.println(seller);
 		return seller;
 }
 
 	@Override
 	public Seller getSellerByEmial(String selEmail, String password) {
-		String hql = "from Seller s " +
-				"LEFT OUTER JOIN FETCH s.shop " +
-				"LEFT OUTER JOIN FETCH s.shop.city " +
-				"LEFT OUTER JOIN FETCH s.shop.county " +
-				"LEFT OUTER JOIN FETCH s.shop.province " +
+		String hql = "FROM Seller s " +
 				"WHERE s.selTel = :selEmail AND s.selPassword = :password";
 		@SuppressWarnings("unchecked")
 		Seller seller = (Seller) getSession().createQuery(hql).setString("selEmail",selEmail)

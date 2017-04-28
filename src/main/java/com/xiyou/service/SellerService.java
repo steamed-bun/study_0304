@@ -20,10 +20,12 @@ public class SellerService {
 	private SellectDAO sellectDAO;
 
 	public void addSeller(Seller seller){
-		Shop shop = Shop.getShop();
-		System.out.println(shop);
-		shopDAO.addShop(shop);
-		seller.setShop(shop);
+		if (seller.getSelId() == null){
+			Shop shop = Shop.getShop();
+			System.out.println(shop);
+			shopDAO.addShop(shop);
+			seller.setShop(shop);
+		}
 		sellerDAO.addSeller(seller);
 	}
 	

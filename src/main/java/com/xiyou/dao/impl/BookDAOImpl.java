@@ -20,16 +20,11 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 	
 	@Override
 	public List<Book> getBooks(String shopId) {
-		String hql = "FROM Book b left outer join fetch b.category " +
-				"left outer join fetch b.shop " +
-				"left outer join fetch b.shop.province " +
-				"left outer join fetch b.shop.city " +
-				"left outer join fetch b.shop.county " +
+		String hql = "FROM Book b " +
 				"WHERE b.shop = :shopId order by b.bookId";
 		
 		@SuppressWarnings("unchecked")
 		List<Book> list = getSession().createQuery(hql).setString("shopId", shopId).list();
-		
 		return list;
 				
 	}
@@ -44,11 +39,20 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 
 	@Override
 	public List<Book> getBooksByCategory(String categoryId) {
-		String hql = "SELECT new Book (b.bookId, b.bookName,b.bookPrice, b.quantity, b.likes) " +
-				"FROM Book b " +
+		String hql = "FROM Book AS b " +
 				"WHERE b.category = :categoryId";
 		@SuppressWarnings("unchecked")
 		List<Book> books = getSession().createQuery(hql).setString("categoryId",categoryId).list();
+		return books;
+	}
+
+	@Override
+	public List<Book> getBooksByCategoryTo(String categoryId, String shopId) {
+		String hql = "FROM Book AS b " +
+				"WHERE b.category = :categoryId AND b.shop = :shopId";
+		@SuppressWarnings("unchecked")
+		List<Book> books = getSession().createQuery(hql).setString("categoryId",categoryId)
+				.setString("shopId",shopId).list();
 		return books;
 	}
 
@@ -61,11 +65,7 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 
 	@Override
 	public Book getBook(String bookId) {
-		String hql = "FROM Book b left outer join fetch b.category " +
-				"left outer join fetch b.shop " +
-				"left outer join fetch b.shop.province " +
-				"left outer join fetch b.shop.city " +
-				"left outer join fetch b.shop.county " +
+		String hql = "FROM Book b " +
 				"WHERE b.bookId = :bookId";
 		Book book = (Book) getSession().createQuery(hql).setString("bookId", bookId).uniqueResult();
 		return book;
@@ -73,14 +73,16 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 
 	@Override
 	public Book getBookTo(String bookId) {
-		//Integer bookId, String bookName, String author, float bookPrice, int quantity, int likes, int noLike, String publicationDate, String publisher, String summary
-		/*
-		String hql = "SELECT new Book (b.bookId, b.bookName, b.author, b.bookPrice, b.quantity, b.likes, b.noLike, b.publicationDate, b.publisher, b.summary) " +
-				"FROM Book b WHERE b.bookId = :bookId";
-		*/
 		String hql = "SELECT new Book ( b.bookId ) FROM Book b WHERE b.bookId = :bookId";
 		Book book = (Book) getSession().createQuery(hql).setString("bookId", bookId).uniqueResult();
 		return book;
+	}
+
+	@Override
+	public String getBookImageByBookId(List<String> bookIds) {
+		String hql = "SELECT b.imageURL FROM BookImages b WHERE b.book = :bookId";
+		getSession().createQuery(hql);
+		return null;
 	}
 
 	//如果量足够大的话应该手动写入数据库，并清除缓存
@@ -91,5 +93,7 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 			session.save(bookImage);
 		}
 	}
+
+
 
 }

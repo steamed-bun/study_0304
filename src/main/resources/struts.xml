@@ -128,7 +128,7 @@
 				<param name="root">dataMap</param>
 			</result>
 			<result name="updateCartItem" type="json">
-				<param name="root"></param>
+				<param name="root">dataMap</param>
 			</result>
 			<!--<result name="addShopItem">/test.jsp</result>-->
 		</action>

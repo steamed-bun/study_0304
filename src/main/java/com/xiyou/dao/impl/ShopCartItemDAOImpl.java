@@ -2,6 +2,7 @@ package com.xiyou.dao.impl;
 
 import com.xiyou.dao.ShopCartItemDAO;
 import com.xiyou.domain.ShopCartItem;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -34,9 +35,7 @@ public class ShopCartItemDAOImpl extends BaseDAOImpl implements ShopCartItemDAO 
 
     @Override
     public List<ShopCartItem> getShopItemByUserId(String userId) {
-        String hql = "SELECT s.cartItemId, s.itemTime, s.quantity, s.book.bookId, " +
-                "s.book.bookName, s.book.bookPrice, s.book.shop.shopId " +
-                "FROM ShopCartItem s WHERE s.user = :userId";
+        String hql = "FROM ShopCartItem s WHERE s.user = :userId";
         @SuppressWarnings("unchecked")
         List<ShopCartItem> list = (List<ShopCartItem>) getSession().createQuery(hql)
                 .setString("userId",userId).list();

@@ -15,7 +15,7 @@
     		<column name="IMAGE_URL" not-null="true"></column>
     	</property>
     	
-    	<many-to-one name="book" class="Book" unique="true">
+    	<many-to-one name="book" class="Book" unique="true" fetch="join">
     		<column name="BOOK_ID"></column>
     	</many-to-one>
 

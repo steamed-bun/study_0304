@@ -57,28 +57,22 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
 			if (seller != null){
 				session.put("selId", seller.getSelId());
 				session.put("shopId", seller.getShop().getShopId());
+				seller.setShop(null);
 			}else {
 				dataMap.put("status","no");
 			}
 
 		}else{
 			this.seller = selService.getSellerById(session.get("selId").toString());
+			seller = BookStoreWebUtils.setNull(seller);
             dataMap.put("seller",seller);
 		}
 		seller = null;
         return "login";
 	}
-	/*
-	public void prepareSellectSeller(){
-		if(seller.getSelId() == null){
-			seller = new Seller();
-		}else {
-			seller = selService.getSellerById(seller.getSelId().toString());
-		}
-	}
-	*/
 
     /**
+     * 已测
      * 1、注册 seller 需要selId字段为空串
      * 2、更新 seller 需要selId字段
      * @return

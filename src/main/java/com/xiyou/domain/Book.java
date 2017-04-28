@@ -1,11 +1,13 @@
 package com.xiyou.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Book {
 
 	private Integer bookId;
 	private String bookName;
+	private Set<BookImages> bookImages = new HashSet<BookImages>();
 	private String author;
 	private Category category;
 	private float bookPrice;
@@ -16,6 +18,11 @@ public class Book {
 	private String publisher;// 出版社
 	private String summary;// 简介
 	private Shop shop;
+
+	public Book(Integer bookId, String bookName) {
+		this.bookId = bookId;
+		this.bookName = bookName;
+	}
 
 	public Book(Integer bookId) {
 		this.bookId = bookId;
@@ -40,6 +47,22 @@ public class Book {
 		this.publicationDate = publicationDate;
 		this.publisher = publisher;
 		this.summary = summary;
+	}
+
+	public Book(Integer bookId, String bookName, Set<BookImages> bookImages, String author, Category category, float bookPrice, int quantity, int likes, int noLike, String publicationDate, String publisher, String summary, Shop shop) {
+		this.bookId = bookId;
+		this.bookName = bookName;
+		this.bookImages = bookImages;
+		this.author = author;
+		this.category = category;
+		this.bookPrice = bookPrice;
+		this.quantity = quantity;
+		this.likes = likes;
+		this.noLike = noLike;
+		this.publicationDate = publicationDate;
+		this.publisher = publisher;
+		this.summary = summary;
+		this.shop = shop;
 	}
 
 	public Integer getBookId() {
@@ -141,6 +164,15 @@ public class Book {
 	public Book() {
 		super();
 	}
+
+	public Set getBookImages() {
+		return bookImages;
+	}
+
+	public void setBookImages(Set bookImages) {
+		this.bookImages = bookImages;
+	}
+
 
 /*	@Override
 	public String toString() {

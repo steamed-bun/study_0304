@@ -2,6 +2,7 @@ package com.xiyou.service;
 
 import com.xiyou.dao.ShopCartItemDAO;
 import com.xiyou.domain.ShopCartItem;
+import com.xiyou.util.BookStoreWebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,9 @@ public class ShopCartService {
     }
 
     public List<ShopCartItem> getShopItemByUserId(String userId){
-        return shopCartItemDAO.getShopItemByUserId(userId);
+        List<ShopCartItem> shopCartItems = shopCartItemDAO.getShopItemByUserId(userId);
+        shopCartItems = BookStoreWebUtils.setNullTo(shopCartItems);
+        return shopCartItems;
     }
 
     public void updateQuantity(String quantity, String cartItemId){

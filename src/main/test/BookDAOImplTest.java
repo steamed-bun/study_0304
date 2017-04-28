@@ -37,7 +37,7 @@ public class BookDAOImplTest {
     @Transactional
     @Test
     public void getBookTest(){
-        System.out.println(bookDAO.getBook("1"));
+        System.out.println(bookDAO.getBook("4"));
     }
 
     @Transactional

@@ -43,7 +43,8 @@ public class BookService {
 	}
 
 	public List<Book> getBooks(String shopId){
-		return bookDAO.getBooks(shopId);
+		List<Book> books = bookDAO.getBooks(shopId);
+		return books;
 	}
 
 	public void addBook(Book book){
@@ -56,6 +57,10 @@ public class BookService {
 
 	public Book getBook(String bookId){
 		return bookDAO.getBook(bookId);
+	}
+
+	public List<Book> getBooksByCategoryTo(String categoryId, String shopId){
+		return bookDAO.getBooksByCategoryTo(categoryId, shopId);
 	}
 
 }

@@ -31,7 +31,14 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 	private Book book;
 	private List<BookImages> bookImages;
 
+
+	public String deleteBook(){
+		bookService.deleteBook(book.getBookId().toString());
+		return "deleteBook";
+	}
+
 	/**
+	 * 已测
 	 * 添加book的图片
 	 * url：book-addImages.action
 	 * 需传入：book.bookId
@@ -40,62 +47,64 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
      */
 	public String addImages(){
 		System.out.println("addImages");
+		dataMap = BookStoreWebUtils.getDataMap(session);
 		if (bookImages != null && bookImages.size() > 0){
 			bookService.addImages(book.getBookId().toString(),bookImages);
+		}else {
+			dataMap.put("status","no");
 		}
-		dataMap = BookStoreWebUtils.getDataMap(session);
 		book = null;
 		return "addImages";
 	}
 
-	public void prepareAddImages(){
+/*	public void prepareAddImages(){
 		bookImages = new ArrayList<BookImages>(5);
-	}
-
-	public String deleteBook(){
-		bookService.deleteBook(book.getBookId().toString());
-		return "deleteBook";
-	}
+	}*/
 
 	/**
+	 * 已测
+	 * user和后台获取当前类型的所有书籍
 	 * url:book-getBooksByCategory.action?book.category.categoryId=2
 	 * @return
      */
 	public String getBooksByCategory(){
 		dataMap = BookStoreWebUtils.getDataMap(session);
-		String id = book.getCategory().getCategoryId().toString();
-		List<Book> list = bookService.getBooksByCategory(id);
-		dataMap.put("books",list);
+		String categoryId = book.getCategory().getCategoryId().toString();
+		List<Book> books = bookService.getBooksByCategory(categoryId);
+		books = BookStoreWebUtils.setNull(books);
+		dataMap.put("books",books);
 		book = null;
 		return "getBooksByCategory";
 	}
 
-/*	public String getSelect(){
-		List<Category> categories = bookService.selectCategory();
-		request.put("categories", categories);
-		return "getSelect";
-	}
-	
-	public void prepareGetSelect(){
-		if(bookId != null){
-			bookService.getBook(bookId);
-		}
-	}
-*/
 	/**
-	 * 获取当前登录shop的所有书籍
-	 * url：book-getBooks.action
+	 * 已测
+	 * seller得到其不同类型的书本信息
+	 * 使用此接口的时候seller必须是登录状态
+	 * url:book-getBooksByCategoryTo.action?book.category.categoryId=2
 	 * @return
-     */
-	public String getBooks(){
+	 */
+	public String getBooksByCategoryTo(){
 		dataMap = BookStoreWebUtils.getDataMap(session);
+		String categoryId = book.getCategory().getCategoryId().toString();
 		String shopId = session.get("shopId").toString();
-		dataMap.put("books",bookService.getBooks(shopId));
-		return "getBooks";
+		List<Book> books = bookService.getBooksByCategoryTo(categoryId, shopId);
+		books = BookStoreWebUtils.setNull(books);
+		dataMap.put("books",books);
+		book = null;
+		return "getBooksByCategory";
 	}
 
+
+
+	/**
+	 * 已测
+	 * 添加和修改书本信息
+	 * seller必须是登录状态
+	 * url:book-addBook.action
+	 * @return
+     */
 	public String addBook(){
-		//Seller seller = bookService.selectShopBySelId(session.get("selId").toString());
 		dataMap = BookStoreWebUtils.getDataMap(session);
 		if (book.getBookId() == null){
 			Shop shop = bookService.getShopByShopId(session.get("shopId").toString());
@@ -146,9 +155,6 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 	public void setBookImages(List<BookImages> bookImages) {
 		this.bookImages = bookImages;
 	}
-//	public String getStatus() {
-//		return status;
-//	}
 
 	public Map<String, Object> getDataMap() {
 		return dataMap;
