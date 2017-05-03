@@ -6,6 +6,7 @@ angular.module('merchantLogin-controller',[])
             method:'GET',
             url:'sel-sellectSeller.action?chose=CHOSE',
         }).success(function(data){
+            data=data.seller;
             console.log(data);
             console.log('我获得数据了');
             $scope.user={
@@ -94,6 +95,7 @@ angular.module('merchantLogin-controller',[])
   			//TODO 此处要根据后台给的反馈实时给用户提示
   			console.log("我要保存到数据库中了");
             console.log(subImg);
+            /*
             $http({
                 method:'POST',
                 url:'sel-sellectSeller.action?chose=CHOSE',
@@ -113,6 +115,7 @@ angular.module('merchantLogin-controller',[])
                 };
                 console.log($scope.user);
             });
+            */
   		};
 	  	/*----------与更换头像相关的事件结束-------*/
 
@@ -144,6 +147,7 @@ angular.module('merchantLogin-controller',[])
                     headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
                 }).success(function(data){
                     console.log(data);
+                    data=data.status;
                     if(data=='yes'){
                         console.log('修改成功');
                         //修改成功后，给用户提示
@@ -341,9 +345,36 @@ angular.module('merchantLogin-controller',[])
         });
         /*------------表单验证结束-----------*/
   })
-    .controller('bookAdminCtrl',function($scope,$window,$location){
+    .controller('bookAdminCtrl',function($scope,$window,$location,$http){
 	  	/*-------书籍管理获取基础信息开始-----------*/
-	  	//此处应从数据库中获得书籍信息
+	  	//根据书籍大类的id值从数据库中获得书籍信息
+        var getBookInfo=function (cateId){
+            postData='book.category.categoryId='+cateId;
+            return   $http({
+                        method:'POST',
+                        url:'book-getBooksByCategory.action',
+                        data:postData,//已序列化用户输入的数据
+                        headers:{'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+                     }).then(function(response){
+                        console.log(response); //打印响应数据（采用then方法获得的响应数据比用success方法获得的响应数据信息多）
+                        return response.data;//将响应数据的data属性值返回
+                     });
+        }
+        //高亮显示当前商家查看的书籍大类并从数据库中查书籍信息
+        $('.book-big-categorys a').click(function(){
+            var categoryId=$(this).attr('data-id');
+            var bookInfo,
+                reData;
+            $('.book-big-categorys a').css('color','#656565');
+            $(this).css('color','#ddbea1');//高亮显示当前点击的书籍大类名称
+            getBookInfo(categoryId).then(function(myData){
+                console.log(myData.books[0]);
+                console.log('我执行了');
+            });
+        });
+
+
+
 	  	$scope.bookNum={
 	  		edu:344,
 	  		story:112,
@@ -407,6 +438,7 @@ angular.module('merchantLogin-controller',[])
             method:'GET',
             url:'shop-selectShop.action',
         }).success(function(data){
+            data=data.shop;
             console.log(data);
             console.log('我获得数据了');
             $scope.user={
@@ -523,6 +555,7 @@ angular.module('merchantLogin-controller',[])
                 data:postData,//已序列化用户输入的数据
                 headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
             }).success(function(data){
+                data=data.status;
                 if(data=='yes'){
                     console.log("商家店铺信息修改成功");
                     //修改成功，显示修改成功提示信息

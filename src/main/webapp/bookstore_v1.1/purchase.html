@@ -9,21 +9,25 @@
 	</head>
 	<body ng-app="userLogin">
 		<!-- 头部开始 -->
-		<header ng-controller="userLoginCtrl">
+		<header>
 			<div class="header-nav">
 				<div class="container clearfix">
 				<span class="fl">好的生活，与书为伴</span>
 				<div class="fr">
-					<div class="user-box">
-						<span class="user-txt">{{ user.uname }}</span>
+					<div class="user-box" style="display:none">
+						<span class="user-txt">花开半夏</span>
 						<ul class="user-bus">
 							<li><a href="customer_business.html#/custInfo">个人资料</a></li>
 							<li><a href="customer_business.html#/orderMange">订单管理</a></li>
 							<li><a href="customer_business.html#/addrMange">地址管理</a></li>
 							<li><a href="customer_business.html#/accountMange">账号安全</a></li>
 							<li><a href="sign.html#/login">退出登录</a></li>
-							<p></p>
 						</ul>
+					</div>
+					<div class="user-not-login">
+						<span class="head-login login-txt">登录</span>
+						<span class="header-separate">|</span>
+						<span class="head-regist regist-txt">注册</span>
 					</div>
 				</div>
 			</div>
@@ -35,8 +39,74 @@
 					</div>
 					<div class="fr">
 						<input type="text" placeholder="请输入关键字进行搜索" ng-model="user.keywords" class="keywords-search"/>
-						<a class="search-icon" href="javascript:;"><a>
-						<a class="shopcar-icon" href="javascript:;"><a>
+						<a class="search-icon" href="javascript:;"></a>
+						<div class="shopcar-icon" style="display:none">
+							<a  href="javascript:;"></a>
+							<span class="shop-num">0<i></i></span>
+							<div class="shop-book-list-box shop-book-small-list-box"> 
+								<ul class="shop-book-list">
+									<li>
+										<div class="shop-book-img"><a href="javascript:;" style="background:url('./images/index/e00003.jpg') center center no-repeat;background-size:contain;"></a></div>
+										<div class="shop-book-baseInfo">
+											<a href="javascript:;">三生三世十里桃花哗</a>
+											<a>x1</a>
+										</div>
+										<div class="shop-book-price">
+											<span>￥89.4</span>
+											<i></i>
+										</div>
+									</li>
+									<li>
+										<div class="shop-book-img"><a href="javascript:;" style="background:url('./images/index/e00003.jpg') center center no-repeat;background-size:contain;"></a></div>
+										<div class="shop-book-baseInfo">
+											<a href="javascript:;">三生三世十里桃花</a>
+											<a>x13</a>
+										</div>
+										<div class="shop-book-price">
+											<span>￥89.4</span>
+											<i></i>
+										</div>
+									</li>
+									<li>
+										<div class="shop-book-img"><a href="javascript:;" style="background:url('./images/index/e00003.jpg') center center no-repeat;background-size:contain;"></a></div>
+										<div class="shop-book-baseInfo">
+											<a href="javascript:;">三生三世十里桃花</a>
+											<a>x2</a>
+										</div>
+										<div class="shop-book-price">
+											<span>￥89.4</span>
+											<i></i>
+										</div>
+									</li>
+									<li>
+										<div class="shop-book-img"><a href="javascript:;" style="background:url('./images/index/e00003.jpg') center center no-repeat;background-size:contain;"></a></div>
+										<div class="shop-book-baseInfo">
+											<a href="javascript:;">三生三世十里桃花</a>
+											<a>x4</a>
+										</div>
+										<div class="shop-book-price">
+											<span>￥89.4</span>
+											<i></i>
+										</div>
+									</li>
+									<li>
+										<div class="shop-book-img"><a href="javascript:;" style="background:url('./images/index/e00003.jpg') center center no-repeat;background-size:contain;"></a></div>
+										<div class="shop-book-baseInfo">
+											<a href="javascript:;">三生三世十里桃花</a>
+											<a>x8</a>
+										</div>
+										<div class="shop-book-price">
+											<span>￥89.4</span>
+											<i></i>
+										</div>
+									</li>
+								</ul>
+								<div class="paymeny-book-box">
+									<span>商品合计：<i>￥34.7</i></span>
+									<span>去结算</span>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				<nav class="container">
@@ -416,7 +486,7 @@
 							</div> -->
 						</li>
 				</ul>
-				<div class="aside-img-box fr">
+				<div class="aside-img-box fr" style="display:none">
 					<div class="aside-user-box">
 						<span class="aside-user-img"></span>
 						<ul class="aside-user-bus">
@@ -425,9 +495,45 @@
 							<li><a href="customer_business.html#/addrMange">地址管理</a></li>
 							<li><a href="customer_business.html#/accountMange">账号安全</a></li>
 							<li><a href="sign.html#/login">退出登录</a></li>
-							<p></p>
 						</ul>
 					</div>
+					<div class="shopcar-big-icon">
+						<a  href="javascript:;"></a>
+						<span class="shop-big-num"><b>0</b><i></i></span>
+						<div class="shop-book-list-box shop-book-big-list-box"> 
+							<ul class="shop-book-list">
+								<li>
+									<div class="shop-book-img"><a href="javascript:;" style="background:url('./images/index/e00003.jpg') center center no-repeat;background-size:contain;"></a></div>
+									<div class="shop-book-baseInfo shop-book-big-baseInfo">
+										<a href="javascript:;">三生三世十里桃花哗</a>
+										<a>x1</a>
+									</div>
+									<div class="shop-book-price shop-book-big-price">
+										<span>￥89.4</span>
+										<i></i>
+									</div>
+								</li>
+								<li>
+									<div class="shop-book-img"><a href="javascript:;" style="background:url('./images/index/e00003.jpg') center center no-repeat;background-size:contain;"></a></div>
+									<div class="shop-book-baseInfo shop-book-big-baseInfo">
+										<a href="javascript:;">三生三世十里桃花哗</a>
+										<a>x1</a>
+									</div>
+									<div class="shop-book-price shop-book-big-price">
+										<span>￥89.4</span>
+										<i></i>
+									</div>
+								</li>
+							</ul>
+							<div class="paymeny-book-box">
+								<span>商品合计：<i>￥34.7</i></span>
+								<span>去结算</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="aside-img-box fr">
+					<p><a href="javascript:;" class="login-txt">登录</a><a>|</a><a href="javascript:;" class="regist-txt">注册</a></p>
 					<a href="javascript:;"></a>
 				</div>
 			</div>
@@ -474,6 +580,7 @@
 		<script src="./js/angular.js"></script>
 		<script src="./js/slider.js"></script>
 		<script src="./app/base.js"></script>
+		<script src="./app/getBaseData.js"></script>
 		<script src="./app/base-controller.js"></script>
 		<script src="./app/purchase.js"></script>
 	</body>

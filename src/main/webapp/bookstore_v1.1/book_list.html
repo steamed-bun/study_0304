@@ -15,48 +15,279 @@
 				<div class="container clearfix">
 				<span class="fl">好的生活，与书为伴</span>
 				<div class="fr">
-					<div class="user-box">
+					<div class="user-box" style="display:none">
 						<span class="user-txt">花开半夏</span>
 						<ul class="user-bus">
-							<li><a href="javascript:;">个人资料</a></li>
-							<li><a href="javascript:;">订单管理</a></li>
-							<li><a href="javascript:;">地址管理</a></li>
-							<li><a href="javascript:;">账号安全</a></li>
-							<li><a href="javascript:;">退出登录</a></li>
-							<p></p>
+							<li><a href="customer_business.html#/custInfo">个人资料</a></li>
+							<li><a href="customer_business.html#/orderMange">订单管理</a></li>
+							<li><a href="customer_business.html#/addrMange">地址管理</a></li>
+							<li><a href="customer_business.html#/accountMange">账号安全</a></li>
+							<li><a href="sign.html#/login">退出登录</a></li>
 						</ul>
+					</div>
+					<div class="user-not-login">
+						<span class="head-login login-txt">登录</span>
+						<span class="header-separate">|</span>
+						<span class="head-regist regist-txt">注册</span>
 					</div>
 				</div>
 			</div>
 			</div>
-			<div class="header-logo-box container">
-				<div class="logo-box-top clearfix">
+			<div class="header-logo-box ">
+				<div class="logo-box-top  container clearfix">
 					<div class="fl">
 						<img src="images/logo.png"/>
 					</div>
 					<div class="fr">
-						<input type="text" placeholder="请输入关键字进行搜索" class="keywords-search"/>
-						<a class="search-icon" href="javascript:;"><a>
-						<a class="shopcar-icon" href="javascript:;"><a>
+						<input type="text" placeholder="请输入关键字进行搜索" ng-model="user.keywords" class="keywords-search"/>
+						<a class="search-icon" href="javascript:;"></a>
+						<div class="shopcar-icon" style="display:none">
+							<a  href="javascript:;"></a>
+							<span class="shop-num">0<i></i></span>
+							<div class="shop-book-list-box shop-book-small-list-box"> 
+								<ul class="shop-book-list">
+									<li>
+										<div class="shop-book-img"><a href="javascript:;" style="background:url('./images/index/e00003.jpg') center center no-repeat;background-size:contain;"></a></div>
+										<div class="shop-book-baseInfo">
+											<a href="javascript:;">三生三世十里桃花哗</a>
+											<a>x1</a>
+										</div>
+										<div class="shop-book-price">
+											<span>￥89.4</span>
+											<i></i>
+										</div>
+									</li>
+									<li>
+										<div class="shop-book-img"><a href="javascript:;" style="background:url('./images/index/e00003.jpg') center center no-repeat;background-size:contain;"></a></div>
+										<div class="shop-book-baseInfo">
+											<a href="javascript:;">三生三世十里桃花</a>
+											<a>x13</a>
+										</div>
+										<div class="shop-book-price">
+											<span>￥89.4</span>
+											<i></i>
+										</div>
+									</li>
+									<li>
+										<div class="shop-book-img"><a href="javascript:;" style="background:url('./images/index/e00003.jpg') center center no-repeat;background-size:contain;"></a></div>
+										<div class="shop-book-baseInfo">
+											<a href="javascript:;">三生三世十里桃花</a>
+											<a>x2</a>
+										</div>
+										<div class="shop-book-price">
+											<span>￥89.4</span>
+											<i></i>
+										</div>
+									</li>
+									<li>
+										<div class="shop-book-img"><a href="javascript:;" style="background:url('./images/index/e00003.jpg') center center no-repeat;background-size:contain;"></a></div>
+										<div class="shop-book-baseInfo">
+											<a href="javascript:;">三生三世十里桃花</a>
+											<a>x4</a>
+										</div>
+										<div class="shop-book-price">
+											<span>￥89.4</span>
+											<i></i>
+										</div>
+									</li>
+									<li>
+										<div class="shop-book-img"><a href="javascript:;" style="background:url('./images/index/e00003.jpg') center center no-repeat;background-size:contain;"></a></div>
+										<div class="shop-book-baseInfo">
+											<a href="javascript:;">三生三世十里桃花</a>
+											<a>x8</a>
+										</div>
+										<div class="shop-book-price">
+											<span>￥89.4</span>
+											<i></i>
+										</div>
+									</li>
+								</ul>
+								<div class="paymeny-book-box">
+									<span>商品合计：<i>￥34.7</i></span>
+									<span>去结算</span>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-				<nav>
+				<nav class="container">
 					<ul class="header-items clearfix">
 						<li><a href="javascript:;" class="cur-header-item">首页</a></li>
-						<li><a href="javascript:;">教育</a></li>
-						<li><a href="javascript:;">小说</a></li>
-						<li><a href="javascript:;">文艺</a></li>
-						<li><a href="javascript:;">青春</a></li>
-						<li><a href="javascript:;">童书</a></li>
-						<li><a href="javascript:;">生活</a></li>
-						<li><a href="javascript:;">人文社科</a></li>
-						<li><a href="javascript:;">经管</a></li>
-						<li><a href="javascript:;">励志</a></li>
-						<li><a href="javascript:;">科技</a></li>
-						<li><a href="javascript:;">工具书</a></li>
+						<li>
+							<a href="javascript:;">教育</a>
+							<div class="book-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">教材</a></li>
+									<li><a href="javascript:;">中小学教辅</a></li>
+									<li><a href="javascript:;">考试</a></li>
+									<li><a href="javascript:;">外语学习</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">小说</a>
+							<div class="book-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">0-2岁</a></li>
+									<li><a href="javascript:;">3-6岁</a></li>
+									<li><a href="javascript:;">7-10岁</a></li>
+									<li><a href="javascript:;">11-14岁</a></li>
+									<li><a href="javascript:;">儿童文学</a></li>
+									<li><a href="javascript:;">绘本</a></li>
+									<li><a href="javascript:;">科普</a></li>
+									<li><a href="javascript:;">幼儿启蒙</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">文艺</a>
+							<div class="book-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">0-2岁</a></li>
+									<li><a href="javascript:;">儿童文学</a></li>
+									<li><a href="javascript:;">绘本</a></li>
+									<li><a href="javascript:;">科普</a></li>
+									<li><a href="javascript:;">幼儿启蒙</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">青春</a>
+							<div class="book-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">0-2岁</a></li>
+									<li><a href="javascript:;">3-6岁</a></li>
+									<li><a href="javascript:;">7-10岁</a></li>
+									<li><a href="javascript:;">11-14岁</a></li>
+									<li><a href="javascript:;">儿童文学</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">童书</a>
+							<div class="book-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">7-10岁</a></li>
+									<li><a href="javascript:;">11-14岁</a></li>
+									<li><a href="javascript:;">儿童文学</a></li>
+									<li><a href="javascript:;">绘本</a></li>
+									<li><a href="javascript:;">科普</a></li>
+									<li><a href="javascript:;">幼儿启蒙</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">生活</a>
+							<div class="book-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">0-2岁</a></li>
+									<li><a href="javascript:;">3-6岁</a></li>
+									<li><a href="javascript:;">7-10岁</a></li>
+									<li><a href="javascript:;">11-14岁</a></li>
+									<li><a href="javascript:;">幼儿启蒙</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">人文社科</a>
+							<div class="book-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">儿童文学</a></li>
+									<li><a href="javascript:;">绘本</a></li>
+									<li><a href="javascript:;">科普</a></li>
+									<li><a href="javascript:;">幼儿启蒙</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">经管</a>
+							<div class="book-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">0-2岁</a></li>
+									<li><a href="javascript:;">3-6岁</a></li>
+									<li><a href="javascript:;">幼儿启蒙</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">励志</a>
+							<div class="book-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">0-2岁</a></li>
+									<li><a href="javascript:;">3-6岁</a></li>
+									<li><a href="javascript:;">7-10岁</a></li>
+									<li><a href="javascript:;">11-14岁</a></li>
+									<li><a href="javascript:;">儿童文学</a></li>
+									<li><a href="javascript:;">绘本</a></li>
+									<li><a href="javascript:;">科普</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">科技</a>
+							<div class="book-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">计算机互联网</a></li>
+									<li><a href="javascript:;">科普</a></li>
+									<li><a href="javascript:;">建筑</a></li>
+									<li><a href="javascript:;">工业艺术</a></li>
+									<li><a href="javascript:;">电子/通信</a></li>
+									<li><a href="javascript:;">医学</a></li>
+									<li><a href="javascript:;">科学与自然</a></li>
+									<li><a href="javascript:;">农林</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">工具书</a>
+							<!-- <div class="book-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">0-2岁</a></li>
+									<li><a href="javascript:;">3-6岁</a></li>
+									<li><a href="javascript:;">7-10岁</a></li>
+									<li><a href="javascript:;">11-14岁</a></li>
+									<li><a href="javascript:;">儿童文学</a></li>
+									<li><a href="javascript:;">绘本</a></li>
+									<li><a href="javascript:;">科普</a></li>
+									<li><a href="javascript:;">幼儿启蒙</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div> -->
+						</li>
 					</ul>
 				</nav>
 			</div>
+			<!--
+			<div class="book-subclass-box">
+				<ul class="container clearfix book-subclass-items">
+					<li><a href="javascript:;">0-2岁</a></li>
+					<li><a href="javascript:;">3-6岁</a></li>
+					<li><a href="javascript:;">7-10岁</a></li>
+					<li><a href="javascript:;">11-14岁</a></li>
+					<li><a href="javascript:;">儿童文学</a></li>
+					<li><a href="javascript:;">绘本</a></li>
+					<li><a href="javascript:;">科普</a></li>
+					<li><a href="javascript:;">幼儿启蒙</a></li>
+					<li><a href="javascript:;">手工游戏</a></li>
+					<li><a href="javascript:;">智力开发</a></li>
+				</ul>
+			</div>
+			-->
 		</header>
 		<!-- 头部结束 -->
 
@@ -201,30 +432,211 @@
 			<div class="container clearfix">
 				<ul class="header-items fl clearfix">
 					<li><a href="javascript:;" class="cur-header-item">首页</a></li>
-					<li><a href="javascript:;">教育</a></li>
-					<li><a href="javascript:;">小说</a></li>
-					<li><a href="javascript:;">文艺</a></li>
-					<li><a href="javascript:;">青春</a></li>
-					<li><a href="javascript:;">童书</a></li>
-					<li><a href="javascript:;">生活</a></li>
-					<li><a href="javascript:;">人文</a></li>
-					<li><a href="javascript:;">经管</a></li>
-					<li><a href="javascript:;">励志</a></li>
-					<li><a href="javascript:;">科技</a></li>
-					<li><a href="javascript:;">工具书</a></li>
+						<li>
+							<a href="javascript:;">教育</a>
+							<div class="aside-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">教材</a></li>
+									<li><a href="javascript:;">中小学教辅</a></li>
+									<li><a href="javascript:;">考试</a></li>
+									<li><a href="javascript:;">外语学习</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">小说</a>
+							<div class="aside-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">0-2岁</a></li>
+									<li><a href="javascript:;">3-6岁</a></li>
+									<li><a href="javascript:;">7-10岁</a></li>
+									<li><a href="javascript:;">11-14岁</a></li>
+									<li><a href="javascript:;">儿童文学</a></li>
+									<li><a href="javascript:;">绘本</a></li>
+									<li><a href="javascript:;">科普</a></li>
+									<li><a href="javascript:;">幼儿启蒙</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">文艺</a>
+							<div class="aside-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">0-2岁</a></li>
+									<li><a href="javascript:;">儿童文学</a></li>
+									<li><a href="javascript:;">绘本</a></li>
+									<li><a href="javascript:;">科普</a></li>
+									<li><a href="javascript:;">幼儿启蒙</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">青春</a>
+							<div class="aside-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">0-2岁</a></li>
+									<li><a href="javascript:;">3-6岁</a></li>
+									<li><a href="javascript:;">7-10岁</a></li>
+									<li><a href="javascript:;">11-14岁</a></li>
+									<li><a href="javascript:;">儿童文学</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">童书</a>
+							<div class="aside-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">7-10岁</a></li>
+									<li><a href="javascript:;">11-14岁</a></li>
+									<li><a href="javascript:;">儿童文学</a></li>
+									<li><a href="javascript:;">绘本</a></li>
+									<li><a href="javascript:;">科普</a></li>
+									<li><a href="javascript:;">幼儿启蒙</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">生活</a>
+							<div class="aside-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">0-2岁</a></li>
+									<li><a href="javascript:;">3-6岁</a></li>
+									<li><a href="javascript:;">7-10岁</a></li>
+									<li><a href="javascript:;">11-14岁</a></li>
+									<li><a href="javascript:;">幼儿启蒙</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">人文</a>
+							<div class="aside-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">儿童文学</a></li>
+									<li><a href="javascript:;">绘本</a></li>
+									<li><a href="javascript:;">科普</a></li>
+									<li><a href="javascript:;">幼儿启蒙</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">经管</a>
+							<div class="aside-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">0-2岁</a></li>
+									<li><a href="javascript:;">3-6岁</a></li>
+									<li><a href="javascript:;">幼儿启蒙</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">励志</a>
+							<div class="aside-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">0-2岁</a></li>
+									<li><a href="javascript:;">3-6岁</a></li>
+									<li><a href="javascript:;">7-10岁</a></li>
+									<li><a href="javascript:;">11-14岁</a></li>
+									<li><a href="javascript:;">儿童文学</a></li>
+									<li><a href="javascript:;">绘本</a></li>
+									<li><a href="javascript:;">科普</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">科技</a>
+							<div class="aside-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">计算机互联网</a></li>
+									<li><a href="javascript:;">科普</a></li>
+									<li><a href="javascript:;">建筑</a></li>
+									<li><a href="javascript:;">工业艺术</a></li>
+									<li><a href="javascript:;">电子/通信</a></li>
+									<li><a href="javascript:;">医学</a></li>
+									<li><a href="javascript:;">科学与自然</a></li>
+									<li><a href="javascript:;">农林</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">工具书</a>
+							<!-- <div class="aside-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">0-2岁</a></li>
+									<li><a href="javascript:;">3-6岁</a></li>
+									<li><a href="javascript:;">7-10岁</a></li>
+									<li><a href="javascript:;">11-14岁</a></li>
+									<li><a href="javascript:;">儿童文学</a></li>
+									<li><a href="javascript:;">绘本</a></li>
+									<li><a href="javascript:;">科普</a></li>
+									<li><a href="javascript:;">幼儿启蒙</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div> -->
+						</li>
 				</ul>
-				<div class="aside-img-box fr">
+				<div class="aside-img-box fr" style="display:none">
 					<div class="aside-user-box">
 						<span class="aside-user-img"></span>
 						<ul class="aside-user-bus">
-							<li><a href="javascript:;">个人资料</a></li>
-							<li><a href="javascript:;">订单管理</a></li>
-							<li><a href="javascript:;">地址管理</a></li>
-							<li><a href="javascript:;">账号安全</a></li>
-							<li><a href="javascript:;">退出登录</a></li>
-							<p></p>
+							<li><a href="customer_business.html#/custInfo">个人资料</a></li>
+							<li><a href="customer_business.html#/orderMange">订单管理</a></li>
+							<li><a href="customer_business.html#/addrMange">地址管理</a></li>
+							<li><a href="customer_business.html#/accountMange">账号安全</a></li>
+							<li><a href="sign.html#/login">退出登录</a></li>
 						</ul>
 					</div>
+					<div class="shopcar-big-icon">
+						<a  href="javascript:;"></a>
+						<span class="shop-big-num"><b>0</b><i></i></span>
+						<div class="shop-book-list-box shop-book-big-list-box"> 
+							<ul class="shop-book-list">
+								<li>
+									<div class="shop-book-img"><a href="javascript:;" style="background:url('./images/index/e00003.jpg') center center no-repeat;background-size:contain;"></a></div>
+									<div class="shop-book-baseInfo shop-book-big-baseInfo">
+										<a href="javascript:;">三生三世十里桃花哗</a>
+										<a>x1</a>
+									</div>
+									<div class="shop-book-price shop-book-big-price">
+										<span>￥89.4</span>
+										<i></i>
+									</div>
+								</li>
+								<li>
+									<div class="shop-book-img"><a href="javascript:;" style="background:url('./images/index/e00003.jpg') center center no-repeat;background-size:contain;"></a></div>
+									<div class="shop-book-baseInfo shop-book-big-baseInfo">
+										<a href="javascript:;">三生三世十里桃花哗</a>
+										<a>x1</a>
+									</div>
+									<div class="shop-book-price shop-book-big-price">
+										<span>￥89.4</span>
+										<i></i>
+									</div>
+								</li>
+							</ul>
+							<div class="paymeny-book-box">
+								<span>商品合计：<i>￥34.7</i></span>
+								<span>去结算</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="aside-img-box fr">
+					<p><a href="javascript:;" class="login-txt">登录</a><a>|</a><a href="javascript:;" class="regist-txt">注册</a></p>
 					<a href="javascript:;"></a>
 				</div>
 			</div>
@@ -272,6 +684,7 @@
 		<script src="./js/jquery.transit.js"></script>
 		<script src="./js/cypager.min.js"></script>
 		<script src="./app/base.js"></script>
+		<script src="./app/getBaseData.js"></script>
 		<script src="./app/book_list.js"></script>
 	</body>
 </html>

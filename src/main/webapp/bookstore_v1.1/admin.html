@@ -1,0 +1,72 @@
+<!-- 后台管理系统的管理界面 -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>管理者界面</title>
+		<meta charset="UTF-8"/>
+		<link rel="stylesheet" href="./css/reset.css"/>
+		<link rel="stylesheet" href="./css/admin.css"/>
+	</head>
+	<body ng-app="admin">
+		<header class="admin-title">
+			<div class="clearfix">
+				<span class="fl">“江南缘”后台管理中心</span>
+				<a class="fr exit-system">退出</a>
+			</div>
+		</header>
+		<section class="admin-oper clearfix">
+			<div class="admin-name fl" ng-controller="adminNameCtrl">
+				<li>
+					<a href="#/merchantInfo" class="order-query child-menu-par" data-id="1">订单查询<i class="arrow-icon arrIcon-one"></i></a>
+					<ul class="order-items">
+						<li><a href="#/dealSuccess">交易成功</a></li>
+						<li><a href="#/dealing">正在交易</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#/merchantInfo" class="my-bookstore child-menu-par" data-id="2">我的书屋<i class="arrow-icon arrIcon-two"></i></a>
+					<ul class="book-items">
+						<li><a href="#/bookAdmin">书本管理</a></li>
+						<li><a href="#/shopAdmin">店铺管理</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#/merchantInfo" class="order-query child-menu-par" data-id="1">订单查询<i class="arrow-icon arrIcon-one"></i></a>
+					<ul class="order-items">
+						<li><a href="#/dealSuccess">交易成功</a></li>
+						<li><a href="#/dealing">正在交易</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#/merchantInfo" class="my-bookstore child-menu-par" data-id="2">我的书屋<i class="arrow-icon arrIcon-two"></i></a>
+					<ul class="book-items">
+						<li><a href="#/bookAdmin">书本管理</a></li>
+						<li><a href="#/shopAdmin">店铺管理</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#/merchantInfo" class="order-query child-menu-par" data-id="1">订单查询<i class="arrow-icon arrIcon-one"></i></a>
+					<ul class="order-items">
+						<li><a href="#/dealSuccess">交易成功</a></li>
+						<li><a href="#/dealing">正在交易</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#/merchantInfo" class="my-bookstore child-menu-par" data-id="2">我的书屋<i class="arrow-icon arrIcon-two"></i></a>
+					<ul class="book-items">
+						<li><a href="#/bookAdmin">书本管理</a></li>
+						<li><a href="#/shopAdmin">店铺管理</a></li>
+					</ul>
+				</li>
+			</div>
+			<div class="admin-content fr">
+				<!-- <ng-view></ng-view> -->
+			</div>
+		</section>
+		<script src="./js/angular.js"></script>
+		<script src="./js/angular-route.js"></script>
+		<script src="./js/jquery-1.12.3.js"></script>
+		<script src="./app/admin-controller.js"></script>
+		<script src="./app/admin.js"></script>
+	</body>
+</html>

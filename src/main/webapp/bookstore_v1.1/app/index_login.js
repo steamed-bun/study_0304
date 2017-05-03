@@ -406,21 +406,4 @@
 	});
 	//大家都在说图片活动效果----结束 
 	/*--------------与特效相关结束------------------------*/
-
-	/*---------------顾客登录后的首页特效-----------------*/ 
-	//在顶部的导航栏上，当鼠标悬浮在用户名上时，显示更多菜单
-	$(".user-box").mouseenter(function(){
-		$(".user-bus").css("display","block");
-
-	});
-	$(".user-box").mouseleave(function(){
-		$(".user-bus").css("display","none");
-	});
-	//在划出的导航栏上，当鼠标悬浮在用户头像上时，显示更多菜单
-	$(".aside-user-box").mouseenter(function(){
-		$(".aside-user-bus").css("display","block");
-	});
-	$(".aside-user-box").mouseleave(function(){
-		$(".aside-user-bus").css("display","none");
-	});
 })();

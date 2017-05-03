@@ -1,0 +1,76 @@
+.admin-login-bg{
+	position:fixed;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	background:rgb(50, 59, 85);
+}
+.admin-login-box{
+	position: absolute;
+	top:50%;
+	left:50%;
+	width:400px;
+	height:300px;
+	margin-top:-150px;
+	margin-left:-200px;
+	color:#FFF;
+	text-align: center;
+}
+.admin-login-box>h3{
+	font-size:24px;
+	margin-bottom: 54px;
+}
+.admin-input-area{
+	display:inline-block;
+}
+.admin-input-area>li{
+	position: relative;
+	height:42px;
+	width:300px;
+	line-height: 40px;
+	border:#5f5f5f solid 1px;
+	margin-bottom: 20px;
+	border-radius: 3px;
+	background:#FFF;
+}
+.admin-input-area input{
+	position: absolute;
+	right:0;
+	width:268px;
+	height:100%;
+	border-bottom-right-radius: 3px;
+	border-top-right-radius: 3px;
+	padding:5px 10px;
+}
+.admin-input-area label{
+	position: absolute;
+	left:7px;
+	width:18px;
+	height:18px;
+	margin-top:12px;
+}
+.admin-input-area>li:first-child label{
+	background:url("../images/user.png") center center no-repeat;
+	background-size: contain;
+}
+.admin-input-area>li:last-child label{
+	background:url("../images/lock.png") center center no-repeat;
+	background-size: contain;
+}
+.login-submit{
+	display:inline-block;
+	width:300px;
+	height:40px;
+	line-height: 40px;
+	font-size:20px;
+	text-align: center;
+	border:#5f5f5f solid 1px;
+	background: #5466da;
+	border-radius: 3px;
+	cursor:pointer;
+	letter-spacing: 6px;
+}
+.login-submit:hover{
+	background: #5079bb;
+}

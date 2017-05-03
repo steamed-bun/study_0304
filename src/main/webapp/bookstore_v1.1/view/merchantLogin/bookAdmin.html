@@ -1,19 +1,19 @@
 <div>
-	<nav>
+	<nav class="book-big-categorys">
 		<ul class="book-cate clearfix">
-			<li><a href="javascript:;">教育 [{{ bookNum.edu }}]</a></li>
-			<li><a href="javascript:;">小说 [{{ bookNum.story }}]</a></li>
-			<li><a href="javascript:;">文艺 [{{ bookNum.art }}]</a></li>
-			<li><a href="javascript:;">青春 [{{ bookNum.youth }}]</a></li>
-			<li><a href="javascript:;">童书 [{{ bookNum.child }}]</a></li>
-			<li><a href="javascript:;">生活 [{{ bookNum.life }}]</a></li>
-			<li><a href="javascript:;">人文社科 [{{ bookNum.hum }}]</a><i class="book-cate-more-icon" ng-click="showMoreCate()"></i></li>
+			<li><a class="first-category" data-id="1">教育 [{{ bookNum.edu }}]</a></li>
+			<li><a data-id="2">小说 [{{ bookNum.story }}]</a></li>
+			<li><a data-id="3">文艺 [{{ bookNum.art }}]</a></li>
+			<li><a data-id="4">青春 [{{ bookNum.youth }}]</a></li>
+			<li><a data-id="5">童书 [{{ bookNum.child }}]</a></li>
+			<li><a data-id="6">生活 [{{ bookNum.life }}]</a></li>
+			<li><a data-id="7">人文社科 [{{ bookNum.hum }}]</a><i class="book-cate-more-icon" ng-click="showMoreCate()"></i></li>
 		</ul>
 		<ul class="book-cate-more clearfix">
-			<li><a href="javascript:;">经管 [{{ bookNum.manage }}]</a></li>
-			<li><a href="javascript:;">励志 [{{ bookNum.motivate }}]</a></li>
-			<li><a href="javascript:;">科技 [{{ bookNum.science }}]</a></li>
-			<li><a href="javascript:;">工具书 [{{ bookNum.reference }}]</a></li>
+			<li><a data-id="8">经管 [{{ bookNum.manage }}]</a></li>
+			<li><a data-id="9">励志 [{{ bookNum.motivate }}]</a></li>
+			<li><a data-id="10">科技 [{{ bookNum.science }}]</a></li>
+			<li><a data-id="11">工具书 [{{ bookNum.reference }}]</a></li>
 		</ul>
 	</nav>
 
@@ -327,6 +327,12 @@
 		line-height:38px;
 		font-size:16px;
 		font-weight:500;
+	}
+	.first-category{
+		color:#ddbea1;
+	}
+	.book-cate li a,.book-cate-more li a{
+		cursor:pointer;
 	}
 	.book-cate li a:hover,.book-cate-more li a:hover{
 		color:#ddbea1;

@@ -3,9 +3,9 @@
 	<head>
 		<meta charset="UTF-8"/>
 		<title>江南缘书城</title>
-		<link rel="stylesheet" href="css/reset.css"/>
-		<link rel="stylesheet" href="css/base.css"/>
-		<link rel="stylesheet" href="css/index.css"/>
+		<link rel="stylesheet" href="./css/reset.css"/>
+		<link rel="stylesheet" href="./css/base.css"/>
+		<link rel="stylesheet" href="./css/index.css"/>
 	</head>
 	<body>
 		<!-- 头部开始 -->
@@ -14,14 +14,16 @@
 				<div class="container clearfix">
 				<span class="fl">好的生活，与书为伴</span>
 				<div class="fr">
-					<span class="head-login login-txt">登录</span>
-					<span class="header-separate">|</span>
-					<span class="head-regist regist-txt">注册</span>
+					<div>
+						<span class="head-login login-txt">登录</span>
+						<span class="header-separate">|</span>
+						<span class="head-regist regist-txt">注册</span>
+					</div>
 				</div>
 			</div>
 			</div>
-			<div class="header-logo-box container">
-				<div class="logo-box-top clearfix">
+			<div class="header-logo-box">
+				<div class="logo-box-top container clearfix">
 					<div class="fl">
 						<img src="images/logo.png"/>
 					</div>
@@ -31,20 +33,165 @@
 						<a class="shopcar-icon" href="javascript:;"><a>
 					</div>
 				</div>
-				<nav>
+				<nav class="container">
 					<ul class="header-items clearfix">
 						<li><a href="javascript:;" class="cur-header-item">首页</a></li>
-						<li><a href="javascript:;">教育</a></li>
-						<li><a href="javascript:;">小说</a></li>
-						<li><a href="javascript:;">文艺</a></li>
-						<li><a href="javascript:;">青春</a></li>
-						<li><a href="javascript:;">童书</a></li>
-						<li><a href="javascript:;">生活</a></li>
-						<li><a href="javascript:;">人文社科</a></li>
-						<li><a href="javascript:;">经管</a></li>
-						<li><a href="javascript:;">励志</a></li>
-						<li><a href="javascript:;">科技</a></li>
-						<li><a href="javascript:;">工具书</a></li>
+						<li>
+							<a href="javascript:;">教育</a>
+							<div class="book-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">教材</a></li>
+									<li><a href="javascript:;">中小学教辅</a></li>
+									<li><a href="javascript:;">考试</a></li>
+									<li><a href="javascript:;">外语学习</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">小说</a>
+							<div class="book-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">0-2岁</a></li>
+									<li><a href="javascript:;">3-6岁</a></li>
+									<li><a href="javascript:;">7-10岁</a></li>
+									<li><a href="javascript:;">11-14岁</a></li>
+									<li><a href="javascript:;">儿童文学</a></li>
+									<li><a href="javascript:;">绘本</a></li>
+									<li><a href="javascript:;">科普</a></li>
+									<li><a href="javascript:;">幼儿启蒙</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">文艺</a>
+							<div class="book-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">0-2岁</a></li>
+									<li><a href="javascript:;">儿童文学</a></li>
+									<li><a href="javascript:;">绘本</a></li>
+									<li><a href="javascript:;">科普</a></li>
+									<li><a href="javascript:;">幼儿启蒙</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">青春</a>
+							<div class="book-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">0-2岁</a></li>
+									<li><a href="javascript:;">3-6岁</a></li>
+									<li><a href="javascript:;">7-10岁</a></li>
+									<li><a href="javascript:;">11-14岁</a></li>
+									<li><a href="javascript:;">儿童文学</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">童书</a>
+							<div class="book-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">7-10岁</a></li>
+									<li><a href="javascript:;">11-14岁</a></li>
+									<li><a href="javascript:;">儿童文学</a></li>
+									<li><a href="javascript:;">绘本</a></li>
+									<li><a href="javascript:;">科普</a></li>
+									<li><a href="javascript:;">幼儿启蒙</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">生活</a>
+							<div class="book-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">0-2岁</a></li>
+									<li><a href="javascript:;">3-6岁</a></li>
+									<li><a href="javascript:;">7-10岁</a></li>
+									<li><a href="javascript:;">11-14岁</a></li>
+									<li><a href="javascript:;">幼儿启蒙</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">人文社科</a>
+							<div class="book-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">儿童文学</a></li>
+									<li><a href="javascript:;">绘本</a></li>
+									<li><a href="javascript:;">科普</a></li>
+									<li><a href="javascript:;">幼儿启蒙</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">经管</a>
+							<div class="book-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">0-2岁</a></li>
+									<li><a href="javascript:;">3-6岁</a></li>
+									<li><a href="javascript:;">幼儿启蒙</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">励志</a>
+							<div class="book-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">0-2岁</a></li>
+									<li><a href="javascript:;">3-6岁</a></li>
+									<li><a href="javascript:;">7-10岁</a></li>
+									<li><a href="javascript:;">11-14岁</a></li>
+									<li><a href="javascript:;">儿童文学</a></li>
+									<li><a href="javascript:;">绘本</a></li>
+									<li><a href="javascript:;">科普</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">科技</a>
+							<div class="book-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">计算机互联网</a></li>
+									<li><a href="javascript:;">科普</a></li>
+									<li><a href="javascript:;">建筑</a></li>
+									<li><a href="javascript:;">工业艺术</a></li>
+									<li><a href="javascript:;">电子/通信</a></li>
+									<li><a href="javascript:;">医学</a></li>
+									<li><a href="javascript:;">科学与自然</a></li>
+									<li><a href="javascript:;">农林</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">工具书</a>
+							<!-- <div class="book-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">0-2岁</a></li>
+									<li><a href="javascript:;">3-6岁</a></li>
+									<li><a href="javascript:;">7-10岁</a></li>
+									<li><a href="javascript:;">11-14岁</a></li>
+									<li><a href="javascript:;">儿童文学</a></li>
+									<li><a href="javascript:;">绘本</a></li>
+									<li><a href="javascript:;">科普</a></li>
+									<li><a href="javascript:;">幼儿启蒙</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div> -->
+						</li>
 					</ul>
 				</nav>
 			</div>
@@ -52,787 +199,789 @@
 		<!-- 头部结束 -->
 		
 		<!-- 首页主体开始 -->
-		<section id="indexFocusBox" class="flexslider">
-			<ul class="slides">
-				<li>
-					<a href="javascript;:" class="img"><img src=""/></a>
-				</li>
-				<li>
-					<a href="javascript;:" class="img"><img src=""/></a>
-				</li>
-				<li>
-					<a href="javascript;:" class="img"><img src=""/></a>
-				</li>
-				<li>
-					<a href="javascript;:" class="img"><img src=""/></a>
-				</li>
-				<li>
-					<a href="javascript;:" class="img"><img src=""/></a>
-				</li> 
-			</ul>
-		</section>
-		<section id="newBook" class="new-book-box">
-			<div class="container">
-				<div class="book-abstract">
-					<h2>新品首发</h2>
-					<small>周一周五上新，为你寻觅世间好书</small>
-					<a href="javascript:;">更多新书</a>
-				</div>
-				<ul class="new-book-list clearfix">
-					<!--
+		<section>
+			<div id="indexFocusBox" class="flexslider">
+				<ul class="slides">
 					<li>
-						<a href="#">
-							<img src="images/index/u00001.jpg"/>
-							<div class="new-mask">
-							</div>
-							<div class="new-book-txt">
-								<p>教育类</p>
-								<p>26元起</p>
-							</div>
-						</a>
+						<a href="javascript;:" class="img"><img src=""/></a>
 					</li>
 					<li>
-						<a href="#">
-							<img src="images/index/u00002.jpg"/>
-							<div class="new-mask">
-							</div>
-							<div class="new-book-txt">
-								<p>小说类</p>
-								<p>20元起</p>
-							</div>
-						</a>
+						<a href="javascript;:" class="img"><img src=""/></a>
 					</li>
 					<li>
-						<a href="#">
-							<img src="images/index/u00003.jpg"/>
-							<div class="new-mask">
-							</div>
-							<div class="new-book-txt">
-								<p>文艺类</p>
-								<p>36元起</p>
-							</div>
-						</a>
+						<a href="javascript;:" class="img"><img src=""/></a>
 					</li>
 					<li>
-						<a href="#">
-							<img src="images/index/u00004.jpg"/>
-							<div class="new-mask">
-							</div>
-							<div class="new-book-txt">
-								<p>青春类</p>
-								<p>16元起</p>
-							</div>
-						</a>
+						<a href="javascript;:" class="img"><img src=""/></a>
 					</li>
-					-->
+					<li>
+						<a href="javascript;:" class="img"><img src=""/></a>
+					</li> 
 				</ul>
 			</div>
-		</section>
-		<section id="sellBook" class="sell-book-box">
-			<div class="container">
-				<div class="book-abstract">
-					<h2>教育</h2>
-					<small>与经典同行，打好人生底色</small>
-					<a href="javascript:;">更多书籍</a>
-				</div>
-				<ul class="book-list clearfix edu-book-list">
-					<!--
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00001.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00002.jpg"/>
-							<i></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00003.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00004.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					-->
-				</ul>
-			</div>
-		</section>
-		<section id="sellBook" class="sell-book-box">
-			<div class="container">
-				<div class="book-abstract">
-					<h2>小说</h2>
-					<small>与经典同行，打好人生底色</small>
-					<a href="javascript:;">更多书籍</a>
-				</div>
-				<ul class="book-list clearfix story-book-list">
-					<!--
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00001.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00002.jpg"/>
-							<i></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00003.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00004.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					-->
-				</ul>
-			</div>
-		</section>
-		<section id="sellBook" class="sell-book-box">
-			<div class="container">
-				<div class="book-abstract">
-					<h2>文艺</h2>
-					<small>与经典同行，打好人生底色</small>
-					<a href="javascript:;">更多书籍</a>
-				</div>
-				<ul class="book-list clearfix literary-book-list">
-					<!--
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00001.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00002.jpg"/>
-							<i></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00003.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00004.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					-->
-				</ul>
-			</div>
-		</section>
-		<section id="sellBook" class="sell-book-box">
-			<div class="container">
-				<div class="book-abstract">
-					<h2>青春</h2>
-					<small>与经典同行，打好人生底色</small>
-					<a href="javascript:;">更多书籍</a>
-				</div>
-				<ul class="book-list clearfix youth-book-list">
-					<!--
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00001.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00002.jpg"/>
-							<i></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00003.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00004.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					-->
-				</ul>
-			</div>
-		</section>
-		<section id="sellBool" class="sell-book-box">
-			<div class="container">
-				<div class="book-abstract">
-					<h2>童书</h2>
-					<small>与经典同行，打好人生底色</small>
-					<a href="javascript:;">更多书籍</a>
-				</div>
-				<ul class="book-list clearfix child-book-list">
-					<!--
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00001.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00002.jpg"/>
-							<i></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00003.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00004.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					-->
-				</ul>
-			</div>
-		</section>
-		<section id="sellBook" class="sell-book-box">
-			<div class="container">
-				<div class="book-abstract">
-					<h2>生活</h2>
-					<small>与经典同行，打好人生底色</small>
-					<a href="javascript:;">更多书籍</a>
-				</div>
-				<ul class="book-list clearfix life-book-list">
-					<!--
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00001.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00002.jpg"/>
-							<i></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00003.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00004.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					-->
-				</ul>
-			</div>
-		</section>
-		<section id="sellBook" class="sell-book-box">
-			<div class="container">
-				<div class="book-abstract">
-					<h2>人文社科</h2>
-					<small>与经典同行，打好人生底色</small>
-					<a href="javascript:;">更多书籍</a>
-				</div>
-				<ul class="book-list clearfix human-book-list">
-					<!--
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00001.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00002.jpg"/>
-							<i></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00003.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00004.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					-->
-				</ul>
-			</div>
-		</section>
-		<section id="sellBool" class="sell-book-box">
-			<div class="container">
-				<div class="book-abstract">
-					<h2>经管</h2>
-					<small>与经典同行，打好人生底色</small>
-					<a href="javascript:;">更多书籍</a>
-				</div>
-				<ul class="book-list clearfix charge-book-list">
-					<!--
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00001.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00002.jpg"/>
-							<i></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00003.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00004.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					-->
-				</ul>
-			</div>
-		</section>
-		<section id="sellBook" class="sell-book-box">
-			<div class="container">
-				<div class="book-abstract">
-					<h2>励志</h2>
-					<small>与经典同行，打好人生底色</small>
-					<a href="javascript:;">更多书籍</a>
-				</div>
-				<ul class="book-list clearfix motivate-book-list">
-					<!--
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00001.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00002.jpg"/>
-							<i></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00003.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00004.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					-->
-				</ul>
-			</div>
-		</section>
-		<section id="sellBook" class="sell-book-box">
-			<div class="container">
-				<div class="book-abstract">
-					<h2>科技</h2>
-					<small>与经典同行，打好人生底色</small>
-					<a href="javascript:;">更多书籍</a>
-				</div>
-				<ul class="book-list clearfix science-book-list">
-					<!--
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00001.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00002.jpg"/>
-							<i></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00003.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00004.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					-->
-				</ul>
-			</div>
-		</section>
-		<section id="sellBook" class="sell-book-box">
-			<div class="container">
-				<div class="book-abstract">
-					<h2>工具书</h2>
-					<small>与经典同行，打好人生底色</small>
-					<a href="javascript:;">更多书籍</a>
-				</div>
-				<ul class="book-list clearfix reference-book-list">
-					<!--
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00001.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00002.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00003.jpg"/>
-							<i></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					<li>
-						<a href="javascript:;">
-							<img src="images/index/y00004.jpg"/>
-							<i class="good-book"></i>
-						</a>
-						<div class="book-sell-info">
-							<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
-							<h4>追风筝的人</h4>
-							<span>￥23.5</span>
-						</div>
-					</li>
-					-->
-				</ul>
-			</div>
-		</section>
-		<section id="weSay" class="we-say">
-			<div class="container we-say-book-box">
-				<div class="clearfix">
-					<h3 class="we-say-title fl">大家都在说</h3>
-					<span class="fr">
-						<i class="we-say-prev"></i>
-						<i class="we-say-next"></i>
-					</span>
-				</div>
-				<div class="we-say-box">
-					<ul class="say-book-list clearfix">
+			<div id="newBook" class="new-book-box">
+				<div class="container">
+					<div class="book-abstract">
+						<h2>新品首发</h2>
+						<small>周一周五上新，为你寻觅世间好书</small>
+						<a href="new_book_list.html">更多新书</a>
+					</div>
+					<ul class="new-book-list clearfix">
 						<!--
 						<li>
-							<div class="say-img-box"><img src="images/index/s00001.jpg"/></div>
-							<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
+							<a href="#">
+								<img src="images/index/u00001.jpg"/>
+								<div class="new-mask">
+								</div>
+								<div class="new-book-txt">
+									<p>教育类</p>
+									<p>26元起</p>
+								</div>
+							</a>
 						</li>
 						<li>
-							<div class="say-img-box"><img src="images/index/s00002.jpg"/></div>
-							<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
+							<a href="#">
+								<img src="images/index/u00002.jpg"/>
+								<div class="new-mask">
+								</div>
+								<div class="new-book-txt">
+									<p>小说类</p>
+									<p>20元起</p>
+								</div>
+							</a>
 						</li>
 						<li>
-							<div class="say-img-box"><img src="images/index/s00003.jpg"/></div>
-							<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
+							<a href="#">
+								<img src="images/index/u00003.jpg"/>
+								<div class="new-mask">
+								</div>
+								<div class="new-book-txt">
+									<p>文艺类</p>
+									<p>36元起</p>
+								</div>
+							</a>
 						</li>
 						<li>
-							<div class="say-img-box"><img src="images/index/s00004.jpg"/></div>
-							<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
-						</li>
-						<li>
-							<div class="say-img-box"><img src="images/index/s00001.jpg"/></div>
-							<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
-						</li>
-						<li>
-							<div class="say-img-box"><img src="images/index/s00002.jpg"/></div>
-							<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
-						</li>
-						<li>
-							<div class="say-img-box"><img src="images/index/s00003.jpg"/></div>
-							<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
-						</li>
-						<li>
-							<div class="say-img-box"><img src="images/index/s00004.jpg"/></div>
-							<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
-						</li>
-						<li>
-							<div class="say-img-box"><img src="images/index/s00001.jpg"/></div>
-							<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
-						</li>
-						<li>
-							<div class="say-img-box"><img src="images/index/s00002.jpg"/></div>
-							<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
-						</li>
-						<li>
-							<div class="say-img-box"><img src="images/index/s00003.jpg"/></div>
-							<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
-						</li>
-						<li>
-							<div class="say-img-box"><img src="images/index/s00004.jpg"/></div>
-							<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
-						</li>
-						<li>
-							<div class="say-img-box"><img src="images/index/s00001.jpg"/></div>
-							<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
-						</li>
-						<li>
-							<div class="say-img-box"><img src="images/index/s00002.jpg"/></div>
-							<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
-						</li>
-						<li>
-							<div class="say-img-box"><img src="images/index/s00003.jpg"/></div>
-							<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
-						</li>
-						<li>
-							<div class="say-img-box"><img src="images/index/s00004.jpg"/></div>
-							<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
+							<a href="#">
+								<img src="images/index/u00004.jpg"/>
+								<div class="new-mask">
+								</div>
+								<div class="new-book-txt">
+									<p>青春类</p>
+									<p>16元起</p>
+								</div>
+							</a>
 						</li>
 						-->
 					</ul>
+				</div>
+			</div>
+			<div id="sellBook" class="sell-book-box">
+				<div class="container">
+					<div class="book-abstract">
+						<h2>教育</h2>
+						<small>与经典同行，打好人生底色</small>
+						<a href="book_list.html">更多书籍</a>
+					</div>
+					<ul class="book-list clearfix edu-book-list">
+						<!--
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00001.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00002.jpg"/>
+								<i></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00003.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00004.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						-->
+					</ul>
+				</div>
+			</div>
+			<div id="sellBook" class="sell-book-box">
+				<div class="container">
+					<div class="book-abstract">
+						<h2>小说</h2>
+						<small>与经典同行，打好人生底色</small>
+						<a href="book_list.html">更多书籍</a>
+					</div>
+					<ul class="book-list clearfix story-book-list">
+						<!--
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00001.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00002.jpg"/>
+								<i></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00003.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00004.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						-->
+					</ul>
+				</div>
+			</div>
+			<div id="sellBook" class="sell-book-box">
+				<div class="container">
+					<div class="book-abstract">
+						<h2>文艺</h2>
+						<small>与经典同行，打好人生底色</small>
+						<a href="book_list.html">更多书籍</a>
+					</div>
+					<ul class="book-list clearfix literary-book-list">
+						<!--
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00001.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00002.jpg"/>
+								<i></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00003.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00004.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						-->
+					</ul>
+				</div>
+			</div>
+			<div id="sellBook" class="sell-book-box">
+				<div class="container">
+					<div class="book-abstract">
+						<h2>青春</h2>
+						<small>与经典同行，打好人生底色</small>
+						<a href="book_list.html">更多书籍</a>
+					</div>
+					<ul class="book-list clearfix youth-book-list">
+						<!--
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00001.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00002.jpg"/>
+								<i></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00003.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00004.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						-->
+					</ul>
+				</div>
+			</div>
+			<div id="sellBool" class="sell-book-box">
+				<div class="container">
+					<div class="book-abstract">
+						<h2>童书</h2>
+						<small>与经典同行，打好人生底色</small>
+						<a href="book_list.html">更多书籍</a>
+					</div>
+					<ul class="book-list clearfix child-book-list">
+						<!--
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00001.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00002.jpg"/>
+								<i></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00003.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00004.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						-->
+					</ul>
+				</div>
+			</div>
+			<div id="sellBook" class="sell-book-box">
+				<div class="container">
+					<div class="book-abstract">
+						<h2>生活</h2>
+						<small>与经典同行，打好人生底色</small>
+						<a href="book_list.html">更多书籍</a>
+					</div>
+					<ul class="book-list clearfix life-book-list">
+						<!--
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00001.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00002.jpg"/>
+								<i></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00003.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00004.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						-->
+					</ul>
+				</div>
+			</div>
+			<div id="sellBook" class="sell-book-box">
+				<div class="container">
+					<div class="book-abstract">
+						<h2>人文社科</h2>
+						<small>与经典同行，打好人生底色</small>
+						<a href="book_list.html">更多书籍</a>
+					</div>
+					<ul class="book-list clearfix human-book-list">
+						<!--
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00001.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00002.jpg"/>
+								<i></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00003.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00004.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						-->
+					</ul>
+				</div>
+			</div>
+			<div id="sellBool" class="sell-book-box">
+				<div class="container">
+					<div class="book-abstract">
+						<h2>经管</h2>
+						<small>与经典同行，打好人生底色</small>
+						<a href="book_list.html">更多书籍</a>
+					</div>
+					<ul class="book-list clearfix charge-book-list">
+						<!--
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00001.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00002.jpg"/>
+								<i></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00003.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00004.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						-->
+					</ul>
+				</div>
+			</div>
+			<div id="sellBook" class="sell-book-box">
+				<div class="container">
+					<div class="book-abstract">
+						<h2>励志</h2>
+						<small>与经典同行，打好人生底色</small>
+						<a href="javascript:;">更多书籍</a>
+					</div>
+					<ul class="book-list clearfix motivate-book-list">
+						<!--
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00001.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00002.jpg"/>
+								<i></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00003.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00004.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						-->
+					</ul>
+				</div>
+			</div>
+			<div id="sellBook" class="sell-book-box">
+				<div class="container">
+					<div class="book-abstract">
+						<h2>科技</h2>
+						<small>与经典同行，打好人生底色</small>
+						<a href="javascript:;">更多书籍</a>
+					</div>
+					<ul class="book-list clearfix science-book-list">
+						<!--
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00001.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00002.jpg"/>
+								<i></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00003.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00004.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						-->
+					</ul>
+				</div>
+			</div>
+			<div id="sellBook" class="sell-book-box">
+				<div class="container">
+					<div class="book-abstract">
+						<h2>工具书</h2>
+						<small>与经典同行，打好人生底色</small>
+						<a href="javascript:;">更多书籍</a>
+					</div>
+					<ul class="book-list clearfix reference-book-list">
+						<!--
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00001.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00002.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00003.jpg"/>
+								<i></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<img src="images/index/y00004.jpg"/>
+								<i class="good-book"></i>
+							</a>
+							<div class="book-sell-info">
+								<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+								<h4>追风筝的人</h4>
+								<span>￥23.5</span>
+							</div>
+						</li>
+						-->
+					</ul>
+				</div>
+			</div>
+			<div id="weSay" class="we-say">
+				<div class="container we-say-book-box">
+					<div class="clearfix">
+						<h3 class="we-say-title fl">大家都在说</h3>
+						<span class="fr">
+							<i class="we-say-prev"></i>
+							<i class="we-say-next"></i>
+						</span>
+					</div>
+					<div class="we-say-box">
+						<ul class="say-book-list clearfix">
+							<!--
+							<li>
+								<div class="say-img-box"><img src="images/index/s00001.jpg"/></div>
+								<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
+							</li>
+							<li>
+								<div class="say-img-box"><img src="images/index/s00002.jpg"/></div>
+								<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
+							</li>
+							<li>
+								<div class="say-img-box"><img src="images/index/s00003.jpg"/></div>
+								<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
+							</li>
+							<li>
+								<div class="say-img-box"><img src="images/index/s00004.jpg"/></div>
+								<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
+							</li>
+							<li>
+								<div class="say-img-box"><img src="images/index/s00001.jpg"/></div>
+								<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
+							</li>
+							<li>
+								<div class="say-img-box"><img src="images/index/s00002.jpg"/></div>
+								<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
+							</li>
+							<li>
+								<div class="say-img-box"><img src="images/index/s00003.jpg"/></div>
+								<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
+							</li>
+							<li>
+								<div class="say-img-box"><img src="images/index/s00004.jpg"/></div>
+								<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
+							</li>
+							<li>
+								<div class="say-img-box"><img src="images/index/s00001.jpg"/></div>
+								<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
+							</li>
+							<li>
+								<div class="say-img-box"><img src="images/index/s00002.jpg"/></div>
+								<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
+							</li>
+							<li>
+								<div class="say-img-box"><img src="images/index/s00003.jpg"/></div>
+								<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
+							</li>
+							<li>
+								<div class="say-img-box"><img src="images/index/s00004.jpg"/></div>
+								<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
+							</li>
+							<li>
+								<div class="say-img-box"><img src="images/index/s00001.jpg"/></div>
+								<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
+							</li>
+							<li>
+								<div class="say-img-box"><img src="images/index/s00002.jpg"/></div>
+								<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
+							</li>
+							<li>
+								<div class="say-img-box"><img src="images/index/s00003.jpg"/></div>
+								<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
+							</li>
+							<li>
+								<div class="say-img-box"><img src="images/index/s00004.jpg"/></div>
+								<p class="say-book-info clearfix"><a href="javascript:;">活着本来单纯</a><i>16.9</i></p>
+							</li>
+							-->
+						</ul>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -843,17 +992,162 @@
 			<div class="container clearfix">
 				<ul class="header-items fl clearfix">
 					<li><a href="javascript:;" class="cur-header-item">首页</a></li>
-					<li><a href="javascript:;">教育</a></li>
-					<li><a href="javascript:;">小说</a></li>
-					<li><a href="javascript:;">文艺</a></li>
-					<li><a href="javascript:;">青春</a></li>
-					<li><a href="javascript:;">童书</a></li>
-					<li><a href="javascript:;">生活</a></li>
-					<li><a href="javascript:;">人文</a></li>
-					<li><a href="javascript:;">经管</a></li>
-					<li><a href="javascript:;">励志</a></li>
-					<li><a href="javascript:;">科技</a></li>
-					<li><a href="javascript:;">工具书</a></li>
+						<li>
+							<a href="javascript:;">教育</a>
+							<div class="aside-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">教材</a></li>
+									<li><a href="javascript:;">中小学教辅</a></li>
+									<li><a href="javascript:;">考试</a></li>
+									<li><a href="javascript:;">外语学习</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">小说</a>
+							<div class="aside-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">0-2岁</a></li>
+									<li><a href="javascript:;">3-6岁</a></li>
+									<li><a href="javascript:;">7-10岁</a></li>
+									<li><a href="javascript:;">11-14岁</a></li>
+									<li><a href="javascript:;">儿童文学</a></li>
+									<li><a href="javascript:;">绘本</a></li>
+									<li><a href="javascript:;">科普</a></li>
+									<li><a href="javascript:;">幼儿启蒙</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">文艺</a>
+							<div class="aside-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">0-2岁</a></li>
+									<li><a href="javascript:;">儿童文学</a></li>
+									<li><a href="javascript:;">绘本</a></li>
+									<li><a href="javascript:;">科普</a></li>
+									<li><a href="javascript:;">幼儿启蒙</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">青春</a>
+							<div class="aside-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">0-2岁</a></li>
+									<li><a href="javascript:;">3-6岁</a></li>
+									<li><a href="javascript:;">7-10岁</a></li>
+									<li><a href="javascript:;">11-14岁</a></li>
+									<li><a href="javascript:;">儿童文学</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">童书</a>
+							<div class="aside-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">7-10岁</a></li>
+									<li><a href="javascript:;">11-14岁</a></li>
+									<li><a href="javascript:;">儿童文学</a></li>
+									<li><a href="javascript:;">绘本</a></li>
+									<li><a href="javascript:;">科普</a></li>
+									<li><a href="javascript:;">幼儿启蒙</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">生活</a>
+							<div class="aside-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">0-2岁</a></li>
+									<li><a href="javascript:;">3-6岁</a></li>
+									<li><a href="javascript:;">7-10岁</a></li>
+									<li><a href="javascript:;">11-14岁</a></li>
+									<li><a href="javascript:;">幼儿启蒙</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">人文</a>
+							<div class="aside-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">儿童文学</a></li>
+									<li><a href="javascript:;">绘本</a></li>
+									<li><a href="javascript:;">科普</a></li>
+									<li><a href="javascript:;">幼儿启蒙</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">经管</a>
+							<div class="aside-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">0-2岁</a></li>
+									<li><a href="javascript:;">3-6岁</a></li>
+									<li><a href="javascript:;">幼儿启蒙</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">励志</a>
+							<div class="aside-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">0-2岁</a></li>
+									<li><a href="javascript:;">3-6岁</a></li>
+									<li><a href="javascript:;">7-10岁</a></li>
+									<li><a href="javascript:;">11-14岁</a></li>
+									<li><a href="javascript:;">儿童文学</a></li>
+									<li><a href="javascript:;">绘本</a></li>
+									<li><a href="javascript:;">科普</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">科技</a>
+							<div class="aside-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">计算机互联网</a></li>
+									<li><a href="javascript:;">科普</a></li>
+									<li><a href="javascript:;">建筑</a></li>
+									<li><a href="javascript:;">工业艺术</a></li>
+									<li><a href="javascript:;">电子/通信</a></li>
+									<li><a href="javascript:;">医学</a></li>
+									<li><a href="javascript:;">科学与自然</a></li>
+									<li><a href="javascript:;">农林</a></li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;">工具书</a>
+							<!-- <div class="aside-subclass-box">
+								<ul class="container clearfix book-subclass-items">
+									<li><a href="javascript:;">0-2岁</a></li>
+									<li><a href="javascript:;">3-6岁</a></li>
+									<li><a href="javascript:;">7-10岁</a></li>
+									<li><a href="javascript:;">11-14岁</a></li>
+									<li><a href="javascript:;">儿童文学</a></li>
+									<li><a href="javascript:;">绘本</a></li>
+									<li><a href="javascript:;">科普</a></li>
+									<li><a href="javascript:;">幼儿启蒙</a></li>
+									<li><a href="javascript:;">手工游戏</a></li>
+									<li><a href="javascript:;">智力开发</a></li>
+								</ul>
+							</div> -->
+						</li>
 				</ul>
 				<div class="aside-img-box fr">
 					<p><a href="javascript:;" class="login-txt">登录</a><a>|</a><a href="javascript:;" class="regist-txt">注册</a></p>
@@ -888,7 +1182,7 @@
 				<div class="footer-right-box fl clearfix">
 					<div class="fl">
 						<span>商家</span>
-						<p><a href="">商家入驻</a></p>
+						<p><a href="sign.html#/login">商家入驻</a></p>
 						<p><a href="">商家后台</a></p>
 					</div>
 					<div class="fr">
