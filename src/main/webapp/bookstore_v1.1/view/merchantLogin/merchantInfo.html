@@ -1,6 +1,6 @@
 <div>
 	<ul class="my-info-box">
-		<li><span>头像：</span><span class="my-img"><img ng-src="{{ user.img }}" align="absmiddle" ng-click="showChangeImg()"/><i ng-click="showChangeImg()">修改</i></span></li>
+		<li><span>头像：</span><span class="my-img"><img ng-src="{{ user.img }}" align="absmiddle" /><i ng-click="showChangeImg()">修改</i></span></li>
 		<li><span>昵称：</span><span class="my-name"><input type="text" ng-model="user.name" class="user-input" id="username"  data-id="0"/></span><b class="regi-hint name-hint"></b></li>
 		<li><span>年龄：</span><span  class="my-age"><input type="text" ng-model="user.age" class="user-input" id="myAge"  data-id="1"/></span><b class="regi-hint sellerAge-hint"></b></li>
 		<li><span>性别：</span><span class="my-sex"><input type="radio" name="sex" value="男" ng-model="user.sex"/>男<input type="radio" name="sex"  ng-model="user.sex" value="女"/>女</span></li>

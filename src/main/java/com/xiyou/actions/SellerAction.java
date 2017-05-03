@@ -24,8 +24,8 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
 		SessionAware ,Preparable{
 
 	private static final long serialVersionUID = 1L;
-	private static final String SELLER_IMAGE_URL = "http://localhost:8090/study/selImage/00.png";
-	private static final String SELLER_WEIXIN_URL = "http://localhost:8090/study/selWeiXin/00.png";
+	private static final String SELLER_IMAGE_URL = "http://localhost:8080/study/selImage/00.png";
+	private static final String SELLER_WEIXIN_URL = "http://localhost:8080/study/selWeiXin/00.png";
 
 	@Autowired
 	private SellerService selService;

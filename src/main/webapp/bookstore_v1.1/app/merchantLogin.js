@@ -8,7 +8,7 @@
             url:'sel-sellectSeller.action?chose=CHOSE',
         }).success(function(data){
             $scope.mer={
-				name:data.selName
+				name:data.seller.selName
 			};
         });
 	})
