@@ -1,7 +1,9 @@
 package com.xiyou.actions;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.xiyou.domain.BookImages;
 import com.xiyou.util.BookStoreWebUtils;
@@ -28,8 +30,16 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 	private Map<String, Object> dataMap;
 	private Map<String, Object> session;
 	private Book book;
-	private List<BookImages> bookImages;
+	private List<BookImages> bookImages = new ArrayList<BookImages>(5);;
 
+    /**
+     *
+     * @return null
+     */
+    public String deleteBookImage(){
+
+        return SUCCESS;
+    }
 
 	public String deleteBook(){
 		bookService.deleteBook(book.getBookId().toString());
@@ -51,30 +61,6 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 		}
 		return "validateBookQuantity";
 	}
-
-	/**
-	 * 已测
-	 * 添加book的图片
-	 * url：book-addImages.action
-	 * 需传入：book.bookId
-	 * e.g. book-addImages.action?book.bookId=24&bookImages.imageURL=url1&bookImages.imageURL=url2
-	 * @return
-     */
-	public String addImages(){
-		System.out.println("addImages");
-		dataMap = BookStoreWebUtils.getDataMap(session);
-		if (bookImages != null && bookImages.size() > 0){
-			bookService.addImages(book.getBookId().toString(),bookImages);
-		}else {
-			dataMap.put("status","no");
-		}
-		book = null;
-		return "addImages";
-	}
-
-/*	public void prepareAddImages(){
-		bookImages = new ArrayList<BookImages>(5);
-	}*/
 
 	/**
 	 * 已测
@@ -116,7 +102,8 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 	 * 已测
 	 * 添加和修改书本信息
 	 * seller必须是登录状态
-	 * url:book-addBook.action
+     * 注意url后面的bookImages
+	 * url:book-addBook.action?book.bookName=bookName&bookImages.imageURL=url1&bookImages.imageURL=url2
 	 * @return
      */
 	public String addBook(){
@@ -125,6 +112,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 			Shop shop = bookService.getShopByShopId(session.get("shopId").toString());
 			book.setShop(shop);
 			bookService.addBook(book);
+            addImages(book);
 			this.setBook(null);
 		}else {
 			bookService.addBook(book);
@@ -132,7 +120,19 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 		}
 		return "addBook";
 	}
-	
+
+    public String addImages(Book book){
+        System.out.println("addImages");
+        dataMap = BookStoreWebUtils.getDataMap(session);
+        if (bookImages != null && bookImages.size() > 0){
+            bookService.addImages(book.getBookId().toString(),bookImages);
+        }else {
+            dataMap.put("status","no");
+        }
+        bookImages.clear();
+        return "addImages";
+    }
+
 	public void prepareAddBook(){
 		if(book.getBookId() == null){
 			book = new Book(); 
