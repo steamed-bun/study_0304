@@ -64,7 +64,15 @@
 		<property name="summary" type="java.lang.String">
 			<column name="SUMMARY"></column>
 		</property>
-		
+
+		<property name="clickNum" type="int">
+			<column name="CLICKNUM" not-null="true"></column>
+		</property>
+
+		<property name="oneWord" type="java.lang.String">
+			<column name="ONEWORD"></column>
+		</property>
+
 		<many-to-one name="shop" class="Shop" unique="true" cascade="delete">
 			<column name="SHOP"></column>
 		</many-to-one>

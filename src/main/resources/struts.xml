@@ -96,6 +96,9 @@
 				<param name="root">status</param>
 			</result>
 			-->
+			<result name="success" type="json">
+				<param name="root">dataMap</param>
+			</result>
 			<result name="validateBookQuantity" type="json">
 				<param name="root">dataMap</param>
 			</result>

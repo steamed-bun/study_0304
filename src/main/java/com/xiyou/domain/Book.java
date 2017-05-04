@@ -17,6 +17,8 @@ public class Book {
 	private String publicationDate;// 出版日期
 	private String publisher;// 出版社
 	private String summary;// 简介
+	private Integer clickNum;
+    private String oneWord;
 	private Shop shop;
 
 	public Book(Integer bookId, String bookName, Integer quantity) {
@@ -29,44 +31,25 @@ public class Book {
 		this.bookId = bookId;
 	}
 
-	public Book(Integer bookId, String bookName, float bookPrice, int quantity, int likes) {
-		this.bookId = bookId;
-		this.bookName = bookName;
-		this.bookPrice = bookPrice;
-		this.quantity = quantity;
-		this.likes = likes;
-	}
+    public Book(Integer bookId, String bookName, Set<BookImages> bookImages, String author, Category category, float bookPrice, int quantity, int likes, int noLike, String publicationDate, String publisher, String summary, Integer clickNum, String oneWord, Shop shop) {
+        this.bookId = bookId;
+        this.bookName = bookName;
+        this.bookImages = bookImages;
+        this.author = author;
+        this.category = category;
+        this.bookPrice = bookPrice;
+        this.quantity = quantity;
+        this.likes = likes;
+        this.noLike = noLike;
+        this.publicationDate = publicationDate;
+        this.publisher = publisher;
+        this.summary = summary;
+        this.clickNum = clickNum;
+        this.oneWord = oneWord;
+        this.shop = shop;
+    }
 
-	public Book(Integer bookId, String bookName, String author, float bookPrice, int quantity, int likes, int noLike, String publicationDate, String publisher, String summary) {
-		this.bookId = bookId;
-		this.bookName = bookName;
-		this.author = author;
-		this.bookPrice = bookPrice;
-		this.quantity = quantity;
-		this.likes = likes;
-		this.noLike = noLike;
-		this.publicationDate = publicationDate;
-		this.publisher = publisher;
-		this.summary = summary;
-	}
-
-	public Book(Integer bookId, String bookName, Set<BookImages> bookImages, String author, Category category, float bookPrice, int quantity, int likes, int noLike, String publicationDate, String publisher, String summary, Shop shop) {
-		this.bookId = bookId;
-		this.bookName = bookName;
-		this.bookImages = bookImages;
-		this.author = author;
-		this.category = category;
-		this.bookPrice = bookPrice;
-		this.quantity = quantity;
-		this.likes = likes;
-		this.noLike = noLike;
-		this.publicationDate = publicationDate;
-		this.publisher = publisher;
-		this.summary = summary;
-		this.shop = shop;
-	}
-
-	public Integer getBookId() {
+    public Integer getBookId() {
 		return bookId;
 	}
 
@@ -174,16 +157,19 @@ public class Book {
 		this.bookImages = bookImages;
 	}
 
+	public Integer getClickNum() {
+		return clickNum;
+	}
 
-/*	@Override
-	public String toString() {
-		return "Book [bookId=" + bookId + ", bookName=" + bookName
-				+ ", author=" + author + ", category=" + category
-				+ ", bookImages=" + bookImages + ", bookPrice=" + bookPrice
-				+ ", quantity=" + quantity + ", likes=" + likes + ", noLike="
-				+ noLike + ", publicationDate=" + publicationDate
-				+ ", publisher=" + publisher + ", summary=" + summary
-				+ ", shop=" + shop + "]";
-	}*/
+	public void setClickNum(Integer clickNum) {
+		this.clickNum = clickNum;
+	}
 
+    public String getOneWord() {
+        return oneWord;
+    }
+
+    public void setOneWord(String oneWord) {
+        this.oneWord = oneWord;
+    }
 }

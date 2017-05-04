@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository("shopDAOImpl")
 public class ShopDAOImpl extends BaseDAOImpl implements ShopDAO {
 
-	private static final String SHOP_IMAGE_URL = "http://localhost:8090/study/shopImage/";
+	private static final String SHOP_IMAGE_URL = "http://localhost:8080/study/shopImage/";
 
 	@Override
 	public void addShop(Shop shop) {

@@ -23,6 +23,35 @@ public class BookDAOImplTest {
 
     @Test
     @Transactional
+    public void testGetBookById(){
+        Book book = new Book(2);
+        book = bookDAO.getBookById(book);
+    }
+
+    @Test
+    @Transactional
+    public void testUpdateClickNum(){
+        bookDAO.updateClickNum(new Book(2));
+    }
+
+    @Test
+    @Transactional
+    public void testDeleteBookImage(){
+        List<BookImages> bookImages = new ArrayList<BookImages>(2);
+        BookImages bookImages1 = new BookImages();
+        bookImages1.setImageId(1);
+        bookImages1.setImageURL("testurl1");
+        BookImages bookImages2 = new BookImages();
+        bookImages2.setImageId(2);
+        bookImages2.setImageURL("testurl2");
+        bookImages.add(bookImages1);
+        bookImages.add(bookImages2);
+//        bookDAO.deleteBookImage(bookImages);
+        bookDAO.updateBookImage(bookImages);
+    }
+
+    @Test
+    @Transactional
     public void testGetQuantity(){
         System.out.println(bookDAO.getQuantity(new Book(13)));
     }

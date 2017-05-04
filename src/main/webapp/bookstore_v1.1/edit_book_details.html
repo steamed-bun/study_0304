@@ -3,11 +3,48 @@
 <head>
     <title>添加书籍详情</title>
     <meta charset="UTF-8"/>
+    <style type="text/css">
+        .edit-area{
+            opacity:0;
+        }
+        .save-book-details{
+            height:30px;
+            line-height: 30px;
+            width:100%;
+            background:#5f5f5f;
+            margin:0;
+            padding:0;
+            color:#B4A078;
+            box-shadow:2px 2px 2px #5f5f5f;
+            text-align:right;
+        }
+        .save-book-details>span{
+            margin-right:40px;
+            cursor:pointer;
+        }
+        .save-book-details>span:hover{
+            color:#FFF;
+        }
+    </style>
 </head>
 <body >
-    <textarea  id="editor" name="editor" class="ckeditor"></textarea>
-    <!--<input type="submit" value="保存">-->
+    <textarea id="editor" name="editor" class="ckeditor edit-area"></textarea>
+    <p class="save-book-details"><span>保存</span></p>
+    <script type="text/javascript" src="./js/jquery-1.12.3.js"></script>
     <script type="text/javascript" src="http://localhost:8080/ckeditor/ckeditor.js"></script>
     <script type="text/javascript" src="http://localhost:8080/ckfinder/ckfinder.js"></script>
+    <script>
+        $('.save-book-details>span').click(function(){
+            var addBookUrl='http://localhost:8080/bookstore_v1.1/mer_add_book.html?detailUrl=';
+            $.ajax({
+                type: "get",
+                url: "cKAction.action",
+                success: function(response){
+                    addBookUrl+=response;
+                    window.open(addBookUrl,'_self');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

@@ -19,14 +19,14 @@ public class SellectAction extends ActionSupport implements SessionAware{
 	private SellectService sellectService;
 
 	Map<String, Object> session;
-	Map<String, Object> dataMap;
+	private Map<String, Object> dataMap;
 	private String provinceId;
 	private String cityId;
 	private Category category;
 
 	/**
 	 * 修改小类别
-	 * url:select-updateCategory.action?category.categoryId=5&category.categoryName=haha
+	 * url:select-updateCategory.action?category.categoryPId=1&category.categoryId=5&category.categoryName=haha
 	 * @return
      */
 	public String updateCategory(){
@@ -36,7 +36,7 @@ public class SellectAction extends ActionSupport implements SessionAware{
 
 	/**
 	 * 根据大类别获取小类别
-	 * url:select-getCategory.action?category.categoryPId=1
+	 * url:select-selectCategory.action?category.categoryPId=1
 	 * @return
      */
 	public String selectCategory(){

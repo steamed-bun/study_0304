@@ -454,7 +454,7 @@ angular.module('merchantLogin-controller',[])
            // console.log($scope.user);
         });
 
-	  	$scope.user={
+	  	/*$scope.user={
             img:'./images/userImg.jpg',
 	  	    name:'',
 	  	    notice:'',
@@ -463,7 +463,7 @@ angular.module('merchantLogin-controller',[])
             selectCity:'请选择',
             selectRegi:'请选择',
 	  	    street:''
-	  	};
+	  	};*/
 	  	$scope.changeImgHint='成功了吗';
         $scope.img={
             name:'',

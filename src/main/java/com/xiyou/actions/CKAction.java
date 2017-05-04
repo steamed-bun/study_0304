@@ -25,9 +25,9 @@ public class CKAction extends ActionSupport{
 
 	public String addBookDetail(){
 		fileName = String.valueOf(System.currentTimeMillis()) + ".html";
-		bookDetailURL = "http://localhost:8090/study/book_details/" +fileName;
+		bookDetailURL = "http://localhost:8080/study/book_details/" +fileName;
 		System.out.println(bookDetailURL);
-		File f = new File("F:/tomcat8.0/webapps/study/book_details/"+ fileName);
+		File f = new File("D:/soft_tool/tomcat/apache-tomcat-8.5.13/webapps/study/book_details/"+ fileName);
 			FileWriter fw;
 			BufferedWriter bw;
 			try {

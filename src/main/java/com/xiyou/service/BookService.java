@@ -23,12 +23,28 @@ public class BookService {
 	@Autowired
 	private ShopDAO shopDAO;
 
+	public Book getBookById(Book book){
+		book = bookDAO.getBookById(book);
+		return book;
+	}
+
+	public void updateClickNum(Book book){
+		bookDAO.updateClickNum(book);
+	}
+
+	public void updateBookImage(List<BookImages> bookImages){
+		bookDAO.updateBookImage(bookImages);
+	}
+
+	public void deleteBookImage(List<BookImages> bookImages){
+		bookDAO.deleteBookImage(bookImages);
+	}
+
 	public Integer getQuantity(Book book){
 		return bookDAO.getQuantity(book);
 	}
 
-	public void addImages(String bookId, List<BookImages> bookImages){
-		Book book = bookDAO.getBook(bookId);
+	public void addImages(Book book, List<BookImages> bookImages){
 		for (BookImages bookImage: bookImages ) {
 			bookImage.setBook(book);
 		}
