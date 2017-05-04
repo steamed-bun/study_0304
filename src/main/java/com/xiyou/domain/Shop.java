@@ -104,7 +104,7 @@ public class Shop {
 		shop.setCity(new City(1));
 		shop.setCounty(new County(1));
 		shop.setStreet("子午大道");
-		shop.setShopImage("http://localhost:8090/study/shopImage/00.pnng");
+		shop.setShopImage("http://localhost:8080/study/shopImage/00.pnng");
 		return shop;
 	}
 

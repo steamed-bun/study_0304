@@ -1,6 +1,5 @@
 package com.xiyou.dao.impl;
 
-import com.xiyou.dao.UserDAO;
 import com.xiyou.domain.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;

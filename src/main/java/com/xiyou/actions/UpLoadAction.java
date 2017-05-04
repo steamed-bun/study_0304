@@ -17,8 +17,8 @@ public class UpLoadAction extends ActionSupport implements SessionAware{
 
 	private static final long serialVersionUID = 1L;
 	//物理地址
-	private static final String SELLER_IMAGE_DirURL = "F:/tomcat8.0/webapps/study/selWeiXin/";
-	private static final String SELLER_WEIXIN_DirURL = "F:/tomcat8.0/webapps/study/shopImage/";
+	private static final String SELLER_IMAGE_DirURL = "D:/soft_tool/tomcat/apache-tomcat-8.5.13/webapps/study/selImage/";
+	private static final String SELLER_WEIXIN_DirURL = "D:/soft_tool/tomcat/apache-tomcat-8.5.13/webapps/study/shopImage/";
 
 	@Autowired
 	private SellerService sellerService;
