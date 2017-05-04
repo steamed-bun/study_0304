@@ -13,47 +13,40 @@ angular.module('admin',['ngRoute','admin-controller'])
 			};
 			switch(num){
 				case '1':
-					//让信息统计折叠
-					$('.book-items').slideUp();
-					$('.arrIcon-two').css('background-image','url("./images/down-arrow.png")');
-					$('.book-items').removeClass('open');
+					//让非信息统计折叠
+					fold($('.recom-items'),$('.arrIcon-two'));
+					fold($('.order-items'),$('.arrIcon-three'));
+					fold($('.grade-items'),$('.arrIcon-four'));
+					fold($('.admin-items'),$('.arrIcon-five'));
 					break;
 				case '2':
-					//让书籍推荐折叠
-					$('.book-items').slideUp();
-					$('.arrIcon-two').css('background-image','url("./images/down-arrow.png")');
-					$('.book-items').removeClass('open');
+					//让非书籍推荐折叠
+					fold($('.info-items'),$('.arrIcon-one'));
+					fold($('.order-items'),$('.arrIcon-three'));
+					fold($('.grade-items'),$('.arrIcon-four'));
+					fold($('.admin-items'),$('.arrIcon-five'));
 					break;
 				case '3':
-					//让订单查询折叠
-					$('.book-items').slideUp();
-					$('.arrIcon-two').css('background-image','url("./images/down-arrow.png")');
-					$('.book-items').removeClass('open');
+					//让非订单查询折叠
+					fold($('.info-items'),$('.arrIcon-one'));
+					fold($('.recom-items'),$('.arrIcon-two'));
+					fold($('.grade-items'),$('.arrIcon-four'));
+					fold($('.admin-items'),$('.arrIcon-five'));
 					break;
 				case '4':
-					//让级别评定折叠
-					$('.book-items').slideUp();
-					$('.arrIcon-two').css('background-image','url("./images/down-arrow.png")');
-					$('.book-items').removeClass('open');
+					//让非级别评定折叠
+					fold($('.info-items'),$('.arrIcon-one'));
+					fold($('.recom-items'),$('.arrIcon-two'));
+					fold($('.order-items'),$('.arrIcon-three'));
+					fold($('.admin-items'),$('.arrIcon-five'));
 					break;
 				case '5':
-					//让管理书籍类别折叠
-					$('.book-items').slideUp();
-					$('.arrIcon-two').css('background-image','url("./images/down-arrow.png")');
-					$('.book-items').removeClass('open');
+					//让非管理书籍类别折叠
+					fold($('.info-items'),$('.arrIcon-one'));
+					fold($('.recom-items'),$('.arrIcon-two'));
+					fold($('.order-items'),$('.arrIcon-three'));
+					fold($('.grade-items'),$('.arrIcon-four'));
 					break;
-			}
-			if(num=='1'){
-				//让我的书屋折叠
-				$('.book-items').slideUp();
-				$('.arrIcon-two').css('background-image','url("./images/down-arrow.png")');
-				$('.book-items').removeClass('open');
-			}
-			if(num=='2'){
-				//让订单查询折叠
-				$('.order-items').slideUp();
-				$('.arrIcon-one').css('background-image','url("./images/down-arrow.png")');
-				$('.order-items').removeClass('open');
 			}
 			if($sbilingItem.hasClass('open')){
 				//当当前点击元素是展开的时候
@@ -80,4 +73,76 @@ angular.module('admin',['ngRoute','admin-controller'])
 			}
 		});
 		/*----根据商家点击不同的选项，高亮不同的条目并在右边显示不同的内容结束---*/
+	})
+	.config(function($routeProvider){
+		$routeProvider
+			.when('/saleroom',{
+				templateUrl:'view/admin/saleroom.html',
+				controller:'saleroomCtrl'
+			})
+			.when('/customerRegNum',{
+				templateUrl:'view/admin//customerRegNum.html',
+				//controller:'/customerRegNumCtrl'
+			})
+			.when('/sellerRegNum',{
+				templateUrl:'view/admin/sellerRegNum.html',
+				//controller:'sellerRegNumCtrl'
+			})
+			.when('/hotBook',{
+				templateUrl:'view/admin/hotBook.html',
+				//controller:'hotBookCtrl'
+			})
+			.when('/newBook',{
+				templateUrl:'view/admin/newBook.html',
+				//controller:'newBookCtrl'
+			})
+			.when('/weSearch',{
+				templateUrl:'view/admin/weSearch.html',
+				//controller:'weSearchCtrl'
+			})
+			.when('/weSpeak',{
+				templateUrl:'view/admin/weSpeak.html',
+				//controller:'weSpeakCtrl'
+			})
+			.when('/allOrder',{
+				templateUrl:'view/admin/allOrder.html',
+				//controller:'allOrderCtrl'
+			})
+			.when('/waitSend',{
+				templateUrl:'view/admin/waitSend.html',
+				//controller:'waitSendCtrl'
+			})
+			.when('/waitGoods',{
+				templateUrl:'view/admin/waitGoods.html',
+				//controller:'waitGoodsCtrl'
+			})
+			.when('/waitRecom',{
+				templateUrl:'view/admin/waitRecom.html',
+				//controller:'waitRecomCtrl'
+			})
+			.when('/accessShop',{
+				templateUrl:'view/admin/accessShop.html',
+				//controller:'accessShopCtrl'
+			})
+			.when('/accessBook',{
+				templateUrl:'view/admin/accessBook.html',
+				//controller:'accessBookCtrl'
+			})
+			.when('/editSmCate',{
+				templateUrl:'view/admin/editSmCate.html',
+				//controller:'editSmCateCtrl'
+			})
+			.when('/addSmCate',{
+				templateUrl:'view/admin/addSmCate.html',
+				//controller:'addSmCateCtrl'
+			})
+			.when('/deleteSmCate',{
+				templateUrl:'view/admin/deleteSmCate.html',
+				//controller:'deleteSmCateCtrl'
+			})
+			.when('/welcome',{
+				templateUrl:'view/admin/welcome.html',
+				//controller:'welcomeCtrl'
+			})
+			.otherwise({redirectTo:'/welcome'});
 	});

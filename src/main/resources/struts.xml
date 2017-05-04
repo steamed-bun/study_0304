@@ -30,7 +30,9 @@
 		</action>
 
 		<action name="test-*" class="testAction" method="{1}">
-			<result name="success">/show.jsp</result>
+			<result name="success" type="json">
+				<param name="root">dataMap</param>
+			</result>
 		</action>
 		
 		<action name="upLoad-*" class="upLoadAction" method="{1}">
@@ -47,6 +49,9 @@
 			</result>
 			<result type="json" name="error">
 				<param name="contentType">text/html</param>
+			</result>
+			<result name="saveBookImages" type="json">
+				<param name="root">dataMap</param>
 			</result>
 		</action>
 		

@@ -1,9 +1,12 @@
 package com.xiyou.actions;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.xiyou.service.ShopService;
+import com.xiyou.util.BookStoreWebUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.interceptor.SessionAware;
 
@@ -19,6 +22,8 @@ public class UpLoadAction extends ActionSupport implements SessionAware{
 	//物理地址
 	private static final String SELLER_IMAGE_DirURL = "D:/soft_tool/tomcat/apache-tomcat-8.5.13/webapps/study/selImage/";
 	private static final String SELLER_WEIXIN_DirURL = "D:/soft_tool/tomcat/apache-tomcat-8.5.13/webapps/study/shopImage/";
+	private static final String BOOK_IMAGES_DirURL = "F:/tomcat8.0/webapps/study/book_Images/";
+    private static final String BOOK_IMAGES_UEL = "http://localhost:8080/study/book_Images/";
 
 	@Autowired
 	private SellerService sellerService;
@@ -34,10 +39,42 @@ public class UpLoadAction extends ActionSupport implements SessionAware{
 	private String selImageFileName;
 	@SuppressWarnings("unused")
 	private String selWeixinFileName;
-	
 	private String path;
 
+	private List<File> images = new ArrayList<File>(5);
+    private List<String> imagesContentType = new ArrayList<String>(5);
+    private List<String> imagesURL = null;
 	Map<String, Object> session;
+	private Map<String, Object> dataMap;
+
+	public String saveBookImages() throws Exception{
+		dataMap = BookStoreWebUtils.getDataMap(session);
+		path = BOOK_IMAGES_DirURL;
+		File file = new File(path);
+		if (!file.exists()) {
+			file.mkdirs();
+        }
+        imagesURL = new ArrayList<String>(5);
+        int i = 0;
+        for (File image : images) {
+            String imageName = getImageName(imagesContentType.get(i));
+            FileUtils.copyFile(image, new File(file, imageName));
+            imagesURL.add(BOOK_IMAGES_UEL + imageName);
+            i++;
+        }
+        dataMap.put("imagesURL",imagesURL);
+		return "saveBookImages";
+	}
+
+	public String getImageName(String imagesContentType){
+		String photoName = ".jpg";
+        if(imagesContentType.equals("image/png")){
+            photoName = ".png";
+        }else if(imagesContentType.equals("image/gif")){
+            photoName = ".gif";
+        }
+		return String.valueOf(System.currentTimeMillis()) + photoName;
+	}
 
 	public String addSelImage() throws Exception {
 		path = SELLER_IMAGE_DirURL;
@@ -120,4 +157,24 @@ public class UpLoadAction extends ActionSupport implements SessionAware{
 	public void setSelWeixinFileName(String selWeixinFileName) {
 		this.selWeixinFileName = selWeixinFileName;
 	}
+
+	public List<File> getImages() {
+		return images;
+	}
+
+	public void setImages(List<File> images) {
+		this.images = images;
+	}
+
+	public Map<String, Object> getDataMap() {
+		return dataMap;
+	}
+
+    public List<String> getImagesContentType() {
+        return imagesContentType;
+    }
+
+    public void setImagesContentType(List<String> imagesContentType) {
+        this.imagesContentType = imagesContentType;
+    }
 }

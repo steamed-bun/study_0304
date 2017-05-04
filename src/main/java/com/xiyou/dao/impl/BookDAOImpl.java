@@ -17,6 +17,11 @@ import org.springframework.stereotype.Repository;
 public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 
 	@Override
+	public Category getCategoryById() {
+		return null;
+	}
+
+	@Override
 	public Book getBookById(Book book) {
 		String hql = "FROM Book b LEFT OUTER JOIN FETCH b.category " +
 				"WHERE b.bookId = :bookId";

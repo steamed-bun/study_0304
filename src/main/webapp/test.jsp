@@ -29,5 +29,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <%--</form>--%>
     <input type="button" value="getBooks" onclick="getJson();">
     <s:debug></s:debug>
+    <s:form action="upLoad-saveBookImages.action" method="POST" enctype="multipart/form-data" namespace="/">
+      <s:file name="images"></s:file>
+      <s:file name="images"></s:file>
+      <s:submit></s:submit>
+    </s:form>
   </body>
 </html>
