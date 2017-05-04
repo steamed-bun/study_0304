@@ -19,9 +19,10 @@ public class Book {
 	private String summary;// 简介
 	private Shop shop;
 
-	public Book(Integer bookId, String bookName) {
+	public Book(Integer bookId, String bookName, Integer quantity) {
 		this.bookId = bookId;
 		this.bookName = bookName;
+		this.quantity = quantity;
 	}
 
 	public Book(Integer bookId) {

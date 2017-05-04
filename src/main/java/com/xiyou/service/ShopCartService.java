@@ -14,6 +14,10 @@ public class ShopCartService {
     @Autowired
     private ShopCartItemDAO shopCartItemDAO;
 
+    public void deleteShopItems(List<ShopCartItem> shopCartItems){
+        shopCartItemDAO.deleteShopItems(shopCartItems);
+    }
+
     public void addShopCartItem(ShopCartItem shopCartItem){
         shopCartItemDAO.addShopItem(shopCartItem);
     }

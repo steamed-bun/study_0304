@@ -5,8 +5,13 @@ import java.util.List;
 import com.xiyou.domain.Book;
 import com.xiyou.domain.BookImages;
 import com.xiyou.domain.Category;
+import com.xiyou.domain.TradeItem;
 
 public interface BookDAO {
+
+	Integer getQuantity(Book book);
+
+	void updateQuantity(String bookId, Integer quantity);
 
 	/**
 	 * 获取一张book的图片

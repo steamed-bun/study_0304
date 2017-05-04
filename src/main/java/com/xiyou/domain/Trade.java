@@ -8,19 +8,28 @@ public class Trade {
 	private Date tradeTime;
 	private User user;
 	private Integer status;
-    private Book book;
     private int quantity;
     private float totalPrice;
+
+    public static Trade getTrade(){
+        Trade trade = new Trade();
+        trade.setTradeTime(new Date(new java.util.Date().getTime()));
+        trade.setStatus(0);
+        return trade;
+    }
 
 	public Integer getTradeId() {
 		return tradeId;
 	}
+
 	public void setTradeId(Integer tradeId) {
 		this.tradeId = tradeId;
 	}
+
 	public Date getTradeTime() {
 		return tradeTime;
 	}
+
 	public void setTradeTime(Date tradeTime) {
 		this.tradeTime = tradeTime;
 	}
@@ -41,14 +50,6 @@ public class Trade {
         this.status = status;
     }
 
-    public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
-    }
-
     public int getQuantity() {
         return quantity;
     }
@@ -65,12 +66,11 @@ public class Trade {
         this.totalPrice = totalPrice;
     }
 
-    public Trade(Integer tradeId, Date tradeTime, User user, Integer status, Book book, int quantity, float totalPrice) {
+    public Trade(Integer tradeId, Date tradeTime, User user, Integer status, int quantity, float totalPrice) {
         this.tradeId = tradeId;
         this.tradeTime = tradeTime;
         this.user = user;
         this.status = status;
-        this.book = book;
         this.quantity = quantity;
         this.totalPrice = totalPrice;
     }

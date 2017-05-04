@@ -1,6 +1,7 @@
 package com.xiyou.dao.impl;
 
 import com.xiyou.dao.SellectDAO;
+import com.xiyou.domain.Category;
 import com.xiyou.domain.City;
 import com.xiyou.domain.County;
 import com.xiyou.domain.Province;
@@ -10,6 +11,14 @@ import java.util.List;
 
 @Repository
 public class SellectDAOImpl extends BaseDAOImpl implements SellectDAO{
+
+    @Override
+    public void updateCategory(String categoryId, String categoryName) {
+        String hql = "UPDATE Category c SET c.categoryName = :categoryName " +
+                "WHERE c.categoryId = :categoryId";
+        getSession().createQuery(hql).setString("categoryName", categoryName)
+                .setString("categoryId",categoryId).executeUpdate();
+    }
 
     @Override
     public List<Province> selectProvinces() {
@@ -35,6 +44,16 @@ public class SellectDAOImpl extends BaseDAOImpl implements SellectDAO{
         @SuppressWarnings("unchecked")
         List<County> list = getSession().createQuery(hql).setString("cityId", cityId).list();
         return list;
+    }
+
+    @Override
+    public List<Category> getCategory(String categoryPId) {
+        String hql = "SELECT new Category (c.categoryId, c.categoryName) FROM Category c " +
+                "WHERE c.categoryPId = :categoryPId";
+        @SuppressWarnings("unchecked")
+        List<Category> categories = getSession().createQuery(hql)
+                .setString("categoryPId", categoryPId).list();
+        return categories;
     }
 
 }

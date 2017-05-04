@@ -61,7 +61,4 @@
 		<!-- 将事务属性与切入点关联起来 -->
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
 	</aop:config>
-	
-	
-	    
 </beans>

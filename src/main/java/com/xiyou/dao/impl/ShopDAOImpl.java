@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 @Repository("shopDAOImpl")
 public class ShopDAOImpl extends BaseDAOImpl implements ShopDAO {
 
+	private static final String SHOP_IMAGE_URL = "http://localhost:8090/study/shopImage/";
+
 	@Override
 	public void addShop(Shop shop) {
 		getSession().saveOrUpdate(shop);
@@ -31,6 +33,14 @@ public class ShopDAOImpl extends BaseDAOImpl implements ShopDAO {
 				"LEFT OUTER JOIN FETCH s.county " +
 				"WHERE s.shopId = :shopId";
 		return (Shop)getSession().createQuery(hql).setString("shopId", shopId).uniqueResult();
+	}
+
+	@Override
+	public String updateShopImage(String shopImage, String shopId) {
+		shopImage = SHOP_IMAGE_URL + shopImage;
+		String hql = "UPDATE Shop s SET s.shopImage = :shopImage WHERE s.shopId = :shopId";
+		getSession().createQuery(hql).setString("shopImage", shopImage).setString("shopId", shopId).executeUpdate();
+		return shopImage;
 	}
 
 	@Override

@@ -28,6 +28,8 @@ public class ShopAction extends ActionSupport implements SessionAware,
 	private Map<String, Object> dataMap;
 	private String status = "yes";
 
+
+
 	public String delete(){
 		String shopId = session.get("shopId").toString();
 		shopService.delete(shopId);

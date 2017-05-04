@@ -3,6 +3,7 @@ package com.xiyou.actions;
 import java.io.File;
 import java.util.Map;
 
+import com.xiyou.service.ShopService;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.interceptor.SessionAware;
 
@@ -17,10 +18,13 @@ public class UpLoadAction extends ActionSupport implements SessionAware{
 	private static final long serialVersionUID = 1L;
 	//物理地址
 	private static final String SELLER_IMAGE_DirURL = "F:/tomcat8.0/webapps/study/selWeiXin/";
-	private static final String SELLER_WEIXIN_DirURL = "F:/tomcat8.0/webapps/study/selWeiXin/";
+	private static final String SELLER_WEIXIN_DirURL = "F:/tomcat8.0/webapps/study/shopImage/";
 
 	@Autowired
 	private SellerService sellerService;
+
+	@Autowired
+	private ShopService shopService;
 
 	private File selImage;
 	private File selWeixin;
@@ -66,7 +70,7 @@ public class UpLoadAction extends ActionSupport implements SessionAware{
 		}
 		String selWeixinName = getSelWeixinName();
 		FileUtils.copyFile(selWeixin, new File(file, selWeixinName));
-		path = sellerService.updateSelWeiXin(selWeixinName, session.get("selId").toString());
+		path = shopService.updateShopImage(selWeixinName, session.get("shopId").toString());
 		return SUCCESS;
 	}
 

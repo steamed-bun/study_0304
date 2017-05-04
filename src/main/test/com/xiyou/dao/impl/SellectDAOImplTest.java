@@ -18,6 +18,12 @@ public class SellectDAOImplTest {
     @Autowired
     private SellectDAO sellectDAO;
 
+    @Test
+    @Transactional
+    public void testUpdateCategory(){
+        sellectDAO.updateCategory("4","haha");
+    }
+
     @Transactional
     @Test
     public void testSelectCity() throws Exception {
@@ -29,4 +35,11 @@ public class SellectDAOImplTest {
     public void testSelectCounty() throws Exception {
         System.out.println(sellectDAO.selectCounty("1"));
     }
+
+    @Test
+    @Transactional
+    public void testGetCategory(){
+        System.out.println(sellectDAO.getCategory("1"));
 }
+}
+

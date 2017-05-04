@@ -10,6 +10,7 @@ import com.xiyou.domain.Book;
 import com.xiyou.domain.BookImages;
 import com.xiyou.domain.Category;
 import com.xiyou.domain.Shop;
+import com.xiyou.exception.DBException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,10 @@ public class BookService {
 
 	@Autowired
 	private ShopDAO shopDAO;
+
+	public Integer getQuantity(Book book){
+		return bookDAO.getQuantity(book);
+	}
 
 	public void addImages(String bookId, List<BookImages> bookImages){
 		Book book = bookDAO.getBook(bookId);

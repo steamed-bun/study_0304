@@ -1,6 +1,7 @@
 package com.xiyou.service;
 
 import com.xiyou.dao.SellectDAO;
+import com.xiyou.domain.Category;
 import com.xiyou.domain.City;
 import com.xiyou.domain.County;
 import com.xiyou.domain.Province;
@@ -15,6 +16,10 @@ public class SellectService {
     @Autowired
     private SellectDAO sellectDAO;
 
+    public void updateCategory(String categoryId, String categoryName){
+        sellectDAO.updateCategory(categoryId, categoryName);
+    }
+
     public List<Province> selectProvinces() {
         return sellectDAO.selectProvinces();
     }
@@ -25,6 +30,10 @@ public class SellectService {
 
     public List<County> selectCounty(String cityId) {
         return sellectDAO.selectCounty(cityId);
+    }
+
+    public List<Category> getCatrgory(String categoryPId){
+        return sellectDAO.getCategory(categoryPId);
     }
 
 }

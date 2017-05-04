@@ -20,7 +20,8 @@ public class UserService {
     }
 
     public User getUser(String email, String userPassword){
-        return userDAO.getUser(email, userPassword);
+        User user = userDAO.getUser(email, userPassword);
+        return user;
     }
 
     public void deleteUser(String userId){

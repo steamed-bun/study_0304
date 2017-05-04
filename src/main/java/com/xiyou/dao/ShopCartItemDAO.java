@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface ShopCartItemDAO {
 
+    void deleteShopItems(List<ShopCartItem> shopCartItems);
     /**
      * 已测
      * 添加一条记录购物

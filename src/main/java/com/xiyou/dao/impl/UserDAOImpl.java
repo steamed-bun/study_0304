@@ -16,8 +16,9 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
     @Override
     public User getUser(String email, String userPassword) {
         String hql = "FROM User u WHERE u.email = :email AND u.userPassword = :userPassword";
-        return (User)getSession().createQuery(hql).setString("email",email)
+        User user = (User)getSession().createQuery(hql).setString("email",email)
                 .setString("userPassword",userPassword).uniqueResult();
+        return user;
     }
 
     @Override

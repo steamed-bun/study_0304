@@ -11,6 +11,10 @@ public class ShopService {
 	@Autowired
 	private ShopDAO shopDAO;
 
+	public String updateShopImage(String shopImage, String shopId){
+		return shopDAO.updateShopImage(shopImage, shopId);
+	}
+
 	public Shop sellectShop(String shopId){
 		return shopDAO.selectShop(shopId);
 	}

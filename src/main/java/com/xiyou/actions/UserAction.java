@@ -72,7 +72,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User>,
     public String sellectUser(){
         dataMap = BookStoreWebUtils.getDataMap(session);
         if(chose.equals("login")){
-            this.user = userService.getUser(user.getEmail(),user.getUserPassword());
+            user = userService.getUser(user.getEmail(),user.getUserPassword());
             if (user != null){
                 if(session.get("userId") == null){
                     session.put("userId", user.getUserId());

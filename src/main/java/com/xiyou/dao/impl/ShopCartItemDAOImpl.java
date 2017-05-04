@@ -12,6 +12,14 @@ public class ShopCartItemDAOImpl extends BaseDAOImpl implements ShopCartItemDAO 
 
 
     @Override
+    public void deleteShopItems(List<ShopCartItem> shopCartItems) {
+        String hql = "DELETE FROM ShopCartItem s WHERE s.cartItemId = :cartItemId";
+        for (ShopCartItem shopCartItem : shopCartItems) {
+            getSession().createQuery(hql).setInteger("cartItemId", shopCartItem.getCartItemId().intValue());
+        }
+    }
+
+    @Override
     public void addShopItem(ShopCartItem shopCartItem) {
         getSession().saveOrUpdate(shopCartItem);
     }

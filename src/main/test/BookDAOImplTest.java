@@ -23,6 +23,18 @@ public class BookDAOImplTest {
 
     @Test
     @Transactional
+    public void testGetQuantity(){
+        System.out.println(bookDAO.getQuantity(new Book(13)));
+    }
+
+    @Test
+    @Transactional
+    public void testUpdateQuantity(){
+        bookDAO.updateQuantity("13",19);
+    }
+
+    @Test
+    @Transactional
     public void getBooksTest(){
         //System.out.println(bookDAO.getBooks("2"));
         System.out.println(new Random().nextInt(1000)+1000);

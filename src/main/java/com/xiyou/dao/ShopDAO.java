@@ -4,6 +4,14 @@ import com.xiyou.domain.Shop;
 
 public interface ShopDAO {
 
+	/**
+	 * 更新shopImage
+	 * @param shopImage
+	 * @param shopId
+     * @return
+     */
+	String updateShopImage(String shopImage,String shopId);
+
 	void delete(String shopId);
 
 	/**

@@ -20,6 +20,15 @@
 		
 		<default-interceptor-ref name="study"></default-interceptor-ref>
 
+		<action name="trade-*" class="tradeAction" method="{1}">
+			<result name="addTrade" type="json">
+				<param name="root">dataMap</param>
+			</result>
+			<result name="stock" type="json">
+				<param name="root">dataMap</param>
+			</result>
+		</action>
+
 		<action name="test-*" class="testAction" method="{1}">
 			<result name="success">/show.jsp</result>
 		</action>
@@ -87,6 +96,9 @@
 				<param name="root">status</param>
 			</result>
 			-->
+			<result name="validateBookQuantity" type="json">
+				<param name="root">dataMap</param>
+			</result>
 			<result name="getBooksByCategory" type="json">
 				<param name="root">dataMap</param>
 			</result>
@@ -116,6 +128,9 @@
 				<param name="root">dataMap</param>
 			</result>
 			<result name="success" type="json">
+				<param name="root">dataMap</param>
+			</result>
+			<result name="updateCategory" type="json">
 				<param name="root">dataMap</param>
 			</result>
 		</action>

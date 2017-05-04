@@ -3,10 +3,24 @@ package com.xiyou.domain;
 public class TradeItem {
 
 	private Integer itemId;
-	private int quantity;
-	private Book bookId;
-	private Trade tradeId;
-	private boolean deal;
+	private Integer quantity;
+	private Book book;
+	private Trade trade;
+	private Integer status;
+	private float price;
+
+	public TradeItem(Integer itemId, Integer quantity, Book book, Trade trade, Integer status, float price) {
+		this.itemId = itemId;
+		this.quantity = quantity;
+		this.book = book;
+		this.trade = trade;
+		this.status = status;
+		this.price = price;
+	}
+
+	public TradeItem() {
+		super();
+	}
 
 	public Integer getItemId() {
 		return itemId;
@@ -16,50 +30,43 @@ public class TradeItem {
 		this.itemId = itemId;
 	}
 
-	public int getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 
-	public Book getBookId() {
-		return bookId;
+	public Book getBook() {
+		return book;
 	}
 
-	public void setBookId(Book bookId) {
-		this.bookId = bookId;
+	public void setBook(Book book) {
+		this.book = book;
 	}
 
-	public Trade getTradeId() {
-		return tradeId;
+	public Trade getTrade() {
+		return trade;
 	}
 
-	public void setTradeId(Trade tradeId) {
-		this.tradeId = tradeId;
+	public void setTrade(Trade trade) {
+		this.trade = trade;
 	}
 
-	public boolean isDeal() {
-		return deal;
+	public Integer getStatus() {
+		return status;
 	}
 
-	public void setDeal(boolean deal) {
-		this.deal = deal;
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
-	public TradeItem(Integer itemId, int quantity, Book bookId, Trade tradeId,
-			boolean deal) {
-		super();
-		this.itemId = itemId;
-		this.quantity = quantity;
-		this.bookId = bookId;
-		this.tradeId = tradeId;
-		this.deal = deal;
+	public float getPrice() {
+		return price;
 	}
 
-	public TradeItem() {
-		super();
+	public void setPrice(float price) {
+		this.price = price;
 	}
-
 }

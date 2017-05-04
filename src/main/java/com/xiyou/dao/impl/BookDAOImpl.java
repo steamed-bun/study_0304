@@ -6,6 +6,9 @@ import com.xiyou.dao.BookDAO;
 import com.xiyou.domain.Book;
 import com.xiyou.domain.BookImages;
 import com.xiyou.domain.Category;
+import com.xiyou.domain.TradeItem;
+import com.xiyou.exception.DBException;
+import org.apache.struts2.components.If;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
@@ -73,9 +76,36 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 
 	@Override
 	public Book getBookTo(String bookId) {
-		String hql = "SELECT new Book ( b.bookId ) FROM Book b WHERE b.bookId = :bookId";
+		String hql = "SELECT new Book (b.bookId, b.bookName, b.quantity) FROM Book b " +
+				"WHERE b.bookId = :bookId";
 		Book book = (Book) getSession().createQuery(hql).setString("bookId", bookId).uniqueResult();
 		return book;
+	}
+
+
+	@Override
+	public void updateQuantity(String bookId, Integer quantity) throws DBException {
+		Integer quantityDB = getQuantity(bookId);
+		System.out.println(bookId + "的quantityDB:" + quantityDB);
+		System.out.println(bookId + "的quantity:" + quantity);
+		if (quantity > quantityDB){
+			throw new DBException(bookId + "库存不足");
+		}
+		String hql = "UPDATE Book b SET b.quantity = (b.quantity - :quantity ) WHERE b.bookId= :bookId";
+		getSession().createQuery(hql).setInteger("quantity",quantity.intValue()).setString("bookId",bookId)
+				.executeUpdate();
+	}
+
+	public Integer getQuantity(String bookId) {
+		String hql = "SELECT b.quantity FROM Book b WHERE b.bookId = :bookId";
+		Integer quantity = (Integer) getSession().createQuery(hql).setString("bookId",bookId).uniqueResult();
+		return quantity;
+	}
+
+	public Integer getQuantity(Book book) {
+		String hql = "SELECT b.quantity FROM Book b WHERE b.bookId = :bookId";
+		Integer quantity = (Integer) getSession().createQuery(hql).setInteger("bookId",book.getBookId()).uniqueResult();
+		return quantity;
 	}
 
 	@Override

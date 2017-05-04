@@ -1,6 +1,5 @@
 package com.xiyou.actions;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +34,22 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 	public String deleteBook(){
 		bookService.deleteBook(book.getBookId().toString());
 		return "deleteBook";
+	}
+
+	/**
+	 * 已测
+	 * 验证库存
+	 * url:book-validateBookQuantity.action?book.bookId=13&book.quantity=20
+	 * 库存不足返回{status:no}
+	 * @retur
+     */
+	public String validateBookQuantity(){
+		dataMap = BookStoreWebUtils.getDataMap(session);
+		Integer quantity = bookService.getQuantity(book);
+		if(quantity.intValue() < book.getQuantity()){
+			dataMap.put("status","no");
+		}
+		return "validateBookQuantity";
 	}
 
 	/**

@@ -15,13 +15,17 @@
     		<column name="QUANTITY" not-null="true"></column>
     	</property>
 
-    	<property name="deal" type="boolean">
-    		<column name="DEAL" default="0"></column>
+    	<property name="status" type="int">
+    		<column name="STATUS" default="0"></column>
     	</property>
 
-    	<many-to-one name="bookId" class="Book" column="BOOK_ID"></many-to-one>
+		<property name="price" type="float">
+			<column name="PRICE"></column>
+		</property>
+
+    	<many-to-one name="book" class="Book" column="BOOK_ID"></many-to-one>
     	
-    	<many-to-one name="tradeId" class="Trade" column="Trade_ID"></many-to-one>
+    	<many-to-one name="trade" class="Trade" column="Trade_ID"></many-to-one>
 
     </class>
 
