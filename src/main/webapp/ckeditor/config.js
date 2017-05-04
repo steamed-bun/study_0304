@@ -6,7 +6,7 @@
 CKEDITOR.editorConfig = function( config ) {
 	config.language =  "zh-cn" ; 
 	config.toolbar = 'Full';
-    config.height = 300;
+    config.height = 554;
     config.image_previewText = " ";
 
 	config.toolbarGroups = [

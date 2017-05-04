@@ -8,7 +8,7 @@
 				<th>实收</th>
 				<th>交易时间</th>
 				<th>购买者</th>
-				<th>状态</th>
+				<th>物流状态</th>
 			</tr>
 		</thead>
 		<tbody class="dealSucc-content">
@@ -20,7 +20,7 @@
 				<td>12</td>
 				<td>2017-04-2</td>
 				<td>花开半夏</td>
-				<td class="book-wating"><span>待收货</span></td>
+				<td class="book-sure"><span>查看物流</span></td>
 			</tr>
 			<tr>
 				<td class="book-img" style="background-image: url('./images/index/e00001.jpg')"></td>
@@ -30,7 +30,7 @@
 				<td>12</td>
 				<td>2017-04-2</td>
 				<td>花开半夏</td>
-				<td class="book-sure"><span>确定</span></td>
+				<td class="book-sure"><span>查看物流</span></td>
 			</tr>
 		</tbody>
 	</table>
@@ -67,7 +67,7 @@
 	}
 	.book-sure>span,.book-wating>span{
 		display:inline-block;
-		width:50px;
+		width:100px;
 		height:30px;
 		line-height: 30px;
 		background:#ddbea1;
@@ -75,6 +75,7 @@
 		border:#ddbea1 solid 1px;
 		color:#FFF;
 		cursor:pointer;
+		text-align:center;
 	}
 	.book-wating>span{
 		background:none;

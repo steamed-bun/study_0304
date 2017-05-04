@@ -12,7 +12,7 @@
 			name:MerchantName.name
 		};
 	})
-	.controller('mulImgUploadCtrl',function($scope){
+	.controller('uploadImgCtrl',function($scope,$http){
 		var params = {
 			fileInput: $("#fileImage").get(0),
 			dragDrop: $("#fileDragArea").get(0),
@@ -99,8 +99,21 @@
 		};
 		ZXXFILE = $.extend(ZXXFILE, params);
 		ZXXFILE.init();
-			})
-
+		//调用后台提供的富文本编辑器
+		$scope.addBook=function(){
+			console.log('我要调用编辑器');
+			$http({
+				method: 'GET',
+				url: 'cKAction.action'
+			}).then(function successCallback(response) {
+				console.log(response);
+				window.open('http://localhost:8080/bookstore_v1.1/edit_book_details.html');
+				// 请求成功执行代码
+			}, function errorCallback(response) {
+				// 请求失败执行代码
+			});
+		};
+	})
 	/*-------基础功能函数开始----------*/
 	//实现输入框获得焦点时高亮
 	$('.add-book-input').focus(function(){

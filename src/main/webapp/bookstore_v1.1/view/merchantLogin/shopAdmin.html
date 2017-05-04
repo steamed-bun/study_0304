@@ -3,7 +3,7 @@
 	<div class="shop-admin-cont">
 		<div class="shop-info-box">
 			<ul class="my-info-box">
-				<li><span>店铺图标：</span><span class="my-img"><img ng-src="{{ user.img }}" align="absmiddle" ng-click="showChangeImg()"/><i ng-click="showChangeImg()">修改</i></span></li>
+				<li><span>店铺图标：</span><span class="my-img"><img ng-src="{{ user.img }}" align="absmiddle"/><i ng-click="showChangeImg()">修改</i></span></li>
 				<li><span>店铺名称：</span><span class="my-name"><input type="text" ng-model="user.name" placeholder="请为您的小店起名" class="user-input"/></span></li>
 				<li><span>店铺等级：</span><span class="my-degree"><input type="text" ng-model="user.degree" readonly="true" /></li>
 				<li class="mer_position">
@@ -43,7 +43,7 @@
 	    					<div class="spinner" style="display: none"></div>
 						</div>
 						<div class="cust-btn-box clearfix">
-							<a href="javascript:;" class="select-img">点击选择图片<input type="file" id="loadImg"/></a>
+							<a href="javascript:;" class="select-img">点击选择图片<input type="file" id="selWeixin" name="selWeixin"/></a>
 							<span class="bigger-img">+</span>
 							<span class="smaller-img">-</span>
 							<span class="save-img" ng-click="saveImg()">保存</span>
@@ -300,7 +300,7 @@
 		overflow:hidden;
 		border-radius:4px;
 	}
-	#loadImg{
+	#selWeixin{
 		position:absolute;
 		top:-20px;
 		left:-20px;

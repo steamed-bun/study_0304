@@ -49,13 +49,18 @@ header{
 	display:inline-block;
 	height:100%;
 }
-.book-cate-select{
+.book-cate-select,.book-smCate-select{
 	border:#DDD  solid 1px;
 	height:100%;
-	width:500px;
+	width:180px;
 	border-radius: 3px;
+	margin-right:20px;
+	padding-left:10px;
 }
-.book-cate-select:hover{
+.book-smCate-select{
+	width:295px;
+}
+.book-cate-select:hover,.book-smCate-select:hover{
 	border:#1e90ff solid 1px;
 }
 .book-info-input>input{
@@ -73,22 +78,29 @@ header{
 	font-style: normal;
 	background:url("../images/error.png") left center no-repeat;
 }
+.book-info-add{
+	display:inline-block;
+	height:40px;
+	line-height: 40px;
+	margin-left:244px;
+	color:#1e90ff;
+	cursor:pointer;
+}
+.book-info-add:hover{
+	text-decoration: underline;
+}
 .brief-text,.img-text{
 	position:absolute;
 	top:9px;
 }
-.book-brief-box,.book-img-box{
+.book-img-box{
 	display:inline-block;
 	width:700px;
 	margin-left:244px;
 }
-.book-brief-box>textarea{
-	width:100%;
-	border:#DDD solid 1px;
-	border-radius: 3px;
-	min-height:200px;
-	padding:5px 10px;
-	resize: vertical;  /*限制textarea只能调整高度*/
+.img-hint{
+	position:relative;
+	top:-84px;
 }
 /* 与多图片上传相关开始 */
 .upload_box{width:700px; margin:0 auto 1em auto;}
@@ -118,7 +130,7 @@ header{
 	line-height:42px;
 	text-align: center;
 	border:#ddbea1 solid 1px;
-	background:#ddbea1;
+	background:hsla(9, 77%, 64%, 0.65);
 	border-radius: 3px;
 	color:#FFF;
 	margin-right:50px;

@@ -17,12 +17,13 @@
 				</div>
 			</div>
 		</header>
-		<section class="add-book-box">
-			<div class="container">
-				<from>
-					<ul class="book-info-items">
-						<li>
-							<span>类别：</span>
+		<section ng-controller="uploadImgCtrl">
+			<div class="add-book-box">
+				<div class="container">
+					<from>
+						<ul class="book-info-items">
+							<li>
+								<span>类别：</span>
 							<span>
 								<select class="book-cate-select">
 									<option>教育</option>
@@ -38,59 +39,78 @@
 									<option>工具书</option>
 								</select>
 							</span>
-						</li>
-						<li>
-							<span>名称：</span>
-							<span class="book-info-input"><input type="text" class="add-book-input"/></span>
-						</li>
-						<li>
-							<span>价格：</span>
-							<span class="book-info-input"><input type="text" class="add-book-input"/></span>
-							<span><i class="book-add-hint">价格必须为数字</i></span>
-						</li>
-						<li>
-							<span>作者：</span>
-							<span class="book-info-input"><input type="text" class="add-book-input"/></span>
-						</li>
-						<li>
-							<span>出版日期：</span>
-							<span class="book-info-input"><input type="text" class="add-book-input"/></span>
-							<span><i class="book-add-hint">时间不能早于当前</i></span>
-						</li>
-						<li>
-							<span>出版商：</span>
-							<span class="book-info-input"><input type="text" class="add-book-input"/></span>
-						</li>
-						<li>
-							<span class="brief-text">简介：</span>
-							<div class="book-brief-box"><textarea class="add-book-input"></textarea></div>
-						</li>
-						<li>
-							<span class="img-text">图片：</span>
-							<div class="book-img-box" ng-controller="mulImgUploadCtrl">
-								<form id="uploadForm" action="upload.php" method="post" enctype="multipart/form-data">
-				                    <div class="upload_box">
-				                        <div class="upload_main">
-				                            <div class="upload_choose">
-				                                <input id="fileImage" type="file" size="30" name="fileselect[]" multiple />
-				                                <span id="fileDragArea" class="upload_drag_area">或者将图片拖到此处</span>
-				                            </div>
-				                            <div id="preview" class="upload_preview"></div>
-				                        </div>
-				                        <div class="upload_submit">
-				                            <button type="button" id="fileSubmit" class="upload_submit_btn">确认上传图片</button>
-				                        </div>
-				                        <div id="uploadInf" class="upload_inf"></div>
-				                    </div>
-				                </form>
-							</div>
-						</li>
-					</ul>
-				</from>
+							<span>
+								<select class="book-smCate-select">
+									<option>教育</option>
+									<option>小说</option>
+									<option>文艺</option>
+									<option>青春</option>
+									<option>童书</option>
+									<option>生活</option>
+									<option>人文社科</option>
+									<option>经管</option>
+									<option>励志</option>
+									<option>科技</option>
+									<option>工具书</option>
+								</select>
+							</span>
+							</li>
+							<li>
+								<span>名称：</span>
+								<span class="book-info-input"><input type="text" class="add-book-input" placeholder="请输入书籍名称"/></span>
+							</li>
+							<li>
+								<span>价格：</span>
+								<span class="book-info-input"><input type="text" class="add-book-input" placeholder="请输入价格"/></span>
+								<span><i class="book-add-hint price-hint">价格必须为数字</i></span>
+							</li>
+							<li>
+								<span>作者：</span>
+								<span class="book-info-input"><input type="text" class="add-book-input" placeholder="请输入作者姓名"/></span>
+							</li>
+							<li>
+								<span>出版日期：</span>
+								<span class="book-info-input"><input type="text" class="add-book-input" placeholder="请输入日期，以‘-’分隔"/></span>
+								<span><i class="book-add-hint time-hint">时间不能早于当前</i></span>
+							</li>
+							<li>
+								<span>出版商：</span>
+								<span class="book-info-input"><input type="text" class="add-book-input" placeholder="请输入出版商"/></span>
+							</li>
+							<li>
+								<span class="brief-text">简介：</span>
+								<span class="book-info-add">
+									<label ng-click="addBook()">点击添加</label>
+								</span>
+							</li>
+							<li>
+								<span class="img-text">图片：</span>
+								<div class="book-img-box" >
+									<form id="uploadForm" action="upload.php" method="post" enctype="multipart/form-data">
+										<div class="upload_box">
+											<div class="upload_main">
+												<div class="upload_choose">
+													<input id="fileImage" type="file" size="30" name="fileselect[]" multiple />
+													<span id="fileDragArea" class="upload_drag_area">或者将图片拖到此处</span>
+												</div>
+												<div id="preview" class="upload_preview"></div>
+											</div>
+											<div class="upload_submit">
+												<button type="button" id="fileSubmit" class="upload_submit_btn">确认上传图片</button>
+											</div>
+											<div id="uploadInf" class="upload_inf"></div>
+										</div>
+									</form>
+								</div>
+								<span><i class="book-add-hint img-hint">只能上传5张图片</i></span>
+							</li>
+						</ul>
+					</from>
+				</div>
 			</div>
-		</section>
-		<section class="add-book-operate container">
-			<span>保存</span><span>重置</span>
+			<div class="add-book-operate container">
+				<span>保存</span><span>重置</span>
+			</div>
 		</section>
 		<script src="./js/jquery-1.12.3.js"></script>
 		<script src="./js/angular.js"></script>

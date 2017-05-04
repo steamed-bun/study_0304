@@ -1,0 +1,80 @@
+<div>
+    <table class="dealSucc-info-box">
+        <thead>
+        <tr class="dealSucc-title">
+            <th colspan="2">书籍信息</th>
+            <th>单价</th>
+            <th>数量</th>
+            <th>实收</th>
+            <th>交易时间</th>
+            <th>购买者</th>
+            <th>状态</th>
+        </tr>
+        </thead>
+        <tbody class="dealSucc-content">
+        <tr>
+            <td class="book-img" style="background-image: url('./images/index/e00001.jpg')"></td>
+            <td class="book-name">三生花三生三世三生十里桃花</td>
+            <td>12</td>
+            <td>1</td>
+            <td>12</td>
+            <td>2017-04-2</td>
+            <td>花开半夏</td>
+            <td class="book-delete">待发货</td>
+        </tr>
+        <tr>
+            <td class="book-img" style="background-image: url('./images/index/e00001.jpg')"></td>
+            <td class="book-name">三生花三生三世三生十里桃花</td>
+            <td>12</td>
+            <td>1</td>
+            <td>12</td>
+            <td>2017-04-2</td>
+            <td>花开半夏</td>
+            <td class="book-delete">待发货</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<style>
+    .dealSucc-info-box{
+        width:100%;
+        border-collapse: collapse;
+        text-align: center;
+    }
+    .dealSucc-title{
+        height:41px;
+        font-size:16px;
+        background:#f5f5f5;
+        border-bottom: #DDD solid 1px;
+    }
+    .dealSucc-content>tr{
+        height:150px;
+        border-bottom: #DDD dashed 1px;
+        font-size:14px;
+    }
+    .dealSucc-content>tr:last-child{
+        border-bottom: #DDD solid 1px;
+    }
+    .book-img{
+        width:90px;
+        height:90p;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+    .book-name{
+        width:110px;
+    }
+    .book-delete>span{
+        display:inline-block;
+        width:50px;
+        height:30px;
+        line-height: 30px;
+        background:#ddbea1;
+        border-radius: 3px;
+        border:#ddbea1 solid 1px;
+        color:#FFF;
+        cursor:pointer;
+    }
+
+</style>
