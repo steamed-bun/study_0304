@@ -26,7 +26,7 @@ public class SellectAction extends ActionSupport implements SessionAware{
 
 	/**
 	 * 修改小类别
-	 * url:select-updateCategory.action?category.categoryId=5&category.categoryName=haha
+	 * url:select-updateCategory.action?category.categoryPId=1&category.categoryId=5&category.categoryName=haha
 	 * @return
      */
 	public String updateCategory(){
