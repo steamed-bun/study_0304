@@ -1,18 +1,25 @@
 (function(){
   /*--------路由设置与获取基础信息开始--------------*/
   angular.module('merAddBook',[])
-	.factory('MerchantName',function(){
-		//此处需要从数据库中获得商家昵称
-		return {
-			name:'花开半夏'
-		}
+	.controller('merNameCtrl',function($scope,$http){
+		$http({
+			method:'GET',
+			url:'sel-sellectSeller.action?chose=CHOSE',
+		}).success(function(data){
+			$scope.mer={
+				name:data.seller.selName
+			};
+		});
 	})
-	.controller('merNameCtrl',function($scope,MerchantName){
-		$scope.mer={
-			name:MerchantName.name
+	.controller('uploadCtrl',function($scope,$http){
+		//基本信息
+		$scope.bookInfo={
+			bigCtae:'',
+			smCate:'',
+			bookName:'',
+			bookPrice:'',
 		};
-	})
-	.controller('uploadImgCtrl',function($scope,$http){
+		//上传书籍图片
 		var params = {
 			fileInput: $("#fileImage").get(0),
 			dragDrop: $("#fileDragArea").get(0),
@@ -113,6 +120,21 @@
 				// 请求失败执行代码
 			});
 		};
+		//根据用户选择的书籍大类，来显示待选择的书籍子类
+		$(".book-cate-select").change(function () {
+			var selectId;
+			$(".book-cate-select option:selected").each(function () {
+				selectId= $(this).attr('data-id');
+			});
+			$http({
+				method:'POST',
+				url:'select-getCategory.action',
+				data: 'category.categoryPId='+selectId,//已序列化用户输入的数据
+				headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+			}).success(function(data){
+				console.log(data);
+			});
+		});
 	})
 	/*-------基础功能函数开始----------*/
 	//实现输入框获得焦点时高亮
@@ -125,3 +147,5 @@
 	});
 	/*-------基础功能函数结束----------*/
 })();
+
+

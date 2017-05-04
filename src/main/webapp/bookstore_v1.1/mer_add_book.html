@@ -17,7 +17,7 @@
 				</div>
 			</div>
 		</header>
-		<section ng-controller="uploadImgCtrl">
+		<section ng-controller="uploadCtrl">
 			<div class="add-book-box">
 				<div class="container">
 					<from>
@@ -26,17 +26,17 @@
 								<span>类别：</span>
 							<span>
 								<select class="book-cate-select">
-									<option>教育</option>
-									<option>小说</option>
-									<option>文艺</option>
-									<option>青春</option>
-									<option>童书</option>
-									<option>生活</option>
-									<option>人文社科</option>
-									<option>经管</option>
-									<option>励志</option>
-									<option>科技</option>
-									<option>工具书</option>
+									<option data-id="1">教育</option>
+									<option  data-id="2">小说</option>
+									<option data-id="3">文艺</option>
+									<option data-id="4">青春</option>
+									<option data-id="5">童书</option>
+									<option data-id="6">生活</option>
+									<option data-id="7">人文社科</option>
+									<option data-id="8">经管</option>
+									<option data-id="9">励志</option>
+									<option data-id="10">科技</option>
+									<option data-id="11">工具书</option>
 								</select>
 							</span>
 							<span>
@@ -57,7 +57,7 @@
 							</li>
 							<li>
 								<span>名称：</span>
-								<span class="book-info-input"><input type="text" class="add-book-input" placeholder="请输入书籍名称"/></span>
+								<span class="book-info-input"><input type="text" class="add-book-input" placeholder="请输入书籍名称" ng-model=""/></span>
 							</li>
 							<li>
 								<span>价格：</span>
