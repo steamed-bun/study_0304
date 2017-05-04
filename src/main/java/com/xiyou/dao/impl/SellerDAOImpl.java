@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 @Repository("sellerDAOImpl")
 public class SellerDAOImpl extends BaseDAOImpl implements SellerDAO {
 
-	private static final String SELLER_IMAGE_URL = "http://localhost:8080/study/selImage";
-	private static final String SELLER_WEIXIN_URL = "http://localhost:8080/study/selWeiXin/";
+	private static final String SELLER_IMAGE_URL = "http://localhost:8080/study/selImage/";
+	private static final String SELLER_WEIXIN_URL = "http://localhost:8080/study/shopImage/";
 
 /*	@Override
 	public String addSeller(Seller seller) {
