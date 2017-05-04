@@ -6,6 +6,7 @@ angular.module('merchantLogin-controller',[])
             method:'GET',
             url:'sel-sellectSeller.action?chose=CHOSE',
         }).success(function(data){
+            data=data.seller;
             console.log(data);
             console.log('我获得数据了');
             $scope.user={
@@ -36,6 +37,11 @@ angular.module('merchantLogin-controller',[])
 	  	};
 
 	  	$scope.changeImgHint='成功了吗';
+        $scope.img={
+            name:'',
+            type:'',
+            file:''
+        };
 	  	/*-----------基础的数据设置结束-----------*/
 	  	
 
@@ -44,9 +50,68 @@ angular.module('merchantLogin-controller',[])
   		// 改变头像---开始
 	  	//显示改变头像box
 	  	$scope.showChangeImg=function(){
-	  	  $scope.changeImgBox={
-	  	  	"display":"block"
-	  	  };
+	  	    $scope.changeImgBox={
+	  	  	    "display":"block"
+	  	    };
+            console.log('我准备更换头像了');
+            //对所选择的图片做处理
+            var options={
+                thumbBox: '.thumbBox',
+                spinner: '.spinner',
+                imgSrc: $scope.user.img
+            };
+            var cropper = $('.cust-img-box').cropbox(options);//调用图片上传插件的方法
+            //实现图片的改变
+            $('#loadImg').on('change', function(e){
+                var file=e.currentTarget.files[0];
+                $scope.img.file=file;
+                $scope.img.name = file.name || '';
+                $scope.img.type = file.type || '';
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    options.imgSrc = e.target.result;
+                    cropper = $('.cust-img-box').cropbox(options);
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
+            //放大图片
+            $('.bigger-img').on('click', function(){
+                cropper.zoomIn();//将图片放大
+            });
+            //缩小图片
+            $('.smaller-img').on('click', function(){
+                cropper.zoomOut();//将图片缩小
+            });
+
+            //给保存按钮加事件保存用户新的头像到数据库中
+            $scope.saveImg=function(){
+                //TODO 将用户新的头像保存到数据库中
+                //TODO 此处要根据后台给的反馈实时给用户提示
+                //下面3行是更新用户头像
+                subImg = cropper.getDataURL();
+                data=subImg.split(',')[1];
+                data=window.atob(data);
+                var ia = new Uint8Array(data.length);
+                for (var i = 0; i < data.length; i++) {
+                    ia[i] = data.charCodeAt(i);
+                };
+
+                var blob=new Blob([ia], {type:$scope.img.type});
+                console.log(blob);
+                var fd=new FormData();
+                fd.append('img',blob);
+                console.log(fd);
+                $http({
+                    method:'POST',
+                    url:'upLoad-addSelImage.action',
+                    data:fd,//序列化用户输入的数据
+                    headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+                }).success(function(data){
+                    console.log(data);
+                    console.log('我成功了');
+                });
+            };
+            /*----------与更换头像相关的事件结束-------*/
 	  	};
 	  	//隐藏改变头像box
 	  	$scope.hideChangeImg=function(){
@@ -55,66 +120,7 @@ angular.module('merchantLogin-controller',[])
 	  	  };
 	  	};
 	 
-	  	//对所选择的图片做处理
-	  	var options={
-	  		 thumbBox: '.thumbBox',
-             spinner: '.spinner',
-             imgSrc: $scope.user.img
-	  	};
-	  	var cropper = $('.cust-img-box').cropbox(options);//调用图片上传插件的方法
-	  	//实现用户头像的更新
-	  	var subImg='';//裁剪后图片的url
-	  	var getImg=function(){
-	  		subImg = cropper.getDataURL();
-	  		$('.my-img>img').attr('src',subImg);
-	  	}
-	  	//实现图片的移动
-	  	$('#loadImg').on('change', function(){
-			var reader = new FileReader();
-			reader.onload = function(e) {
-				options.imgSrc = e.target.result;
-				cropper = $('.cust-img-box').cropbox(options);
-			}
-			reader.readAsDataURL(this.files[0]);
-			getImg();
-		});
-		$('.bigger-img').on('click', function(){
-			cropper.zoomIn();//将图片放大
-		});
-		$('.smaller-img').on('click', function(){
-			cropper.zoomOut();//将图片缩小
-		});	
-		$(".cust-img-box").on("mouseup",function(){
- 			getImg();//鼠标移动时，实时更新用户头像
-  		});
 
-  		//给保存按钮加事件保存用户新的头像到数据库中
-  		$scope.saveImg=function(){
-  			//TODO 将用户新的头像保存到数据库中
-  			//TODO 此处要根据后台给的反馈实时给用户提示
-  			console.log("我要保存到数据库中了");
-            console.log(subImg);
-            $http({
-                method:'POST',
-                url:'sel-sellectSeller.action?chose=CHOSE',
-            }).success(function(data){
-                console.log(data);
-                console.log('我获得数据了');
-                $scope.user={
-                    img:data.selImage,
-                    name:data.selName,
-                    age:data.selAge,
-                    sex:data.selSex,
-                    mail:data.selTel,
-                    id:data.selIdCard,
-                    pwd:data.selPassword,
-                    rePwd:data.selPassword,
-                    keyId:data.selId
-                };
-                console.log($scope.user);
-            });
-  		};
-	  	/*----------与更换头像相关的事件结束-------*/
 
 	  	/*-----保存商家信息开始--------*/
 	  	$scope.saveMerInfo=function(){
@@ -144,6 +150,7 @@ angular.module('merchantLogin-controller',[])
                     headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
                 }).success(function(data){
                     console.log(data);
+                    data=data.status;
                     if(data=='yes'){
                         console.log('修改成功');
                         //修改成功后，给用户提示
@@ -341,9 +348,36 @@ angular.module('merchantLogin-controller',[])
         });
         /*------------表单验证结束-----------*/
   })
-    .controller('bookAdminCtrl',function($scope,$window,$location){
+    .controller('bookAdminCtrl',function($scope,$window,$location,$http){
 	  	/*-------书籍管理获取基础信息开始-----------*/
-	  	//此处应从数据库中获得书籍信息
+	  	//根据书籍大类的id值从数据库中获得书籍信息
+        var getBookInfo=function (cateId){
+            postData='book.category.categoryId='+cateId;
+            return   $http({
+                        method:'POST',
+                        url:'book-getBooksByCategory.action',
+                        data:postData,//已序列化用户输入的数据
+                        headers:{'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+                     }).then(function(response){
+                        console.log(response); //打印响应数据（采用then方法获得的响应数据比用success方法获得的响应数据信息多）
+                        return response.data;//将响应数据的data属性值返回
+                     });
+        }
+        //高亮显示当前商家查看的书籍大类并从数据库中查书籍信息
+        $('.book-big-categorys a').click(function(){
+            var categoryId=$(this).attr('data-id');
+            var bookInfo,
+                reData;
+            $('.book-big-categorys a').css('color','#656565');
+            $(this).css('color','#ddbea1');//高亮显示当前点击的书籍大类名称
+            getBookInfo(categoryId).then(function(myData){
+                console.log(myData.books[0]);
+                console.log('我执行了');
+            });
+        });
+
+
+
 	  	$scope.bookNum={
 	  		edu:344,
 	  		story:112,
@@ -407,6 +441,7 @@ angular.module('merchantLogin-controller',[])
             method:'GET',
             url:'shop-selectShop.action',
         }).success(function(data){
+            data=data.shop;
             console.log(data);
             console.log('我获得数据了');
             $scope.user={
@@ -468,6 +503,7 @@ angular.module('merchantLogin-controller',[])
 	  	var getImg=function(){
 	  		subImg = cropper.getDataURL();
 	  		$('.my-img>img').attr('src',subImg);
+            console.log('我被执行了');
 	  	}
 	  	//实现图片的移动
 	  	$('#loadImg').on('change', function(){
@@ -494,6 +530,9 @@ angular.module('merchantLogin-controller',[])
   			//TODO 将用户新的头像保存到数据库中
   			//TODO 此处要根据后台给的反馈实时给用户提示
   			alert("我要保存到数据库中了");
+            //console.log(subImg);
+            console.log('保存用户头像');
+            getImg();
   		};
 	  	/*----------与更换头像相关的事件结束-------*/
 
@@ -523,6 +562,7 @@ angular.module('merchantLogin-controller',[])
                 data:postData,//已序列化用户输入的数据
                 headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
             }).success(function(data){
+                data=data.status;
                 if(data=='yes'){
                     console.log("商家店铺信息修改成功");
                     //修改成功，显示修改成功提示信息

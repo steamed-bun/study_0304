@@ -68,6 +68,7 @@ angular.module('sign-controller',[])
                   headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
               }).success(function(data){
                   console.log(data);
+                  data=data.status;
                    if(data=='yes'){
                        console.log("顾客登录成功！");
                        location.href="index_login.html";
@@ -97,6 +98,8 @@ angular.module('sign-controller',[])
                   headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
               }).success(function(data){
                   newUrl=absUrl.slice(0,markIndex-9)+'merchant_login.html';
+                  console.log(data);
+                  data=data.status;
                   if(data=='yes'){
                       //页面跳转到商家登录页
                       $window.location.href=newUrl;
@@ -448,6 +451,7 @@ angular.module('sign-controller',[])
                 data:postData,//序列化用户输入的数据
                 headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
             }).success(function(data){
+                data=data.status;
                 console.log(data);
                 if(data=='yes'){
                     //页面跳转到注册成功页

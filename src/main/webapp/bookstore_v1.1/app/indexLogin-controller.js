@@ -1,5 +1,5 @@
-angular.module('userLogin',[])
-	.controller('userLoginCtrl',function($scope){
+angular.module('indexLogin',[])
+	.controller('loginHeaderCtrl',function($scope){
 		/*-----------获得基础数据开始-------------*/
 		$scope.user={
 			uname:'千里之外',
