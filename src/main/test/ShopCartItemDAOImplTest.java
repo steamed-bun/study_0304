@@ -1,5 +1,6 @@
 import com.xiyou.dao.BookDAO;
 import com.xiyou.dao.ShopCartItemDAO;
+import com.xiyou.dao.UserDAO;
 import com.xiyou.domain.ShopCartItem;
 import org.junit.Test;
 import org.junit.runner.RunWith;

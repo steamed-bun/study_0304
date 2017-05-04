@@ -26,6 +26,7 @@
 								<span>类别：</span>
 							<span>
 								<select class="book-cate-select">
+									<option data-id="0">--请选择--</option>
 									<option data-id="1">教育</option>
 									<option  data-id="2">小说</option>
 									<option data-id="3">文艺</option>
@@ -41,47 +42,47 @@
 							</span>
 							<span>
 								<select class="book-smCate-select">
-									<option>教育</option>
-									<option>小说</option>
-									<option>文艺</option>
-									<option>青春</option>
-									<option>童书</option>
-									<option>生活</option>
-									<option>人文社科</option>
-									<option>经管</option>
-									<option>励志</option>
-									<option>科技</option>
-									<option>工具书</option>
+									<option data-id="0">--请选择--</option>
+									<option ng-repeat="smCate in bookOtherInfo.smallCate" data-id={{smCate.categoryId}}>{{smCate.categoryName}}</option>
 								</select>
 							</span>
 							</li>
 							<li>
 								<span>名称：</span>
-								<span class="book-info-input"><input type="text" class="add-book-input" placeholder="请输入书籍名称" ng-model=""/></span>
+								<span class="book-info-input"><input type="text" class="add-book-input" data-veri="bookName" placeholder="请输入书籍名称" ng-model="book.bookName"/></span>
+								<span><i class="book-add-hint name-hint"></i></span>
 							</li>
 							<li>
 								<span>价格：</span>
-								<span class="book-info-input"><input type="text" class="add-book-input" placeholder="请输入价格"/></span>
-								<span><i class="book-add-hint price-hint">价格必须为数字</i></span>
+								<span class="book-info-input"><input type="text" class="add-book-input" data-veri="bookPrice" placeholder="请输入价格" ng-model="book.bookPrice"/></span>
+								<span><i class="book-add-hint price-hint"></i></span>
 							</li>
 							<li>
 								<span>作者：</span>
-								<span class="book-info-input"><input type="text" class="add-book-input" placeholder="请输入作者姓名"/></span>
+								<span class="book-info-input"><input type="text" class="add-book-input" data-veri="bookAuthor" placeholder="请输入作者姓名" ng-model="book.author"/></span>
+								<span><i class="book-add-hint author-hint"></i></span>
 							</li>
 							<li>
 								<span>出版日期：</span>
-								<span class="book-info-input"><input type="text" class="add-book-input" placeholder="请输入日期，以‘-’分隔"/></span>
-								<span><i class="book-add-hint time-hint">时间不能早于当前</i></span>
+								<span class="book-info-input"><input type="text" class="add-book-input" data-veri="bookTime" placeholder="请输入日期，以‘-’分隔" ng-model="book.publicationDate"/></span>
+								<span><i class="book-add-hint time-hint"></i></span>
 							</li>
 							<li>
 								<span>出版商：</span>
-								<span class="book-info-input"><input type="text" class="add-book-input" placeholder="请输入出版商"/></span>
+								<span class="book-info-input"><input type="text" class="add-book-input" placeholder="请输入出版商" data-veri="bookPublisher" ng-model="book.publisher"/></span>
+								<span><i class="book-add-hint publisher-hint"></i></span>
 							</li>
 							<li>
 								<span class="brief-text">简介：</span>
 								<span class="book-info-add">
-									<label ng-click="addBook()">点击添加</label>
+									<label ng-click="!summery.isAdd && addBook()">{{ summery.textHint }}</label>
 								</span>
+								<span><i class="book-add-hint brief-hint"></i></span>
+							</li>
+							<li>
+								<span class="recom-text">推荐语：</span>
+								<div class="book-recom-box"><textarea class="add-book-input" placeholder="请输入书籍的中文推荐语，字数为30-100字" data-veri="bookRecom" maxlength="100" ng-model="book.recom"></textarea></div>
+								<span><i class="book-add-hint recom-hint"></i></span>
 							</li>
 							<li>
 								<span class="img-text">图片：</span>
@@ -102,7 +103,7 @@
 										</div>
 									</form>
 								</div>
-								<span><i class="book-add-hint img-hint">只能上传5张图片</i></span>
+								<span><i class="book-add-hint img-hint"></i></span>
 							</li>
 						</ul>
 					</from>

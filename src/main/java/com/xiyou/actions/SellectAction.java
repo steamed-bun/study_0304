@@ -36,7 +36,7 @@ public class SellectAction extends ActionSupport implements SessionAware{
 
 	/**
 	 * 根据大类别获取小类别
-	 * url:select-getCategory.action?category.categoryPId=1
+	 * url:select-selectCategory.action?category.categoryPId=1
 	 * @return
      */
 	public String selectCategory(){
