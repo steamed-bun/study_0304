@@ -8,10 +8,32 @@ import java.util.List;
 public interface TradeDAO {
 
     /**
+     * 已测
+     * seller 查询其商铺的各类订单
+     * @param shopId shopId
+     * @param status 分类：已完成、未完成...
+     * @return
+     */
+    List<TradeItem> getTradeItemsByShopId(String shopId, String status);
+
+    /**
+     * 已测
+     * 获取当前seller或者当前shop的未完成订单数量
+     * @param shopId shopId
+     * @return 未完成订单数量
+     */
+    Integer getTradeNumByStatus(String shopId);
+
+    /**
+     * 已测
      * 添加一条trade
-     * @param trade
+     * @param trade trade
      */
     void addTrade(Trade trade);
 
+    /**
+     * 添加TradeItems
+     * @param tradeItems tradeItems
+     */
     void addTrades(List<TradeItem> tradeItems);
 }

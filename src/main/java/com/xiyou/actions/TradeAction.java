@@ -36,6 +36,44 @@ public class TradeAction extends ActionSupport implements SessionAware{
     private List<TradeItem> tradeItems = new ArrayList<TradeItem>(5);
     private List<ShopCartItem> shopCartItems = new ArrayList<ShopCartItem>(5);
     private Trade trade;
+    private String status;
+
+    /**
+     * seller必须是登录状态
+     * seller获取TradeItems的接口
+     * url:trade-getTradeItemBySelId.action?status=3
+     * @return
+     */
+    public String getTradeItemBySelId(){
+        dataMap = BookStoreWebUtils.getDataMap(session);
+        String shopId = session.get("shopId").toString();
+        List<TradeItem> tradeItems = tradeService.getTradeItemsByShopId(shopId, status);
+        BookStoreWebUtils.setNullTradeItems(tradeItems);
+        int i = 0;
+        for (TradeItem tradeItem : tradeItems) {
+            dataMap.put(i + "", tradeItem );
+            i++;
+        }
+        dataMap.put("size", i);
+        tradeItems.clear();
+        return SUCCESS;
+    }
+
+    /**
+     * seller必须是登录状态
+     * 获取当前seller是否有未完成订单
+     * url:trade-getTradeNumByStatus.action
+     * @return {yes:有  no:没有}
+     */
+    public String getTradeNumByStatus(){
+        dataMap = BookStoreWebUtils.getDataMap(session);
+        String shopId = session.get("shopId").toString();
+        Integer tradeNum = tradeService.getTradeNumByStatus(shopId);
+        if (tradeNum > 0){
+            dataMap.put("status", "no");
+        }
+        return SUCCESS;
+    }
 
     /**
      * user 必须是登录状态
@@ -105,5 +143,13 @@ public class TradeAction extends ActionSupport implements SessionAware{
 
     public Map<String, Object> getDataMap() {
         return dataMap;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

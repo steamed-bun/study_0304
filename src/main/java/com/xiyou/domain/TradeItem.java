@@ -22,6 +22,18 @@ public class TradeItem {
 		super();
 	}
 
+	@Override
+	public String toString() {
+		return "TradeItem{" +
+				"itemId=" + itemId +
+				", quantity=" + quantity +
+				", book=" + book +
+				", trade=" + trade +
+				", status=" + status +
+				", price=" + price +
+				'}';
+	}
+
 	public Integer getItemId() {
 		return itemId;
 	}

@@ -1,0 +1,17 @@
+此次更新的
+所有的接口都在src.main.java.com.xiyou.action下面
+
+1、书本接口BookAction
+
+|---获取用户首页四本书的接口BookAction搜getTopBooks
+|---获取商家书本分类展示接口BookAction搜getBooksByCategoryTo
+|---获取用户书本分类展示接口BookAction搜getBooksByCategory
+|---控制书本每页展示数量在src\main\java\com\xiyou\dao\impl\BookDAOImpl.java 变量 PAGE_SIZE=?
+
+2、订单接口TradeAction
+
+|---获取商家订单接口TradeAction搜getTradeItemBySelId
+|---用户添加订单接口TradeAction搜addTrade
+|---获取商家是否有 未完成订单 为注销商家准备
+
+3、
