@@ -78,6 +78,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 		if (session.get("selId") == null){
 			updateClickNum();
 		}
+		this.setBook(null);
 		return SUCCESS;
 	}
 

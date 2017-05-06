@@ -76,8 +76,8 @@ var ZXXFILE = {
 			//��վ�������������
 			return;	
 		}
-		if(this.fileFilter.length>8){
-			$('.img-hint').html('只能上传8张图片');
+		if(this.fileFilter.length>9){
+			$('.img-hint').html('只能上传9张图片');
 			$('.img-hint').css('display','inline-block');
 			$("#uploadInf").html("图片上传失败！");
 			return 'length error';
