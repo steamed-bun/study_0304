@@ -23,6 +23,12 @@ public class BookDAOImplTest {
 
     @Test
     @Transactional
+    public void testUpdataGoodBook(){
+        bookDAO.updataGoodBook(2,1);
+    }
+
+    @Test
+    @Transactional
     public void testGetTotalPageNo(){
         System.out.println(bookDAO.getTotalPageNo("2"));
     }

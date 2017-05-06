@@ -8,6 +8,13 @@ import org.springframework.stereotype.Repository;
 public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 
     @Override
+    public String updateUserImage(String userImage, String userId) {
+        String hql = "";
+        getSession().createQuery(hql);
+        return null;
+    }
+
+    @Override
     public User getUserById(String userId) {
         String hql = "FROM User u WHERE u.id = :userId";
         return (User) getSession().createQuery(hql).setString("userId",userId).uniqueResult();

@@ -5,6 +5,14 @@ import com.xiyou.domain.User;
 public interface UserDAO {
 
     /**
+     * 修改user的图片url
+     * @param userImage userImage
+     * @param userId userId
+     * @return url
+     */
+    String updateUserImage(String userImage, String userId);
+
+    /**
      * 通过id获得User对象
      * @param userId
      * @return

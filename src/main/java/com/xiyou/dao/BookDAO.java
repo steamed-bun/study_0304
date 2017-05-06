@@ -8,14 +8,20 @@ import com.xiyou.domain.Category;
 
 public interface BookDAO {
 
+	/**
+	 * 已测
+	 * 修改goodBook
+	 * @param bookId bookId
+ 	 * @param goodBook goodBook
+     */
 	void updataGoodBook(Integer bookId, Integer goodBook);
 
 	/**
 	 * 已测
 	 * seller 专用
-	 * @param categoryId
-	 * @param shopId
-     * @return
+	 * @param categoryId categoryId
+	 * @param shopId shopId
+     * @return 总页数
      */
 	long getTotalPageNo(String categoryId, String shopId);
 

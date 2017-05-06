@@ -1,13 +1,11 @@
-//import com.coocaa.fire.utils.JsonUtils;
-import com.xiyou.domain.Book;
 import org.junit.Test;
-
 
 public class TestAction {
 
     @Test
     public void testJsonUtil(){
-       Object object = "haha";
-
+        String name = "haha.jpg";
+        name = name.substring(name.length()-4, name.length());
+        System.out.println(name);
     }
 }

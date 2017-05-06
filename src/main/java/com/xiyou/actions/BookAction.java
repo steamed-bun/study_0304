@@ -36,15 +36,19 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
     private Integer pageNum = 1;
 	private Integer totalPageNo;
 
+
+
 	/**
+     * 已测
 	 * 修改书本为良品或非良品
 	 * url:
 	 * 1、修改为良品：book-updateGookBook.action?book.bookId=2&book.goodBook=1
-	 * 2、修改为非良品：book-updateGookBook.action?book.bookId=2&book.goodBook=1
+	 * 2、修改为非良品：book-updateGookBook.action?book.bookId=2&book.goodBook=0
 	 * @return status
      */
 	public String updateGookBook(){
-
+        dataMap = BookStoreWebUtils.getDataMap(session);
+        bookService.updataGoodBook(book.getBookId(), book.getGoodBook());
 		return SUCCESS;
 	}
 

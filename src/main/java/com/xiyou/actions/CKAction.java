@@ -1,8 +1,6 @@
 package com.xiyou.actions;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
+import java.io.*;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.xiyou.service.BookService;
@@ -14,9 +12,6 @@ public class CKAction extends ActionSupport{
 
 	private static final long serialVersionUID = 1L;
 
-	@Autowired
-	private BookService bookService;
-
 	private String editor;
 
 	private String fileName;
@@ -27,16 +22,19 @@ public class CKAction extends ActionSupport{
 		fileName = String.valueOf(System.currentTimeMillis()) + ".html";
 		bookDetailURL = "http://localhost:8080/study/book_details/" +fileName;
 		System.out.println(bookDetailURL);
-		File f = new File("D:/soft_tool/tomcat/apache-tomcat-8.5.13/webapps/study/book_details/"+ fileName);
-			FileWriter fw;
-			BufferedWriter bw;
-			try {
-				fw = new FileWriter(f);// 初始化输出流
-				bw = new BufferedWriter(fw);// 初始化输出字符流
-				bw.write(editor);// 写文件
-				bw.flush();
-				bw.close();
-				fw.close();
+		File f = new File("F:/tomcat8.0/webapps/study/book_details/"+ fileName);
+		OutputStreamWriter osw ;
+		FileOutputStream fos;
+		BufferedWriter bw;
+		try {
+			fos = new FileOutputStream(f);
+			osw = new OutputStreamWriter( fos , "UTF-8" );
+			bw = new BufferedWriter(osw);// 初始化输出字符流
+			bw.write(editor);// 写文件
+			bw.flush();
+			bw.close();
+			fos.close();
+			osw.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

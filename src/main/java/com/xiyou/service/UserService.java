@@ -11,6 +11,11 @@ public class UserService {
     @Autowired
     private UserDAOImpl userDAO;
 
+    public String updateUserImage(String userImage, String userId){
+        return userDAO.updateUserImage(userImage, userId);
+    }
+
+
     public User getUserById(String userId){
         return userDAO.getUserById(userId);
     }

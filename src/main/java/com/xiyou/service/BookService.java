@@ -23,6 +23,10 @@ public class BookService {
 	@Autowired
 	private ShopDAO shopDAO;
 
+	public void updataGoodBook(Integer bookId, Integer goodBook){
+		bookDAO.updataGoodBook(bookId, goodBook);
+	}
+
 	public int getTotalPageNo(String categoryId, String shopId){
 		long tatalPageNo = bookDAO.getTotalPageNo(categoryId, shopId);
 		return (int) tatalPageNo;
