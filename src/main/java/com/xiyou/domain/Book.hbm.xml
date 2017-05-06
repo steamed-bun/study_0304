@@ -72,6 +72,9 @@
 		<property name="oneWord" type="java.lang.String">
 			<column name="ONEWORD"></column>
 		</property>
+		<property name="goodBook" type="int">
+			<column name="GOOD_BOOK" default="0"></column>
+		</property>
 
 		<many-to-one name="shop" class="Shop" unique="true" cascade="delete">
 			<column name="SHOP"></column>
