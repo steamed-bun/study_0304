@@ -8,10 +8,20 @@ angular.module('bookDetail',[])
            smCataId:'',
            bName:'',
            bId:'',
-           imgUrls:'',
+           sImgUrls:[],
+           bImgUrls:[],
+           recom:'',
+           author:'',
+           price:'',
+           purNum:1,
+           approve:'',
+           disApprove:'',
+           detailUrl:''
        };
+       var allImgs=[],
+           imgsArr;
        //应根据链接来获得这个bookId
-       postData='book.bookId='+17;
+       postData='book.bookId='+20;
         //从数据库获得书籍的相关信息
        $http({
            method:'POST',
@@ -19,6 +29,7 @@ angular.module('bookDetail',[])
            data:postData,//序列化用户输入的数据
            headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
        }).success(function(response){
+           //当请求成功时
            console.log(response);
            $scope.book.bigCateName=response.category.categoryName;
            $scope.book.bigCateId=response.category.categoryId;
@@ -26,57 +37,77 @@ angular.module('bookDetail',[])
            $scope.book.smCataId=response.book.category.categoryId;
            $scope.book.bName= response.book.bookName;
            $scope.book.bId=response.book.bookId;
-           //当请求成功时
+           $scope.book.recom=response.book.oneWord;
+           $scope.book.author=response.book.author;
+           $scope.book.price=response.book.bookPrice;
+           $scope.book.approve=response.book.likes;
+           $scope.book.disApprove=response.book.noLike;
+           $scope.book.detailUrl=response.book.summary;
+           imgsArr=response.book.bookImages;//获取到所有的书籍图片
+           for(var i=0;i<imgsArr.length;i++){
+               allImgs.push(imgsArr[i].imageURL);
+           }
+           for(var j=0;j<allImgs.length;j++){
+               if(allImgs[j].search('-s')!=-1){
+                   $scope.book.sImgUrls.push(allImgs[j]);
+               }else{
+                   $scope.book.bImgUrls.push(allImgs[j]);
+               }
+           }
        });
-   	    /*-----与放大镜相关的开始------*/
-        //当点击小图片时，大图片跟着切换
-        $('.book-small-img img').hover(function(){
-           var $curElem=$(this);
+       /*-----与放大镜相关的开始------*/
+       $scope.changeMediImg=function($event){
+           var $curElem=$($event.target);
            var $parElem=$curElem.parent();
-           var curSrc=$(this).attr('src');
-           var markIndex=curSrc.lastIndexOf('.')-2;
-           var newSrc=curSrc.slice(0,markIndex)+curSrc.slice(markIndex+2);
+           var curSrc=$curElem.attr('src');
+           var markIndex=curSrc.lastIndexOf('.')-8;
+           var subStr=curSrc.slice(markIndex,markIndex+6);
+           var bigImgsUrl=$scope.book.bImgUrls;
+           var newSrc;
+           for(var i=0;i<bigImgsUrl.length;i++){
+               if(bigImgsUrl[i].search(subStr)!=-1){
+                   newSrc=bigImgsUrl[i];
+                   break;
+               }
+           }
            $('.book-big-img>img').attr('src',newSrc);//改变中等图的图片
            $('.book-small-img>li').removeClass('highlight-small-img');
            $parElem.addClass('highlight-small-img');
-            //每当中等图片更新后，都需要重新放大
+           //每当中等图片更新后，都需要重新放大
            $(document).ready(function () {
                $(".demo-img").blowup({
-                  background : "#FFF",
+                   background : "#FFF",
                });
            });
-        });
-        //调用放大镜插件 实现放大
-   	    $(document).ready(function () {
+       };
+       //调用放大镜插件 实现放大
+       $(document).ready(function () {
             $(".demo-img").blowup({
               background : "#FFF",
             });
-        });
-   	    /*-----与放大镜相关的结束------*/
+       });
+       /*-----与放大镜相关的结束------*/
 
-        /*----与购物车数量加减相关开始------*/
-        //获得文本框对象
-        var t = $(".input-num");
-        //数量增加操作
-        $(".add-num").click(function(){    
-           t.val(parseInt(t.val())+1)
-           if (parseInt(t.val())!=0){
+       /*----与购物车数量加减相关开始------*/
+       //数量增加操作
+       $scope.addNum=function(){
+           $scope.book.purNum++;
+           if ($scope.book.purNum!=0){
                $('.disabled-mask').removeClass('disabled');
                $(".reduce-num").css('color','#666');
            }
-        }) 
-        //数量减少操作
-        $(".reduce-num").click(function(){
-           t.val(parseInt(t.val())-1);
-
-           if (parseInt(t.val())==0){
+       };
+       //数量减少操作
+       $scope.reduceNum=function($event){
+           $scope.book.purNum--;
+           if($scope.book.purNum==0){
                $('.disabled-mask').addClass('disabled');
-               $(this).css('color','#CCC');
-               console.log($(this)[0]);
+               $($event.target).css('color','#CCC');
            }else{
-               $(this).css('color','#666');
+               $($event.target).css('color','#CCC');
            }
-        })
+       };
+       /*----与购物车数量加减相关结束------*/
    });
 
 

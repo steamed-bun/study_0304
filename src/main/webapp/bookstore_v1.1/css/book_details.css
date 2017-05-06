@@ -189,10 +189,13 @@ section{
 }
 .book-details-info{
 	width:100%;
-	min-height:300px;
+	max-height:2000px;
 	padding:0 50px;
-	background-color:pink;
 	margin-bottom: 50px;
+}
+.book-details-info>iframe{
+	width:100%;
+	height:2000px;
 }
 .issues-title{
 	font-size:15px;

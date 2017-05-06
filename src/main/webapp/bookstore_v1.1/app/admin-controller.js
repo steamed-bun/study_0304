@@ -660,7 +660,19 @@ angular.module('admin-controller',[])
 		});
     })
 	.controller('addSmCateCtrl',function($scope){
-
+		$scope.smCate={
+			edu:'',
+			novel:'',
+			liter:'',
+			youth:'',
+			child:'',
+			life:'',
+			human:'',
+			charge:'',
+			inspire:'',
+			science:'',
+			tool:''
+		};
 		//给添加添加点击事件
 		$('.add-sm-cate').click(function(){
 

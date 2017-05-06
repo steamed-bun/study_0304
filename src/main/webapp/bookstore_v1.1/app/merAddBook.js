@@ -32,7 +32,7 @@
 			textHint:'点击添加',
 			isAdd:false
 		};
-		$scope.reg=[/^\d{1,}$/, /^((((19|20)\d{2})-(0?(1|[3-9])|1[012])-(0?[1-9]|[12]\d|30))|(((19|20)\d{2})-(0?[13578]|1[02])-31)|(((19|20)\d{2})-0?2-(0?[1-9]|1\d|2[0-8]))|((((19|20)([13579][26]|[2468][048]|0[48]))|(2000))-0?2-29))$/,/^.{30,100}$/];
+		$scope.reg=[/^((([1-9]{1}\d{0,9}))|([0]{1}))((\.(\d){2}))?$/, /^((((19|20)\d{2})-(0?(1|[3-9])|1[012])-(0?[1-9]|[12]\d|30))|(((19|20)\d{2})-(0?[13578]|1[02])-31)|(((19|20)\d{2})-0?2-(0?[1-9]|1\d|2[0-8]))|((((19|20)([13579][26]|[2468][048]|0[48]))|(2000))-0?2-29))$/,/^.{30,100}$/];
 		$scope.verTrue=[false,false,false,false,false,false,false,false,false];
 		//提示用户是否已添加过书籍详情
 		if(window.location.search){
@@ -125,14 +125,14 @@
 				var reData=JSON.parse(response);
 				$scope.bookOtherInfo.imgsUrl=reData.imagesURL;
 				console.log($scope.bookOtherInfo.imgsUrl);
-				if($scope.bookOtherInfo.imgsUrl.length==8){
+				if($scope.bookOtherInfo.imgsUrl.length==9){
 					$scope.verTrue[7]=true;
 					$('.img-hint').css('display','none');
 					$('.upload_choose').css('display','none');
 					$('.upload_submit').css('display','none');
 				}else{
 					$scope.verTrue[7]=false;
-					$('.img-hint').html('请只上传8张图片');
+					$('.img-hint').html('请只上传9张图片');
 					$('.img-hint').css('display','inline-block');
 					$('.upload_choose').css('display','block');
 					$('.upload_submit').css('display','inline-block');
@@ -197,7 +197,7 @@
 							$('.recom-hint').css('display','inline-block');
 							break;
 						case 7:
-							$('.img-hint').html('需要8张图片');
+							$('.img-hint').html('需要9张图片');
 							$('.img-hint').css('display','inline-block');
 							break;
 						case 8:
