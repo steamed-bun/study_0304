@@ -4,6 +4,12 @@
     <title>添加书籍详情</title>
     <meta charset="UTF-8"/>
     <style type="text/css">
+        .responseData{
+            opacity: 0;
+            position: absolute;
+            width:0;
+            height:0;
+        }
         .edit-area{
             opacity:0;
         }
@@ -28,22 +34,23 @@
     </style>
 </head>
 <body >
-    <textarea id="editor" name="editor" class="ckeditor edit-area"></textarea>
-    <p class="save-book-details"><span>保存</span></p>
+    <form  id="userEdit" action="cKAction.action" method="post" target="responseData">
+        <textarea id="editor" name="editor" class="ckeditor edit-area"></textarea>
+        <p class="save-book-details"><button type="submit">保存</button></p>
+    </form>
+    <iframe id="responseData" name="responseData" class="responseData"></iframe>
+
     <script type="text/javascript" src="./js/jquery-1.12.3.js"></script>
     <script type="text/javascript" src="http://localhost:8080/ckeditor/ckeditor.js"></script>
     <script type="text/javascript" src="http://localhost:8080/ckfinder/ckfinder.js"></script>
     <script>
-        $('.save-book-details>span').click(function(){
-            var addBookUrl='http://localhost:8080/bookstore_v1.1/mer_add_book.html?detailUrl=';
-            $.ajax({
-                type: "get",
-                url: "cKAction.action",
-                success: function(response){
-                    addBookUrl+=response;
-                    window.open(addBookUrl,'_self');
-                }
-            });
+        $('#responseData').load(function(){
+            var frameObj = document.getElementById('responseData');
+            var frameContent = frameObj.contentWindow.document.getElementsByTagName('pre')[0].innerHTML;//获得iframe中指定元素的内容
+            frameContent=frameContent.slice(47,65);
+            console.log(frameContent);
+            var addBookUrl='http://localhost:8080/bookstore_v1.1/mer_add_book.html?detailUrl=http://localhost:8080/study/book_details/'+frameContent;
+            window.open(addBookUrl,'_self');
         });
     </script>
 </body>

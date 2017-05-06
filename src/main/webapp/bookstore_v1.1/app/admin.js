@@ -81,28 +81,24 @@ angular.module('admin',['ngRoute','admin-controller'])
 				controller:'saleroomCtrl'
 			})
 			.when('/customerRegNum',{
-				templateUrl:'view/admin//customerRegNum.html',
-				//controller:'/customerRegNumCtrl'
+				templateUrl:'view/admin/customerRegNum.html',
+				controller:'customerRegNumCtrl'
 			})
 			.when('/sellerRegNum',{
 				templateUrl:'view/admin/sellerRegNum.html',
-				//controller:'sellerRegNumCtrl'
+				controller:'sellerRegNumCtrl'
 			})
 			.when('/hotBook',{
 				templateUrl:'view/admin/hotBook.html',
-				//controller:'hotBookCtrl'
-			})
-			.when('/newBook',{
-				templateUrl:'view/admin/newBook.html',
-				//controller:'newBookCtrl'
+				controller:'hotBookCtrl'
 			})
 			.when('/weSearch',{
 				templateUrl:'view/admin/weSearch.html',
-				//controller:'weSearchCtrl'
+				controller:'weSearchCtrl'
 			})
 			.when('/weSpeak',{
 				templateUrl:'view/admin/weSpeak.html',
-				//controller:'weSpeakCtrl'
+				controller:'weSpeakCtrl'
 			})
 			.when('/allOrder',{
 				templateUrl:'view/admin/allOrder.html',
@@ -135,10 +131,6 @@ angular.module('admin',['ngRoute','admin-controller'])
 			.when('/addSmCate',{
 				templateUrl:'view/admin/addSmCate.html',
 				//controller:'addSmCateCtrl'
-			})
-			.when('/deleteSmCate',{
-				templateUrl:'view/admin/deleteSmCate.html',
-				//controller:'deleteSmCateCtrl'
 			})
 			.when('/welcome',{
 				templateUrl:'view/admin/welcome.html',

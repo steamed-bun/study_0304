@@ -71,6 +71,7 @@ angular.module('sign-controller',[])
                   data=data.status;
                    if(data=='yes'){
                        console.log("顾客登录成功！");
+                       sessionStorage.setItem("isLogin","true");
                        location.href="index_login.html";
                    }else{
                       //显示错误提示信息

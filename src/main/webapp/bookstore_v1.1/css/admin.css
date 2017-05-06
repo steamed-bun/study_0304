@@ -27,7 +27,6 @@
 	height:100%;
 	min-height: 400px;
 	background:#DDD;
-	overflow-y: auto;
 }
 .admin-name{
 	position: fixed;
