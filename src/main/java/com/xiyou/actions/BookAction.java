@@ -200,7 +200,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 	 * 添加和修改书本信息
 	 * seller必须是登录状态
      * 注意url后面的bookImages
-	 * url:book-addBook.action?book.bookName=bookName&bookImages.imageURL=url1&bookImages.imageURL=url2
+	 * url:book-addBook.action?book.category.categoryId=2&bookImages.imageURL=url1&bookImages.imageURL=url2
 	 * @return status
      */
 	public String addBook(){
@@ -209,7 +209,6 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 			Shop shop = bookService.getShopByShopId(session.get("shopId").toString());
 			book.setShop(shop);
 			book.setClickNum(0);
-			book.setOneWord(BOOK_ONE_WORD);
 			bookService.addBook(book);
             addImages(book);
 			this.setBook(null);

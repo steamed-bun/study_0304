@@ -18,9 +18,56 @@
 	$book_class.mouseenter(function(){
 		var bookClass=$(this).children()[0];
 		var bookSubclass=$(this).children()[1];
+		var bigCateId=$($(this).children()[0]).attr('data-id');
+		var $whoNav=$($(this).children()[0]);//区分是哪个导航栏
+		var childLen=$(this).children().length;
+		var curHtml1='',
+			curHtml2='',
+			curSmCate,
+			$aimElem=$(this);
+		//console.log(bigCateId);
+		//console.log($whoNav.get(0));
+		//console.log($(this)[0]);
+		//console.log($(this).children().length);
+		//console.log($(this).children()[0]);
+		//console.log($(this).children()[1]);
+		//console.log($(this).children()[2]);
 		$(bookSubclass).css('display','block');
 		$nav_items.removeClass("cur-header-item");
 		$(bookClass).addClass("cur-header-item");
+		if(childLen==2){
+			return;
+		}
+		//从数据库中获取该书籍大类的子类
+		if(bigCateId!=0){
+			$.ajax({
+				type: 'POST',
+				url: 'select-selectCategory.action',
+				data: 'category.categoryPId='+bigCateId,
+				success: function(data){
+					var html='';
+					curSmCate=data.categories;
+					//用js动态创建书籍子类
+					if(curSmCate && curSmCate.length!=0){
+						//当有子类时才添加
+						for(var i=0;i<curSmCate.length;i++){
+							html+='<li><a href="javascript:;" onclick="console.log(111)">'+curSmCate[i].categoryName+'</a></li>';
+						}
+						curHtml1='<div class="book-subclass-box"><ul class="container clearfix book-subclass-items">'+html+'</ul></div>';
+						curHtml2='<div class="aside-subclass-box"><ul class="container clearfix book-subclass-items">'+html+'</ul></div>';
+						if($whoNav.hasClass('top-nav')){
+							$aimElem.append(curHtml1);
+							//console.log('top-nav被执行');
+						}
+						if($whoNav.hasClass('aside-nav')){
+							$aimElem.append(curHtml2);
+							//console.log('aside-nav被执行');
+						}
+					}
+				}
+			});
+		}
+
 	});
 	//鼠标离开隐藏书籍子类菜单
 	$book_class.mouseleave(function(){
@@ -88,4 +135,23 @@
 		location.href="sign.html#/register";
 	});
 	/*---与页面跳转相关的结束-----*/
+
+	/*----显示用户名开始--*/
+	var userIsLogin=sessionStorage.getItem('isLogin');
+	if(userIsLogin){
+		//当为真时，意味着用户已登录
+		$('.already-login-aside-img-box').css('display','block');
+		$('.already-user-box').css('display','block');
+		$('.shopcar-icon').css('display','inline-block');
+		$('.not-already-login-aside-img-box').css('display','none');
+		$('.not-already-user-box').css('display','none');
+	}else{
+		//当为假时，意味着用户未登录
+		$('.already-login-aside-img-box').css('display','none');
+		$('.already-user-box').css('display','none');
+		$('.shopcar-icon').css('display','none');
+		$('.not-already-login-aside-img-box').css('display','block');
+		$('.not-already-user-box').css('display','block');
+	}
+	/*----显示用户名结束--*/
 })();

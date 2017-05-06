@@ -22,7 +22,7 @@ public class UpLoadAction extends ActionSupport implements SessionAware{
 	//物理地址
 	private static final String SELLER_IMAGE_DirURL = "D:/soft_tool/tomcat/apache-tomcat-8.5.13/webapps/study/selImage/";
 	private static final String SELLER_WEIXIN_DirURL = "D:/soft_tool/tomcat/apache-tomcat-8.5.13/webapps/study/shopImage/";
-	private static final String BOOK_IMAGES_DirURL = "F:/tomcat8.0/webapps/study/book_Images/";
+	private static final String BOOK_IMAGES_DirURL = "D:/soft_tool/tomcat/apache-tomcat-8.5.13/webapps/study/book_Images/";
     private static final String BOOK_IMAGES_UEL = "http://localhost:8080/study/book_Images/";
 
 	@Autowired
@@ -63,6 +63,7 @@ public class UpLoadAction extends ActionSupport implements SessionAware{
             imagesURL.add(BOOK_IMAGES_UEL + imageName);
             i++;
         }
+		images.clear();
         dataMap.put("imagesURL",imagesURL);
 		return "saveBookImages";
 	}

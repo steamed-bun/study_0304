@@ -1,60 +1,60 @@
 /*
- * zxxFile.js »ùÓÚHTML5 ÎÄ¼şÉÏ´«µÄºËĞÄ½Å±¾ http://www.zhangxinxu.com/wordpress/?p=1923
+ * zxxFile.js ï¿½ï¿½ï¿½ï¿½HTML5 ï¿½Ä¼ï¿½ï¿½Ï´ï¿½ï¿½Äºï¿½ï¿½Ä½Å±ï¿½ http://www.zhangxinxu.com/wordpress/?p=1923
  * by zhangxinxu 2011-09-12
 */
 
 var ZXXFILE = {
-	fileInput: null,				//html file¿Ø¼ş
-	dragDrop: null,					//ÍÏ×§Ãô¸ĞÇøÓò
-	upButton: null,					//Ìá½»°´Å¥
-	url: "",						//ajaxµØÖ·
-	fileFilter: [],					//¹ıÂËºóµÄÎÄ¼şÊı×é
-	filter: function(files) {		//Ñ¡ÔñÎÄ¼ş×éµÄ¹ıÂË·½·¨
+	fileInput: null,				//html fileï¿½Ø¼ï¿½
+	dragDrop: null,					//ï¿½ï¿½×§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	upButton: null,					//ï¿½á½»ï¿½ï¿½Å¥
+	url: "",						//ajaxï¿½ï¿½Ö·
+	fileFilter: [],					//ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½
+	filter: function(files) {		//Ñ¡ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½Ë·ï¿½ï¿½ï¿½
 		return files;	
 	},
-	onSelect: function() {},		//ÎÄ¼şÑ¡Ôñºó
-	onDelete: function() {},		//ÎÄ¼şÉ¾³ıºó
-	onDragOver: function() {},		//ÎÄ¼şÍÏ×§µ½Ãô¸ĞÇøÓòÊ±
-	onDragLeave: function() {},	//ÎÄ¼şÀë¿ªµ½Ãô¸ĞÇøÓòÊ±
-	onProgress: function() {},		//ÎÄ¼şÉÏ´«½ø¶È
-	onSuccess: function() {},		//ÎÄ¼şÉÏ´«³É¹¦Ê±
-	onFailure: function() {},		//ÎÄ¼şÉÏ´«Ê§°ÜÊ±,
-	onComplete: function() {},		//ÎÄ¼şÈ«²¿ÉÏ´«Íê±ÏÊ±
+	onSelect: function() {},		//ï¿½Ä¼ï¿½Ñ¡ï¿½ï¿½ï¿½
+	onDelete: function() {},		//ï¿½Ä¼ï¿½É¾ï¿½ï¿½ï¿½ï¿½
+	onDragOver: function() {},		//ï¿½Ä¼ï¿½ï¿½ï¿½×§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±
+	onDragLeave: function() {},	//ï¿½Ä¼ï¿½ï¿½ë¿ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±
+	onProgress: function() {},		//ï¿½Ä¼ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ï¿½ï¿½
+	onSuccess: function() {},		//ï¿½Ä¼ï¿½ï¿½Ï´ï¿½ï¿½É¹ï¿½Ê±
+	onFailure: function() {},		//ï¿½Ä¼ï¿½ï¿½Ï´ï¿½Ê§ï¿½ï¿½Ê±,
+	onComplete: function() {},		//ï¿½Ä¼ï¿½È«ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ï¿½Ê±
 	
-	/* ¿ª·¢²ÎÊıºÍÄÚÖÃ·½·¨·Ö½çÏß */
+	/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ */
 	
-	//ÎÄ¼şÍÏ·Å
+	//ï¿½Ä¼ï¿½ï¿½Ï·ï¿½
 	funDragHover: function(e) {
 		e.stopPropagation();
 		e.preventDefault();
 		this[e.type === "dragover"? "onDragOver": "onDragLeave"].call(e.target);
 		return this;
 	},
-	//»ñÈ¡Ñ¡ÔñÎÄ¼ş£¬file¿Ø¼ş»òÍÏ·Å
+	//ï¿½ï¿½È¡Ñ¡ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½fileï¿½Ø¼ï¿½ï¿½ï¿½ï¿½Ï·ï¿½
 	funGetFiles: function(e) {
-		// È¡ÏûÊó±ê¾­¹ıÑùÊ½
+		// È¡ï¿½ï¿½ï¿½ï¿½ê¾­ï¿½ï¿½ï¿½ï¿½Ê½
 		this.funDragHover(e);
 				
-		// »ñÈ¡ÎÄ¼şÁĞ±í¶ÔÏó
+		// ï¿½ï¿½È¡ï¿½Ä¼ï¿½ï¿½Ğ±ï¿½ï¿½ï¿½ï¿½
 		var files = e.target.files || e.dataTransfer.files;
-		//¼ÌĞøÌí¼ÓÎÄ¼ş
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½
 		this.fileFilter = this.fileFilter.concat(this.filter(files));
 		this.funDealFiles();
 		return this;
 	},
 	
-	//Ñ¡ÖĞÎÄ¼şµÄ´¦ÀíÓë»Øµ÷
+	//Ñ¡ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½
 	funDealFiles: function() {
 		for (var i = 0, file; file = this.fileFilter[i]; i++) {
-			//Ôö¼ÓÎ¨Ò»Ë÷ÒıÖµ
+			//ï¿½ï¿½ï¿½ï¿½Î¨Ò»ï¿½ï¿½ï¿½ï¿½Öµ
 			file.index = i;
 		}
-		//Ö´ĞĞÑ¡Ôñ»Øµ÷
+		//Ö´ï¿½ï¿½Ñ¡ï¿½ï¿½Øµï¿½
 		this.onSelect(this.fileFilter);
 		return this;
 	},
 	
-	//É¾³ı¶ÔÓ¦µÄÎÄ¼ş
+	//É¾ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½Ä¼ï¿½
 	funDeleteFile: function(fileDelete) {
 		var arrFile = [];
 		for (var i = 0, file; file = this.fileFilter[i]; i++) {
@@ -68,46 +68,49 @@ var ZXXFILE = {
 		return this;
 	},
 	
-	//ÎÄ¼şÉÏ´«
+	//ï¿½Ä¼ï¿½ï¿½Ï´ï¿½
 	funUploadFile: function() {
-		var self = this;	
+		var self = this;
+		var form = new FormData();
 		if (location.host.indexOf("sitepointstatic") >= 0) {
-			//·ÇÕ¾µã·şÎñÆ÷ÉÏÔËĞĞ
+			//ï¿½ï¿½Õ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			return;	
+		}
+		if(this.fileFilter.length>8){
+			$('.img-hint').html('åªèƒ½ä¸Šä¼ 8å¼ å›¾ç‰‡');
+			$('.img-hint').css('display','inline-block');
+			$("#uploadInf").html("å›¾ç‰‡ä¸Šä¼ å¤±è´¥ï¼");
+			return 'length error';
+		}else{
+			$('.img-hint').css('display','none');
 		}
 		for (var i = 0, file; file = this.fileFilter[i]; i++) {
 			(function(file) {
-				var xhr = new XMLHttpRequest();
-				if (xhr.upload) {
-					// ÉÏ´«ÖĞ
-					xhr.upload.addEventListener("progress", function(e) {
-						self.onProgress(file, e.loaded, e.total);
-					}, false);
-		
-					// ÎÄ¼şÉÏ´«³É¹¦»òÊÇÊ§°Ü
-					xhr.onreadystatechange = function(e) {
-						if (xhr.readyState == 4) {
-							if (xhr.status == 200) {
-								self.onSuccess(file, xhr.responseText);
-								self.funDeleteFile(file);
-								if (!self.fileFilter.length) {
-									//È«²¿Íê±Ï
-									self.onComplete();	
-								}
-							} else {
-								self.onFailure(file, xhr.responseText);		
-							}
-						}
-					};
-		
-					// ¿ªÊ¼ÉÏ´«
-					xhr.open("POST", self.url, true);
-					xhr.setRequestHeader("X_FILENAME", encodeURIComponent(file.name));
-					xhr.send(file);
-				}	
+				form.append('images',file);
 			})(file);	
-		}	
-			
+		}
+		var xhr = new XMLHttpRequest();
+		if (xhr.upload) {
+			// ï¿½Ä¼ï¿½ï¿½Ï´ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½
+			xhr.onreadystatechange = function(e) {
+				if (xhr.readyState == 4) {
+					if (xhr.status == 200) {
+						self.onSuccess(file, xhr.responseText);
+						self.funDeleteFile(file);
+						if (!self.fileFilter.length) {
+							//È«ï¿½ï¿½ï¿½ï¿½ï¿½
+							self.onComplete();
+						}
+					} else {
+						self.onFailure(file, xhr.responseText);
+					}
+				}
+			};
+
+			// ï¿½ï¿½Ê¼ï¿½Ï´ï¿½
+			xhr.open("POST", self.url, true);
+			xhr.send(form);
+		}
 	},
 	
 	init: function() {
@@ -119,12 +122,12 @@ var ZXXFILE = {
 			this.dragDrop.addEventListener("drop", function(e) { self.funGetFiles(e); }, false);
 		}
 		
-		//ÎÄ¼şÑ¡Ôñ¿Ø¼şÑ¡Ôñ
+		//ï¿½Ä¼ï¿½Ñ¡ï¿½ï¿½Ø¼ï¿½Ñ¡ï¿½ï¿½
 		if (this.fileInput) {
 			this.fileInput.addEventListener("change", function(e) { self.funGetFiles(e); }, false);	
 		}
 		
-		//ÉÏ´«°´Å¥Ìá½»
+		//ï¿½Ï´ï¿½ï¿½ï¿½Å¥ï¿½á½»
 		if (this.upButton) {
 			this.upButton.addEventListener("click", function(e) { self.funUploadFile(e); }, false);	
 		} 

@@ -24,28 +24,29 @@
 						<ul class="book-info-items">
 							<li>
 								<span>类别：</span>
-							<span>
-								<select class="book-cate-select">
-									<option data-id="0">--请选择--</option>
-									<option data-id="1">教育</option>
-									<option  data-id="2">小说</option>
-									<option data-id="3">文艺</option>
-									<option data-id="4">青春</option>
-									<option data-id="5">童书</option>
-									<option data-id="6">生活</option>
-									<option data-id="7">人文社科</option>
-									<option data-id="8">经管</option>
-									<option data-id="9">励志</option>
-									<option data-id="10">科技</option>
-									<option data-id="11">工具书</option>
-								</select>
-							</span>
-							<span>
-								<select class="book-smCate-select">
-									<option data-id="0">--请选择--</option>
-									<option ng-repeat="smCate in bookOtherInfo.smallCate" data-id={{smCate.categoryId}}>{{smCate.categoryName}}</option>
-								</select>
-							</span>
+								<span>
+									<select class="book-cate-select">
+										<option data-id="0">--请选择--</option>
+										<option data-id="1">教育</option>
+										<option  data-id="2">小说</option>
+										<option data-id="3">文艺</option>
+										<option data-id="4">青春</option>
+										<option data-id="5">童书</option>
+										<option data-id="6">生活</option>
+										<option data-id="7">人文社科</option>
+										<option data-id="8">经管</option>
+										<option data-id="9">励志</option>
+										<option data-id="10">科技</option>
+										<option data-id="11">工具书</option>
+									</select>
+								</span>
+								<span>
+									<select class="book-smCate-select">
+										<option data-id="0">--请选择--</option>
+										<option ng-repeat="smCate in bookOtherInfo.smallCate" data-id={{smCate.categoryId}}>{{smCate.categoryName}}</option>
+									</select>
+								</span>
+								<span><i class="book-add-hint cate-hint"></i></span>
 							</li>
 							<li>
 								<span>名称：</span>
@@ -81,17 +82,17 @@
 							</li>
 							<li>
 								<span class="recom-text">推荐语：</span>
-								<div class="book-recom-box"><textarea class="add-book-input" placeholder="请输入书籍的中文推荐语，字数为30-100字" data-veri="bookRecom" maxlength="100" ng-model="book.recom"></textarea></div>
+								<div class="book-recom-box"><textarea class="add-book-input" placeholder="请输入书籍的中文推荐语，字数为30-100字" data-veri="bookRecom" maxlength="100" ng-model="book.oneWord"></textarea></div>
 								<span><i class="book-add-hint recom-hint"></i></span>
 							</li>
 							<li>
 								<span class="img-text">图片：</span>
 								<div class="book-img-box" >
-									<form id="uploadForm" action="upload.php" method="post" enctype="multipart/form-data">
+									<form id="uploadForm" action="upLoad-saveBookImages.action" method="post" enctype="multipart/form-data" namespace="/">
 										<div class="upload_box">
 											<div class="upload_main">
 												<div class="upload_choose">
-													<input id="fileImage" type="file" size="30" name="fileselect[]" multiple />
+													<input id="fileImage" type="file" size="30" name="images" multiple />
 													<span id="fileDragArea" class="upload_drag_area">或者将图片拖到此处</span>
 												</div>
 												<div id="preview" class="upload_preview"></div>
@@ -110,9 +111,13 @@
 				</div>
 			</div>
 			<div class="add-book-operate container">
-				<span>保存</span><span>重置</span>
+				<span ng-click="saveNewBookInfo()">保存</span><span ng-click="cancelAddBook()">取消</span>
 			</div>
 		</section>
+		<aside class="login-error-txt">
+			<p class="submit-hint">保存成功！</p>
+			<p><span class="jump-time-hint">5</span>秒后可继续添加新书</p>
+		</aside>
 		<script src="./js/jquery-1.12.3.js"></script>
 		<script src="./js/angular.js"></script>
 		<script src="./js/zxxFile.js"></script>

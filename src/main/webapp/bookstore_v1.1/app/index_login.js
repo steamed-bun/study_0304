@@ -46,9 +46,11 @@
 	$(function(){
 		$.ajax({
 			type:"GET",
-			url:"data/index/eduBook.json",
+			url:"book-getTopBooks.action?book.category.categoryId=1",
 			dataType:"json",
 			success:function(data){
+				//data=data.books;
+				console.log(data);
 				console.log("eduBook.json文件请求成功");
 				var $fragment;//用来保存要添加的html片段
 				//通过控制循环次数，来将数据与html页面相关联
