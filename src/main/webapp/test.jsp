@@ -48,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <%--<s:submit></s:submit>--%>
     <%--</form>--%>
     <input type="button" value="getBooks" onclick="getJson();">
-    <s:form id="tf" namespace="/">
+    <s:form id="tf" namespace="/" enctype="multipart/form-data">
       <s:file name="images"></s:file>
       <s:file name="images"></s:file>
     </s:form>

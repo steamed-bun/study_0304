@@ -35,10 +35,23 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 	private List<BookImages> bookImages = new ArrayList<BookImages>(5);
     private Integer pageNum = 1;
 	private Integer totalPageNo;
+
+	/**
+	 * 修改书本为良品或非良品
+	 * url:
+	 * 1、修改为良品：book-updateGookBook.action?book.bookId=2&book.goodBook=1
+	 * 2、修改为非良品：book-updateGookBook.action?book.bookId=2&book.goodBook=1
+	 * @return status
+     */
+	public String updateGookBook(){
+
+		return SUCCESS;
+	}
+
     /**
      * 首页获取分类的点击量最多的四本书
      * url:book-getTopBooks.action?book.category.categoryId=4
-     * @return
+     * @return books
      */
     public String getTopBooks(){
         dataMap = BookStoreWebUtils.getDataMap(session);
