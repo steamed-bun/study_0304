@@ -8,7 +8,38 @@ import com.xiyou.domain.Category;
 
 public interface BookDAO {
 
-	Category getCategoryById();
+	/**
+	 * 已测
+	 * seller 专用
+	 * @param categoryId
+	 * @param shopId
+     * @return
+     */
+	long getTotalPageNo(String categoryId, String shopId);
+
+	/**
+	 * 已测
+	 * 得到符合条件的数据条数
+	 * @param categoryId categoryId
+     * @return 总条数
+     */
+	long getTotalPageNo(String categoryId);
+
+	/**
+	 * 已测
+	 * 得到各个类别点击量最高的四本书
+	 * @param categoryId categoryId
+	 * @return boks
+     */
+	List<Book> getTopBooks(String categoryId);
+
+	/**
+	 * 已测
+	 * 为了获得category的大类
+	 * @param categoryId categoryId
+	 * @return category
+     */
+	Category getCategoryById(Integer categoryId);
 
 	/**
 	 * 已测
@@ -59,20 +90,20 @@ public interface BookDAO {
 	 * @param categoryId 类型Id
 	 * @return books
      */
-	List<Book> getBooksByCategory(String categoryId);
+	List<Book> getBooksByCategory(String categoryId, Integer pageNum);
 
 	/**
 	 * 获取当前类型的书本信息，需要当前shopId
 	 * @param categoryId 类型Id
 	 * @return books
 	 */
-	List<Book> getBooksByCategoryTo(String categoryId, String shopId);
+	List<Book> getBooksByCategoryTo(String categoryId, String shopId, Integer pageNum);
 
 	/**
 	 * 删除一本书
 	 * @param bookId bookId
 	 */
-	void deleteBook(String bookId);
+	void deleteBook(Integer bookId);
 	
 	/**
 	 * 添加一本书

@@ -13,6 +13,26 @@ public class TradeDAOImpl extends BaseDAOImpl implements TradeDAO {
 
 
     @Override
+    public List<TradeItem> getTradeItemsByShopId(String shopId, String status) {
+        String hql = "FROM TradeItem t LEFT OUTER JOIN FETCH t.book "+
+                "WHERE t.status = :status AND t.book IN " +
+                "(SELECT new Book (b.bookId) FROM Book b WHERE b.shop = :shopId)";
+        @SuppressWarnings("unchecked")
+        List<TradeItem> tradeItems = (List<TradeItem>) getSession().createQuery(hql)
+                .setString("status", status).setString("shopId", shopId).list();
+        return tradeItems;
+    }
+
+    @Override
+    public Integer getTradeNumByStatus(String shopId) {
+        String hql = "SELECT COUNT (t.itemId) FROM TradeItem t " +
+                "WHERE t.status < 2 AND t.book IN " +
+                "(SELECT new Book (b.bookId) FROM Book b WHERE b.shop = :shopId)";
+        Long tradeNum = (Long) getSession().createQuery(hql).setString("shopId", shopId).uniqueResult();
+        return tradeNum.intValue();
+    }
+
+    @Override
     public void addTrade(Trade trade) {
         getSession().saveOrUpdate(trade);
     }

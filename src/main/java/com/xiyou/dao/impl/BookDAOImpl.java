@@ -16,9 +16,46 @@ import org.springframework.stereotype.Repository;
 @Repository("bookDAOImpl")
 public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 
+	private static final int PAGE_SIZE = 3;//书本数量
+	private static final int BASE_NUM = 0;
+
+    @Override
+    public long getTotalPageNo(String categoryId, String shopId) {
+        String hql = "SELECT count (b.bookId) FROM Book b " +
+                "WHERE b.category = :categoryId AND b.shop = :shopId";
+        long totalPageNo = (Long) getSession().createQuery(hql)
+                .setString("categoryId", categoryId).setString("shopId", shopId)
+                .uniqueResult();
+        totalPageNo = (long) Math.ceil((double)totalPageNo/PAGE_SIZE);
+        return totalPageNo;
+    }
+
+    @Override
+    public long getTotalPageNo(String categoryId) {
+        String hql = "SELECT count (b.bookId) FROM Book b " +
+                "WHERE b.category = :categoryId";
+        long totalPageNo = (Long) getSession().createQuery(hql)
+                .setString("categoryId", categoryId).uniqueResult();
+        totalPageNo = (long) Math.ceil((double)totalPageNo/PAGE_SIZE);
+        return totalPageNo;
+    }
+
+    @Override
+	public List<Book> getTopBooks(String categoryId) {
+		String hql = "FROM Book b WHERE b.category = :categoryId ORDER BY b.clickNum DESC";
+		@SuppressWarnings("unchecked")
+		List<Book> book = (List<Book>) getSession().createQuery(hql).setString("categoryId", categoryId)
+				.setFirstResult(0).setMaxResults(4).list();
+		return book;
+	}
+
 	@Override
-	public Category getCategoryById() {
-		return null;
+	public Category getCategoryById(Integer categoryId) {
+		String hql = "SELECT new Category (c.categoryId, c.categoryName) FROM Category c " +
+				"WHERE c.categoryId = :categoryId";
+		Category category = (Category) getSession().createQuery(hql)
+				.setInteger("categoryId",categoryId.intValue()).uniqueResult();
+		return category;
 	}
 
 	@Override
@@ -96,30 +133,36 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 	}
 
 	@Override
-	public List<Book> getBooksByCategory(String categoryId) {
+	public List<Book> getBooksByCategory(String categoryId, Integer pageNum) {
 		String hql = "FROM Book AS b " +
-				"WHERE b.category = :categoryId";
+				"WHERE b.category = :categoryId ORDER BY b.clickNum DESC";
 		@SuppressWarnings("unchecked")
 		List<Book> books = getSession().createQuery(hql)
-				.setString("categoryId", categoryId).list();
+				.setString("categoryId", categoryId)
+				.setFirstResult(BASE_NUM + (pageNum- 1) * PAGE_SIZE)
+				.setMaxResults(PAGE_SIZE).list();
 		return books;
 	}
 
 	@Override
-	public List<Book> getBooksByCategoryTo(String categoryId, String shopId) {
+	public List<Book> getBooksByCategoryTo(String categoryId, String shopId, Integer pageNum) {
 		String hql = "FROM Book AS b " +
-				"WHERE b.category = :categoryId AND b.shop = :shopId";
+				"WHERE b.category = :categoryId AND b.shop = :shopId ORDER BY b.clickNum DESC";
 		@SuppressWarnings("unchecked")
 		List<Book> books = getSession().createQuery(hql).setString("categoryId", categoryId)
+				.setFirstResult(BASE_NUM + (pageNum- 1) * PAGE_SIZE)
+				.setMaxResults(PAGE_SIZE)
 				.setString("shopId", shopId).list();
 		return books;
 	}
 
 	@Override
-	public void deleteBook(String bookId) {
+	public void deleteBook(Integer bookId) {
+		Session session = getSession();
 		String hql = "DELETE Book b WHERE b.bookId = :bookId";
-		getSession().createQuery(hql).setString("bookId", bookId).executeUpdate();
-
+		session.createQuery(hql).setInteger("bookId", bookId).executeUpdate();
+		hql = "UPDATE TradeItem t SET t.book = 1 WHERE t.book = :bookId";
+		session.createQuery(hql).setInteger("bookId", bookId).executeUpdate();
 	}
 
 	@Override

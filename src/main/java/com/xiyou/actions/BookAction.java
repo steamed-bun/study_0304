@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.xiyou.domain.BookImages;
+import com.xiyou.domain.Category;
 import com.xiyou.util.BookStoreWebUtils;
 import org.apache.struts2.interceptor.SessionAware;
 
@@ -31,22 +32,43 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 	private Map<String, Object> dataMap;
 	private Map<String, Object> session;
 	private Book book;
-	private List<BookImages> bookImages = new ArrayList<BookImages>(5);;
+	private List<BookImages> bookImages = new ArrayList<BookImages>(5);
+    private Integer pageNum = 1;
+	private Integer totalPageNo;
+    /**
+     * 首页获取分类的点击量最多的四本书
+     * url:book-getTopBooks.action?book.category.categoryId=4
+     * @return
+     */
+    public String getTopBooks(){
+        dataMap = BookStoreWebUtils.getDataMap(session);
+        List<Book> books = bookService
+                .getTopBooks(book.getCategory().getCategoryId().toString());
+        BookStoreWebUtils.setNull(books);
+        dataMap.put("books", books);
+        return SUCCESS;
+    }
 
 	/**
-	 * 获取一本书
+	 * 已测
+     * User 点击书本 返回书本详细信息 同时增加当前书本的点击量
 	 * url:book-getBookById.action?book.bookId=2
-	 * @return
+	 * @return 获取一本书 包含其类别及类别所属大类
      */
 	public String getBookById(){
 		dataMap = BookStoreWebUtils.getDataMap(session);
         book = bookService.getBookById(book);
-
+		book.setShop(null);
+		Category category = bookService.getCategoryById(book.getCategory().getCategoryPId());
+		dataMap.put("category", category);
         dataMap.put("book",book);
+		if (session.get("selId") == null){
+			updateClickNum();
+		}
 		return SUCCESS;
 	}
 
-	public void updateClickNum(){
+    public void updateClickNum(){
 		bookService.updateClickNum(book);
 	}
 
@@ -71,9 +93,14 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
         return SUCCESS;
     }
 
+    /**
+     * 已测 删除单本书 包括其图片
+     * book-deleteBook.action?book.bookId=19
+     * @return
+     */
 	public String deleteBook(){
-		bookService.deleteBook(book.getBookId().toString());
-		return "deleteBook";
+		bookService.deleteBook(book.getBookId());
+		return SUCCESS;
 	}
 
 	/**
@@ -94,35 +121,65 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 	/**
 	 * 已测
 	 * user和后台获取当前类型的所有书籍
-	 * url:book-getBooksByCategory.action?book.category.categoryId=2
+	 * url:
+     * 1、点击类别返回第一页数据和总页数 必须传totalPageNo=0
+     * book-getBooksByCategory.action?book.category.categoryId=2&pageNum=1&totalPageNo=0
+     * 2、点击页数时不能传totalPageNo=0
+     * book-getBooksByCategory.action?book.category.categoryId=2&pageNum=1
 	 * @return books
      */
 	public String getBooksByCategory(){
 		dataMap = BookStoreWebUtils.getDataMap(session);
 		String categoryId = book.getCategory().getCategoryId().toString();
-		List<Book> books = bookService.getBooksByCategory(categoryId);
+		pageNum = getTotalPageNo(categoryId, dataMap, "0");
+		List<Book> books = bookService.getBooksByCategory(categoryId, pageNum);
 		books = BookStoreWebUtils.setNull(books);
 		dataMap.put("books",books);
 		book = null;
-		return "getBooksByCategory";
+		return SUCCESS;
 	}
 
 	/**
 	 * 已测
+     * 前提：使用此接口的时候seller必须是登录状态
 	 * seller得到其不同类型的书本信息
-	 * 使用此接口的时候seller必须是登录状态
-	 * url:book-getBooksByCategoryTo.action?book.category.categoryId=2
+	 * url:
+     * 1、点击类别返回第一页数据和总页数 必须传totalPageNo=0
+     * book-getBooksByCategoryTo.action?book.category.categoryId=2&pageNum=1&totalPageNo=0
+     * 2、点击页数时不能传totalPageNo=0
+     * book-getBooksByCategoryTo.action?book.category.categoryId=2&pageNum=1
 	 * @return books
 	 */
 	public String getBooksByCategoryTo(){
 		dataMap = BookStoreWebUtils.getDataMap(session);
 		String categoryId = book.getCategory().getCategoryId().toString();
 		String shopId = session.get("shopId").toString();
-		List<Book> books = bookService.getBooksByCategoryTo(categoryId, shopId);
+		pageNum = getTotalPageNo(categoryId, dataMap, shopId);
+		List<Book> books = bookService.getBooksByCategoryTo(categoryId, shopId, pageNum);
 		books = BookStoreWebUtils.setNull(books);
 		dataMap.put("books",books);
 		book = null;
-		return "getBooksByCategory";
+		return SUCCESS;
+	}
+
+	/**
+	 * 非接口
+	 * 请求第一页数据时同时返回总页数，同时后台防止页数超出范围
+	 * @param categoryId categoryId
+	 * @param dataMap dataMap
+     * @return pageNum
+     */
+	public int getTotalPageNo(String categoryId, Map<String, Object> dataMap, String shopId){
+		if (totalPageNo.equals(0)) {
+			totalPageNo = shopId.equals("0") ? bookService.getTotalPageNo(categoryId): bookService.getTotalPageNo(categoryId, shopId);
+			dataMap.put("totalPageNo", totalPageNo);
+			session.put("totalPageNo", totalPageNo);
+		}else {
+			totalPageNo = Integer.parseInt(session.get("totalPageNo").toString());
+		}
+		pageNum = (pageNum.intValue() <= 0) ? pageNum = 1 : pageNum;
+		pageNum = (pageNum > totalPageNo) ? totalPageNo : pageNum;
+		return pageNum;
 	}
 
 	/**
@@ -204,4 +261,19 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 		return dataMap;
 	}
 
+    public Integer getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public Integer getTotalPageNo() {
+        return totalPageNo;
+    }
+
+    public void setTotalPageNo(Integer totalPageNo) {
+        this.totalPageNo = totalPageNo;
+    }
 }

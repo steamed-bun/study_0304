@@ -1,10 +1,6 @@
 package com.xiyou.util;
 
-import com.xiyou.domain.Book;
-import com.xiyou.domain.Seller;
-import com.xiyou.domain.User;
-import com.xiyou.domain.ShopCartItem;
-import com.xiyou.domain.ShoppingCart;
+import com.xiyou.domain.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +33,15 @@ public class BookStoreWebUtils {
 		dataMap.clear();
 		dataMap.put("status", "yes");
 		return dataMap;
+	}
+
+	public static List<TradeItem> setNullTradeItems(List<TradeItem> tradeItems){
+		for (TradeItem tradeItem : tradeItems) {
+			tradeItem.setTrade(null);
+			tradeItem.getBook().setShop(null);
+			tradeItem.getBook().setCategory(null);
+		}
+		return tradeItems;
 	}
 
 	//将book的部分置空

@@ -17,6 +17,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           console.log(${books});
         })
       }
+      function getJson(){
+        var form = new FormData(document.getElementById("tf"));
+//             var req = new XMLHttpRequest();
+//             req.open("post", "${pageContext.request.contextPath}/public/testupload", false);
+//             req.send(form);
+        $.ajax({
+          url:"upLoad-saveBookImages.action",
+          type:"post",
+          data:form,
+          processData:false,
+          contentType:false,
+          success:function(data){
+            console.log(data);
+          },
+          error:function(e){
+            alert("错误！！");
+            window.clearInterval(timer);
+          }
+        });
+      }
     </script>
   </head>
   
@@ -28,11 +48,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <%--<s:submit></s:submit>--%>
     <%--</form>--%>
     <input type="button" value="getBooks" onclick="getJson();">
-    <s:debug></s:debug>
-    <s:form action="upLoad-saveBookImages.action" method="POST" enctype="multipart/form-data" namespace="/">
+    <s:form id="tf" namespace="/">
       <s:file name="images"></s:file>
       <s:file name="images"></s:file>
-      <s:submit></s:submit>
     </s:form>
+    <input type="button" value="testJson" onclick="getJson();">
   </body>
 </html>

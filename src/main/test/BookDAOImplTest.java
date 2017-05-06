@@ -23,6 +23,18 @@ public class BookDAOImplTest {
 
     @Test
     @Transactional
+    public void testGetTotalPageNo(){
+        System.out.println(bookDAO.getTotalPageNo("2"));
+    }
+
+    @Test
+    @Transactional
+    public void testGetTopBooks(){
+        bookDAO.getTopBooks("4");
+    }
+
+    @Test
+    @Transactional
     public void testGetBookById(){
         Book book = new Book(2);
         book = bookDAO.getBookById(book);
@@ -72,7 +84,7 @@ public class BookDAOImplTest {
     @Transactional
     @Test
     public void TestGetBooksByCategory(){
-        System.out.println(bookDAO.getBooksByCategory("2"));
+        System.out.println(bookDAO.getBooksByCategory("2",2));
     }
 
     @Transactional

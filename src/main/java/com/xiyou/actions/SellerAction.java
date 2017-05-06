@@ -37,6 +37,18 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
 	private String selId = null;
     private String code = null;
 
+	/**
+	 * 前提是没有未完成订单
+	 * 删除一个seller 包括其店铺 其订单
+	 * 修改其下所有书籍的订单和购物车为bookId=1
+	 * 删除书籍、书籍图片
+	 *
+	 * @return
+     */
+	public String deleteSeller(){
+		return SUCCESS;
+    }
+
 	public String getWeixinUrlByShopId(){
 		return "";
 	}

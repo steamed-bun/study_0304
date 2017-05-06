@@ -20,6 +20,14 @@ public class TradeService {
     @Autowired
     private BookDAO bookDAO;
 
+    public Integer getTradeNumByStatus(String shopId){
+        return tradeDAO.getTradeNumByStatus(shopId);
+    }
+
+    public List<TradeItem> getTradeItemsByShopId(String shopId, String status){
+        return tradeDAO.getTradeItemsByShopId(shopId, status);
+    }
+
     public void updateQuantity(List<TradeItem> tradeItems, Map<String, Object> dataMap)  throws DBException{
         for (TradeItem tradeItem: tradeItems) {
             dataMap.put("bookId",tradeItem.getBook().getBookId());

@@ -27,6 +27,9 @@
 			<result name="stock" type="json">
 				<param name="root">dataMap</param>
 			</result>
+			<result name="success" type="json">
+				<param name="root">dataMap</param>
+			</result>
 		</action>
 
 		<action name="test-*" class="testAction" method="{1}">
@@ -108,7 +111,7 @@
 				<param name="root">dataMap</param>
 			</result>
 			<result name="getBooksByCategory" type="json">
-				<param name="root">dataMap</param>
+				<param name="root">books</param>
 			</result>
 			<result name="addBook" type="json">
 				<param name="root">dataMap</param>
