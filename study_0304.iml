@@ -31,8 +31,8 @@
         <datasource-map>
           <unit-entry name="WebRoot:WEB-INF:classes:hibernate.cfg.xml" />
           <unit-entry name="conf:hibernate.cfg.xml" />
-          <unit-entry name="hibernate.cfg.xml" value="1ccd2909-b486-4371-a81c-7ba73b638427" />
-          <unit-entry name="sessionFactory" value="1ccd2909-b486-4371-a81c-7ba73b638427" />
+          <unit-entry name="hibernate.cfg.xml" value="05579b1b-d281-47e7-8ed3-ac7a845929ca" />
+          <unit-entry name="sessionFactory" value="05579b1b-d281-47e7-8ed3-ac7a845929ca" />
         </datasource-map>
         <naming-strategy-map />
         <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/applicationContext.xml" />

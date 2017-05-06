@@ -19,6 +19,7 @@ public class Book {
 	private String summary;// 简介
 	private Integer clickNum;
     private String oneWord;
+	private Integer goodBook;//{非良品:0 良品:1}
 	private Shop shop;
 
 	public Book(Integer bookId, String bookName, Integer quantity) {
@@ -31,25 +32,26 @@ public class Book {
 		this.bookId = bookId;
 	}
 
-    public Book(Integer bookId, String bookName, Set<BookImages> bookImages, String author, Category category, float bookPrice, int quantity, int likes, int noLike, String publicationDate, String publisher, String summary, Integer clickNum, String oneWord, Shop shop) {
-        this.bookId = bookId;
-        this.bookName = bookName;
-        this.bookImages = bookImages;
-        this.author = author;
-        this.category = category;
-        this.bookPrice = bookPrice;
-        this.quantity = quantity;
-        this.likes = likes;
-        this.noLike = noLike;
-        this.publicationDate = publicationDate;
-        this.publisher = publisher;
-        this.summary = summary;
-        this.clickNum = clickNum;
-        this.oneWord = oneWord;
-        this.shop = shop;
-    }
+	public Book(Integer bookId, String bookName, Set<BookImages> bookImages, String author, Category category, float bookPrice, int quantity, int likes, int noLike, String publicationDate, String publisher, String summary, Integer clickNum, String oneWord, Integer goodBook, Shop shop) {
+		this.bookId = bookId;
+		this.bookName = bookName;
+		this.bookImages = bookImages;
+		this.author = author;
+		this.category = category;
+		this.bookPrice = bookPrice;
+		this.quantity = quantity;
+		this.likes = likes;
+		this.noLike = noLike;
+		this.publicationDate = publicationDate;
+		this.publisher = publisher;
+		this.summary = summary;
+		this.clickNum = clickNum;
+		this.oneWord = oneWord;
+		this.goodBook = goodBook;
+		this.shop = shop;
+	}
 
-    public Integer getBookId() {
+	public Integer getBookId() {
 		return bookId;
 	}
 
@@ -172,4 +174,12 @@ public class Book {
     public void setOneWord(String oneWord) {
         this.oneWord = oneWord;
     }
+
+	public Integer getGoodBook() {
+		return goodBook;
+	}
+
+	public void setGoodBook(Integer goodBook) {
+		this.goodBook = goodBook;
+	}
 }
