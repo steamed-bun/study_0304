@@ -19,7 +19,15 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 	private static final int PAGE_SIZE = 3;//书本数量
 	private static final int BASE_NUM = 0;
 
-    @Override
+	@Override
+	public void updataGoodBook(Integer bookId, Integer goodBook) {
+		String hql = "UPDATE Book b SET b.goodBook = :goodBook " +
+				"WHERE b.bookId = :bookId";
+		getSession().createQuery(hql).setInteger("goodBook", goodBook)
+				.setInteger("bookId", bookId).executeUpdate();
+	}
+
+	@Override
     public long getTotalPageNo(String categoryId, String shopId) {
         String hql = "SELECT count (b.bookId) FROM Book b " +
                 "WHERE b.category = :categoryId AND b.shop = :shopId";
@@ -53,6 +61,7 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 	public Category getCategoryById(Integer categoryId) {
 		String hql = "SELECT new Category (c.categoryId, c.categoryName) FROM Category c " +
 				"WHERE c.categoryId = :categoryId";
+		@SuppressWarnings("unchecked")
 		Category category = (Category) getSession().createQuery(hql)
 				.setInteger("categoryId",categoryId.intValue()).uniqueResult();
 		return category;

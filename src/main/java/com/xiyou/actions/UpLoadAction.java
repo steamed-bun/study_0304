@@ -43,6 +43,7 @@ public class UpLoadAction extends ActionSupport implements SessionAware{
 
 	private List<File> images = new ArrayList<File>(5);
     private List<String> imagesContentType = new ArrayList<String>(5);
+	private List<String> imagesFileName = new ArrayList<String>(5);
     private List<String> imagesURL = null;
 	Map<String, Object> session;
 	private Map<String, Object> dataMap;
@@ -57,7 +58,7 @@ public class UpLoadAction extends ActionSupport implements SessionAware{
         imagesURL = new ArrayList<String>(5);
         int i = 0;
         for (File image : images) {
-            String imageName = getImageName(imagesContentType.get(i));
+            String imageName = String.valueOf(System.currentTimeMillis()) + imagesFileName.get(i);
             FileUtils.copyFile(image, new File(file, imageName));
             imagesURL.add(BOOK_IMAGES_UEL + imageName);
             i++;
@@ -176,5 +177,13 @@ public class UpLoadAction extends ActionSupport implements SessionAware{
 
     public void setImagesContentType(List<String> imagesContentType) {
         this.imagesContentType = imagesContentType;
+    }
+
+    public List<String> getImagesFileName() {
+        return imagesFileName;
+    }
+
+    public void setImagesFileName(List<String> imagesFileName) {
+        this.imagesFileName = imagesFileName;
     }
 }

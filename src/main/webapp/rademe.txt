@@ -7,6 +7,7 @@
 |---获取商家书本分类展示接口BookAction搜getBooksByCategoryTo
 |---获取用户书本分类展示接口BookAction搜getBooksByCategory
 |---控制书本每页展示数量在src\main\java\com\xiyou\dao\impl\BookDAOImpl.java 变量 PAGE_SIZE=?
+|---修改书本为良品或非良品搜updateGookBook
 
 2、订单接口TradeAction
 

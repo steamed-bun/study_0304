@@ -8,6 +8,8 @@ import com.xiyou.domain.Category;
 
 public interface BookDAO {
 
+	void updataGoodBook(Integer bookId, Integer goodBook);
+
 	/**
 	 * 已测
 	 * seller 专用
