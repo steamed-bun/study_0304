@@ -293,7 +293,7 @@
 		<!-- 书籍详情页开始 -->
 		<section ng-app="bookDetail">
 			<div class="container" ng-controller="bookDetailCtrl">
-				<nav class="crumbs"><span>首页</span><i></i><span>教育</span><i></i><span>教材</span><i></i><span>高等数学</span></nav>
+				<nav class="crumbs"><span>首页</span><i></i><span data-id="{{book.bigCateId}}">{{book.bigCateName}}</span><i></i><span data-id="{{book.smCataId}}">{{book.smCataName}}</span><i></i><span data-id="{{book.bId}}">{{book.bName}}</span></nav>
 				<div class="book-info clearfix">
 					<div class="fl">
 						<div class="book-big-img">

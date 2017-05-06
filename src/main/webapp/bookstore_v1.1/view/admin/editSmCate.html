@@ -1,16 +1,16 @@
 <div class="cate-box">
 	<ul class="bigCata clearfix">
-		<li><span>教育</span></li>
-		<li><span>小说</span></li>
-		<li><span>文艺</span></li>
-		<li><span>青春</span></li>
-		<li><span>童书</span></li>
-		<li><span>生活</span></li>
-		<li><span>人文社科</span></li>
-		<li><span>经管</span></li>
-		<li><span>励志</span></li>
-		<li><span>科技</span></li>
-		<li><span>工具书</span></li>
+		<li data-id="1"><span>教育</span></li>
+		<li data-id="2"><span>小说</span></li>
+		<li data-id="3"><span>文艺</span></li>
+		<li data-id="4"><span>青春</span></li>
+		<li data-id="5"><span>童书</span></li>
+		<li data-id="6"><span>生活</span></li>
+		<li data-id="7"><span>人文社科</span></li>
+		<li data-id="8"><span>经管</span></li>
+		<li data-id="9"><span>励志</span></li>
+		<li data-id="10"><span>科技</span></li>
+		<li data-id="11"><span>工具书</span></li>
 	</ul>
 	<table class="oper-box">
 		<thead>
@@ -21,20 +21,25 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td><input type="text" readonly="true" value="教材"/></td>
-				<td>修改</td>
-				<td>删除</td>
+			<tr data-smCatId="1">
+				<td><input type="text"  readonly="true"  ng-model="smCate[0]" /></td>
+				<td><span class="edit-sm-cate">编辑</span></td>
+				<td><span class="delete-sm-cate">删除</span></td>
 			</tr>
-			<tr>
-				<td><input type="text" readonly="true" value="辅导书"/></td>
-				<td>修改</td>
-				<td>删除</td>
+			<tr data-smCatId="2">
+				<td><input type="text" readonly="true" ng-model="smCate[1]"/></td>
+				<td><span class="edit-sm-cate">编辑</span></td>
+				<td><span class="delete-sm-cate">删除</span></td>
 			</tr>
-			<tr>
-				<td><input type="text" readonly="true" value="作业"/></td>
-				<td>修改</td>
-				<td>删除</td>
+			<tr data-smCatId="3">
+				<td><input type="text" readonly="true" ng-model="smCate[2]"/></td>
+				<td><span class="edit-sm-cate">编辑</span></td>
+				<td><span class="delete-sm-cate">删除</span></td>
+			</tr>
+			<tr data-smCatId="4">
+				<td><input type="text" readonly="true" ng-model="smCate[3]"/></td>
+				<td><span class="edit-sm-cate">编辑</span></td>
+				<td><span class="delete-sm-cate">删除</span></td>
 			</tr>
 		</tbody>
 	</table>
@@ -82,5 +87,20 @@
 	}
 	.oper-box td{
 		border:#f5f5f5 solid 1px;
+	}
+	.oper-box>tbody input{
+		width:100%;
+		height:40px;
+		text-align: center;
+	}
+	.oper-box>tbody span{
+		color:#03A9F4;
+		cursor:pointer;
+	}
+	.oper-box>tbody span:hover{
+		text-decoration: underline;
+	}
+	.bigCata>li:first-child{
+		background:rgb(18, 107, 22);
 	}
 </style>

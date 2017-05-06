@@ -1,6 +1,34 @@
 angular.module('bookDetail',[])
-   .controller('bookDetailCtrl',function($scope){
-   	  /*-----与放大镜相关的开始------*/
+   .controller('bookDetailCtrl',function($scope,$http){
+       //基础数据设置
+       $scope.book={
+           bigCateName:'',
+           bigCateId:'',
+           smCataName:'',
+           smCataId:'',
+           bName:'',
+           bId:'',
+           imgUrls:'',
+       };
+       //应根据链接来获得这个bookId
+       postData='book.bookId='+17;
+        //从数据库获得书籍的相关信息
+       $http({
+           method:'POST',
+           url:'book-getBookById.action',
+           data:postData,//序列化用户输入的数据
+           headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+       }).success(function(response){
+           console.log(response);
+           $scope.book.bigCateName=response.category.categoryName;
+           $scope.book.bigCateId=response.category.categoryId;
+           $scope.book.smCataName=response.book.category.categoryName;
+           $scope.book.smCataId=response.book.category.categoryId;
+           $scope.book.bName= response.book.bookName;
+           $scope.book.bId=response.book.bookId;
+           //当请求成功时
+       });
+   	    /*-----与放大镜相关的开始------*/
         //当点击小图片时，大图片跟着切换
         $('.book-small-img img').hover(function(){
            var $curElem=$(this);
@@ -19,12 +47,12 @@ angular.module('bookDetail',[])
            });
         });
         //调用放大镜插件 实现放大
-   	  $(document).ready(function () {
+   	    $(document).ready(function () {
             $(".demo-img").blowup({
               background : "#FFF",
             });
         });
-   	  /*-----与放大镜相关的结束------*/
+   	    /*-----与放大镜相关的结束------*/
 
         /*----与购物车数量加减相关开始------*/
         //获得文本框对象

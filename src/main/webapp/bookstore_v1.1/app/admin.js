@@ -126,11 +126,11 @@ angular.module('admin',['ngRoute','admin-controller'])
 			})
 			.when('/editSmCate',{
 				templateUrl:'view/admin/editSmCate.html',
-				//controller:'editSmCateCtrl'
+				controller:'editSmCateCtrl'
 			})
 			.when('/addSmCate',{
 				templateUrl:'view/admin/addSmCate.html',
-				//controller:'addSmCateCtrl'
+				controller:'addSmCateCtrl'
 			})
 			.when('/welcome',{
 				templateUrl:'view/admin/welcome.html',

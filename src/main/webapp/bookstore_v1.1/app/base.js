@@ -25,13 +25,13 @@
 			curHtml2='',
 			curSmCate,
 			$aimElem=$(this);
-		console.log(bigCateId);
-		console.log($whoNav.get(0));
-		console.log($(this)[0]);
-		console.log($(this).children().length);
-		console.log($(this).children()[0]);
-		console.log($(this).children()[1]);
-		console.log($(this).children()[2]);
+		//console.log(bigCateId);
+		//console.log($whoNav.get(0));
+		//console.log($(this)[0]);
+		//console.log($(this).children().length);
+		//console.log($(this).children()[0]);
+		//console.log($(this).children()[1]);
+		//console.log($(this).children()[2]);
 		$(bookSubclass).css('display','block');
 		$nav_items.removeClass("cur-header-item");
 		$(bookClass).addClass("cur-header-item");
@@ -57,11 +57,11 @@
 						curHtml2='<div class="aside-subclass-box"><ul class="container clearfix book-subclass-items">'+html+'</ul></div>';
 						if($whoNav.hasClass('top-nav')){
 							$aimElem.append(curHtml1);
-							console.log('top-nav被执行');
+							//console.log('top-nav被执行');
 						}
 						if($whoNav.hasClass('aside-nav')){
 							$aimElem.append(curHtml2);
-							console.log('aside-nav被执行');
+							//console.log('aside-nav被执行');
 						}
 					}
 				}

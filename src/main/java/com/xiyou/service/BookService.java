@@ -66,7 +66,6 @@ public class BookService {
 		for (BookImages bookImage: bookImages ) {
 			bookImage.setBook(book);
 		}
-		bookImages.clear();
 		bookDAO.batchImages(bookImages);
 	}
 

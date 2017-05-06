@@ -196,7 +196,6 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 			Shop shop = bookService.getShopByShopId(session.get("shopId").toString());
 			book.setShop(shop);
 			book.setClickNum(0);
-			//book.setOneWord(BOOK_ONE_WORD);
 			bookService.addBook(book);
             addImages(book);
 			this.setBook(null);

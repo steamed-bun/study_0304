@@ -616,11 +616,53 @@ angular.module('admin-controller',[])
 		};
 		ZXXFILE = $.extend(ZXXFILE, params);
 		ZXXFILE.init();
-    });
-   /* .contorller('editSmCateCtrl',function($scope){
-    	//为页面上的书籍大类添加点击事件
-    	$('.bigCata>li').click(function(){
-    		var curCataId=$(this).attr('data-id');
-    		console.log(curCataId);
-    	});
-    });*/
+    })
+    .controller('editSmCateCtrl',function($scope){
+		//TODO: 从数据库获得书籍子类
+		$scope.smCate=['辅导书','试卷','教材','课外书'];
+		console.log('希望好着的');
+		//为页面上的书籍大类添加点击事件
+		$('.bigCata>li').click(function(){
+			var curCataId=$(this).attr('data-id');
+			$('.bigCata>li').css('background','rgba(76, 175, 80, 0.74)');
+			$(this).css('background','rgb(18, 107, 22)');
+			console.log(curCataId);
+		});
+		//给修改添加点击事件
+		$('.edit-sm-cate').click(function(){
+			if($(this).html()=='保存成功'){
+				return;
+			}
+			var saveSmCateId=$(this).parent().parent().attr('data-smCatId');
+			var $curInput=$(this).parent().parent().children(0).children(0);//获得当前行的input标签
+			if($(this).hasClass('save-sm-cate')){
+				//当按钮显示的是保存时
+				$curInput.attr('readonly','true');
+				//TODO：向服务器提交数据
+				console.log(saveSmCateId);
+				$(this).html('保存成功');
+				$(this).css('cursor','default');
+				$(this).removeClass('save-sm-cate');
+			}else{
+				//当按钮显示的是编辑时
+				$curInput.removeAttr('readonly');
+				$(this).html('保存');
+				$(this).addClass('save-sm-cate');
+			}
+		});
+		//给删除添加点击事件
+		$('.delete-sm-cate').click(function(){
+			var deleteSmCateId=$(this).parent().parent().attr('data-smCatId');
+			//TODO:将被删除元素的id发给服务器，删除指定子类
+			console.log(deleteSmCateId);
+			$(this).parent().parent().remove();
+
+		});
+    })
+	.controller('addSmCateCtrl',function($scope){
+
+		//给添加添加点击事件
+		$('.add-sm-cate').click(function(){
+
+		});
+	});
