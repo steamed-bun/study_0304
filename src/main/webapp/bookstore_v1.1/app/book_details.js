@@ -21,7 +21,7 @@ angular.module('bookDetail',[])
        var allImgs=[],
            imgsArr;
        //应根据链接来获得这个bookId
-       postData='book.bookId='+20;
+       postData='book.bookId='+24;
         //从数据库获得书籍的相关信息
        $http({
            method:'POST',
@@ -51,7 +51,11 @@ angular.module('bookDetail',[])
                if(allImgs[j].search('-s')!=-1){
                    $scope.book.sImgUrls.push(allImgs[j]);
                }else{
-                   $scope.book.bImgUrls.push(allImgs[j]);
+                  if(allImgs[j].search('-y')!=-1){
+                      $scope.book.bImgUrls.push(allImgs[j]);
+                  }else{
+                      console.log('我是多余的');
+                  }
                }
            }
        });
