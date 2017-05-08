@@ -1,7 +1,7 @@
 <div class="recom-box">
 	<div class="title-box clearfix">
 		<p class="recom-title fl">请在每个店铺后面标识其等级</p>
-		<p class="search-area fl"><span class="save-info">保存</span><input type="text" placeholder="请输入信息进行查询" ng-model="oper.searchShop"/><i></i></p>
+		<p class="search-area fl"><input type="text" placeholder="请输入信息进行查询" ng-model="oper.searchShop"/><i ng-click="searchShop()"></i></p>
 	</div>
 	<div class="table-box">
 		<table class="info-box">
@@ -12,6 +12,7 @@
 					<td>店铺主人邮箱</td>
 					<td>店铺主人身份证号</td>
 					<td>店铺级别评定</td>
+					<td>操作</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -29,6 +30,7 @@
 							<option data-id="4">4</option>
 						</select>
 					</td>
+					<td><span class="save-info" ng-click="saveBookDegree($event)" data-id="{{shop.shopId}}">保存</span></td>
 				</tr>
 				<!--<tr>
 					<td>好呀哈</td>
@@ -146,9 +148,7 @@
 		background:rgba(139, 195, 74, 0.73);
 	}
 	.save-info{
-		position:absolute;
-		left:-819px;
-		top:0;
+		display:inline-block;
 		width:80px;
 		height:32px;
 		line-height: 32px;
