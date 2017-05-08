@@ -38,8 +38,10 @@ var ZXXFILE = {
 		// ��ȡ�ļ��б����
 		var files = e.target.files || e.dataTransfer.files;
 		//��������ļ�
-		this.fileFilter = this.fileFilter.concat(this.filter(files));
+		//this.fileFilter = this.fileFilter.concat(this.filter(files));
+		this.fileFilter=this.filter(files);
 		this.funDealFiles();
+		console.log(this.fileFilter);
 		return this;
 	},
 	

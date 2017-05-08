@@ -1,7 +1,7 @@
 <div class="recom-box">
 	<div class="title-box clearfix">
 		<p class="recom-title fl">请在店铺的书籍后面标识其质量</p>
-		<p class="search-area fl"><span class="save-info">保存</span><input type="text" placeholder="请输入信息进行查询" ng-model="oper.searchBook"/><i></i></p>
+		<p class="search-area fl"><input type="text" placeholder="请输入信息进行查询" ng-model="oper.searchBook"/><i ng-click="searchBook()"></i></p>
 	</div>
 	<div class="table-box">
 		<table class="info-box">
@@ -12,6 +12,7 @@
 					<td>书籍作者</td>
 					<td>点赞数</td>
 					<td>书籍质量评定</td>
+					<td>操作</td>
 				</tr>
 			</thead>
 			<tbody>
@@ -27,6 +28,7 @@
 							<option>非良品</option>
 						</select>
 					</td>
+					<td><span class="save-info" data-id="{{book.bookId}}" ng-click="saveBookDegree($event)">保存</span></td>
 				</tr>
 				<!--<tr>
 					<td>03131099</td>
@@ -36,8 +38,8 @@
 					<td>
 						<select>
 							<option>-请选择-</option>
-							<option>良品</option>
-							<option>非良品</option>
+							<option>良品</op
+							<option>非良品</option>tion>
 						</select>
 					</td>
 				</tr>-->
@@ -142,9 +144,7 @@
 		cursor:pointer;
 	}
 	.save-info{
-		position:absolute;
-		left:-819px;
-		top:0;
+		display:inline-block;
 		width:80px;
 		height:32px;
 		line-height: 32px;

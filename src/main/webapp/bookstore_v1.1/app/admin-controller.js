@@ -316,6 +316,7 @@ angular.module('admin-controller',[])
 			upButton: $("#fileSubmit").get(0),
 			url: $("#uploadForm").attr("action"),
 			filter: function(files) {
+
 				var arrFiles = [];
 				var upName;
 				for (var i = 0, file; file = files[i]; i++) {
@@ -643,11 +644,11 @@ angular.module('admin-controller',[])
 				smCateName:'辅导书'
 			}
 		];
-		//TODO: 从数据库获得书籍子类的id和名称
+		//TODO: 从数据库获得书籍子类的id和名称(用于显示在编辑子类一加载的页面上)
 		/*$http({
 			method:'POST',
-			url:'select-selectCategory.action',//分页的接口
-			data: 'category.categoryPId='+selectId,//传递给后台请求第几页的页码数
+			url:'select-selectCategory.action',
+			data: 'category.categoryPId='+selectId,
 			headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
 		}).success(function(response){
 			console.log(response); //在此处查看返回的数据是否正确
@@ -662,6 +663,7 @@ angular.module('admin-controller',[])
 		});
 		//给修改添加点击事件
 		$('.edit-sm-cate').click(function(){
+			console.log('我被点击了');
 			if($(this).html()=='保存成功'){
 				return;
 			}
@@ -744,60 +746,70 @@ angular.module('admin-controller',[])
 		//保存店铺评估后台返回的数据（应返回数组形式）
 		$scope.shopInfo=[
 			{
+				shopId:'2',
 				shopName:'你好吗',
 				userName:'哈哈',
 				userEmail:'2814234600@qq.com',
 				userId:'1'
 			},
 			{
+				shopId:'2',
 				shopName:'你好吗',
 				userName:'哈哈',
 				userEmail:'2814234600@qq.com',
 				userId:'1'
 			},
 			{
+				shopId:'2',
 				shopName:'你好吗',
 				userName:'哈哈',
 				userEmail:'2814234600@qq.com',
 				userId:'1'
 			},
 			{
+				shopId:'2',
 				shopName:'你好吗',
 				userName:'哈哈',
 				userEmail:'2814234600@qq.com',
 				userId:'1'
 			},
 			{
+				shopId:'2',
 				shopName:'你好吗',
 				userName:'哈哈',
 				userEmail:'2814234600@qq.com',
 				userId:'1'
 			},
 			{
+				shopId:'2',
 				shopName:'你好吗',
 				userName:'哈哈',
 				userEmail:'2814234600@qq.com',
 				userId:'1'
 			},
 			{
+				shopId:'2',
 				shopName:'你好吗',
 				userName:'哈哈',
 				userEmail:'2814234600@qq.com',
 				userId:'1'
 			},
 			{
+				shopId:'2',
 				shopName:'你好吗',
 				userName:'哈哈',
 				userEmail:'2814234600@qq.com',
 				userId:'1'
 			},
 			{
+				shopId:'2',
 				shopName:'你好吗',
 				userName:'哈哈',
 				userEmail:'2814234600@qq.com',
 				userId:'1'
 			},
 			{
+				shopId:'2',
 				shopName:'你好吗',
 				userName:'哈哈',
 				userEmail:'2814234600@qq.com',
@@ -819,13 +831,13 @@ angular.module('admin-controller',[])
 		});
 		//TODO:向后台数据库请求所有店铺信息
 		/*$http({
-			method:'GET',
-			url:'' //提供所有信息的接口
-		}).success(function(response){
-			console.log(response); //打印后台返回的数据
-			//TODO:在此应得到数据总条数,第一页的数据（每页展示10条数据），分页总数（分多少页,可以不需要）
-			//TODO:与分页相关的变量名称，在此页搜：与分页相关的数据设定
-		});*/
+			 method:'POST',
+			 url:'select-selectCategory.action',
+			 data: 'category.categoryPId='+selectId,
+			 headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+		 }).success(function(response){
+		 	console.log(response); //在此处查看返回的数据是否正确
+		 });*/
 		//调用分页页码插件，实现分页功能
 		$('.page-area').cypager({
 			pg_size:$scope.paging.perNum,
@@ -847,6 +859,32 @@ angular.module('admin-controller',[])
 				});*/
 			}
 		});
+		//保存书的等级
+		$scope.saveBookDegree=function($event){
+			var shopId=$($event.target).attr('data-id');
+			console.log(shopId);
+			//TODO:向后台发送店铺id和级别，实现修改级别的功能
+			/*$http({
+				method:'POST',
+				url:'select-selectCategory.action',
+				data: 'category.categoryPId='+selectId,
+				headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+			}).success(function(response){
+				console.log(response); //在此处查看返回的数据是否正确
+			});*/
+		};
+		//按店铺id搜索指定店铺的信息
+		$scope.searchShop=function(){
+			/*$http({
+				method:'POST',
+				url:'select-selectCategory.action',
+				data: 'category.categoryPId='+selectId,
+				headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+			}).success(function(response){
+				console.log(response); //在此处查看返回的数据是否正确
+			});*/
+			console.log('搜索指定的店铺');
+		};
 	})
 	.controller('accessBookCtrl',function($scope,$http){
 		$scope.oper={
@@ -933,13 +971,13 @@ angular.module('admin-controller',[])
 		});
 		//TODO:向后台数据库请求所有书籍信息
 		/*$http({
-		 method:'GET',
-		 url:'' //提供所有信息的接口
-		 }).success(function(response){
-		 console.log(response); //打印后台返回的数据
-		 //TODO:在此应得到数据总条数,第一页的数据（每页展示10条数据），分页总数（分多少页,可以不需要）
-		 //TODO:与分页相关的变量名称，在此页搜：与分页相关的数据设定
-		 });*/
+			method:'POST',
+			url:'select-selectCategory.action',
+			data: 'category.categoryPId='+selectId,
+			headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+		}).success(function(response){
+			console.log(response); //在此处查看返回的数据是否正确
+		});*/
 		//调用分页页码插件，实现分页功能
 		$('.page-area').cypager({
 			pg_size:$scope.paging.perNum,
@@ -961,4 +999,30 @@ angular.module('admin-controller',[])
 				 });*/
 			}
 		});
+		//点击保存按钮时，向后台发送数据保存对书籍的评估
+		$scope.saveBookDegree=function($event){
+			var bookId=$($event.target).attr('data-id');
+			console.log(bookId);
+			//TODO:向后台发送书籍id和级别，实现修改书籍级别的功能
+			/*$http({
+			 method:'POST',
+			 url:'select-selectCategory.action',
+			 data: 'category.categoryPId='+selectId,
+			 headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+			 }).success(function(response){
+			    console.log(response); //在此处查看返回的数据是否正确
+			 });*/
+		};
+		//按书籍id搜索指定书籍的信息
+		$scope.searchBook=function(){
+			/*$http({
+			 method:'POST',
+			 url:'select-selectCategory.action',
+			 data: 'category.categoryPId=',
+			 headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+			 }).success(function(response){
+			 console.log(response); //在此处查看返回的数据是否正确
+			 });*/
+			console.log('搜索指定的书籍');
+		};
 	});
