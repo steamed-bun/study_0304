@@ -159,4 +159,10 @@ angular.module('custBus-controller',[])
         }
       }
     };
+  })
+  .controller('addrMangeCtrl',function($scope){
+       //给关闭按钮添加事件
+       $scope.closeAddAddr=function(){
+           console.log('我被点击了');
+       };
   });

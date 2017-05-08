@@ -88,21 +88,29 @@
 	  	// 改变头像---结束
 
 	  	//对下面各业务项添加鼠标单击事件---开始
-	  	$scope.jumpInfo=function(){
-	  	  //跳到个人资料呢
-	  	  $location.path('/custInfo');
+	  	$scope.jumpInfo=function($event){
+	  	  	//跳到个人资料呢
+			$('.custBus-items>li').removeClass('highlight-oper');
+			$($event.target).addClass('highlight-oper');
+	  	  	$location.path('/custInfo');
 	  	};
-	  	$scope.jumpOrder=function(){
-	  	  //跳到订单管理
-	  	  $location.path('/orderMange');
+	  	$scope.jumpOrder=function($event){
+	  	    //跳到订单管理
+			$('.custBus-items>li').removeClass('highlight-oper');
+			$($event.target).addClass('highlight-oper');
+	  	    $location.path('/orderMange');
 	  	};
-	  	$scope.jumpAddress=function(){
-	  	  //跳到地址管理
-	  	  $location.path('/addrMange');
+	  	$scope.jumpAddress=function($event){
+	  	    //跳到地址管理
+			$('.custBus-items>li').removeClass('highlight-oper');
+			$($event.target).addClass('highlight-oper');
+	  	    $location.path('/addrMange');
 	  	};
-	  	$scope.jumpAccount=function(){
-	  	  //跳到账户安全
-	  	  $location.path('/accountMange');
+	  	$scope.jumpAccount=function($event){
+	  	    //跳到账户安全
+			$('.custBus-items>li').removeClass('highlight-oper');
+			$($event.target).addClass('highlight-oper');
+	  	    $location.path('/accountMange');
 	  	};
 	  	//对下面各业务项添加鼠标单击事件---结束
 	  })
@@ -118,7 +126,7 @@
 	  	    })
 	  	    .when('/addrMange',{
 	  	       templateUrl:'view/custBus/addr_mange.html',
-	  	       //controller:'addrMangeCtrl'
+	  	       controller:'addrMangeCtrl'
 	  	    })
 	  	    .when('/accountMange',{
 	  	       templateUrl:'view/custBus/account_mange.html',

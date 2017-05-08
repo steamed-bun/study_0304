@@ -308,7 +308,8 @@ angular.module('admin-controller',[])
 		});
 		/*-----与页面样式相关结束--------*/
     })
-    .controller('hotBookCtrl',function($scope){
+    .controller('hotBookCtrl',function($scope,$http){
+		$scope.admin={imgsUrl:''};//保存上传图片的URL
     	var params = {
 			fileInput: $("#fileImage").get(0),
 			dragDrop: $("#fileDragArea").get(0),
@@ -378,26 +379,27 @@ angular.module('admin-controller',[])
 				$(this).removeClass("upload_drag_hover");
 			},
 			onSuccess: function(file,response) {
-				$("#uploadInf").html("图片上传成功！");
-				var reData=JSON.parse(response);
-				$scope.bookOtherInfo.imgsUrl=reData.imagesURL;
-				console.log($scope.bookOtherInfo.imgsUrl);
-				if($scope.bookOtherInfo.imgsUrl.length==8){
-					$scope.verTrue[7]=true;
-					$('.img-hint').css('display','none');
-					$('.upload_choose').css('display','none');
-					$('.upload_submit').css('display','none');
-				}else{
-					$scope.verTrue[7]=false;
-					$('.img-hint').html('请只上传8张图片');
-					$('.img-hint').css('display','inline-block');
-					$('.upload_choose').css('display','block');
-					$('.upload_submit').css('display','inline-block');
-				}
-				console.log(response);
+				//$("#uploadInf").html("图片上传成功！");
+				//显示图片上传成功的提示
+				$('.oper-hint').html='图片上传成功！';
+				$('.oper-hint').slideDown();//错误提示信息缓慢出现
+				setTimeout(function(){
+					$('.oper-hint').slideUp();
+				},3000);
+				//TODO:得到热卖书籍后台返回的URL
+				console.log(response);//打印后台返回的响应数据
+				var reData=JSON.parse(response);//将后台返回的JSON字符串转换为JS对象
+				$scope.admin.imgsUrl=reData.imagesURL;//根据对象的属性得到所需的url
+				console.log($scope.admin.imgsUrl);//打印查看获得的URL是否正确
 			},
 			onFailure: function(file) {
-				$("#uploadInf").html("图片上传失败！");	
+				//$("#uploadInf").html("图片上传失败！");	
+				//显示图片上传失败的提示
+				$('.oper-hint').html='图片上传失败！';
+				$('.oper-hint').slideDown();//错误提示信息缓慢出现
+				setTimeout(function(){
+					$('.oper-hint').slideUp();
+				},3000);
 				$("#uploadImage_" + file.index).css("opacity", 0.2);
 			},
 			onComplete: function() {
@@ -405,14 +407,15 @@ angular.module('admin-controller',[])
 				$("#fileSubmit").hide();
 				//file控件value置空
 				$("#fileImage").val("");
-				$("#uploadInf").append("<p>当前图片全部上传完毕，可继续添加上传。</p>");
+				//$("#uploadInf").append("<p>当前图片全部上传完毕，可继续添加上传。</p>");
 			}
 		};
 		ZXXFILE = $.extend(ZXXFILE, params);
 		ZXXFILE.init();
     })
-    .controller('weSpeakCtrl',function($scope){
-    	var params = {
+    .controller('weSpeakCtrl',function($scope,$http){
+		$scope.admin={imgsUrl:''};//保存上传图片的URL
+		var params = {
 			fileInput: $("#fileImage").get(0),
 			dragDrop: $("#fileDragArea").get(0),
 			upButton: $("#fileSubmit").get(0),
@@ -423,12 +426,12 @@ angular.module('admin-controller',[])
 				for (var i = 0, file; file = files[i]; i++) {
 					if (file.type.indexOf("image") == 0) {
 						if (file.size >= 512000) {
-							alert('您这张"'+ file.name +'"图片大小过大，应小于500k');	
+							alert('您这张"'+ file.name +'"图片大小过大，应小于500k');
 						} else {
-							arrFiles.push(file);	
-						}			
+							arrFiles.push(file);
+						}
 					} else {
-						alert('文件"' + file.name + '"不是图片。');	
+						alert('文件"' + file.name + '"不是图片。');
 					}
 					upName=$('#fileImage').attr('name');
 					console.log(upName);
@@ -443,12 +446,12 @@ angular.module('admin-controller',[])
 					if (file) {
 						var reader = new FileReader()
 						reader.onload = function(e) {
-							html = html + '<div id="uploadList_'+ i +'" class="upload_append_list"><p><strong>' + file.name + '</strong>'+ 
+							html = html + '<div id="uploadList_'+ i +'" class="upload_append_list"><p><strong>' + file.name + '</strong>'+
 								'<a href="javascript:" class="upload_delete" title="删除" data-index="'+ i +'">删除</a><br />' +
-								'<img id="uploadImage_' + i + '" src="' + e.target.result + '" class="upload_image" /></p>'+ 
+								'<img id="uploadImage_' + i + '" src="' + e.target.result + '" class="upload_image" /></p>'+
 								'<span id="uploadProgress_' + i + '" class="upload_progress"></span>' +
-							'</div>';
-							
+								'</div>';
+
 							i++;
 							funAppendImage();
 						}
@@ -459,17 +462,17 @@ angular.module('admin-controller',[])
 							//删除方法
 							$(".upload_delete").click(function() {
 								ZXXFILE.funDeleteFile(files[parseInt($(this).attr("data-index"))]);
-								return false;	
+								return false;
 							});
 							//提交按钮显示
-							$("#fileSubmit").show();	
+							$("#fileSubmit").show();
 						} else {
 							//提交按钮隐藏
-							$("#fileSubmit").hide();	
+							$("#fileSubmit").hide();
 						}
 					}
 				};
-				funAppendImage();		
+				funAppendImage();
 			},
 			onDelete: function(file) {
 				$("#uploadList_" + file.index).fadeOut();
@@ -481,26 +484,27 @@ angular.module('admin-controller',[])
 				$(this).removeClass("upload_drag_hover");
 			},
 			onSuccess: function(file,response) {
-				$("#uploadInf").html("图片上传成功！");
-				var reData=JSON.parse(response);
-				$scope.bookOtherInfo.imgsUrl=reData.imagesURL;
-				console.log($scope.bookOtherInfo.imgsUrl);
-				if($scope.bookOtherInfo.imgsUrl.length==8){
-					$scope.verTrue[7]=true;
-					$('.img-hint').css('display','none');
-					$('.upload_choose').css('display','none');
-					$('.upload_submit').css('display','none');
-				}else{
-					$scope.verTrue[7]=false;
-					$('.img-hint').html('请只上传8张图片');
-					$('.img-hint').css('display','inline-block');
-					$('.upload_choose').css('display','block');
-					$('.upload_submit').css('display','inline-block');
-				}
-				console.log(response);
+				//$("#uploadInf").html("图片上传成功！");
+				//显示图片上传成功的提示
+				$('.oper-hint').html='图片上传成功！';
+				$('.oper-hint').slideDown();//错误提示信息缓慢出现
+				setTimeout(function(){
+					$('.oper-hint').slideUp();
+				},3000);
+				//TODO:得到大家都在说后台返回的URL
+				console.log(response);//打印后台返回的响应数据
+				var reData=JSON.parse(response);//将后台返回的JSON字符串转换为JS对象
+				$scope.admin.imgsUrl=reData.imagesURL;//根据对象的属性得到所需的url
+				console.log($scope.admin.imgsUrl);//打印查看获得的URL是否正确
 			},
 			onFailure: function(file) {
-				$("#uploadInf").html("图片上传失败！");	
+				//$("#uploadInf").html("图片上传失败！");
+				//显示图片上传失败的提示
+				$('.oper-hint').html='图片上传失败！';
+				$('.oper-hint').slideDown();//错误提示信息缓慢出现
+				setTimeout(function(){
+					$('.oper-hint').slideUp();
+				},3000);
 				$("#uploadImage_" + file.index).css("opacity", 0.2);
 			},
 			onComplete: function() {
@@ -508,14 +512,15 @@ angular.module('admin-controller',[])
 				$("#fileSubmit").hide();
 				//file控件value置空
 				$("#fileImage").val("");
-				$("#uploadInf").append("<p>当前图片全部上传完毕，可继续添加上传。</p>");
+				//$("#uploadInf").append("<p>当前图片全部上传完毕，可继续添加上传。</p>");
 			}
 		};
 		ZXXFILE = $.extend(ZXXFILE, params);
 		ZXXFILE.init();
     })
-    .controller('weSearchCtrl',function($scope){
-    	var params = {
+    .controller('weSearchCtrl',function($scope,$http){
+		$scope.admin={imgsUrl:''};//保存上传图片的URL
+		var params = {
 			fileInput: $("#fileImage").get(0),
 			dragDrop: $("#fileDragArea").get(0),
 			upButton: $("#fileSubmit").get(0),
@@ -526,12 +531,12 @@ angular.module('admin-controller',[])
 				for (var i = 0, file; file = files[i]; i++) {
 					if (file.type.indexOf("image") == 0) {
 						if (file.size >= 512000) {
-							alert('您这张"'+ file.name +'"图片大小过大，应小于500k');	
+							alert('您这张"'+ file.name +'"图片大小过大，应小于500k');
 						} else {
-							arrFiles.push(file);	
-						}			
+							arrFiles.push(file);
+						}
 					} else {
-						alert('文件"' + file.name + '"不是图片。');	
+						alert('文件"' + file.name + '"不是图片。');
 					}
 					upName=$('#fileImage').attr('name');
 					console.log(upName);
@@ -546,12 +551,12 @@ angular.module('admin-controller',[])
 					if (file) {
 						var reader = new FileReader()
 						reader.onload = function(e) {
-							html = html + '<div id="uploadList_'+ i +'" class="upload_append_list"><p><strong>' + file.name + '</strong>'+ 
+							html = html + '<div id="uploadList_'+ i +'" class="upload_append_list"><p><strong>' + file.name + '</strong>'+
 								'<a href="javascript:" class="upload_delete" title="删除" data-index="'+ i +'">删除</a><br />' +
-								'<img id="uploadImage_' + i + '" src="' + e.target.result + '" class="upload_image" /></p>'+ 
+								'<img id="uploadImage_' + i + '" src="' + e.target.result + '" class="upload_image" /></p>'+
 								'<span id="uploadProgress_' + i + '" class="upload_progress"></span>' +
-							'</div>';
-							
+								'</div>';
+
 							i++;
 							funAppendImage();
 						}
@@ -562,17 +567,17 @@ angular.module('admin-controller',[])
 							//删除方法
 							$(".upload_delete").click(function() {
 								ZXXFILE.funDeleteFile(files[parseInt($(this).attr("data-index"))]);
-								return false;	
+								return false;
 							});
 							//提交按钮显示
-							$("#fileSubmit").show();	
+							$("#fileSubmit").show();
 						} else {
 							//提交按钮隐藏
-							$("#fileSubmit").hide();	
+							$("#fileSubmit").hide();
 						}
 					}
 				};
-				funAppendImage();		
+				funAppendImage();
 			},
 			onDelete: function(file) {
 				$("#uploadList_" + file.index).fadeOut();
@@ -584,26 +589,27 @@ angular.module('admin-controller',[])
 				$(this).removeClass("upload_drag_hover");
 			},
 			onSuccess: function(file,response) {
-				$("#uploadInf").html("图片上传成功！");
-				var reData=JSON.parse(response);
-				$scope.bookOtherInfo.imgsUrl=reData.imagesURL;
-				console.log($scope.bookOtherInfo.imgsUrl);
-				if($scope.bookOtherInfo.imgsUrl.length==8){
-					$scope.verTrue[7]=true;
-					$('.img-hint').css('display','none');
-					$('.upload_choose').css('display','none');
-					$('.upload_submit').css('display','none');
-				}else{
-					$scope.verTrue[7]=false;
-					$('.img-hint').html('请只上传8张图片');
-					$('.img-hint').css('display','inline-block');
-					$('.upload_choose').css('display','block');
-					$('.upload_submit').css('display','inline-block');
-				}
-				console.log(response);
+				//$("#uploadInf").html("图片上传成功！");
+				//显示图片上传成功的提示
+				$('.oper-hint').html='图片上传成功！';
+				$('.oper-hint').slideDown();//错误提示信息缓慢出现
+				setTimeout(function(){
+					$('.oper-hint').slideUp();
+				},3000);
+				//TODO:得到大家都在搜后台返回的URL
+				console.log(response);//打印后台返回的响应数据
+				var reData=JSON.parse(response);//将后台返回的JSON字符串转换为JS对象
+				$scope.admin.imgsUrl=reData.imagesURL;//根据对象的属性得到所需的url
+				console.log($scope.admin.imgsUrl);//打印查看获得的URL是否正确
 			},
 			onFailure: function(file) {
-				$("#uploadInf").html("图片上传失败！");	
+				//$("#uploadInf").html("图片上传失败！");
+				//显示图片上传失败的提示
+				$('.oper-hint').html='图片上传失败！';
+				$('.oper-hint').slideDown();//错误提示信息缓慢出现
+				setTimeout(function(){
+					$('.oper-hint').slideUp();
+				},3000);
 				$("#uploadImage_" + file.index).css("opacity", 0.2);
 			},
 			onComplete: function() {
@@ -611,15 +617,41 @@ angular.module('admin-controller',[])
 				$("#fileSubmit").hide();
 				//file控件value置空
 				$("#fileImage").val("");
-				$("#uploadInf").append("<p>当前图片全部上传完毕，可继续添加上传。</p>");
+				//$("#uploadInf").append("<p>当前图片全部上传完毕，可继续添加上传。</p>");
 			}
 		};
 		ZXXFILE = $.extend(ZXXFILE, params);
 		ZXXFILE.init();
     })
-    .controller('editSmCateCtrl',function($scope){
-		//TODO: 从数据库获得书籍子类
-		$scope.smCate=['辅导书','试卷','教材','课外书'];
+    .controller('editSmCateCtrl',function($scope,$http){
+		//编辑子类的基础变量设置
+		$scope.smCates=[
+			{
+				smCateId:'1',
+				smCateName:'辅导书'
+			},
+			{
+				smCateId:'1',
+				smCateName:'辅导书'
+			},
+			{
+				smCateId:'1',
+				smCateName:'辅导书'
+			},
+			{
+				smCateId:'1',
+				smCateName:'辅导书'
+			}
+		];
+		//TODO: 从数据库获得书籍子类的id和名称
+		/*$http({
+			method:'POST',
+			url:'select-selectCategory.action',//分页的接口
+			data: 'category.categoryPId='+selectId,//传递给后台请求第几页的页码数
+			headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+		}).success(function(response){
+			console.log(response); //在此处查看返回的数据是否正确
+		});*/
 		console.log('希望好着的');
 		//为页面上的书籍大类添加点击事件
 		$('.bigCata>li').click(function(){
@@ -638,7 +670,15 @@ angular.module('admin-controller',[])
 			if($(this).hasClass('save-sm-cate')){
 				//当按钮显示的是保存时
 				$curInput.attr('readonly','true');
-				//TODO：向服务器提交数据
+				//TODO：向服务器提交修改的子类名称
+				/*$http({
+					method:'POST',
+					url:'select-selectCategory.action',//分页的接口
+					data: 'category.categoryPId='+selectId,//传递给后台请求第几页的页码数
+					headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+				}).success(function(response){
+					console.log(response); //在此处查看返回的数据是否正确
+				});*/
 				console.log(saveSmCateId);
 				$(this).html('保存成功');
 				$(this).css('cursor','default');
@@ -654,6 +694,14 @@ angular.module('admin-controller',[])
 		$('.delete-sm-cate').click(function(){
 			var deleteSmCateId=$(this).parent().parent().attr('data-smCatId');
 			//TODO:将被删除元素的id发给服务器，删除指定子类
+			/*$http({
+				method:'POST',
+				url:'select-selectCategory.action',//分页的接口
+				data: 'category.categoryPId='+selectId,//传递给后台请求第几页的页码数
+				headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+			}).success(function(response){
+				console.log(response); //在此处查看返回的数据是否正确
+			});*/
 			console.log(deleteSmCateId);
 			$(this).parent().parent().remove();
 
@@ -673,8 +721,244 @@ angular.module('admin-controller',[])
 			science:'',
 			tool:''
 		};
+		$scope.oper={hint:'添加成功，可继续添加！'};
 		//给添加添加点击事件
 		$('.add-sm-cate').click(function(){
-
+			console.log($(this)[0]);
+			var bigCatId=$(this).attr('data-id');
+			console.log(bigCatId);
+		});
+		//当输入框获得焦点时
+		$('.add-smCate-box input').focus(function(){
+			$('.add-smCate-box input').removeClass('highlight-input')
+			$(this).addClass('highlight-input');
+		});
+	})
+	.controller('accessShopCtrl',function($scope,$http){
+		$scope.oper={
+			hint:'添加成功，可继续添加！',
+			searchShop:''
+		};
+		//如下是写在页面上的变量（名称不可更改）
+		$scope.shop={degree:''};//店铺级别评定
+		//保存店铺评估后台返回的数据（应返回数组形式）
+		$scope.shopInfo=[
+			{
+				shopName:'你好吗',
+				userName:'哈哈',
+				userEmail:'2814234600@qq.com',
+				userId:'1'
+			},
+			{
+				shopName:'你好吗',
+				userName:'哈哈',
+				userEmail:'2814234600@qq.com',
+				userId:'1'
+			},
+			{
+				shopName:'你好吗',
+				userName:'哈哈',
+				userEmail:'2814234600@qq.com',
+				userId:'1'
+			},
+			{
+				shopName:'你好吗',
+				userName:'哈哈',
+				userEmail:'2814234600@qq.com',
+				userId:'1'
+			},
+			{
+				shopName:'你好吗',
+				userName:'哈哈',
+				userEmail:'2814234600@qq.com',
+				userId:'1'
+			},
+			{
+				shopName:'你好吗',
+				userName:'哈哈',
+				userEmail:'2814234600@qq.com',
+				userId:'1'
+			},
+			{
+				shopName:'你好吗',
+				userName:'哈哈',
+				userEmail:'2814234600@qq.com',
+				userId:'1'
+			},
+			{
+				shopName:'你好吗',
+				userName:'哈哈',
+				userEmail:'2814234600@qq.com',
+				userId:'1'
+			},
+			{
+				shopName:'你好吗',
+				userName:'哈哈',
+				userEmail:'2814234600@qq.com',
+				userId:'1'
+			},
+			{
+				shopName:'你好吗',
+				userName:'哈哈',
+				userEmail:'2814234600@qq.com',
+				userId:'1'
+			}
+		];//模拟后台返回的数据
+		//与分页相关的数据设定
+		$scope.paging={
+			totalNum:25,//数据的总条数
+			perNum:10,//每页显示数据的条数
+			totalNav:''//显示的导航数目
+		};
+		//获得用户在级别评估上选的级别
+		$('.shop-degree-box').change(function(){
+			$(".shop-degree-box option:selected").each(function () {
+				$scope.shop.degree= parseInt($(this).attr('data-id'));
+			});
+			console.log('级别：'+$scope.shop.degree);
+		});
+		//TODO:向后台数据库请求所有店铺信息
+		/*$http({
+			method:'GET',
+			url:'' //提供所有信息的接口
+		}).success(function(response){
+			console.log(response); //打印后台返回的数据
+			//TODO:在此应得到数据总条数,第一页的数据（每页展示10条数据），分页总数（分多少页,可以不需要）
+			//TODO:与分页相关的变量名称，在此页搜：与分页相关的数据设定
+		});*/
+		//调用分页页码插件，实现分页功能
+		$('.page-area').cypager({
+			pg_size:$scope.paging.perNum,
+			pg_nav_count:Math.ceil($scope.paging.totalNum/$scope.paging.perNum),
+			pg_total_count:$scope.paging.totalNum,
+			pg_prev_name:'前一页',
+			pg_next_name:'后一页',
+			pg_call_fun:function(count){
+				//此处应到数据库中拿数据
+				console.log('当前要请求第'+count+'页');
+				//TODO 根据商家点击不同的数字显示不同店铺的内容
+				/*$http({
+					method:'POST',
+					url:'select-selectCategory.action',//分页的接口
+					data: 'category.categoryPId='+selectId,//传递给后台请求第几页的页码数
+					headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+				}).success(function(response){
+					console.log(response); //在此处查看返回的数据是否正确
+				});*/
+			}
+		});
+	})
+	.controller('accessBookCtrl',function($scope,$http){
+		$scope.oper={
+			hint:'添加成功，可继续添加！',
+			searchBook:''
+		};
+		//如下是写在页面上的变量（名称不可更改）
+		$scope.book={degree:''};//店铺级别评定
+		//保存书籍评估后台返回的数据（应返回数组形式）
+		$scope.bookInfo=[
+			{
+				bookId:'1',
+				bookName:'散射光',
+				bookAuthor:'屈原',
+				bookApprove:23
+			},
+			{
+				bookId:'1',
+				bookName:'散射光',
+				bookAuthor:'屈原',
+				bookApprove:23
+			},
+			{
+				bookId:'1',
+				bookName:'散射光',
+				bookAuthor:'屈原',
+				bookApprove:23
+			},
+			{
+				bookId:'1',
+				bookName:'散射光',
+				bookAuthor:'屈原',
+				bookApprove:23
+			},
+			{
+				bookId:'1',
+				bookName:'散射光',
+				bookAuthor:'屈原',
+				bookApprove:23
+			},
+			{
+				bookId:'1',
+				bookName:'散射光',
+				bookAuthor:'屈原',
+				bookApprove:23
+			},
+			{
+				bookId:'1',
+				bookName:'散射光',
+				bookAuthor:'屈原',
+				bookApprove:23
+			},
+			{
+				bookId:'1',
+				bookName:'散射光',
+				bookAuthor:'屈原',
+				bookApprove:23
+			},
+			{
+				bookId:'1',
+				bookName:'散射光',
+				bookAuthor:'屈原',
+				bookApprove:23
+			},
+			{
+				bookId:'1',
+				bookName:'散射光',
+				bookAuthor:'屈原',
+				bookApprove:23
+			}
+		];//模拟后台返回的数据
+		//与分页相关的数据设定
+		$scope.paging={
+			totalNum:25,//数据的总条数
+			perNum:10,//每页显示数据的条数
+			totalNav:''//显示的导航数目
+		};
+		//获得用户在级别评估上选的级别
+		$('.book-degree-box').change(function(){
+			$(".book-degree-box option:selected").each(function () {
+				$scope.book.degree= parseInt($(this).attr('data-id'));
+			});
+			console.log('级别：'+$scope.book.degree);
+		});
+		//TODO:向后台数据库请求所有书籍信息
+		/*$http({
+		 method:'GET',
+		 url:'' //提供所有信息的接口
+		 }).success(function(response){
+		 console.log(response); //打印后台返回的数据
+		 //TODO:在此应得到数据总条数,第一页的数据（每页展示10条数据），分页总数（分多少页,可以不需要）
+		 //TODO:与分页相关的变量名称，在此页搜：与分页相关的数据设定
+		 });*/
+		//调用分页页码插件，实现分页功能
+		$('.page-area').cypager({
+			pg_size:$scope.paging.perNum,
+			pg_nav_count:Math.ceil($scope.paging.totalNum/$scope.paging.perNum),
+			pg_total_count:$scope.paging.totalNum,
+			pg_prev_name:'前一页',
+			pg_next_name:'后一页',
+			pg_call_fun:function(count){
+				//此处应到数据库中拿数据
+				console.log('当前要请求第'+count+'页');
+				//TODO 根据商家点击不同的数字显示不同书籍的内容
+				/*$http({
+				 method:'POST',
+				 url:'select-selectCategory.action',//分页的接口
+				 data: 'category.categoryPId='+selectId,//传递给后台请求第几页的页码数
+				 headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+				 }).success(function(response){
+				 	console.log(response); //在此处查看返回的数据是否正确
+				 });*/
+			}
 		});
 	});

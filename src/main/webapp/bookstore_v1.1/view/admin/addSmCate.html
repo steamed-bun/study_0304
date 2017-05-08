@@ -12,22 +12,76 @@
                 <tr>
                     <td>教育</td>
                     <td><input type="text" ng-model="smCate.edu"/></td>
-                    <td><span class="add-sm-cate">添加</span></td>
+                    <td><span class="add-sm-cate"  data-id="1">添加</span></td>
                 </tr>
                 <tr>
                     <td>小说</td>
                     <td><input type="text" ng-model="smCate.novel"/></td>
-                    <td><span class="add-sm-cate">添加</span></td>
+                    <td><span class="add-sm-cate"  data-id="2">添加</span></td>
                 </tr>
                 <tr>
                     <td>文艺</td>
-                    <td><input type="text" ng-model="smCate.liter"/></td>
-                    <td><span class="add-sm-cate">添加</span></td>
+                    <td><input type="text" ng-model="smCate.liter" /></td>
+                    <td><span class="add-sm-cate" data-id="3">添加</span></td>
+                </tr>
+                <tr>
+                    <td>青春</td>
+                    <td><input type="text" ng-model="smCate.youth" /></td>
+                    <td><span class="add-sm-cate" data-id="4">添加</span></td>
+                </tr>
+                <tr>
+                    <td>童书</td>
+                    <td><input type="text" ng-model="smCate.child" /></td>
+                    <td><span class="add-sm-cate" data-id="5">添加</span></td>
+                </tr>
+                <tr>
+                    <td>生活</td>
+                    <td><input type="text" ng-model="smCate.life" /></td>
+                    <td><span class="add-sm-cate" data-id="6">添加</span></td>
+                </tr>
+                <tr>
+                    <td>人文社科</td>
+                    <td><input type="text" ng-model="smCate.human" /></td>
+                    <td><span class="add-sm-cate" data-id="7">添加</span></td>
+                </tr>
+                <tr>
+                    <td>经管</td>
+                    <td><input type="text" ng-model="smCate.charge" /></td>
+                    <td><span class="add-sm-cate" data-id="8">添加</span></td>
+                </tr>
+                <tr>
+                    <td>励志</td>
+                    <td><input type="text" ng-model="smCate.inspire"/></td>
+                    <td><span class="add-sm-cate"  data-id="9">添加</span></td>
+                </tr>
+                <tr>
+                    <td>科技</td>
+                    <td><input type="text" ng-model="smCate.science"/></td>
+                    <td><span class="add-sm-cate"  data-id="10">添加</span></td>
+                </tr>
+                <tr>
+                    <td>工具书</td>
+                    <td><input type="text" ng-model="smCate.tool" /></td>
+                    <td><span class="add-sm-cate" data-id="11">添加</span></td>
                 </tr>
             </tbody>
     </table>
+    <span class="oper-hint">{{oper.hint}}</span>
 </div>
 <style>
+    .oper-hint{
+        position:fixed;
+        top:50px;
+        left:650px;
+        width:240px;
+        height:50px;
+        line-height: 50px;
+        color:#FFF;
+        background:#E78170;
+        text-align: center;
+        border-radius: 3px;
+        font-size:18px;
+    }
     .recom-box{
         width:100%;
         height:100%;
@@ -71,5 +125,8 @@
     }
     .add-smCate-box>tbody span:hover{
         text-decoration: underline;
+    }
+    .highlight-input{
+        border:#03A9F4 solid 1px;
     }
 </style>

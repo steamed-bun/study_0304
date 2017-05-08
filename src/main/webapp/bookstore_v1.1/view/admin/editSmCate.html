@@ -21,26 +21,16 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr data-smCatId="1">
+			<tr ng-repeat="smCate in smCates" data-smCatId="{{smCate.smCateId}}">
+				<td><input type="text"  readonly="true"  ng-model="smCate.smCateName" /></td>
+				<td><span class="edit-sm-cate">编辑</span></td>
+				<td><span class="delete-sm-cate">删除</span></td>
+			</tr>
+			<!--<tr data-smCatId="1">
 				<td><input type="text"  readonly="true"  ng-model="smCate[0]" /></td>
 				<td><span class="edit-sm-cate">编辑</span></td>
 				<td><span class="delete-sm-cate">删除</span></td>
-			</tr>
-			<tr data-smCatId="2">
-				<td><input type="text" readonly="true" ng-model="smCate[1]"/></td>
-				<td><span class="edit-sm-cate">编辑</span></td>
-				<td><span class="delete-sm-cate">删除</span></td>
-			</tr>
-			<tr data-smCatId="3">
-				<td><input type="text" readonly="true" ng-model="smCate[2]"/></td>
-				<td><span class="edit-sm-cate">编辑</span></td>
-				<td><span class="delete-sm-cate">删除</span></td>
-			</tr>
-			<tr data-smCatId="4">
-				<td><input type="text" readonly="true" ng-model="smCate[3]"/></td>
-				<td><span class="edit-sm-cate">编辑</span></td>
-				<td><span class="delete-sm-cate">删除</span></td>
-			</tr>
+			</tr>-->
 		</tbody>
 	</table>
 </div>
@@ -102,5 +92,8 @@
 	}
 	.bigCata>li:first-child{
 		background:rgb(18, 107, 22);
+	}
+	.highlight-input{
+		border:#03A9F4 solid 1px;
 	}
 </style>

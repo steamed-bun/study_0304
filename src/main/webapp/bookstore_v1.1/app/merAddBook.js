@@ -213,7 +213,7 @@
 				for(var key in $scope.book){
 					postData+='book.'+key+'='+$scope.book[key]+'&';
 				}
-				postData+='book.category.categoryId='+$scope.bookOtherInfo.smallCateId+'&book.summary='+$scope.bookOtherInfo.summeryUrl+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[0]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[1]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[2]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[3]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[4]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[5]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[6]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[7];
+				postData+='book.category.categoryId='+$scope.bookOtherInfo.smallCateId+'&book.summary='+$scope.bookOtherInfo.summeryUrl+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[0]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[1]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[2]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[3]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[4]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[5]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[6]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[7]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[8];
 				console.log(postData);
 				$http({
 					method:'POST',
@@ -317,7 +317,7 @@
 							$('.price-hint').css('display','none');
 						}else{
 							//当格式不符合要求
-							$('.price-hint').html('价格应为数字！');
+							$('.price-hint').html('价格格式不正确！');
 							$('.price-hint').css('display','inline-block');
 							$scope.verTrue[1]=false;
 						}

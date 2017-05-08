@@ -118,11 +118,11 @@ angular.module('admin',['ngRoute','admin-controller'])
 			})
 			.when('/accessShop',{
 				templateUrl:'view/admin/accessShop.html',
-				//controller:'accessShopCtrl'
+				controller:'accessShopCtrl'
 			})
 			.when('/accessBook',{
 				templateUrl:'view/admin/accessBook.html',
-				//controller:'accessBookCtrl'
+				controller:'accessBookCtrl'
 			})
 			.when('/editSmCate',{
 				templateUrl:'view/admin/editSmCate.html',

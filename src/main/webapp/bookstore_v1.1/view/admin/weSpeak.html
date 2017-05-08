@@ -17,25 +17,39 @@
 			</div>
 		</form>
 	</div>
+	<span class="oper-hint"></span>
 </div>
 <style>
+	.oper-hint{
+		position:fixed;
+		top:50px;
+		left:650px;
+		width:240px;
+		height:50px;
+		line-height: 50px;
+		color:#FFF;
+		background:#E78170;
+		text-align: center;
+		border-radius: 3px;
+		font-size:18px;
+		display:none;
+	}
 	.recom-box{
 		width:100%;
         height:100%;
-        padding:20px;
+        padding:20px 20px 20px 60px;
 	}
 	.recom-title{
 		font-size:24px;
 		line-height:40px;
 		color:#4CAF50;
-		padding-left:40px;
-		padding-top:30px;
+		padding:10px 0 20px 0;
 	}
 	/* 与多图片上传相关开始 */
-	.upload_box{width:700px; margin:30px auto 1em 40px;}
+	.upload_box{width:1110px; margin:0;}
 	.upload_main{border-width:1px 1px 2px; border-style:solid; border-color:#ccc #ccc #ddd; background-color:#fbfbfb;border-radius:3px;}
-	.upload_choose{padding:1em;}
-	.upload_drag_area{display:inline-block; width:58%; padding:4em 0; margin-left:.5em; border:1px dashed #ddd; background:#fff url(./images/drag.png) no-repeat 20px center; color:#999; text-align:center; vertical-align:middle;}
+	.upload_choose{padding:1em 1em 1em 2em;}
+	.upload_drag_area{display:inline-block; width:58%; padding:4em 0; margin-left:12.5em; border:1px dashed #ddd; background:#fff url(./images/drag.png) no-repeat 174px center; color:#999; text-align:center; vertical-align:middle;}
 	.upload_drag_hover{border-color:#069; box-shadow:inset 2px 2px 4px rgba(0, 0, 0, .5); color:#333;}
 	.upload_preview{border-top:1px solid #bbb; border-bottom:1px solid #bbb; background-color:#fff; overflow:hidden; _zoom:1;}
 	.upload_append_list{height:300px; padding:0 1em; float:left; position:relative;}
@@ -50,5 +64,10 @@
 		margin-left:30px;
 		color:#ea6f5a;
 	}
-/* 与多图片上传相关结束 */
+	/*与多图片上传相关结束 */
+	.book-img-box{
+		width:100%;
+		height:500px;
+		overflow-y:auto;
+	}
 </style>

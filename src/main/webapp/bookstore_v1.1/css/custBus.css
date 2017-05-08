@@ -141,6 +141,9 @@
 .custBus-items>li:hover{
 	color:#B4A078;
 }
+.highlight-oper{
+	color:#B4A078 !important;
+}
 /*更换头像开始*/
 .cust-box-addi{
 	position:fixed;

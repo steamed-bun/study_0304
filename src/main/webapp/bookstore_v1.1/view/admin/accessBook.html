@@ -1,5 +1,8 @@
 <div class="recom-box">
-	<h3 class="recom-title">请在店铺的书籍后面标识其质量</h3>
+	<div class="title-box clearfix">
+		<p class="recom-title fl">请在店铺的书籍后面标识其质量</p>
+		<p class="search-area fl"><span class="save-info">保存</span><input type="text" placeholder="请输入信息进行查询" ng-model="oper.searchBook"/><i></i></p>
+	</div>
 	<div class="table-box">
 		<table class="info-box">
 			<thead>
@@ -12,7 +15,20 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
+				<tr ng-repeat="book in bookInfo">
+					<td>{{book.bookId}}</td>
+					<td>{{book.bookName}}</td>
+					<td>{{book.bookAuthor}}</td>
+					<td>{{book.bookApprove}}</td>
+					<td>
+						<select>
+							<option>-请选择-</option>
+							<option>良品</option>
+							<option>非良品</option>
+						</select>
+					</td>
+				</tr>
+				<!--<tr>
 					<td>03131099</td>
 					<td>三生三世十里桃花</td>
 					<td>溜溜转</td>
@@ -24,51 +40,62 @@
 							<option>非良品</option>
 						</select>
 					</td>
-				</tr>
-				<tr>
-					<td>03131099</td>
-					<td>三生三世十里桃花</td>
-					<td>溜溜转</td>
-					<td>34</td>
-					<td>
-						<select>
-							<option>-请选择-</option>
-							<option>良品</option>
-							<option>非良品</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td>03131099</td>
-					<td>三生三世十里桃花</td>
-					<td>溜溜转</td>
-					<td>34</td>
-					<td>
-						<select>
-							<option>-请选择-</option>
-							<option>良品</option>
-							<option>非良品</option>
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td>03131099</td>
-					<td>三生三世十里桃花</td>
-					<td>溜溜转</td>
-					<td>34</td>
-					<td>
-						<select>
-							<option>-请选择-</option>
-							<option>良品</option>
-							<option>非良品</option>
-						</select>
-					</td>
-				</tr>
+				</tr>-->
 			</tbody>
 		</table>
 	</div>
+	<span class="oper-hint">{{oper.hint}}</span>
+	<div class="page-area"></div>
 </div>
 <style>
+	.oper-hint{
+		position:fixed;
+		top:50px;
+		left:650px;
+		width:240px;
+		height:50px;
+		line-height: 50px;
+		color:#FFF;
+		background:#E78170;
+		text-align: center;
+		border-radius: 3px;
+		font-size:18px;
+	}
+	.title-box{
+		padding:0 30px 0 40px;
+	}
+	.search-area{
+		position:relative;
+		top:60px;
+		height:32px;
+		width:280px;
+		margin-left:483px;
+		background:#FFF;
+		border-radius: 5px;
+	}
+	.search-area>input{
+		height:100%;
+		width:240px;
+		border-bottom-left-radius: 5px;
+		border-top-left-radius: 5px;
+		padding:5px 10px;
+	}
+	.search-area>i{
+		position: absolute;
+		top:4px;
+		right:5px;
+		height:24px;
+		width:24px;
+		background:#FFF url("./images/search.png") right center no-repeat;
+		cursor:pointer;
+		border-bottom-right-radius: 5px;
+		border-top-right-radius: 5px;
+		background-size:contain;
+	}
+	.search-area>i:hover{
+		background:#FFF url("./images/search-light.png") right center no-repeat;
+		background-size:contain;
+	}
 	.recom-box{
 		width:100%;
         height:100%;
@@ -78,15 +105,13 @@
 		font-size:24px;
 		line-height:40px;
 		color:#4CAF50;
-		padding-left:40px;
-		padding-top:30px;
 	}
 	.table-box{
-		margin-top:30px;
+		margin-top:60px;
 		width:1100px;
-		height:500px;
+		/*height:470px;*/
 		margin-left:40px;
-		overflow-y: auto;
+		overflow: hidden;
 	}
 	.info-box{
 		width:100%;
@@ -116,4 +141,38 @@
 		padding:2px 20px 5px 2px;
 		cursor:pointer;
 	}
+	.save-info{
+		position:absolute;
+		left:-819px;
+		top:0;
+		width:80px;
+		height:32px;
+		line-height: 32px;
+		background:rgba(76, 175, 80, 0.74);
+		color:#fff;
+		text-align: center;
+		border-radius: 3px;
+		cursor:pointer;
+	}
+	.save-info:hover{
+		background:rgb(18, 107, 22);
+	}
+	/* 与分页页码插件相关开始 */
+	.page-area{
+		margin:20px 0 0 40px;
+		width:1100px;
+		height:32px;
+		text-align: center;
+	}
+	.pager{
+		display:inline-block;
+	}
+	.pager li{
+		line-height:16px;
+	}
+	.pager li.pg-selected{
+		border:#a1c1c0  solid 1px;
+		background:#ddbea1 ;
+	}
+	/* 与分页页码插件相关结束 */
 </style>

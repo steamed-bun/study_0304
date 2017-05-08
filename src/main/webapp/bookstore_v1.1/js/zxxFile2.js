@@ -77,13 +77,16 @@ var ZXXFILE = {
 			return;	
 		}
 		console.log(this.fileFilter.length);
-		if(this.fileFilter.length>9){
-			$('.img-hint').html('只能上传9张图片');
-			$('.img-hint').css('display','inline-block');
-			$("#uploadInf").html("图片上传失败！");
+		if(this.fileFilter.length>5){
+			$('.oper-hint').html('只能上传5张图片');
+			$('.oper-hint').slideDown();//错误提示信息缓慢出现
+			setTimeout(function(){
+				$('.oper-hint').slideUp();
+			},3000);
+			//$("#uploadInf").html("图片上传失败！");
 			return 'length error';
 		}else{
-			$('.img-hint').css('display','none');
+			$('.oper-hint').css('display','none');
 		}
 		for (var i = 0, file; file = this.fileFilter[i]; i++) {
 			(function(file) {
