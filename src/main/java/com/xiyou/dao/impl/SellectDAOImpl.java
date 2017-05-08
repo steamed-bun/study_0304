@@ -7,13 +7,14 @@ import com.xiyou.domain.County;
 import com.xiyou.domain.Province;
 import org.springframework.stereotype.Repository;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Repository
 public class SellectDAOImpl extends BaseDAOImpl implements SellectDAO{
 
     @Override
-    public void deleteCategory(Integer categoryId) {
+    public void deleteCategory (Integer categoryId) throws Exception{
         String hql = "DELETE Category c WHERE c.categoryId = :categoryId";
         getSession().createQuery(hql).setInteger("categoryId", categoryId).executeUpdate();
     }

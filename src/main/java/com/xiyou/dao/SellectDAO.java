@@ -5,6 +5,7 @@ import com.xiyou.domain.City;
 import com.xiyou.domain.County;
 import com.xiyou.domain.Province;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface SellectDAO {
@@ -14,7 +15,7 @@ public interface SellectDAO {
      * 删除子类
      * @param categoryId categoryId
      */
-    void deleteCategory(Integer categoryId);
+    void deleteCategory(Integer categoryId) throws Exception;
 
     /**
      * 已测

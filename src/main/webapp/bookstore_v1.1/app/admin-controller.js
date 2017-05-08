@@ -382,7 +382,7 @@ angular.module('admin-controller',[])
 			onSuccess: function(file,response) {
 				//$("#uploadInf").html("图片上传成功！");
 				//显示图片上传成功的提示
-				$('.oper-hint').html='图片上传成功！';
+				$('.oper-hint').html('图片上传成功！');
 				$('.oper-hint').slideDown();//错误提示信息缓慢出现
 				setTimeout(function(){
 					$('.oper-hint').slideUp();
@@ -396,7 +396,7 @@ angular.module('admin-controller',[])
 			onFailure: function(file) {
 				//$("#uploadInf").html("图片上传失败！");	
 				//显示图片上传失败的提示
-				$('.oper-hint').html='图片上传失败！';
+				$('.oper-hint').html('图片上传成功！');
 				$('.oper-hint').slideDown();//错误提示信息缓慢出现
 				setTimeout(function(){
 					$('.oper-hint').slideUp();
@@ -488,7 +488,7 @@ angular.module('admin-controller',[])
 			onSuccess: function(file,response) {
 				//$("#uploadInf").html("图片上传成功！");
 				//显示图片上传成功的提示
-				$('.oper-hint').html='图片上传成功！';
+				$('.oper-hint').html('图片上传成功！');
 				$('.oper-hint').slideDown();//错误提示信息缓慢出现
 				setTimeout(function(){
 					$('.oper-hint').slideUp();
@@ -594,7 +594,7 @@ angular.module('admin-controller',[])
 			onSuccess: function(file,response) {
 				//$("#uploadInf").html("图片上传成功！");
 				//显示图片上传成功的提示
-				$('.oper-hint').html='图片上传成功！';
+				$('.oper-hint').html('图片上传成功!');
 				$('.oper-hint').slideDown();//错误提示信息缓慢出现
 				setTimeout(function(){
 					$('.oper-hint').slideUp();
@@ -628,134 +628,110 @@ angular.module('admin-controller',[])
     })
     .controller('editSmCateCtrl',function($scope,$http){
 		//编辑子类的基础变量设置
-		$scope.smCates=[
-			{
-				categoryId:'1',
-				categoryName:'辅导书'
-			},
-			{
-				categoryId:'1',
-				categoryName:'辅导书'
-			},
-			{
-				categoryId:'1',
-				categoryName:'辅导书'
-			},
-			{
-				categoryId:'1',
-				categoryName:'辅导书'
-			},
-		];
-		//TODO: 从数据库获得书籍子类的id和名称
-		$http({
-			method:'POST',
-			url:'select-selectCategory.action',//分页的接口
-			data: 'category.categoryPId='+1,//传递给后台请求第几页的页码数
-			headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-		}).success(function(response){
-			console.log(response); //在此处查看返回的数据是否正确
+		$scope.smCates=[];
+		//获取书籍大类的子类
+		var getSmallCate=function (cateId){
+			postData='category.categoryPId='+cateId;
+			return   $http({
+				method:'POST',
+				url:'select-selectCategory.action',
+				data:postData,//已序列化用户输入的数据
+				headers:{'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+			}).then(function(response){
+				console.log(response); //打印响应数据（采用then方法获得的响应数据比用success方法获得的响应数据信息多）
+				return response.data;//将响应数据的data属性值返回
+			});
+		};
+		//页面一加载显示教育的子类
+		getSmallCate('1').then(function(data){
+			data=data.categories;
+			for(var i=0;i<data.length;i++){
+				var smallCate={};
+				smallCate.categoryId=data[i].categoryId;
+				smallCate.categoryName=data[i].categoryName;
+				$scope.smCates.push(smallCate);
+			}
 		});
-		console.log('希望好着的');
 		//为页面上的书籍大类添加点击事件
 		$('.bigCata>li').click(function(){
 			var curCataId=$(this).attr('data-id');
+			$scope.smCates=[];
+			//请求指定大类的子类
+			getSmallCate(curCataId).then(function(data){
+				data=data.categories;
+				for(var i=0;i<data.length;i++){
+					var smallCate={};
+					smallCate.categoryId=data[i].categoryId;
+					smallCate.categoryName=data[i].categoryName;
+					$scope.smCates.push(smallCate);
+				}
+			});
 			$('.bigCata>li').css('background','rgba(76, 175, 80, 0.74)');
 			$(this).css('background','rgb(18, 107, 22)');
 			console.log(curCataId);
 		});
 		//给修改添加点击事件
-		$scope.editSmate=function(){
-			/*if($(this).html()=='保存成功'){
+		$scope.editSmate=function($event){
+			var $curElem=$($event.target);
+			if($curElem.html()=='保存成功'){
 				return;
 			}
-			var saveSmCateId=$(this).parent().parent().attr('data-smCatId');
-			var $curInput=$(this).parent().parent().children(0).children(0);//获得当前行的input标签
-			if($(this).hasClass('save-sm-cate')){
-				//当按钮显示的是保存时
-				$curInput.attr('readonly','true');*/
-				//TODO：向服务器提交修改的子类名称
-				$http({
-					method:'POST',
-					url:'select-updateCategory.action',//分页的接口
-					data: 'category.categoryId=9&category.categoryName=haha',//传递给后台请求第几页的页码数
-					headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-				}).success(function(response){
-					console.log(response); //在此处查看返回的数据是否正确
-				});
-			/*
-				console.log(saveSmCateId);
-				$(this).html('保存成功');
-				$(this).css('cursor','default');
-				$(this).removeClass('save-sm-cate');
-			}else{
-				当按钮显示的是编辑时
-				$curInput.removeAttr('readonly');
-				$(this).html('保存');
-				$(this).addClass('save-sm-cate');
-			}*/
-		};
-
-		/*$('.edit-sm-cate').click(function(){
-			if($(this).html()=='保存成功'){
-				return;
-			}
-			var saveSmCateId=$(this).parent().parent().attr('data-smCatId');
-			var $curInput=$(this).parent().parent().children(0).children(0);//获得当前行的input标签
-			if($(this).hasClass('save-sm-cate')){
+			var saveSmCateId=$curElem.parent().parent().attr('data-smCatId');
+			var $curInput=$curElem.parent().parent().children(0).children(0);//获得当前行的input标签
+			var postData='';
+			console.log(postData);
+			if($curElem.hasClass('save-sm-cate')){
 				//当按钮显示的是保存时
 				$curInput.attr('readonly','true');
-				//TODO：向服务器提交修改的子类名称
+				postData='category.categoryId='+saveSmCateId+'&category.categoryName='+$curInput.val();
+				//向服务器提交修改的子类名称和子类id
 				$http({
 					method:'POST',
-					url:'select-updateCategory.action',//分页的接口
-					data: 'category.categoryId=9&category.categoryName=haha',//传递给后台请求第几页的页码数
+					url:'select-updateCategory.action',
+					data: postData,
 					headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
 				}).success(function(response){
-					console.log(response); //在此处查看返回的数据是否正确
+					//console.log(response); //在此处查看返回的数据是否正确
+					if(response.status){
+						$curElem.html('保存成功');
+						$curElem.css('cursor','default');
+						$curElem.removeClass('save-sm-cate');
+					}
 				});
-				console.log(saveSmCateId);
-				$(this).html('保存成功');
-				$(this).css('cursor','default');
-				$(this).removeClass('save-sm-cate');
 			}else{
 				//当按钮显示的是编辑时
 				$curInput.removeAttr('readonly');
-				$(this).html('保存');
-				$(this).addClass('save-sm-cate');
+				$curElem.html('保存');
+				$curElem.addClass('save-sm-cate');
 			}
-		});*/
-		//给删除添加点击事件
-		$scope.deleteSmate=function(){
-			//var deleteSmCateId=$(this).parent().parent().attr('data-smCatId');
-			//TODO:将被删除元素的id发给服务器，删除指定子类
-			$http({
-				method:'POST',
-				url:'select-deleteCategory.action',//分页的接口
-				data: 'category.categoryId=9',//传递给后台请求第几页的页码数
-				headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-			}).success(function(response){
-				console.log(response); //在此处查看返回的数据是否正确
-			});
-			//console.log(deleteSmCateId);
-			//$(this).parent().parent().remove();
 		};
-		/*$('.delete-sm-cate').click(function(){
-			var deleteSmCateId=$(this).parent().parent().attr('data-smCatId');
-			//TODO:将被删除元素的id发给服务器，删除指定子类
+		//给删除添加点击事件
+		$scope.deleteSmate=function($event){
+			var $curElem=$($event.target);
+			var deleteSmCateId=$curElem.parent().parent().attr('data-smCatId');
+			var postData='category.categoryId='+deleteSmCateId;
+			//将被删除元素的id发给服务器，删除指定子类
 			$http({
 				method:'POST',
-				url:'select-deleteCategory.action',//分页的接口
-				data: 'category.categoryId=9',//传递给后台请求第几页的页码数
+				url:'select-deleteCategory.action',
+				data: postData,
 				headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
 			}).success(function(response){
 				console.log(response); //在此处查看返回的数据是否正确
+				if(response.noDelete=='noDelete'){
+					$('.oper-hint').html('正在使用，不能删除！');
+				}else{
+					$('.oper-hint').html('删除成功！');
+					$curElem.parent().parent().remove();
+				}
+				$('.oper-hint').slideDown();//错误提示信息缓慢出现
+				setTimeout(function(){
+					$('.oper-hint').slideUp();
+				},3000);
 			});
-			console.log(deleteSmCateId);
-			$(this).parent().parent().remove();
-
-		});*/
+		};
     })
-	.controller('addSmCateCtrl',function($scope){
+	.controller('addSmCateCtrl',function($scope,$http){
 		$scope.smCate={
 			edu:'',
 			novel:'',
@@ -769,12 +745,64 @@ angular.module('admin-controller',[])
 			science:'',
 			tool:''
 		};
-		$scope.oper={hint:'添加成功，可继续添加！'};
+		$scope.oper={hint:''};
 		//给添加添加点击事件
 		$('.add-sm-cate').click(function(){
 			console.log($(this)[0]);
-			var bigCatId=$(this).attr('data-id');
+			var bigCatId=parseInt($(this).attr('data-id'));
+			var inputData='';//添加的子类名称
+			switch(bigCatId){
+				case 1:
+					inputData=$scope.smCate.edu;
+					break;
+				case 2:
+					inputData=$scope.smCate.novel;
+					break;
+				case 3:
+					inputData=$scope.smCate.liter;
+					break;
+				case 4:
+					inputData=$scope.smCate.youth;
+					break;
+				case 5:
+					inputData=$scope.smCate.child;
+					break;
+				case 6:
+					inputData=$scope.smCate.life;
+					break;
+				case 7:
+					inputData=$scope.smCate.human;
+					break;
+				case 8:
+					inputData=$scope.smCate.charge;
+					break;
+				case 9:
+					inputData=$scope.smCate.inspire;
+					break;
+				case 10:
+					inputData=$scope.smCate.science;
+					break;
+				case 11:
+					inputData=$scope.smCate.tool;
+					break;
+			}
+			var postData='category.categoryPId='+bigCatId+'&category.categoryName='+inputData;
 			console.log(bigCatId);
+			$http({
+				method:'POST',
+				url:'select-saveCategory.action',
+				data: postData,
+				headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+			}).success(function(response){
+				console.log(response); //在此处查看返回的数据是否正确
+				if(response.status=='yes'){
+					$scope.oper.hint='添加成功，可继续添加！';
+					$('.oper-hint').slideDown();//错误提示信息缓慢出现
+					setTimeout(function(){
+						$('.oper-hint').slideUp();
+					},3000);
+				}
+			});
 		});
 		//当输入框获得焦点时
 		$('.add-smCate-box input').focus(function(){

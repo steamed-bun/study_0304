@@ -26,7 +26,7 @@ public class UpLoadAction extends ActionSupport implements SessionAware{
 	private static final String SELLER_WEIXIN_DirURL = "D:/soft_tool/tomcat/apache-tomcat-8.5.13/webapps/study/shopImage/";
 	private static final String BOOK_IMAGES_DirURL = "D:/soft_tool/tomcat/apache-tomcat-8.5.13/webapps/study/book_Images/";
     private static final String USER_IMAGE_DirURL = "D:/soft_tool/tomcat/apache-tomcat-8.5.13/webapps/study/userImage/";
-    private static final String RECOMMEND_IMAGES_DirURL = "F:/tomcat8.0/webapps/study/recommend/";
+    private static final String RECOMMEND_IMAGES_DirURL = "D:/soft_tool/tomcat/apache-tomcat-8.5.13/webapps/study/recommend/";
     private static final String BOOK_IMAGES_UEL = "http://localhost:8080/study/book_Images/";
 
 	@Autowired
