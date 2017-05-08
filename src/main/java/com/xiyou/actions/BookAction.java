@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.xiyou.domain.BookImages;
 import com.xiyou.domain.Category;
+import com.xiyou.service.ShopService;
 import com.xiyou.util.BookStoreWebUtils;
 import org.apache.struts2.interceptor.SessionAware;
 
@@ -28,6 +29,9 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 
 	@Autowired
 	private BookService bookService;
+
+	@Autowired
+	private ShopService shopService;
 
 	private Map<String, Object> dataMap;
 	private Map<String, Object> session;
@@ -91,7 +95,8 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 	public String getBookById(){
 		dataMap = BookStoreWebUtils.getDataMap(session);
         book = bookService.getBookById(book);
-		book.setShop(null);
+		Shop shop  = shopService.getShopById(book.getShop().getShopId());
+		book.setShop(shop);
 		Category category = bookService.getCategoryById(book.getCategory().getCategoryPId());
 		dataMap.put("category", category);
         dataMap.put("book",book);

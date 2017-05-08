@@ -170,6 +170,12 @@
 			</result>
 		</action>
 
+		<action name="address-*" class="addressAction" method="{1}">
+			<result name="success" type="json">
+				<param name="root">dataMap</param>
+			</result>
+		</action>
+
     </package>
 
 </struts>

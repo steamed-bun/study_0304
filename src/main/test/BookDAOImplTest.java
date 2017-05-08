@@ -108,7 +108,7 @@ public class BookDAOImplTest {
     @Transactional
     @Test
     public void TestAddBook(){
-        Shop shop = shopDAO.getShopByShopId("26");
+        Shop shop = shopDAO.selectShop("26");
         Book book = new Book();
         Set<BookImages> images = new HashSet<BookImages>(8);
         images.add(new BookImages(null,"dajdsk",null));

@@ -20,6 +20,13 @@ public class ShopDAOImplTest {
 
     @Test
     @Transactional
+    public void testGetShoppById() throws Exception {
+        System.out.println(shopDAO.getShopById(1));
+    }
+
+
+    @Test
+    @Transactional
     public void testUpdateShopGrade() throws Exception {
         shopDAO.updateShopGrade(25, 3);
     }

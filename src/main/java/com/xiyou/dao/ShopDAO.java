@@ -1,11 +1,15 @@
 package com.xiyou.dao;
 
-import com.xiyou.domain.Book;
 import com.xiyou.domain.Shop;
 
-import java.util.List;
-
 public interface ShopDAO {
+
+	/**
+	 * 书本详情页所需部分shop信息
+	 * @param shopId
+	 * @return
+     */
+	Shop getShopById(Integer shopId);
 
 	/**
 	 * 已测
@@ -31,13 +35,6 @@ public interface ShopDAO {
 	 * @param shop
      */
 	void addShop(Shop shop);
-	
-	/**
-	 * 鏌ユ壘Shop閫氳繃shopId
-	 * @param shopId
-	 * @return
-	 */
-	Shop getShopByShopId(String shopId);
 
 	Shop selectShop(String shopId);
 

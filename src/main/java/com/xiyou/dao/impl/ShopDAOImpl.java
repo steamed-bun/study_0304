@@ -13,6 +13,14 @@ public class ShopDAOImpl extends BaseDAOImpl implements ShopDAO {
 	private static final String SHOP_IMAGE_URL = "http://localhost:8080/study/shopImage/";
 
 	@Override
+	public 	Shop getShopById(Integer shopId){
+		String hql = "SELECT new Shop (s.shopId, s.shopName, s.shopGrade) FROM Shop s " +
+				"WHERE s.shopId = :shopId";
+		Shop shop = (Shop) getSession().createQuery(hql).setInteger("shopId", shopId).uniqueResult();
+		return shop;
+	}
+
+	@Override
 	public void updateShopGrade(Integer shopId, Integer shopGrade) {
 		String hql = "UPDATE Shop s SET s.shopGrade = :shopGrade " +
 				"WHERE s.shopId = :shopId";
@@ -40,18 +48,7 @@ public class ShopDAOImpl extends BaseDAOImpl implements ShopDAO {
 	}
 
 	@Override
-	public Shop getShopByShopId(String shopId) {
-		String hql = "FROM Shop s LEFT OUTER JOIN FETCH s.province " +
-				"LEFT OUTER JOIN FETCH s.city " +
-				"LEFT OUTER JOIN FETCH s.county " +
-				"WHERE s.shopId = :shopId";
-		return (Shop)getSession().createQuery(hql).setString("shopId", shopId).uniqueResult();
-	}
-
-	@Override
 	public Shop selectShop(String shopId){
-		//String hql = "FROM Shop s left outer join fetch s.province left outer join fetch s.city"
-			//	+ "left outer join fetch s.county WHERE s.shopId = :shopId";
 		String hql = "FROM Shop s LEFT OUTER JOIN FETCH s.province " +
 				"LEFT OUTER JOIN FETCH s.city " +
 				"LEFT OUTER JOIN FETCH s.county " +
