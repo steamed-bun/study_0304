@@ -79,7 +79,7 @@ var ZXXFILE = {
 			return;	
 		}
 		console.log(this.fileFilter.length);
-		if(this.fileFilter.length>5){
+		if(this.fileFilter.length>5||this.fileFilter.length<5){
 			$('.oper-hint').html('只能上传5张图片');
 			$('.oper-hint').slideDown();//错误提示信息缓慢出现
 			setTimeout(function(){

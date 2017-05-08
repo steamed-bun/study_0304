@@ -1,5 +1,6 @@
 package com.xiyou.actions;
 
+import java.sql.SQLException;
 import java.util.Map;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -32,7 +33,14 @@ public class SellectAction extends ActionSupport implements SessionAware{
      */
 	public String deleteCategory(){
 		dataMap = BookStoreWebUtils.getDataMap(session);
-		sellectService.deleteCategory(category.getCategoryId());
+		try {
+			sellectService.deleteCategory(category.getCategoryId());
+			dataMap.put("noDelete", "yesDelete");
+		} catch (Exception e) {
+			dataMap.put("status", "no");
+			dataMap.put("noDelete","noDelete");
+			return SUCCESS;
+		}
 		return SUCCESS;
 	}
 

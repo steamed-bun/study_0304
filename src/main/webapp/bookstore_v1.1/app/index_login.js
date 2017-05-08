@@ -46,7 +46,7 @@
 	$(function(){
 		$.ajax({
 			type:"GET",
-			url:"book-getTopBooks.action?book.category.categoryId=12",
+			url:"book-getTopBooks.action?book.category.categoryId=1",
 			dataType:"json",
 			success:function(response){
 				data=response.books;
@@ -56,22 +56,26 @@
 				//通过控制循环次数，来将数据与html页面相关联
 				for(var i=0;i<data.length;i++){
 					var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
-					var imgs=data[i].bookImages;
-					var imgIndex;
+					var imgsObj=data[i].bookImages;
+					var imgsUrl=[];  //保存当前书籍的所有图片
+					var curImg;
+					for(var k=0;k<imgsObj.length;k++){
+						imgsUrl.push(imgsObj[k].imageURL);
+					}
 					//找出可以放在首页的书
-					/*for(var j=0;j<imgs.length;j++){
-						if(imgs[j].search('-y')!=-1){
-							//当找到可以放在首页的书
-							imgIndex=imgs[j];
-						}
+					for(var j=0;j<imgsUrl.length;j++){
+					     if(imgsUrl[j].search('-y')!=-1){
+						 	//当找到可以放在首页的书
+						 	curImg=imgsUrl[j];
+						 	break;
+						 }
 					}
-					console.log(isGoodBook);
 					if(isGoodBook==1){
-						$fragment=$("<li><a href='javascript:;'><img src='"+imgIndex+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+						$fragment=$("<li><a href='javascript:;'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
 					}else{
-						$fragment=$("<li><a href='javascript:;'><img src='"+imgIndex+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+						$fragment=$("<li><a href='javascript:;'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
 					}
-					$(".edu-book-list").append($fragment);*/
+					$(".edu-book-list").append($fragment);
 				}
 			},
 			error:function(){
@@ -85,24 +89,40 @@
 	$(function(){
 		$.ajax({
 			type:"GET",
-			url:"data/index/storyBook.json",
+			url:"book-getTopBooks.action?book.category.categoryId=2",
 			dataType:"json",
-			success:function(data){
-				console.log("storyBook.json文件请求成功");
+			success:function(response){
+				data=response.books;
+				console.log(data);
+				console.log("eduBook.json文件请求成功");
 				var $fragment;//用来保存要添加的html片段
 				//通过控制循环次数，来将数据与html页面相关联
-				for(var i=0;i<4;i++){
-					var isGoodBook=parseInt(data[i].isGoodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+				for(var i=0;i<data.length;i++){
+					var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+					var imgsObj=data[i].bookImages;
+					var imgsUrl=[];  //保存当前书籍的所有图片
+					var curImg;
+					for(var k=0;k<imgsObj.length;k++){
+						imgsUrl.push(imgsObj[k].imageURL);
+					}
+					//找出可以放在首页的书
+					for(var j=0;j<imgsUrl.length;j++){
+						if(imgsUrl[j].search('-y')!=-1){
+							//当找到可以放在首页的书
+							curImg=imgsUrl[j];
+							break;
+						}
+					}
 					if(isGoodBook==1){
-						$fragment=$("<li><a href='javascript:;'><img src='"+data[i].img+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].recommend+"</p><h4>"+data[i].title+"</h4><span>"+data[i].price+"</span></div></li>");
+						$fragment=$("<li><a href='javascript:;'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
 					}else{
-						$fragment=$("<li><a href='javascript:;'><img src='"+data[i].img+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].recommend+"</p><h4>"+data[i].title+"</h4><span>"+data[i].price+"</span></div></li>");
+						$fragment=$("<li><a href='javascript:;'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
 					}
 					$(".story-book-list").append($fragment);
 				}
 			},
 			error:function(){
-				console.log("storyBook.json文件未得到");
+				console.log("位得到服务器数据文件");
 			}
 		});
 	});
@@ -112,24 +132,40 @@
 	$(function(){
 		$.ajax({
 			type:"GET",
-			url:"data/index/literaryBook.json",
+			url:"book-getTopBooks.action?book.category.categoryId=3",
 			dataType:"json",
-			success:function(data){
-				console.log("literaryBook.json文件请求成功");
+			success:function(response){
+				data=response.books;
+				console.log(data);
+				console.log("eduBook.json文件请求成功");
 				var $fragment;//用来保存要添加的html片段
 				//通过控制循环次数，来将数据与html页面相关联
-				for(var i=0;i<4;i++){
-					var isGoodBook=parseInt(data[i].isGoodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+				for(var i=0;i<data.length;i++){
+					var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+					var imgsObj=data[i].bookImages;
+					var imgsUrl=[];  //保存当前书籍的所有图片
+					var curImg;
+					for(var k=0;k<imgsObj.length;k++){
+						imgsUrl.push(imgsObj[k].imageURL);
+					}
+					//找出可以放在首页的书
+					for(var j=0;j<imgsUrl.length;j++){
+						if(imgsUrl[j].search('-y')!=-1){
+							//当找到可以放在首页的书
+							curImg=imgsUrl[j];
+							break;
+						}
+					}
 					if(isGoodBook==1){
-						$fragment=$("<li><a href='javascript:;'><img src='"+data[i].img+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].recommend+"</p><h4>"+data[i].title+"</h4><span>"+data[i].price+"</span></div></li>");
+						$fragment=$("<li><a href='javascript:;'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
 					}else{
-						$fragment=$("<li><a href='javascript:;'><img src='"+data[i].img+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].recommend+"</p><h4>"+data[i].title+"</h4><span>"+data[i].price+"</span></div></li>");
+						$fragment=$("<li><a href='javascript:;'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
 					}
 					$(".literary-book-list").append($fragment);
 				}
 			},
 			error:function(){
-				console.log("literaryBook.json文件未得到");
+				console.log("位得到服务器数据文件");
 			}
 		});
 	});
@@ -139,24 +175,40 @@
 	$(function(){
 		$.ajax({
 			type:"GET",
-			url:"data/index/youthBook.json",
+			url:"book-getTopBooks.action?book.category.categoryId=4",
 			dataType:"json",
-			success:function(data){
-				console.log("youthBook.json文件请求成功");
+			success:function(response){
+				data=response.books;
+				console.log(data);
+				console.log("eduBook.json文件请求成功");
 				var $fragment;//用来保存要添加的html片段
 				//通过控制循环次数，来将数据与html页面相关联
-				for(var i=0;i<4;i++){
-					var isGoodBook=parseInt(data[i].isGoodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+				for(var i=0;i<data.length;i++){
+					var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+					var imgsObj=data[i].bookImages;
+					var imgsUrl=[];  //保存当前书籍的所有图片
+					var curImg;
+					for(var k=0;k<imgsObj.length;k++){
+						imgsUrl.push(imgsObj[k].imageURL);
+					}
+					//找出可以放在首页的书
+					for(var j=0;j<imgsUrl.length;j++){
+						if(imgsUrl[j].search('-y')!=-1){
+							//当找到可以放在首页的书
+							curImg=imgsUrl[j];
+							break;
+						}
+					}
 					if(isGoodBook==1){
-						$fragment=$("<li><a href='javascript:;'><img src='"+data[i].img+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].recommend+"</p><h4>"+data[i].title+"</h4><span>"+data[i].price+"</span></div></li>");
+						$fragment=$("<li><a href='javascript:;'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
 					}else{
-						$fragment=$("<li><a href='javascript:;'><img src='"+data[i].img+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].recommend+"</p><h4>"+data[i].title+"</h4><span>"+data[i].price+"</span></div></li>");
+						$fragment=$("<li><a href='javascript:;'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
 					}
 					$(".youth-book-list").append($fragment);
 				}
 			},
 			error:function(){
-				console.log("youthBook.json文件未得到");
+				console.log("位得到服务器数据文件");
 			}
 		});
 	});
@@ -166,24 +218,40 @@
 	$(function(){
 		$.ajax({
 			type:"GET",
-			url:"data/index/childBook.json",
+			url:"book-getTopBooks.action?book.category.categoryId=5",
 			dataType:"json",
-			success:function(data){
-				console.log("childBook.json文件请求成功");
+			success:function(response){
+				data=response.books;
+				console.log(data);
+				console.log("eduBook.json文件请求成功");
 				var $fragment;//用来保存要添加的html片段
 				//通过控制循环次数，来将数据与html页面相关联
-				for(var i=0;i<4;i++){
-					var isGoodBook=parseInt(data[i].isGoodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+				for(var i=0;i<data.length;i++){
+					var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+					var imgsObj=data[i].bookImages;
+					var imgsUrl=[];  //保存当前书籍的所有图片
+					var curImg;
+					for(var k=0;k<imgsObj.length;k++){
+						imgsUrl.push(imgsObj[k].imageURL);
+					}
+					//找出可以放在首页的书
+					for(var j=0;j<imgsUrl.length;j++){
+						if(imgsUrl[j].search('-y')!=-1){
+							//当找到可以放在首页的书
+							curImg=imgsUrl[j];
+							break;
+						}
+					}
 					if(isGoodBook==1){
-						$fragment=$("<li><a href='javascript:;'><img src='"+data[i].img+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].recommend+"</p><h4>"+data[i].title+"</h4><span>"+data[i].price+"</span></div></li>");
+						$fragment=$("<li><a href='javascript:;'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
 					}else{
-						$fragment=$("<li><a href='javascript:;'><img src='"+data[i].img+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].recommend+"</p><h4>"+data[i].title+"</h4><span>"+data[i].price+"</span></div></li>");
+						$fragment=$("<li><a href='javascript:;'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
 					}
 					$(".child-book-list").append($fragment);
 				}
 			},
 			error:function(){
-				console.log("childBook.json文件未得到");
+				console.log("位得到服务器数据文件");
 			}
 		});
 	});
@@ -193,24 +261,40 @@
 	$(function(){
 		$.ajax({
 			type:"GET",
-			url:"data/index/lifeBook.json",
+			url:"book-getTopBooks.action?book.category.categoryId=6",
 			dataType:"json",
-			success:function(data){
-				console.log("lifeBook.json文件请求成功");
+			success:function(response){
+				data=response.books;
+				console.log(data);
+				console.log("eduBook.json文件请求成功");
 				var $fragment;//用来保存要添加的html片段
 				//通过控制循环次数，来将数据与html页面相关联
-				for(var i=0;i<4;i++){
-					var isGoodBook=parseInt(data[i].isGoodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+				for(var i=0;i<data.length;i++){
+					var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+					var imgsObj=data[i].bookImages;
+					var imgsUrl=[];  //保存当前书籍的所有图片
+					var curImg;
+					for(var k=0;k<imgsObj.length;k++){
+						imgsUrl.push(imgsObj[k].imageURL);
+					}
+					//找出可以放在首页的书
+					for(var j=0;j<imgsUrl.length;j++){
+						if(imgsUrl[j].search('-y')!=-1){
+							//当找到可以放在首页的书
+							curImg=imgsUrl[j];
+							break;
+						}
+					}
 					if(isGoodBook==1){
-						$fragment=$("<li><a href='javascript:;'><img src='"+data[i].img+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].recommend+"</p><h4>"+data[i].title+"</h4><span>"+data[i].price+"</span></div></li>");
+						$fragment=$("<li><a href='javascript:;'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
 					}else{
-						$fragment=$("<li><a href='javascript:;'><img src='"+data[i].img+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].recommend+"</p><h4>"+data[i].title+"</h4><span>"+data[i].price+"</span></div></li>");
+						$fragment=$("<li><a href='javascript:;'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
 					}
 					$(".life-book-list").append($fragment);
 				}
 			},
 			error:function(){
-				console.log("lifeBook.json文件未得到");
+				console.log("位得到服务器数据文件");
 			}
 		});
 	});
@@ -220,24 +304,40 @@
 	$(function(){
 		$.ajax({
 			type:"GET",
-			url:"data/index/humanBook.json",
+			url:"book-getTopBooks.action?book.category.categoryId=7",
 			dataType:"json",
-			success:function(data){
-				console.log("humanBook.json文件请求成功");
+			success:function(response){
+				data=response.books;
+				console.log(data);
+				console.log("eduBook.json文件请求成功");
 				var $fragment;//用来保存要添加的html片段
 				//通过控制循环次数，来将数据与html页面相关联
-				for(var i=0;i<4;i++){
-					var isGoodBook=parseInt(data[i].isGoodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+				for(var i=0;i<data.length;i++){
+					var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+					var imgsObj=data[i].bookImages;
+					var imgsUrl=[];  //保存当前书籍的所有图片
+					var curImg;
+					for(var k=0;k<imgsObj.length;k++){
+						imgsUrl.push(imgsObj[k].imageURL);
+					}
+					//找出可以放在首页的书
+					for(var j=0;j<imgsUrl.length;j++){
+						if(imgsUrl[j].search('-y')!=-1){
+							//当找到可以放在首页的书
+							curImg=imgsUrl[j];
+							break;
+						}
+					}
 					if(isGoodBook==1){
-						$fragment=$("<li><a href='javascript:;'><img src='"+data[i].img+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].recommend+"</p><h4>"+data[i].title+"</h4><span>"+data[i].price+"</span></div></li>");
+						$fragment=$("<li><a href='javascript:;'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
 					}else{
-						$fragment=$("<li><a href='javascript:;'><img src='"+data[i].img+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].recommend+"</p><h4>"+data[i].title+"</h4><span>"+data[i].price+"</span></div></li>");
+						$fragment=$("<li><a href='javascript:;'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
 					}
 					$(".human-book-list").append($fragment);
 				}
 			},
 			error:function(){
-				console.log("humanBook.json文件未得到");
+				console.log("位得到服务器数据文件");
 			}
 		});
 	});
@@ -247,24 +347,40 @@
 	$(function(){
 		$.ajax({
 			type:"GET",
-			url:"data/index/chargeBook.json",
+			url:"book-getTopBooks.action?book.category.categoryId=8",
 			dataType:"json",
-			success:function(data){
-				console.log("chargeBook.json文件请求成功");
+			success:function(response){
+				data=response.books;
+				console.log(data);
+				console.log("eduBook.json文件请求成功");
 				var $fragment;//用来保存要添加的html片段
 				//通过控制循环次数，来将数据与html页面相关联
-				for(var i=0;i<4;i++){
-					var isGoodBook=parseInt(data[i].isGoodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+				for(var i=0;i<data.length;i++){
+					var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+					var imgsObj=data[i].bookImages;
+					var imgsUrl=[];  //保存当前书籍的所有图片
+					var curImg;
+					for(var k=0;k<imgsObj.length;k++){
+						imgsUrl.push(imgsObj[k].imageURL);
+					}
+					//找出可以放在首页的书
+					for(var j=0;j<imgsUrl.length;j++){
+						if(imgsUrl[j].search('-y')!=-1){
+							//当找到可以放在首页的书
+							curImg=imgsUrl[j];
+							break;
+						}
+					}
 					if(isGoodBook==1){
-						$fragment=$("<li><a href='javascript:;'><img src='"+data[i].img+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].recommend+"</p><h4>"+data[i].title+"</h4><span>"+data[i].price+"</span></div></li>");
+						$fragment=$("<li><a href='javascript:;'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
 					}else{
-						$fragment=$("<li><a href='javascript:;'><img src='"+data[i].img+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].recommend+"</p><h4>"+data[i].title+"</h4><span>"+data[i].price+"</span></div></li>");
+						$fragment=$("<li><a href='javascript:;'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
 					}
 					$(".charge-book-list").append($fragment);
 				}
 			},
 			error:function(){
-				console.log("chargeBook.json文件未得到");
+				console.log("位得到服务器数据文件");
 			}
 		});
 	});
@@ -274,24 +390,40 @@
 	$(function(){
 		$.ajax({
 			type:"GET",
-			url:"data/index/motivateBook.json",
+			url:"book-getTopBooks.action?book.category.categoryId=9",
 			dataType:"json",
-			success:function(data){
-				console.log("motivateBook.json文件请求成功");
+			success:function(response){
+				data=response.books;
+				console.log(data);
+				console.log("eduBook.json文件请求成功");
 				var $fragment;//用来保存要添加的html片段
 				//通过控制循环次数，来将数据与html页面相关联
-				for(var i=0;i<4;i++){
-					var isGoodBook=parseInt(data[i].isGoodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+				for(var i=0;i<data.length;i++){
+					var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+					var imgsObj=data[i].bookImages;
+					var imgsUrl=[];  //保存当前书籍的所有图片
+					var curImg;
+					for(var k=0;k<imgsObj.length;k++){
+						imgsUrl.push(imgsObj[k].imageURL);
+					}
+					//找出可以放在首页的书
+					for(var j=0;j<imgsUrl.length;j++){
+						if(imgsUrl[j].search('-y')!=-1){
+							//当找到可以放在首页的书
+							curImg=imgsUrl[j];
+							break;
+						}
+					}
 					if(isGoodBook==1){
-						$fragment=$("<li><a href='javascript:;'><img src='"+data[i].img+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].recommend+"</p><h4>"+data[i].title+"</h4><span>"+data[i].price+"</span></div></li>");
+						$fragment=$("<li><a href='javascript:;'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
 					}else{
-						$fragment=$("<li><a href='javascript:;'><img src='"+data[i].img+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].recommend+"</p><h4>"+data[i].title+"</h4><span>"+data[i].price+"</span></div></li>");
+						$fragment=$("<li><a href='javascript:;'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
 					}
 					$(".motivate-book-list").append($fragment);
 				}
 			},
 			error:function(){
-				console.log("motivateBook.json文件未得到");
+				console.log("位得到服务器数据文件");
 			}
 		});
 	});
@@ -301,24 +433,40 @@
 	$(function(){
 		$.ajax({
 			type:"GET",
-			url:"data/index/scienceBook.json",
+			url:"book-getTopBooks.action?book.category.categoryId=10",
 			dataType:"json",
-			success:function(data){
-				console.log("scienceBook.json文件请求成功");
+			success:function(response){
+				data=response.books;
+				console.log(data);
+				console.log("eduBook.json文件请求成功");
 				var $fragment;//用来保存要添加的html片段
 				//通过控制循环次数，来将数据与html页面相关联
-				for(var i=0;i<4;i++){
-					var isGoodBook=parseInt(data[i].isGoodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+				for(var i=0;i<data.length;i++){
+					var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+					var imgsObj=data[i].bookImages;
+					var imgsUrl=[];  //保存当前书籍的所有图片
+					var curImg;
+					for(var k=0;k<imgsObj.length;k++){
+						imgsUrl.push(imgsObj[k].imageURL);
+					}
+					//找出可以放在首页的书
+					for(var j=0;j<imgsUrl.length;j++){
+						if(imgsUrl[j].search('-y')!=-1){
+							//当找到可以放在首页的书
+							curImg=imgsUrl[j];
+							break;
+						}
+					}
 					if(isGoodBook==1){
-						$fragment=$("<li><a href='javascript:;'><img src='"+data[i].img+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].recommend+"</p><h4>"+data[i].title+"</h4><span>"+data[i].price+"</span></div></li>");
+						$fragment=$("<li><a href='javascript:;'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
 					}else{
-						$fragment=$("<li><a href='javascript:;'><img src='"+data[i].img+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].recommend+"</p><h4>"+data[i].title+"</h4><span>"+data[i].price+"</span></div></li>");
+						$fragment=$("<li><a href='javascript:;'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
 					}
 					$(".science-book-list").append($fragment);
 				}
 			},
 			error:function(){
-				console.log("scienceBook.json文件未得到");
+				console.log("位得到服务器数据文件");
 			}
 		});
 	});
@@ -328,24 +476,40 @@
 	$(function(){
 		$.ajax({
 			type:"GET",
-			url:"data/index/referenceBook.json",
+			url:"book-getTopBooks.action?book.category.categoryId=11",
 			dataType:"json",
-			success:function(data){
-				console.log("referenceBook.json文件请求成功");
+			success:function(response){
+				data=response.books;
+				console.log(data);
+				console.log("eduBook.json文件请求成功");
 				var $fragment;//用来保存要添加的html片段
 				//通过控制循环次数，来将数据与html页面相关联
-				for(var i=0;i<4;i++){
-					var isGoodBook=parseInt(data[i].isGoodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+				for(var i=0;i<data.length;i++){
+					var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+					var imgsObj=data[i].bookImages;
+					var imgsUrl=[];  //保存当前书籍的所有图片
+					var curImg;
+					for(var k=0;k<imgsObj.length;k++){
+						imgsUrl.push(imgsObj[k].imageURL);
+					}
+					//找出可以放在首页的书
+					for(var j=0;j<imgsUrl.length;j++){
+						if(imgsUrl[j].search('-y')!=-1){
+							//当找到可以放在首页的书
+							curImg=imgsUrl[j];
+							break;
+						}
+					}
 					if(isGoodBook==1){
-						$fragment=$("<li><a href='javascript:;'><img src='"+data[i].img+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].recommend+"</p><h4>"+data[i].title+"</h4><span>"+data[i].price+"</span></div></li>");
+						$fragment=$("<li><a href='javascript:;'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
 					}else{
-						$fragment=$("<li><a href='javascript:;'><img src='"+data[i].img+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].recommend+"</p><h4>"+data[i].title+"</h4><span>"+data[i].price+"</span></div></li>");
+						$fragment=$("<li><a href='javascript:;'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
 					}
 					$(".reference-book-list").append($fragment);
 				}
 			},
 			error:function(){
-				console.log("referenceBook.json文件未得到");
+				console.log("位得到服务器数据文件");
 			}
 		});
 	});

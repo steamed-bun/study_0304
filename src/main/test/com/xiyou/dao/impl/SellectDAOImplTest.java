@@ -22,7 +22,7 @@ public class SellectDAOImplTest {
     @Test
     @Transactional
     public void testDeleteCategory(){
-        sellectDAO.deleteCategory(5);
+        //sellectDAO.deleteCategory(5);
     }
 
     @Test

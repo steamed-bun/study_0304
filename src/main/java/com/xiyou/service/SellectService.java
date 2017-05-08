@@ -8,6 +8,7 @@ import com.xiyou.domain.Province;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -16,7 +17,7 @@ public class SellectService {
     @Autowired
     private SellectDAO sellectDAO;
 
-    public void deleteCategory(Integer categoryId){
+    public void deleteCategory (Integer categoryId) throws Exception{
         sellectDAO.deleteCategory(categoryId);
     }
 
