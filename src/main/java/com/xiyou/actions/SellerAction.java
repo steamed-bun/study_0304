@@ -38,7 +38,7 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
 	private String selId = null;
     private String code = null;
 	private Integer pageNum = 1;
-	private Integer totalPageNo;
+	private Integer totalPageNo = -1;
 
 	/**
 	 * 已测

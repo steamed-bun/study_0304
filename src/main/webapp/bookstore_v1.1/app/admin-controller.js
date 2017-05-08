@@ -820,64 +820,74 @@ angular.module('admin-controller',[])
 		//保存店铺评估后台返回的数据（应返回数组形式）
 		$scope.shopInfo=[
 			{
+				shopId:'12',
 				shopName:'你好吗',
-				userName:'哈哈',
-				userEmail:'2814234600@qq.com',
-				userId:'1'
+				selName:'哈哈',
+				selTel:'2814234600@qq.com',
+				selIdCard:'1'
 			},
 			{
+				shopId:'12',
 				shopName:'你好吗',
-				userName:'哈哈',
-				userEmail:'2814234600@qq.com',
-				userId:'1'
+				selName:'哈哈',
+				selTel:'2814234600@qq.com',
+				selIdCard:'1'
 			},
 			{
+				shopId:'12',
 				shopName:'你好吗',
-				userName:'哈哈',
-				userEmail:'2814234600@qq.com',
-				userId:'1'
+				selName:'哈哈',
+				selTel:'2814234600@qq.com',
+				selIdCard:'1'
 			},
 			{
+				shopId:'12',
 				shopName:'你好吗',
-				userName:'哈哈',
-				userEmail:'2814234600@qq.com',
-				userId:'1'
+				selName:'哈哈',
+				selTel:'2814234600@qq.com',
+				selIdCard:'1'
 			},
 			{
+				shopId:'12',
 				shopName:'你好吗',
-				userName:'哈哈',
-				userEmail:'2814234600@qq.com',
-				userId:'1'
+				selName:'哈哈',
+				selTel:'2814234600@qq.com',
+				selIdCard:'1'
 			},
 			{
+				shopId:'12',
 				shopName:'你好吗',
-				userName:'哈哈',
-				userEmail:'2814234600@qq.com',
-				userId:'1'
+				selName:'哈哈',
+				selTel:'2814234600@qq.com',
+				selIdCard:'1'
 			},
 			{
+				shopId:'12',
 				shopName:'你好吗',
-				userName:'哈哈',
-				userEmail:'2814234600@qq.com',
-				userId:'1'
+				selName:'哈哈',
+				selTel:'2814234600@qq.com',
+				selIdCard:'1'
 			},
 			{
+				shopId:'12',
 				shopName:'你好吗',
-				userName:'哈哈',
-				userEmail:'2814234600@qq.com',
-				userId:'1'
+				selName:'哈哈',
+				selTel:'2814234600@qq.com',
+				selIdCard:'1'
 			},
 			{
+				shopId:'12',
 				shopName:'你好吗',
-				userName:'哈哈',
-				userEmail:'2814234600@qq.com',
-				userId:'1'
+				selName:'哈哈',
+				selTel:'2814234600@qq.com',
+				selIdCard:'1'
 			},
 			{
+				shopId:'12',
 				shopName:'你好吗',
-				userName:'哈哈',
-				userEmail:'2814234600@qq.com',
-				userId:'1'
+				selName:'哈哈',
+				selTel:'2814234600@qq.com',
+				selIdCard:'1'
 			}
 		];//模拟后台返回的数据
 		//与分页相关的数据设定
@@ -915,14 +925,14 @@ angular.module('admin-controller',[])
 				//此处应到数据库中拿数据
 				console.log('当前要请求第'+count+'页');
 				//TODO 根据商家点击不同的数字显示不同店铺的内容
-				/*$http({
+				$http({
 					method:'POST',
 					url:'sel-getSellersForBack.action',//分页的接口
-					data: 'category.categoryPId='+selectId,//传递给后台请求第几页的页码数
+					data: 'pageNum=1',//传递给后台请求第几页的页码数
 					headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
 				}).success(function(response){
 					console.log(response); //在此处查看返回的数据是否正确
-				});*/
+				});
 			}
 		});
 	})
@@ -938,63 +948,73 @@ angular.module('admin-controller',[])
 			{
 				bookId:'1',
 				bookName:'散射光',
-				bookAuthor:'屈原',
-				bookApprove:23
+				author:'屈原',
+				likes:23,
+				goodBook:''
 			},
 			{
 				bookId:'1',
 				bookName:'散射光',
-				bookAuthor:'屈原',
-				bookApprove:23
+				author:'屈原',
+				likes:23,
+				goodBook:''
 			},
 			{
 				bookId:'1',
 				bookName:'散射光',
-				bookAuthor:'屈原',
-				bookApprove:23
+				author:'屈原',
+				likes:23,
+				goodBook:''
 			},
 			{
 				bookId:'1',
 				bookName:'散射光',
-				bookAuthor:'屈原',
-				bookApprove:23
+				author:'屈原',
+				likes:23,
+				goodBook:''
 			},
 			{
 				bookId:'1',
 				bookName:'散射光',
-				bookAuthor:'屈原',
-				bookApprove:23
+				author:'屈原',
+				likes:23,
+				goodBook:''
 			},
 			{
 				bookId:'1',
 				bookName:'散射光',
-				bookAuthor:'屈原',
-				bookApprove:23
+				author:'屈原',
+				likes:23,
+				goodBook:''
 			},
 			{
 				bookId:'1',
 				bookName:'散射光',
-				bookAuthor:'屈原',
-				bookApprove:23
+				author:'屈原',
+				likes:23,
+				goodBook:''
 			},
 			{
 				bookId:'1',
 				bookName:'散射光',
-				bookAuthor:'屈原',
-				bookApprove:23
+				author:'屈原',
+				likes:23,
+				goodBook:''
 			},
 			{
 				bookId:'1',
 				bookName:'散射光',
-				bookAuthor:'屈原',
-				bookApprove:23
+				author:'屈原',
+				likes:23,
+				goodBook:''
 			},
 			{
 				bookId:'1',
 				bookName:'散射光',
-				bookAuthor:'屈原',
-				bookApprove:23
-			}
+				author:'屈原',
+				likes:23,
+				goodBook:''
+			},
 		];//模拟后台返回的数据
 		//与分页相关的数据设定
 		$scope.paging={
@@ -1010,14 +1030,14 @@ angular.module('admin-controller',[])
 			console.log('级别：'+$scope.book.degree);
 		});
 		//TODO:向后台数据库请求所有书籍信息
-		/*$http({
+		$http({
 		 method:'GET',
-		 url:'' //提供所有信息的接口
+		 url:'book-getBooksForBack.action?pageNum=1&totalPageNo=0' //提供所有信息的接口
 		 }).success(function(response){
 		 console.log(response); //打印后台返回的数据
 		 //TODO:在此应得到数据总条数,第一页的数据（每页展示10条数据），分页总数（分多少页,可以不需要）
 		 //TODO:与分页相关的变量名称，在此页搜：与分页相关的数据设定
-		 });*/
+		 });
 		//调用分页页码插件，实现分页功能
 		$('.page-area').cypager({
 			pg_size:$scope.paging.perNum,
@@ -1029,14 +1049,14 @@ angular.module('admin-controller',[])
 				//此处应到数据库中拿数据
 				console.log('当前要请求第'+count+'页');
 				//TODO 根据商家点击不同的数字显示不同书籍的内容
-				/*$http({
+				$http({
 				 method:'POST',
-				 url:'select-selectCategory.action',//分页的接口
-				 data: 'category.categoryPId='+selectId,//传递给后台请求第几页的页码数
+				 url:'book-getBooksForBack.action',//分页的接口
+				 data: 'pageNum=8',//传递给后台请求第几页的页码数
 				 headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
 				 }).success(function(response){
 				 	console.log(response); //在此处查看返回的数据是否正确
-				 });*/
+				 });
 			}
 		});
 	});
