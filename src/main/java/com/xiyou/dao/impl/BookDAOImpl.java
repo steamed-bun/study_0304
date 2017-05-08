@@ -21,6 +21,14 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 	private static final int BASE_NUM = 0;
 
 	@Override
+	public Book getBookForBack(Integer bookId) {
+		String hql = "SELECT new Book (b.bookId, b.bookName, b.author, b.likes, b.goodBook) " +
+				"FROM Book b WHERE b.bookId = :bookId";
+		Book book = (Book) getSession().createQuery(hql).setInteger("bookId", bookId).uniqueResult();
+		return book;
+	}
+
+	@Override
 	public void updataGoodBook(Integer bookId, Integer goodBook) {
 		String hql = "UPDATE Book b SET b.goodBook = :goodBook " +
 				"WHERE b.bookId = :bookId";
@@ -102,7 +110,7 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 		String hql = "DELETE FROM BookImages b WHERE b.imageId = :imageId";
 		for (BookImages bookImage : bookImages) {
 			session.createQuery(hql)
-					.setString("imageId", bookImage.getImageId().toString()).uniqueResult();
+					.setString("imageId", bookImage.getImageId().toString()).executeUpdate();
 		}
 	}
 

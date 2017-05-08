@@ -23,6 +23,12 @@ public class BookDAOImplTest {
 
     @Test
     @Transactional
+    public void testGetBookForBack(){
+        System.out.println(bookDAO.getBookForBack(4));
+    }
+
+    @Test
+    @Transactional
     public void testGetBooks() {
         System.out.println( bookDAO.getBooks(1));
     }

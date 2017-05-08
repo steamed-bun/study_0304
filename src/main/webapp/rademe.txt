@@ -9,6 +9,7 @@
 |---控制书本每页展示数量在src\main\java\com\xiyou\dao\impl\BookDAOImpl.java 变量 PAGE_SIZE=?
 |---修改书本为良品或非良品搜 updateGookBook
 |---后台获取书本分页 getBooksForBack
+|---后台搜索一本书 getBookForBack
 
 
 2、订单接口TradeAction
@@ -35,7 +36,13 @@
 6、seller接口 SellerAction
 
 |---后台获取seller 包括其关联shop 分页 getSellersForBack
+|---后台搜索seller 包括其关联shop getSellerForBack
 
+7、address 地址接口 AddressAction
+
+|---添加或修改地址 saveOrUpdateAddress
+|---获取当前user的全部地址 getAddressByUserId
+|---删除一个地址 deleteAddress
 
 
 

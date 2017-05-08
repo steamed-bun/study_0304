@@ -16,6 +16,14 @@ public class SellerDAOImpl extends BaseDAOImpl implements SellerDAO {
 	private static final int BASE_NUM = 0;
 
 	@Override
+	public Seller getSellerForBack(Integer shopId) {
+		String hql = "SELECT new Seller (s.selId, s.selName,s.selTel, s.selIdCard, s.shop.shopId, s.shop.shopName, s.shop.shopGrade) " +
+				"FROM Seller s WHERE s.shop = :shopId";
+		Seller seller = (Seller) getSession().createQuery(hql).setInteger("shopId", shopId).uniqueResult();
+		return seller;
+	}
+
+	@Override
 	public long getTotalPageNo() {
 		String hql = "SELECT count (s.selId) FROM Seller s";
 		long totalPageNo = (Long) getSession().createQuery(hql)

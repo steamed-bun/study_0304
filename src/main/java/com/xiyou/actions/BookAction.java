@@ -25,7 +25,6 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 						SessionAware, Preparable {
 
 	private static final long serialVersionUID = 1L;
-	private static final String BOOK_ONE_WORD = "主人什么也没留下...";
 
 	@Autowired
 	private BookService bookService;
@@ -39,6 +38,19 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 	private List<BookImages> bookImages = new ArrayList<BookImages>(5);
     private Integer pageNum = 1;
 	private Integer totalPageNo;
+
+	/**
+	 * 已测
+	 * 获取一本书
+	 * url:book-getBookForBack.action?book.bookId=1
+	 * @return book
+     */
+	public String getBookForBack(){
+		dataMap = BookStoreWebUtils.getDataMap(session);
+		Book book1 = bookService.getBookForBack(book.getBookId());
+		dataMap.put("book", book1);
+		return SUCCESS;
+	}
 
     /**
      * 已测

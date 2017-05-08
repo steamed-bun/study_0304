@@ -10,6 +10,14 @@ public interface BookDAO {
 
 	/**
 	 * 已测
+	 * 后台获取一本书
+	 * @param bookId bookId
+	 * @return book
+     */
+	Book getBookForBack(Integer bookId);
+
+	/**
+	 * 已测
 	 * 修改goodBook
 	 * @param bookId bookId
  	 * @param goodBook goodBook

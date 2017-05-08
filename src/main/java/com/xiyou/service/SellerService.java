@@ -18,6 +18,10 @@ public class SellerService {
 	@Autowired
 	private ShopDAO shopDAO;
 
+	public Seller getSellerForBack(Integer shopId){
+		return sellerDAO.getSellerForBack(shopId);
+	}
+
 	public int getTotalPageNo(){
 		long tatalPageNo = sellerDAO.getTotalPageNo();
 		return (int) tatalPageNo;
