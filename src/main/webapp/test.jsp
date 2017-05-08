@@ -23,7 +23,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 //             req.open("post", "${pageContext.request.contextPath}/public/testupload", false);
 //             req.send(form);
         $.ajax({
-          url:"upLoad-saveBookImages.action",
+          url:"upLoad-saveRecommend.action",
           type:"post",
           data:form,
           processData:false,
@@ -51,6 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <s:form id="tf" namespace="/" enctype="multipart/form-data">
       <s:file name="images"></s:file>
       <s:file name="images"></s:file>
+      <s:hidden name="recommend" value="2"></s:hidden>
     </s:form>
     <input type="button" value="testJson" onclick="getJson();">
   </body>

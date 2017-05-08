@@ -21,10 +21,10 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="smCate in smCates" data-smCatId="{{smCate.smCateId}}">
-				<td><input type="text"  readonly="true"  ng-model="smCate.smCateName" /></td>
-				<td><span class="edit-sm-cate">编辑</span></td>
-				<td><span class="delete-sm-cate">删除</span></td>
+			<tr ng-repeat="smCate in smCates" data-smCatId="{{smCate.categoryId}}">
+				<td><input type="text"  readonly="true"  ng-model="smCate.categoryName" /></td>
+				<td><span class="edit-sm-cate" ng-click="editSmate()">编辑</span></td>
+				<td><span class="delete-sm-cate" ng-click="deleteSmate()">删除</span></td>
 			</tr>
 			<!--<tr data-smCatId="1">
 				<td><input type="text"  readonly="true"  ng-model="smCate[0]" /></td>

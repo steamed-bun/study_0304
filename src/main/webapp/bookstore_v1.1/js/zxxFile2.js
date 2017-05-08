@@ -7,7 +7,8 @@ var ZXXFILE = {
 	fileInput: null,				//html file�ؼ�
 	dragDrop: null,					//��ק��������
 	upButton: null,					//�ύ��ť
-	url: "",						//ajax��ַ
+	url: "",      //ajax��ַ
+	param:"",
 	fileFilter: [],					//���˺���ļ�����
 	filter: function(files) {		//ѡ���ļ���Ĺ��˷���
 		return files;	
@@ -38,7 +39,8 @@ var ZXXFILE = {
 		// ��ȡ�ļ��б����
 		var files = e.target.files || e.dataTransfer.files;
 		//��������ļ�
-		this.fileFilter = this.fileFilter.concat(this.filter(files));
+		//this.fileFilter = this.fileFilter.concat(this.filter(files));
+		this.fileFilter = this.filter(files);
 		this.funDealFiles();
 		return this;
 	},
@@ -91,8 +93,10 @@ var ZXXFILE = {
 		for (var i = 0, file; file = this.fileFilter[i]; i++) {
 			(function(file) {
 				form.append('images',file);
+				console.log(file);
 			})(file);	
 		}
+		form.append('recommend',this.param);
 		var xhr = new XMLHttpRequest();
 		if (xhr.upload) {
 			// �ļ��ϴ��ɹ�����ʧ��
@@ -110,7 +114,7 @@ var ZXXFILE = {
 					}
 				}
 			};
-
+			console.log(self.url);
 			// ��ʼ�ϴ�
 			xhr.open("POST", self.url, true);
 			xhr.send(form);

@@ -11,6 +11,10 @@ public class ShopService {
 	@Autowired
 	private ShopDAO shopDAO;
 
+	public Shop getShopById(Integer shopId){
+		return shopDAO.getShopById(shopId);
+	}
+
 	public void updateShopGrade(Integer shopId, int shopGrade){
 		shopDAO.updateShopGrade(shopId, shopGrade);
 	}

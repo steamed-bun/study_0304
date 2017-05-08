@@ -83,7 +83,7 @@ public class BookService {
 	}
 
 	public Shop getShopByShopId(String shopId){
-		return shopDAO.getShopByShopId(shopId);
+		return shopDAO.selectShop(shopId);
 	}
 
 	public void deleteBook(Integer bookId){
