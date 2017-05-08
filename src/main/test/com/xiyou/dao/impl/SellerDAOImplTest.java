@@ -24,6 +24,12 @@ public class SellerDAOImplTest {
 
     @Transactional
     @Test
+    public void testGetSellersForBack(){
+        System.out.println(sellerDAO.getTotalPageNo());
+    }
+
+    @Transactional
+    @Test
     public void testAddSeller() throws Exception {
         Seller seller = sellerDAO.getSellerById("8");
         sellerDAO.addSeller(seller);

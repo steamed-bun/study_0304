@@ -13,6 +13,14 @@ public class Seller {
 	private String selTel;
 	private Shop shop;
 
+	public Seller(Integer selId, String selName, String selTel, String selIdCard, Integer shopId, String shopName, int shopGrade) {
+		this.selId = selId;
+		this.selName = selName;
+		this.selTel = selTel;
+		this.selIdCard = selIdCard;
+		this.shop = new Shop(shopId,shopName,shopGrade);
+	}
+
 	public Integer getSelId() {
 		return selId;
 	}

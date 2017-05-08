@@ -1,8 +1,19 @@
 package com.xiyou.dao;
 
+import com.xiyou.domain.Book;
 import com.xiyou.domain.Shop;
 
+import java.util.List;
+
 public interface ShopDAO {
+
+	/**
+	 * 已测
+	 * 更新shopGrade
+	 * @param shopId shopId
+	 * @param shopGrade shopGrade
+     */
+	void updateShopGrade(Integer shopId, Integer shopGrade);
 
 	/**
 	 * 更新shopImage

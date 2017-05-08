@@ -23,6 +23,11 @@ public class BookService {
 	@Autowired
 	private ShopDAO shopDAO;
 
+	public int getTotalPageNo(){
+		long tatalPageNo = bookDAO.getTotalPageNo();
+		return (int) tatalPageNo;
+	}
+
 	public void updataGoodBook(Integer bookId, Integer goodBook){
 		bookDAO.updataGoodBook(bookId, goodBook);
 	}
@@ -85,17 +90,13 @@ public class BookService {
 		bookDAO.deleteBook(bookId);
 	}
 
-	public List<Book> getBooks(String shopId){
-		List<Book> books = bookDAO.getBooks(shopId);
+	public List<Book> getBooks(Integer pageNum){
+		List<Book> books = bookDAO.getBooks(pageNum);
 		return books;
 	}
 
 	public void addBook(Book book){
 		bookDAO.addBook(book);
-	}
-	
-	public List<Category> selectCategory(){
-		return bookDAO.selectCategory();
 	}
 
 	public Book getBook(String bookId){

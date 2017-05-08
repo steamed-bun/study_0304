@@ -19,6 +19,12 @@ public class ShopDAOImplTest {
     private ShopDAO shopDAO;
 
     @Test
+    @Transactional
+    public void testUpdateShopGrade() throws Exception {
+        shopDAO.updateShopGrade(25, 3);
+    }
+
+    @Test
     public void testAddShop() throws Exception {
 
     }

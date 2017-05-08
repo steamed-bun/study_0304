@@ -23,6 +23,12 @@ public class BookDAOImplTest {
 
     @Test
     @Transactional
+    public void testGetBooks() {
+        System.out.println( bookDAO.getBooks(1));
+    }
+
+    @Test
+    @Transactional
     public void testUpdataGoodBook(){
         bookDAO.updataGoodBook(2,1);
     }
@@ -36,7 +42,7 @@ public class BookDAOImplTest {
     @Test
     @Transactional
     public void testGetTopBooks(){
-        bookDAO.getTopBooks("4");
+        System.out.println(bookDAO.getTopBooks("1"));
     }
 
     @Test

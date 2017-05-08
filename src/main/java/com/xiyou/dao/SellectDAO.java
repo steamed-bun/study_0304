@@ -11,6 +11,20 @@ public interface SellectDAO {
 
     /**
      * 已测
+     * 删除子类
+     * @param categoryId categoryId
+     */
+    void deleteCategory(Integer categoryId);
+
+    /**
+     * 已测
+     * 添加一个子类
+     * @param category category
+     */
+    void saveCatefgory(Category category);
+
+    /**
+     * 已测
      * 修改小类别
      * @param categoryId 类别Id
      * @param categoryName 修改的新类别

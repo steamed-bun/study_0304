@@ -7,6 +7,8 @@ import com.xiyou.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service("sellerService")
 public class SellerService {
 
@@ -16,8 +18,15 @@ public class SellerService {
 	@Autowired
 	private ShopDAO shopDAO;
 
-	@Autowired
-	private SellectDAO sellectDAO;
+	public int getTotalPageNo(){
+		long tatalPageNo = sellerDAO.getTotalPageNo();
+		return (int) tatalPageNo;
+	}
+
+	public List<Seller> getSellersForBack(Integer pageNum){
+		List<Seller> sellers = sellerDAO.getSellersForBack(pageNum);
+		return sellers;
+	}
 
 	public void addSeller(Seller seller){
 		if (seller.getSelId() == null){

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 
 	private static final int PAGE_SIZE = 3;//书本数量
+	private static final int BACK_PAGE_SIZE = 3;//后台书本数量
 	private static final int BASE_NUM = 0;
 
 	@Override
@@ -50,7 +51,9 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 
     @Override
 	public List<Book> getTopBooks(String categoryId) {
-		String hql = "FROM Book b WHERE b.category = :categoryId ORDER BY b.clickNum DESC";
+		String hql = "FROM Book b WHERE b.category IN " +
+				"(FROM Category c WHERE c.categoryPId = :categoryId) " +
+				"ORDER BY b.clickNum DESC";
 		@SuppressWarnings("unchecked")
 		List<Book> book = (List<Book>) getSession().createQuery(hql).setString("categoryId", categoryId)
 				.setFirstResult(0).setMaxResults(4).list();
@@ -198,21 +201,24 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 	}
 
 	@Override
-	public List<Book> getBooks(String shopId) {
-		String hql = "FROM Book b " +
-				"WHERE b.shop = :shopId order by b.bookId";
-
+	public List<Book> getBooks(Integer pageNum) {
+		String hql = "SELECT new Book (b.bookId, b.bookName, b.author, b.likes, b.goodBook) " +
+				"FROM Book b " +
+				"order by b.bookId";
 		@SuppressWarnings("unchecked")
-		List<Book> list = getSession().createQuery(hql).setString("shopId", shopId).list();
+		List<Book> list = getSession().createQuery(hql)
+				.setFirstResult(BASE_NUM + (pageNum- 1) * BACK_PAGE_SIZE)
+				.setMaxResults(BACK_PAGE_SIZE)
+				.list();
 		return list;
 
 	}
 
 	@Override
-	public List<Category> selectCategory() {
-		String hql = "from Category";
-		@SuppressWarnings("unchecked")
-		List<Category> categories = getSession().createQuery(hql).list();
-		return categories;
+	public long getTotalPageNo() {
+		String hql = "SELECT count (b.bookId) FROM Book b";
+		long totalPageNo = (Long) getSession().createQuery(hql).uniqueResult();
+		totalPageNo = (long) Math.ceil((double)totalPageNo/BACK_PAGE_SIZE);
+		return totalPageNo;
 	}
 }

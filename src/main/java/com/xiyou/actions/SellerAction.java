@@ -1,5 +1,6 @@
 package com.xiyou.actions;
 
+import java.util.List;
 import java.util.Map;
 
 import com.xiyou.domain.CaptchaBean;
@@ -36,6 +37,39 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
 	private Map<String, Object> dataMap;
 	private String selId = null;
     private String code = null;
+	private Integer pageNum = 1;
+	private Integer totalPageNo;
+
+	/**
+	 * 已测
+	 * 后台获取seller包括与其关联的shop 分页
+	 * url:
+	 * 1、点击“评估店铺”返回第一页数据和总页数 必须传totalPageNo=0
+	 * sel-getSellersForBack.action?pageNum=1&totalPageNo=0
+	 * 2、点击页数时不能传totalPageNo=0
+	 * sel-getSellersForBack.action?pageNum=2
+	 * @return sellers
+     */
+	public String getSellersForBack(){
+		dataMap = BookStoreWebUtils.getDataMap(session);
+		pageNum = getTotalPageNo(dataMap);
+		List<Seller> sellers = selService.getSellersForBack(pageNum);
+		dataMap.put("sellers", sellers);
+		return SUCCESS;
+	}
+
+	public int getTotalPageNo(Map<String, Object> dataMap){
+		if (totalPageNo.equals(0)){
+			totalPageNo =selService.getTotalPageNo();
+			dataMap.put("totalPageNo", totalPageNo);
+			session.put("totalPageNo", totalPageNo);
+		}else {
+			totalPageNo = Integer.parseInt(session.get("totalPageNo").toString());
+		}
+		pageNum = (pageNum <= 0) ? pageNum = 1 : pageNum;
+		pageNum = (pageNum > totalPageNo) ? totalPageNo : pageNum;
+		return pageNum;
+	}
 
 	/**
 	 * 前提是没有未完成订单
@@ -193,4 +227,20 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
     public Map<String, Object> getDataMap() {
         return dataMap;
     }
+
+	public Integer getPageNum() {
+		return pageNum;
+	}
+
+	public void setPageNum(Integer pageNum) {
+		this.pageNum = pageNum;
+	}
+
+	public Integer getTotalPageNo() {
+		return totalPageNo;
+	}
+
+	public void setTotalPageNo(Integer totalPageNo) {
+		this.totalPageNo = totalPageNo;
+	}
 }

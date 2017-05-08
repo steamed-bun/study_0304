@@ -1,6 +1,7 @@
 package com.xiyou.dao.impl;
 
 import com.xiyou.dao.SellectDAO;
+import com.xiyou.domain.Category;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,19 @@ public class SellectDAOImplTest {
 
     @Autowired
     private SellectDAO sellectDAO;
+
+    @Test
+    @Transactional
+    public void testDeleteCategory(){
+        sellectDAO.deleteCategory(5);
+    }
+
+    @Test
+    @Transactional
+    public void testSaveCategory(){
+        Category category = new Category(null, "test", 1);
+        sellectDAO.saveCatefgory(category);
+    }
 
     @Test
     @Transactional

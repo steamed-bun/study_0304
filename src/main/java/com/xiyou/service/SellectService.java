@@ -16,6 +16,14 @@ public class SellectService {
     @Autowired
     private SellectDAO sellectDAO;
 
+    public void deleteCategory(Integer categoryId){
+        sellectDAO.deleteCategory(categoryId);
+    }
+
+    public void saveCategory(Category category){
+        sellectDAO.saveCatefgory(category);
+    }
+
     public void updateCategory(String categoryId, String categoryName){
         sellectDAO.updateCategory(categoryId, categoryName);
     }

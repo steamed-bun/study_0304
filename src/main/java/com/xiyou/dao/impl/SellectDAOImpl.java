@@ -13,6 +13,17 @@ import java.util.List;
 public class SellectDAOImpl extends BaseDAOImpl implements SellectDAO{
 
     @Override
+    public void deleteCategory(Integer categoryId) {
+        String hql = "DELETE Category c WHERE c.categoryId = :categoryId";
+        getSession().createQuery(hql).setInteger("categoryId", categoryId).executeUpdate();
+    }
+
+    @Override
+    public void saveCatefgory(Category category) {
+        getSession().saveOrUpdate(category);
+    }
+
+    @Override
     public void updateCategory(String categoryId, String categoryName) {
         String hql = "UPDATE Category c SET c.categoryName = :categoryName " +
                 "WHERE c.categoryId = :categoryId";
