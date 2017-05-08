@@ -36,7 +36,23 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
     private Integer pageNum = 1;
 	private Integer totalPageNo;
 
-
+    /**
+     * 已测
+	 * 查找所有书籍不包括图片
+     * url:
+     * 1、点击“评估书籍”返回第一页数据和总页数 必须传totalPageNo=0
+     * book-getBooksForBack.action?pageNum=1&totalPageNo=0
+     * 2、点击页数时不能传totalPageNo=0
+     * book-getBooksForBack.action?pageNum=2
+	 * @return
+     */
+	public String getBooksForBack(){
+        dataMap = BookStoreWebUtils.getDataMap(session);
+        pageNum = getTotalPageNo("0", dataMap, "0");
+        List<Book> books = bookService.getBooks(pageNum);
+        dataMap.put("books", books);
+		return SUCCESS;
+	}
 
 	/**
      * 已测
@@ -189,13 +205,17 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
      */
 	public int getTotalPageNo(String categoryId, Map<String, Object> dataMap, String shopId){
 		if (totalPageNo.equals(0)) {
-			totalPageNo = shopId.equals("0") ? bookService.getTotalPageNo(categoryId): bookService.getTotalPageNo(categoryId, shopId);
+            if (categoryId.equals("0")){
+                totalPageNo = bookService.getTotalPageNo();
+            }else {
+                totalPageNo = shopId.equals("0") ? bookService.getTotalPageNo(categoryId): bookService.getTotalPageNo(categoryId, shopId);
+            }
 			dataMap.put("totalPageNo", totalPageNo);
 			session.put("totalPageNo", totalPageNo);
 		}else {
 			totalPageNo = Integer.parseInt(session.get("totalPageNo").toString());
 		}
-		pageNum = (pageNum.intValue() <= 0) ? pageNum = 1 : pageNum;
+		pageNum = (pageNum  <= 0) ? pageNum = 1 : pageNum;
 		pageNum = (pageNum > totalPageNo) ? totalPageNo : pageNum;
 		return pageNum;
 	}

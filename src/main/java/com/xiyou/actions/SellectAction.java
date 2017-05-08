@@ -25,16 +25,43 @@ public class SellectAction extends ActionSupport implements SessionAware{
 	private Category category;
 
 	/**
+	 * 已测
+	 * 删除子类
+	 * url:select-deleteCategory.action?category.categoryId=5
+	 * @return null
+     */
+	public String deleteCategory(){
+		dataMap = BookStoreWebUtils.getDataMap(session);
+		sellectService.deleteCategory(category.getCategoryId());
+		return SUCCESS;
+	}
+
+	/**
+	 * 已测
+	 * 添加一个子类
+	 * url:select-saveCategory.action?category.categoryPId=1&category.categoryName=test
+	 * @return
+     */
+	public String saveCategory(){
+		dataMap = BookStoreWebUtils.getDataMap(session);
+		sellectService.saveCategory(category);
+		return SUCCESS;
+	}
+
+	/**
+	 * 已测
 	 * 修改小类别
-	 * url:select-updateCategory.action?category.categoryPId=1&category.categoryId=5&category.categoryName=haha
+	 * url:select-updateCategory.action?category.categoryId=5&category.categoryName=haha
 	 * @return
      */
 	public String updateCategory(){
+		dataMap = BookStoreWebUtils.getDataMap(session);
 		sellectService.updateCategory(category.getCategoryId().toString(), category.getCategoryName());
 		return "updateCategory";
 	}
 
 	/**
+	 * 已测
 	 * 根据大类别获取小类别
 	 * url:select-selectCategory.action?category.categoryPId=1
 	 * @return

@@ -66,16 +66,9 @@
 			<result name="login" type="json">
 				<param name="root">dataMap</param>
 			</result>
-			<!--
-			<result name="sellectSeller" type="json">
+			<result name="success" type="json">
 				<param name="root">dataMap</param>
 			</result>
-
-			<result name="sellectSeller">/selLoginEnd.jsp</result>
-			<result name="sellectSeller" type="json">
-				<param name="seller">seller</param>
-			</result>
-			-->
 		</action>
 
 		<action name="user-*" class="userAction" method="{1}">
@@ -94,6 +87,9 @@
 			</result>
 			<result name="delete">/selRegister.jsp</result>
 			<result name="selectShop" type="json">
+				<param name="root">dataMap</param>
+			</result>
+			<result name="success" type="json">
 				<param name="root">dataMap</param>
 			</result>
 		</action>
@@ -154,6 +150,9 @@
 				<param name="root">dataMap</param>
 			</result>
 			<result name="updateCartItem" type="json">
+				<param name="root">dataMap</param>
+			</result>
+			<result name="success" type="json">
 				<param name="root">dataMap</param>
 			</result>
 			<!--<result name="addShopItem">/test.jsp</result>-->

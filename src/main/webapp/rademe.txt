@@ -7,7 +7,8 @@
 |---获取商家书本分类展示接口BookAction搜getBooksByCategoryTo
 |---获取用户书本分类展示接口BookAction搜getBooksByCategory
 |---控制书本每页展示数量在src\main\java\com\xiyou\dao\impl\BookDAOImpl.java 变量 PAGE_SIZE=?
-|---修改书本为良品或非良品搜updateGookBook
+|---修改书本为良品或非良品搜 updateGookBook
+|---后台获取书本分页 getBooksForBack
 
 
 2、订单接口TradeAction
@@ -16,4 +17,38 @@
 |---用户添加订单接口TradeAction搜addTrade
 |---获取商家是否有 未完成订单 为注销商家准备
 
-3、
+3、上传图片接口UpLoadAction
+
+|---后台上传图片搜 saveRecommend
+
+4、操作类别、省市县接口SellectAction
+
+|---后台添加一个子类 saveCategory
+|---根据大类Id查出其子类 selectCategory
+|---修改子类 updateCategory
+|---删除子类 deleteCategory
+
+5、商铺接口 ShopAction
+
+|---修改商铺等级 updateShopGrade
+
+6、seller接口 SellerAction
+
+|---后台获取seller 包括其关联shop 分页 getSellersForBack
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

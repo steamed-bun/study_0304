@@ -28,7 +28,17 @@ public class ShopAction extends ActionSupport implements SessionAware,
 	private Map<String, Object> dataMap;
 	private String status = "yes";
 
-
+	/**
+	 * 已测
+	 * 修改店铺等级
+	 * url:shop-updateShopGrade.action?shop.shopId=25&shop.shopGrade=2
+	 * @return
+     */
+	public String updateShopGrade(){
+		dataMap = BookStoreWebUtils.getDataMap(session);
+		shopService.updateShopGrade(shop.getShopId(), shop.getShopGrade());
+		return SUCCESS;
+	}
 
 	public String delete(){
 		String shopId = session.get("shopId").toString();

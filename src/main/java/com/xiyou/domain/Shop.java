@@ -13,6 +13,12 @@ public class Shop {
 	private String street;
 	private String shopImage;
 
+	public Shop(Integer shopId, String shopName, int shopGrade) {
+		this.shopId = shopId;
+		this.shopName = shopName;
+		this.shopGrade = shopGrade;
+	}
+
 	public Integer getShopId() {
 		return shopId;
 	}

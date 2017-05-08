@@ -137,11 +137,15 @@ public interface BookDAO {
 	/**
 	 * 已测
 	 * 获取所有书籍
-	 * @param shopId shopId
 	 * @return books
 	 */
-	List<Book> getBooks(String shopId);
+	List<Book> getBooks(Integer pageNum);
 
-	List<Category> selectCategory();
+	/**
+	 * 已测
+	 * 为了后台书本分页获取总页数
+	 * @return 总页数
+	 */
+	long getTotalPageNo();
 	
 }

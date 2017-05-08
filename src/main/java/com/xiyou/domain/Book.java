@@ -22,6 +22,17 @@ public class Book {
 	private Integer goodBook;//{非良品:0 良品:1}
 	private Shop shop;
 
+//	b.bookId, b.bookName, b,author, b.likes, b.goodBook
+
+
+	public Book(Integer bookId, String bookName, String author, int likes, Integer goodBook) {
+		this.bookId = bookId;
+		this.bookName = bookName;
+		this.author = author;
+		this.likes = likes;
+		this.goodBook = goodBook;
+	}
+
 	public Book(Integer bookId, String bookName, Integer quantity) {
 		this.bookId = bookId;
 		this.bookName = bookName;
@@ -49,6 +60,28 @@ public class Book {
 		this.oneWord = oneWord;
 		this.goodBook = goodBook;
 		this.shop = shop;
+	}
+
+	@Override
+	public String toString() {
+		return "Book{" +
+				"bookId=" + bookId +
+				", bookName='" + bookName + '\'' +
+				", bookImages=" + bookImages +
+				", author='" + author + '\'' +
+				", category=" + category +
+				", bookPrice=" + bookPrice +
+				", quantity=" + quantity +
+				", likes=" + likes +
+				", noLike=" + noLike +
+				", publicationDate='" + publicationDate + '\'' +
+				", publisher='" + publisher + '\'' +
+				", summary='" + summary + '\'' +
+				", clickNum=" + clickNum +
+				", oneWord='" + oneWord + '\'' +
+				", goodBook=" + goodBook +
+				", shop=" + shop +
+				'}';
 	}
 
 	public Integer getBookId() {
