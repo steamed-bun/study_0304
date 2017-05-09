@@ -1,5 +1,5 @@
 angular.module('bookList',[])
-	.controller('bookListCtrl',function($scope){
+	.controller('bookListCtrl',function($scope,$scope){
 		/*---------------多图旋转轮播图开始------------*/
 		//设置基础变量
 		var $butLeft=null,
@@ -125,7 +125,53 @@ angular.module('bookList',[])
 		init();//调用初始化函数
 		autoGo();
 		/*---------------多图旋转轮播图结束------------*/
-		
+
+		/*------给分类加事件开始-------*/
+		$scope.smallCates=[
+			{smCateId:'1',smCateText:'教育1'},
+			{smCateId:'1',smCateText:'教育1'},
+			{smCateId:'1',smCateText:'教育1'},
+			{smCateId:'1',smCateText:'教育1'},
+			{smCateId:'1',smCateText:'教育1'}
+		];
+		//TODO:根据大类id获取子类
+		/*$http({
+			method:'POST',
+			url:'',
+			data: ,
+			headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+		}).success(function(response){
+			console.log(response);//查看响应数据是否正确
+		});*/
+		//根据用于选择的类别，加载该类书
+		$scope.loadSelectBook=function(){
+			console.log('我要加载某类书');
+			//TODO:根据选择的子类id加载书籍
+			/*$http({
+				method:'POST',
+				url:'',
+				data: ,
+				headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+			}).success(function(response){
+				console.log(response);//查看响应数据是否正确
+			});*/
+		};
+		//加载所有的书籍
+		$scope.loadAllBooks=function(){
+			console.log('我要加载所有的书籍');
+			//TODO:点击“全部”加载所有书籍
+			/*$http({
+				method:'POST',
+				url:'',
+				data: ,
+				headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+			}).success(function(response){
+				console.log(response);//查看响应数据是否正确
+			});*/
+		};
+		//
+		/*------给分类加事件结束-------*/
+
 		/*---------调用分页页码插件，实现分页功能开始-------*/
 	    $('.page-area').cypager({
 	    	pg_size:25,

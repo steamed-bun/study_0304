@@ -812,128 +812,99 @@ angular.module('admin-controller',[])
 	})
 	.controller('accessShopCtrl',function($scope,$http){
 		$scope.oper={
-			hint:'添加成功，可继续添加！',
+			hint:'',
 			searchShop:''
 		};
+		$scope.degreeList=[0,1,2,3,4];//店铺共有的级别数
 		//如下是写在页面上的变量（名称不可更改）
-		$scope.shop={degree:''};//店铺级别评定
 		//保存店铺评估后台返回的数据（应返回数组形式）
-		$scope.shopInfo=[
-			{
-				shopId:'12',
-				shopName:'你好吗',
-				selName:'哈哈',
-				selTel:'2814234600@qq.com',
-				selIdCard:'1'
-			},
-			{
-				shopId:'12',
-				shopName:'你好吗',
-				selName:'哈哈',
-				selTel:'2814234600@qq.com',
-				selIdCard:'1'
-			},
-			{
-				shopId:'12',
-				shopName:'你好吗',
-				selName:'哈哈',
-				selTel:'2814234600@qq.com',
-				selIdCard:'1'
-			},
-			{
-				shopId:'12',
-				shopName:'你好吗',
-				selName:'哈哈',
-				selTel:'2814234600@qq.com',
-				selIdCard:'1'
-			},
-			{
-				shopId:'12',
-				shopName:'你好吗',
-				selName:'哈哈',
-				selTel:'2814234600@qq.com',
-				selIdCard:'1'
-			},
-			{
-				shopId:'12',
-				shopName:'你好吗',
-				selName:'哈哈',
-				selTel:'2814234600@qq.com',
-				selIdCard:'1'
-			},
-			{
-				shopId:'12',
-				shopName:'你好吗',
-				selName:'哈哈',
-				selTel:'2814234600@qq.com',
-				selIdCard:'1'
-			},
-			{
-				shopId:'12',
-				shopName:'你好吗',
-				selName:'哈哈',
-				selTel:'2814234600@qq.com',
-				selIdCard:'1'
-			},
-			{
-				shopId:'12',
-				shopName:'你好吗',
-				selName:'哈哈',
-				selTel:'2814234600@qq.com',
-				selIdCard:'1'
-			},
-			{
-				shopId:'12',
-				shopName:'你好吗',
-				selName:'哈哈',
-				selTel:'2814234600@qq.com',
-				selIdCard:'1'
-			}
-		];//模拟后台返回的数据
+		$scope.shopInfo=[];
 		//与分页相关的数据设定
 		$scope.paging={
-			totalNum:25,//数据的总条数
+			totalNum:'',//数据的总条数
 			perNum:10,//每页显示数据的条数
 			totalNav:''//显示的导航数目
 		};
-		//获得用户在级别评估上选的级别
-		$('.shop-degree-box').change(function(){
-			$(".shop-degree-box option:selected").each(function () {
-				$scope.shop.degree= parseInt($(this).attr('data-id'));
+		//保存用户选择的等级
+		$scope.saveShopDegree=function($event,selectDegree){
+			var shopId=$($event.target).attr('data-id');
+			console.log(shopId);
+			console.log(selectDegree);
+			console.log('真开心！');
+			var postData='shop.shopId='+shopId+'&shop.shopGrade='+selectDegree;
+			$http({
+				method:'POST',
+				url:'shop-updateShopGrade.action',
+				data: postData,
+				headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+			}).success(function(response){
+				console.log(response);
+				if(response.status=='yes'){
+					$scope.oper.hint='保存成功！';
+					$('.oper-hint').slideDown();//错误提示信息缓慢出现
+					setTimeout(function(){
+						$('.oper-hint').slideUp();
+					},3000);
+				}
 			});
-			console.log('级别：'+$scope.shop.degree);
-		});
-		//TODO:向后台数据库请求所有店铺信息
+		};
+		//向后台数据库请求第一页店铺信息
 		$http({
 			method:'POST',
 			url:'sel-getSellersForBack.action', //提供所有信息的接口
 			data: "pageNum=1&totalPageNo=0",//传递给后台请求第几页的页码数
 			headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-		}).success(function(response){
-			console.log(response); //打印后台返回的数据
-			//TODO:在此应得到数据总条数,第一页的数据（每页展示10条数据），分页总数（分多少页,可以不需要）
-			//TODO:与分页相关的变量名称，在此页搜：与分页相关的数据设定
-		});
-		//调用分页页码插件，实现分页功能
-		$('.page-area').cypager({
-			pg_size:$scope.paging.perNum,
-			pg_nav_count:Math.ceil($scope.paging.totalNum/$scope.paging.perNum),
-			pg_total_count:$scope.paging.totalNum,
-			pg_prev_name:'前一页',
-			pg_next_name:'后一页',
-			pg_call_fun:function(count){
-				//此处应到数据库中拿数据
-				console.log('当前要请求第'+count+'页');
-				//TODO 根据商家点击不同的数字显示不同店铺的内容
-				$http({
-					method:'POST',
-					url:'sel-getSellersForBack.action',//分页的接口
-					data: 'pageNum=1',//传递给后台请求第几页的页码数
-					headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-				}).success(function(response){
-					console.log(response); //在此处查看返回的数据是否正确
-				});
+		}).success(function(data){
+			$scope.paging.totalNum=data.totalPageNo;//得到数据的总条数
+
+			console.log($scope.paging.totalNum);
+			console.log(data);
+			data=data.sellers;
+
+			for(var i=0;i<data.length;i++){
+				var seller={};
+				seller.shopId=data[i].shop.shopId;
+				seller.shopName=data[i].shop.shopName;
+				seller.shopDegree=data[i].shop.shopGrade;
+				seller.selName=data[i].selName;
+				seller.selTel=data[i].selTel;
+				seller.selIdCard=data[i].selIdCard;
+				$scope.shopInfo.push(seller);
 			}
+			console.log($scope.shopInfo);
+			//调用分页页码插件，实现分页功能
+			$('.page-area').cypager({
+				pg_size:$scope.paging.perNum,
+				pg_nav_count:Math.ceil($scope.paging.totalNum/$scope.paging.perNum),
+				pg_total_count:$scope.paging.totalNum,
+				pg_prev_name:'前一页',
+				pg_next_name:'后一页',
+				pg_call_fun:function(count){
+					//此处应到数据库中拿数据
+					console.log('当前要请求第'+count+'页');
+					//根据商家点击不同的数字显示不同店铺的内容
+					$http({
+						method:'POST',
+						url:'sel-getSellersForBack.action',//分页的接口
+						data: 'pageNum='+count,//传递给后台请求第几页的页码数
+						headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+					}).success(function(data){
+						console.log(data); //在此处查看返回的数据是否正确
+						data=data.sellers;
+						$scope.shopInfo=[];
+						for(var i=0;i<data.length;i++){
+							var seller={};
+							seller.shopId=data[i].shop.shopId;
+							seller.shopName=data[i].shop.shopName;
+							seller.shopDegree=data[i].shop.shopGrade;
+							seller.selName=data[i].selName;
+							seller.selTel=data[i].selTel;
+							seller.selIdCard=data[i].selIdCard;
+							$scope.shopInfo.push(seller);
+						}
+					});
+				}
+			});
 		});
 	})
 	.controller('accessBookCtrl',function($scope,$http){
@@ -941,122 +912,96 @@ angular.module('admin-controller',[])
 			hint:'添加成功，可继续添加！',
 			searchBook:''
 		};
-		//如下是写在页面上的变量（名称不可更改）
-		$scope.book={degree:''};//店铺级别评定
-		//保存书籍评估后台返回的数据（应返回数组形式）
-		$scope.bookInfo=[
-			{
-				bookId:'1',
-				bookName:'散射光',
-				author:'屈原',
-				likes:23,
-				goodBook:''
-			},
-			{
-				bookId:'1',
-				bookName:'散射光',
-				author:'屈原',
-				likes:23,
-				goodBook:''
-			},
-			{
-				bookId:'1',
-				bookName:'散射光',
-				author:'屈原',
-				likes:23,
-				goodBook:''
-			},
-			{
-				bookId:'1',
-				bookName:'散射光',
-				author:'屈原',
-				likes:23,
-				goodBook:''
-			},
-			{
-				bookId:'1',
-				bookName:'散射光',
-				author:'屈原',
-				likes:23,
-				goodBook:''
-			},
-			{
-				bookId:'1',
-				bookName:'散射光',
-				author:'屈原',
-				likes:23,
-				goodBook:''
-			},
-			{
-				bookId:'1',
-				bookName:'散射光',
-				author:'屈原',
-				likes:23,
-				goodBook:''
-			},
-			{
-				bookId:'1',
-				bookName:'散射光',
-				author:'屈原',
-				likes:23,
-				goodBook:''
-			},
-			{
-				bookId:'1',
-				bookName:'散射光',
-				author:'屈原',
-				likes:23,
-				goodBook:''
-			},
-			{
-				bookId:'1',
-				bookName:'散射光',
-				author:'屈原',
-				likes:23,
-				goodBook:''
-			},
-		];//模拟后台返回的数据
+		$scope.degreeList=['良品','非良品'];//书籍共有的级别数
+		$scope.bookInfo=[];//保存书籍评估后台返回的数据（应返回数组形式）
 		//与分页相关的数据设定
 		$scope.paging={
-			totalNum:25,//数据的总条数
+			totalNum:'',//数据的总条数
 			perNum:10,//每页显示数据的条数
 			totalNav:''//显示的导航数目
 		};
-		//获得用户在级别评估上选的级别
-		$('.book-degree-box').change(function(){
-			$(".book-degree-box option:selected").each(function () {
-				$scope.book.degree= parseInt($(this).attr('data-id'));
-			});
-			console.log('级别：'+$scope.book.degree);
-		});
-		//TODO:向后台数据库请求所有书籍信息
-		$http({
-		 method:'GET',
-		 url:'book-getBooksForBack.action?pageNum=1&totalPageNo=0' //提供所有信息的接口
-		 }).success(function(response){
-		 console.log(response); //打印后台返回的数据
-		 //TODO:在此应得到数据总条数,第一页的数据（每页展示10条数据），分页总数（分多少页,可以不需要）
-		 //TODO:与分页相关的变量名称，在此页搜：与分页相关的数据设定
-		 });
-		//调用分页页码插件，实现分页功能
-		$('.page-area').cypager({
-			pg_size:$scope.paging.perNum,
-			pg_nav_count:Math.ceil($scope.paging.totalNum/$scope.paging.perNum),
-			pg_total_count:$scope.paging.totalNum,
-			pg_prev_name:'前一页',
-			pg_next_name:'后一页',
-			pg_call_fun:function(count){
-				//此处应到数据库中拿数据
-				console.log('当前要请求第'+count+'页');
-				//TODO 根据商家点击不同的数字显示不同书籍的内容
-				$http({
-				 method:'POST',
-				 url:'book-getBooksForBack.action',//分页的接口
-				 data: 'pageNum=8',//传递给后台请求第几页的页码数
-				 headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-				 }).success(function(response){
-				 	console.log(response); //在此处查看返回的数据是否正确
-				 });
+		//保存对书籍的级别评定
+		$scope.saveBookDegree=function($event,selectDegree){
+			var bookId=$($event.target).attr('data-id');
+			var bookMark='';
+			console.log(bookId);
+			console.log(selectDegree);
+			console.log('真开心！');
+			if(selectDegree=='良品'){
+				bookMark='1';
+			}else{
+				bookMark='0';
 			}
+			var postData='book.bookId='+bookId+'&book.goodBook='+bookMark;
+			console.log(postData);
+			$http({
+				method:'POST',
+				url:'book-updateGookBook.action',
+				data: postData,
+				headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+			}).success(function(response){
+				console.log(response);
+				if(response.status=='yes'){
+					$scope.oper.hint='保存成功！';
+					$('.oper-hint').slideDown();//错误提示信息缓慢出现
+					setTimeout(function(){
+						$('.oper-hint').slideUp();
+					},3000);
+				}
+			});
+		};
+		//向后台数据库请求所有书籍信息
+		$http({
+			method:'POST',
+			url:'book-getBooksForBack.action', //提供所有信息的接口
+			data: "pageNum=1&totalPageNo=0",//传递给后台请求第几页的页码数
+			headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+		}).success(function(data){
+			$scope.paging.totalNum=data.totalPageNo;//得到数据的总条数
+			console.log($scope.paging.totalNum);
+			console.log(data);
+			data=data.books;
+			for(var i=0;i<data.length;i++){
+				var book={};
+				book.bookId=data[i].bookId;
+				book.bookName=data[i].bookName;
+				book.author=data[i].author;
+				book.likes=data[i].likes;
+				book.goodBook=data[i].goodBook==1 ? '良品':'非良品';
+				$scope.bookInfo.push(book);
+			}
+			console.log($scope.bookInfo);
+			//调用分页页码插件，实现分页功能
+			$('.page-area').cypager({
+				pg_size:$scope.paging.perNum,
+				pg_nav_count:Math.ceil($scope.paging.totalNum/$scope.paging.perNum),
+				pg_total_count:$scope.paging.totalNum,
+				pg_prev_name:'前一页',
+				pg_next_name:'后一页',
+				pg_call_fun:function(count){
+					//此处应到数据库中拿数据
+					console.log('当前要请求第'+count+'页');
+					//根据商家点击不同的数字显示不同店铺的内容
+					$http({
+						method:'POST',
+						url:'book-getBooksForBack.action',//分页的接口
+						data: 'pageNum='+count,//传递给后台请求第几页的页码数
+						headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+					}).success(function(data){
+						console.log(data); //在此处查看返回的数据是否正确
+						data=data.books;
+						$scope.bookInfo=[];
+						for(var i=0;i<data.length;i++){
+							var book={};
+							book.bookId=data[i].bookId;
+							book.bookName=data[i].bookName;
+							book.author=data[i].author;
+							book.likes=data[i].likes;
+							book.goodBook=data[i].goodBook==1 ? '良品':'非良品';
+							$scope.bookInfo.push(book);
+						}
+					});
+				}
+			});
 		});
 	});

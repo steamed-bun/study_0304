@@ -16,19 +16,16 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="book in bookInfo">
+				<tr ng-repeat="book in bookInfo track by $index">
 					<td>{{book.bookId}}</td>
 					<td>{{book.bookName}}</td>
 					<td>{{book.author}}</td>
 					<td>{{book.likes}}</td>
 					<td>
-						<select>
-							<option>-请选择-</option>
-							<option>良品</option>
-							<option>非良品</option>
+						<select class="book-degree-box"  ng-model="book.goodBook" ng-selected="book.goodBook==degree"  ng-options="degree for degree in degreeList">
 						</select>
 					</td>
-					<td><span class="save-info" data-id="{{book.bookId}}" ng-click="saveBookDegree($event)">保存</span></td>
+					<td><span class="save-info" data-id="{{book.bookId}}" ng-click="saveBookDegree($event,book.goodBook)">保存</span></td>
 				</tr>
 				<!--<tr>
 					<td>03131099</td>
@@ -62,6 +59,7 @@
 		text-align: center;
 		border-radius: 3px;
 		font-size:18px;
+		display:none;
 	}
 	.title-box{
 		padding:0 30px 0 40px;
