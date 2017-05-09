@@ -29,6 +29,8 @@ angular.module('bookDetail',[])
            data:postData,//序列化用户输入的数据
            headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
        }).success(function(response){
+           var $stars=$('.book-source i');
+           $stars.removeClass('icon');
            //当请求成功时
            console.log(response);
            $scope.book.bigCateName=response.category.categoryName;
@@ -43,6 +45,12 @@ angular.module('bookDetail',[])
            $scope.book.approve=response.book.likes;
            $scope.book.disApprove=response.book.noLike;
            $scope.book.detailUrl=response.book.summary;
+           $scope.book.sellerShopName=response.book.shop.shopName;
+           //根据店铺等级设置五角星的个数
+           $scope.book.sellerShopGrade=response.book.shop.shopGrade;
+           for(var n=0;n<$scope.book.sellerShopGrade;n++){
+               $($stars[n]).addClass('icon');
+           }
            imgsArr=response.book.bookImages;//获取到所有的书籍图片
            for(var i=0;i<imgsArr.length;i++){
                allImgs.push(imgsArr[i].imageURL);

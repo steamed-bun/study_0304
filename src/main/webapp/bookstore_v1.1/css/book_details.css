@@ -1,4 +1,4 @@
-
+@import url(http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 section{
 	margin-top:20px;
 	width:100%;
@@ -38,7 +38,7 @@ section{
 	width:736px;
 	height:434px;
 	border:#e8e8e8 solid 1px;
-	padding:40px;
+	padding:20px 40px 20px 40px;
 	font-size:14px;
 	color:#666;
 }
@@ -85,7 +85,7 @@ section{
 	color:#005aa0;
 	margin-right:20px;
 }
-.book-buy-price,.book-buy-num,.book-evaluate{
+.book-buy-price,.book-buy-num,.book-evaluate,.book-source{
 	position: relative;
 	margin-top:20px;
 }
@@ -96,6 +96,20 @@ section{
 	width:100px;
 	margin-left:10px;
 	text-indent: 40px;
+}
+.seller-shop-name{
+	margin:0 20px 0 10px;
+}
+.icon{
+	display:inline-block;
+	width:20px;
+	height:20px;
+	font-style:normal;
+	color:#ff5722;
+}
+.icon:before{
+	content: '\f005';
+	font-family: FontAwesome;
 }
 .bad-evaluate{
 	margin-left:40px;
@@ -143,7 +157,7 @@ section{
 	z-index:9999;
 }
 .book-buy-operate{
-	margin-top:40px;
+	margin-top:20px;
 }
 .shop-now,.add-shopcar{
 	display:inline-block;
