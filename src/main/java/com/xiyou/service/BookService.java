@@ -23,6 +23,30 @@ public class BookService {
 	@Autowired
 	private ShopDAO shopDAO;
 
+	public int getPageNoForCId(Integer categoryId, Float priceStart, Float priceEnd){
+		return (int) bookDAO.getPageNoForCId(categoryId, priceStart, priceEnd);
+	}
+
+	public int getPageNoForSCPId(Integer categoryPId, String shopId, Float priceStart, Float priceEnd){
+		return (int) bookDAO.getPageNoForSCPId(categoryPId, shopId, priceStart, priceEnd);
+	}
+
+	public List<Book> getBooksForCPIdC(Integer categoryPId, Integer pageNum, Integer sort){
+		return bookDAO.getBooksForCPIdC(categoryPId, pageNum, sort);
+	}
+
+	public List<Book> getBooksForCIdP(Integer categoryId, Float priceStart, Float priceEnd, Integer pageNum, Integer sort){
+		return bookDAO.getBooksForCIdP(categoryId, priceStart, priceEnd, pageNum, sort);
+	}
+
+	public List<Book> getBooksForCPIdP(Integer categoryPId, Float priceStart, Float priceEnd, Integer pageNum, Integer sort){
+		return bookDAO.getBooksForCPIdP(categoryPId, priceStart, priceEnd, pageNum, sort);
+	}
+
+	public List<Book> getBooksForSPIdC(Integer categoryPId, String shopId, Integer pageNum, Integer sort){
+		return bookDAO.getBooksForSPIdC(categoryPId, shopId, pageNum, sort);
+	}
+
 	public Book getBookForBack(Integer bookId){
 		return bookDAO.getBookForBack(bookId);
 	}
@@ -36,13 +60,13 @@ public class BookService {
 		bookDAO.updataGoodBook(bookId, goodBook);
 	}
 
-	public int getTotalPageNo(String categoryId, String shopId){
-		long tatalPageNo = bookDAO.getTotalPageNo(categoryId, shopId);
+	public int getTotalPageNo(String categoryId, String shopId, Float priceStart, Float priceEnd){
+		long tatalPageNo = bookDAO.getTotalPageNo(categoryId, shopId, priceStart, priceEnd);
 		return (int) tatalPageNo;
 	}
 
-	public int getTotalPageNo(String categoryId){
-		long tatalPageNo = bookDAO.getTotalPageNo(categoryId);
+	public int getTotalPageNo(String categoryPId, Float priceStart, Float priceEnd){
+		long tatalPageNo = bookDAO.getTotalPageNo(categoryPId, priceStart, priceEnd);
 		return (int) tatalPageNo;
 	}
 
@@ -82,8 +106,8 @@ public class BookService {
 		bookDAO.batchImages(bookImages);
 	}
 
-	public List<Book> getBooksByCategory(String categoryId, Integer pageNum){
-		return bookDAO.getBooksByCategory(categoryId, pageNum);
+	public List<Book> getBooksByCategory(String categoryId, Integer pageNum, Integer sort){
+		return bookDAO.getBooksByCategory(categoryId, pageNum, sort);
 	}
 
 	public Shop getShopByShopId(String shopId){
@@ -107,8 +131,8 @@ public class BookService {
 		return bookDAO.getBook(bookId);
 	}
 
-	public List<Book> getBooksByCategoryTo(String categoryId, String shopId, Integer pageNum){
-		return bookDAO.getBooksByCategoryTo(categoryId, shopId, pageNum);
+	public List<Book> getBooksByCategoryTo(String categoryId, String shopId, Integer pageNum, Integer sort){
+		return bookDAO.getBooksByCategoryTo(categoryId, shopId, pageNum, sort);
 	}
 
 }

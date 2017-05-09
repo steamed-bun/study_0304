@@ -10,6 +10,55 @@ public interface BookDAO {
 
 	/**
 	 * 已测
+	 * user 得到数据总条数
+	 * 子类
+	 * @param categoryId categoryId
+	 * @return long
+     */
+	long getPageNoForCId(Integer categoryId, Float priceStart, Float priceEnd);
+
+	/**
+	 * 已测
+	 * seller 得到数据总条数
+	 * 大类
+	 * @return long
+	 */
+	long getPageNoForSCPId(Integer categoryPId, String shopId, Float priceStart, Float priceEnd);
+
+	/**
+	 * 已测
+	 * user 获取书籍
+	 * 大类 浏览量
+	 * @return books
+	 */
+	List<Book> getBooksForCPIdC(Integer categoryPId, Integer pageNum, Integer sort);
+
+	/**
+	 * 已测
+	 * user获取书籍
+	 * 子类 价格
+	 * @return books
+	 */
+	List<Book> getBooksForCIdP(Integer categoryId, Float priceStart, Float priceEnd, Integer pageNum, Integer sort);
+
+	/**
+	 * 已测
+	 * user 获取书籍
+	 * 大类 价格
+	 * @return books
+	 */
+	List<Book> getBooksForCPIdP(Integer categoryPId, Float priceStart, Float priceEnd, Integer pageNum, Integer sort);
+
+	/**
+	 * 已测
+	 * seller 获取书籍
+	 * 大类 浏览量
+	 * @return books
+	 */
+	List<Book> getBooksForSPIdC(Integer categoryPId, String shopId, Integer pageNum, Integer sort);
+
+	/**
+	 * 已测
 	 * 后台获取一本书
 	 * @param bookId bookId
 	 * @return book
@@ -27,19 +76,21 @@ public interface BookDAO {
 	/**
 	 * 已测
 	 * seller 专用
+	 * 子类
 	 * @param categoryId categoryId
 	 * @param shopId shopId
      * @return 总页数
      */
-	long getTotalPageNo(String categoryId, String shopId);
+	long getTotalPageNo(String categoryId, String shopId, Float priceStart, Float priceEnd);
 
 	/**
 	 * 已测
-	 * 得到符合条件的数据条数
-	 * @param categoryId categoryId
+	 * user
+	 * 大类
+	 * @param categoryPId categoryId
      * @return 总条数
      */
-	long getTotalPageNo(String categoryId);
+	long getTotalPageNo(String categoryPId, Float priceStart, Float priceEnd);
 
 	/**
 	 * 已测
@@ -106,14 +157,14 @@ public interface BookDAO {
 	 * @param categoryId 类型Id
 	 * @return books
      */
-	List<Book> getBooksByCategory(String categoryId, Integer pageNum);
+	List<Book> getBooksByCategory(String categoryId, Integer pageNum, Integer sort);
 
 	/**
 	 * 获取当前类型的书本信息，需要当前shopId
 	 * @param categoryId 类型Id
 	 * @return books
 	 */
-	List<Book> getBooksByCategoryTo(String categoryId, String shopId, Integer pageNum);
+	List<Book> getBooksByCategoryTo(String categoryId, String shopId, Integer pageNum, Integer sort);
 
 	/**
 	 * 删除一本书
