@@ -47,13 +47,14 @@
 				url: 'select-selectCategory.action',
 				data: 'category.categoryPId='+bigCateId,
 				success: function(data){
+					console.log(data);
 					var html='';
 					curSmCate=data.categories;
 					//用js动态创建书籍子类
 					if(curSmCate && curSmCate.length!=0){
 						//当有子类时才添加
 						for(var i=0;i<curSmCate.length;i++){
-							html+='<li><a href="javascript:;" onclick="console.log(111)">'+curSmCate[i].categoryName+'</a></li>';
+							html+='<li><a href="book_list.html?bigCateId='+bigCateId+'&smCateId='+curSmCate[i].categoryId+'">'+curSmCate[i].categoryName+'</a></li>';
 						}
 						curHtml1='<div class="book-subclass-box"><ul class="container clearfix book-subclass-items">'+html+'</ul></div>';
 						curHtml2='<div class="aside-subclass-box"><ul class="container clearfix book-subclass-items">'+html+'</ul></div>';
@@ -78,6 +79,7 @@
 		var bookSubclass=$(this).children()[1];
 		$(bookSubclass).css('display','none');
 	});
+
 	/*-----当鼠标悬浮在书籍大类上时显示书籍子类结束----*/
 
 	/*------当页面滚动时显示固定在上部的菜单栏开始-----*/

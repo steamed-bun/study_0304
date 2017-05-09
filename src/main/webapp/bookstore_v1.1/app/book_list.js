@@ -1,6 +1,26 @@
 angular.module('bookList',[])
 	.controller('bookListCtrl',function($scope,$scope){
 		//TODO：应从地址栏的url中获得如下信息
+		var locationHref=window.location.href;
+		locationHref=locationHref.slice(locationHref.indexOf('?')+1);
+		console.log(locationHref);
+		var bigCateStr='';
+		var smCateIdStr='';
+		var bigCateId='';
+		var smCateId='';
+		if(locationHref.indexOf('=')==locationHref.lastIndexOf('=')){
+			//当地址栏中只有一个参数时（意味着是从大类进来的）
+			console.log('从大类进来的');
+			locationHref=locationHref.split('=');
+			bigCateId=locationHref[1];
+		}else{
+			//当地址栏中有两个参数时（意味着是从子类进来的）
+			console.log('从子类进来的');
+			locationHref=locationHref.split('&');
+			bigCateStr=locationHref[0].split('=');
+			smCateIdStr=locationHref[1].split('=');
+		}
+		console.log(locationHref);
 		$scope.bigCate={'bigCateId':'1','bigCateText':'教育'};
 		$scope.smallCate={'smallCateId':'1','smallCateText':'教育1'};
 		/*---------------多图旋转轮播图开始------------*/
