@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 
 	private static final int PAGE_SIZE = 3;//书本数量
-	private static final int BACK_PAGE_SIZE = 3;//后台书本数量
+	private static final int BACK_PAGE_SIZE = 10;//后台书本数量
 	private static final int BASE_NUM = 0;
 
 	@Override
@@ -40,7 +40,7 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
         long totalPageNo = (Long) getSession().createQuery(hql)
                 .setString("categoryId", categoryId).setString("shopId", shopId)
                 .uniqueResult();
-        totalPageNo = (long) Math.ceil((double)totalPageNo/PAGE_SIZE);
+//        totalPageNo = (long) Math.ceil((double)totalPageNo/PAGE_SIZE);
         return totalPageNo;
     }
 
@@ -50,7 +50,7 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
                 "WHERE b.category = :categoryId";
         long totalPageNo = (Long) getSession().createQuery(hql)
                 .setString("categoryId", categoryId).uniqueResult();
-        totalPageNo = (long) Math.ceil((double)totalPageNo/PAGE_SIZE);
+//        totalPageNo = (long) Math.ceil((double)totalPageNo/PAGE_SIZE);
         return totalPageNo;
     }
 
@@ -223,7 +223,7 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 	public long getTotalPageNo() {
 		String hql = "SELECT count (b.bookId) FROM Book b";
 		long totalPageNo = (Long) getSession().createQuery(hql).uniqueResult();
-		totalPageNo = (long) Math.ceil((double)totalPageNo/BACK_PAGE_SIZE);
+//		totalPageNo = (long) Math.ceil((double)totalPageNo/BACK_PAGE_SIZE);
 		return totalPageNo;
 	}
 }

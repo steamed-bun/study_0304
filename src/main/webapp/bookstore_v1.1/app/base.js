@@ -35,9 +35,11 @@
 		$(bookSubclass).css('display','block');
 		$nav_items.removeClass("cur-header-item");
 		$(bookClass).addClass("cur-header-item");
+		console.log('我被执行了');
 		if(childLen==2){
 			return;
 		}
+		console.log('期望能执行到这');
 		//从数据库中获取该书籍大类的子类
 		if(bigCateId!=0){
 			$.ajax({
@@ -66,6 +68,8 @@
 					}
 				}
 			});
+		}else{
+			console.log('最讨厌这里了');
 		}
 
 	});

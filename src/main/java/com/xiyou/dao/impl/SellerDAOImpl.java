@@ -12,7 +12,7 @@ public class SellerDAOImpl extends BaseDAOImpl implements SellerDAO {
 
 	private static final String SELLER_IMAGE_URL = "http://localhost:8080/study/selImage/";
 	private static final String SELLER_WEIXIN_URL = "http://localhost:8080/study/shopImage/";
-	private static final int BACK_PAGE_SIZE = 3;//后台shop数量
+	private static final int BACK_PAGE_SIZE = 10;//后台shop数量
 	private static final int BASE_NUM = 0;
 
 	@Override
@@ -28,7 +28,7 @@ public class SellerDAOImpl extends BaseDAOImpl implements SellerDAO {
 		String hql = "SELECT count (s.selId) FROM Seller s";
 		long totalPageNo = (Long) getSession().createQuery(hql)
 				.uniqueResult();
-		totalPageNo = (long) Math.ceil((double)totalPageNo/BACK_PAGE_SIZE);
+//		totalPageNo = (long) Math.ceil((double)totalPageNo/BACK_PAGE_SIZE);
 		return totalPageNo;
 	}
 

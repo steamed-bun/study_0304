@@ -1,5 +1,8 @@
 angular.module('bookList',[])
-	.controller('bookListCtrl',function($scope){
+	.controller('bookListCtrl',function($scope,$scope){
+		//TODO：应从地址栏的url中获得如下信息
+		$scope.bigCate={'bigCateId':'1','bigCateText':'教育'};
+		$scope.smallCate={'smallCateId':'1','smallCateText':'教育1'};
 		/*---------------多图旋转轮播图开始------------*/
 		//设置基础变量
 		var $butLeft=null,
@@ -125,7 +128,118 @@ angular.module('bookList',[])
 		init();//调用初始化函数
 		autoGo();
 		/*---------------多图旋转轮播图结束------------*/
-		
+
+		/*------给分类加事件开始-------*/
+		$scope.smallCates=[
+			{smCateId:'1',smCateText:'教育1'},
+			{smCateId:'1',smCateText:'教育1'},
+			{smCateId:'1',smCateText:'教育1'},
+			{smCateId:'1',smCateText:'教育1'},
+			{smCateId:'1',smCateText:'教育1'}
+		];
+		//根据用于选择的类别，加载该类书(根据子类id获取书籍)
+		$scope.loadSelectBook=function($event){
+			console.log('我要加载某类书');
+			$curElem=$($event.target);
+			$('.classify a').removeClass('cate-default');
+			$curElem.addClass('cate-default');
+			var smCateId=$curElem.attr('data-id');//获得子类的id
+			console.log(smCateId);
+			//TODO:根据选择的子类id加载书籍
+			/*$http({
+				method:'POST',
+				url:'',
+				data: ,
+				headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+			}).success(function(response){
+				console.log(response);//查看响应数据是否正确
+			});*/
+		};
+		//加载所有的书籍（根据大类id来获取）
+		$scope.loadAllBooks=function($event){
+			console.log('我要加载所有的书籍');
+			$curElem=$($event.target);
+			$('.classify a').removeClass('cate-default');
+			$curElem.addClass('cate-default');
+			console.log($(this)[0]);
+			//TODO:点击“全部”加载所有书籍
+			/*$http({
+				method:'POST',
+				url:'',
+				data: ,
+				headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+			}).success(function(response){
+				console.log(response);//查看响应数据是否正确
+			});*/
+		};
+		//默认排序（默认按浏览量view-to-low排序）
+		$scope.loadSortByDefault=function($event){
+			$curElem=$($event.target);
+			$('.sort a').removeClass('sort-default');
+			$curElem.addClass('sort-default');
+			console.log('我是默认排序');
+			/*$http({
+				method:'POST',
+				url:'',
+				data: ,
+				headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+			}).success(function(response){
+				console.log(response);//查看响应数据是否正确
+			});*/
+		};
+		//按价格展示书籍
+		$scope.loadSortByPrice=function($event){
+			$curElem=$($event.target);
+			$('.sort a').removeClass('sort-default');
+			$curElem.addClass('sort-default');
+			console.log('按价格排序');
+			if($curElem.hasClass('price-to-low')){
+				//需要price-to-high
+				$curElem.removeClass('price-to-low');
+				$curElem.addClass('price-to-high');
+			}else{
+				//需要price-to-low
+				$curElem.removeClass('price-to-high');
+				$curElem.addClass('price-to-low');
+			}
+			//TODO:根据价格进行排序
+			/*$http({
+			 method:'POST',
+			 url:'',
+			 data: ,
+			 headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+			 }).success(function(response){
+			 console.log(response);//查看响应数据是否正确
+			 });*/
+		};
+		//根据浏览量进行排序
+		$scope.loadSortByView=function($event){
+			$curElem=$($event.target);
+			$('.sort a').removeClass('sort-default');
+			$curElem.addClass('sort-default');
+			$curElem=$($event.target);
+			console.log('根据浏览量进行排序');
+			if($curElem.hasClass('view-to-low')){
+				//需要view-to-high
+				$curElem.removeClass('view-to-low');
+				$curElem.addClass('view-to-high');
+			}else{
+				//需要view-to-low
+				$curElem.removeClass('view-to-high');
+				$curElem.addClass('view-to-low');
+			}
+			//TODO:根据浏览量进行排序
+			/*$http({
+			 method:'POST',
+			 url:'',
+			 data: ,
+			 headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+			 }).success(function(response){
+			 console.log(response);//查看响应数据是否正确
+			 });*/
+		};
+		/*------给分类加事件结束-------*/
+
 		/*---------调用分页页码插件，实现分页功能开始-------*/
 	    $('.page-area').cypager({
 	    	pg_size:25,
