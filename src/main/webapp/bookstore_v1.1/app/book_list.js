@@ -1,11 +1,6 @@
 angular.module('bookList',[])
-<<<<<<< HEAD
 	.controller('bookListCtrl',function($scope,$scope){
-		//从地址栏的url中获得大类
-=======
-	.controller('bookListCtrl',function($scope,$http){
 		//TODO：应从地址栏的url中获得如下信息
->>>>>>> 2d248a61937ee061a74858fe32d878b72954d9df
 		var locationHref=window.location.href;
 		locationHref=locationHref.slice(locationHref.indexOf('?')+1);
 		console.log(locationHref);
@@ -17,21 +12,15 @@ angular.module('bookList',[])
 			//当地址栏中只有一个参数时（意味着是从大类进来的）
 			console.log('从大类进来的');
 			locationHref=locationHref.split('=');
-			bigCateId=locationHref[1]; //得到大类的id
-			console.log(bigCateId);
-			//根据大类的id获得大类的名称
+			bigCateId=locationHref[1];
 		}else{
 			//当地址栏中有两个参数时（意味着是从子类进来的）
 			console.log('从子类进来的');
 			locationHref=locationHref.split('&');
 			bigCateStr=locationHref[0].split('=');
 			smCateIdStr=locationHref[1].split('=');
-			bigCateId=bigCateStr[1]; //得到大类的id
-			smCateId=smCateIdStr[1]; //得到子类的id
-			console.log(bigCateId);
-			console.log(smCateId);
 		}
-
+		console.log(locationHref);
 		$scope.bigCate={'bigCateId':'1','bigCateText':'教育'};
 		$scope.smallCate={'smallCateId':'1','smallCateText':'教育1'};
 		/*---------------多图旋转轮播图开始------------*/
@@ -128,10 +117,10 @@ angular.module('bookList',[])
 				var $targetImg=imgAll[imgArrIndex][i];
 				var thisTime=(d==1) ? imgTime*i : imgTime*(imgAll.length-1-i);//从左往右时间增加，从右往左时间减少（只是为了实现每张图片是一个接一个旋转出来的效果）
 				$thisItme.append($targetImg);
-				
+
 				$thisImg.css('transform-origin',originImg);  //设定原来图片的圆心点
 				$targetImg.css({transformOrigin:originImg,rotate:(0-d)*imgAng+"deg"});  //初始化新图片的旋转圆心点和旋转角度
-				
+
 				setTimeout(function(){
 					$thisImg.transition({rotate:imgAng*d+"deg"}); //原来的图片转出去
 					$targetImg.transition({rotate:"0deg"},500,function(){
@@ -177,14 +166,14 @@ angular.module('bookList',[])
 			var smCateId=$curElem.attr('data-id');//获得子类的id
 			console.log(smCateId);
 			//TODO:根据选择的子类id加载书籍
-			$http({
+			/*$http({
 				method:'POST',
-				url:'book-getBooksByCategory.action', //user 按照点击量查询 sort {1 : 从低到高  0 : 从高到低}
-				data: 'book.category.categoryId=4&pageNum=1&totalPageNo=0&sort=0',
+				url:'',
+				data: ,
 				headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
 			}).success(function(response){
 				console.log(response);//查看响应数据是否正确
-			});
+			});*/
 		};
 		//加载所有的书籍（根据大类id来获取）
 		$scope.loadAllBooks=function($event){
@@ -194,14 +183,14 @@ angular.module('bookList',[])
 			$curElem.addClass('cate-default');
 			console.log($(this)[0]);
 			//TODO:点击“全部”加载所有书籍
-			$http({
+			/*$http({
 				method:'POST',
-				url:'book-getBooksForCPIdC.action',//user 获取大类 浏览量
-				data: 'book.category.categoryPId=1&pageNum=1&totalPageNo=0&sort=1',
+				url:'',
+				data: ,
 				headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
 			}).success(function(response){
 				console.log(response);//查看响应数据是否正确
-			});
+			});*/
 		};
 		//默认排序（默认按浏览量view-to-low排序）
 		$scope.loadSortByDefault=function($event){
@@ -235,21 +224,13 @@ angular.module('bookList',[])
 			}
 			//TODO:根据价格进行排序
 			/*$http({
-				method:'POST',
-				url:'book-getBooksForCIdP.action',//user 子类 价格
-				data: 'book.category.categoryId=4&pageNum=1&totalPageNo=0&sort=1',
-				headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-			}).success(function(response){
-				console.log(response);//查看响应数据是否正确
-			});*/
-			$http({
-				method:'POST',
-				url:'book-getBooksForCPIdP.action',//user 大类 价格
-				data: 'book.category.categoryPId=1&pageNum=1&totalPageNo=0&sort=1',
-				headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-			}).success(function(response){
-				console.log(response);//查看响应数据是否正确
-			});
+			 method:'POST',
+			 url:'',
+			 data: ,
+			 headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+			 }).success(function(response){
+			 console.log(response);//查看响应数据是否正确
+			 });*/
 		};
 		//根据浏览量进行排序
 		$scope.loadSortByView=function($event){
@@ -268,22 +249,14 @@ angular.module('bookList',[])
 				$curElem.addClass('view-to-low');
 			}
 			//TODO:根据浏览量进行排序
-			$http({
+			/*$http({
 			 method:'POST',
-			 url:'book-getBooksForCPIdC.action',//user 大类 浏览量
-			 data: 'book.category.categoryPId=1&pageNum=1&totalPageNo=0&sort=0',
+			 url:'',
+			 data: ,
 			 headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
 			 }).success(function(response){
 			 console.log(response);//查看响应数据是否正确
-			 });
-			/*$http({
-				method:'POST',
-				url:'book-getBooksByCategory.action',//user 子类 浏览量
-				data: 'book.category.categoryId=4&pageNum=1&totalPageNo=0&sort=0',
-				headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-			}).success(function(response){
-				console.log(response);//查看响应数据是否正确
-			});*/
+			 });*/
 		};
 		/*------给分类加事件结束-------*/
 
@@ -300,37 +273,12 @@ angular.module('bookList',[])
           		//TODO 根据商家点击不同的数字显示不同的内容
 				/*$http({
 				 method:'POST',
-				 url:'book-getBooksByCategory.action',//user 子类 浏览量 分页
-				 data: 'book.category.categoryId=4&pageNum=1&sort=0',
+				 url:'',
+				 data: ,
 				 headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
 				 }).success(function(response){
 				 console.log(response);//查看响应数据是否正确
 				 });*/
-				/*$http({
-				 method:'POST',
-				 url:'book-getBooksForCIdP.action',//user 子类 价格 分页
-				 data: 'book.category.categoryId=4&pageNum=1&sort=0',
-				 headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-				 }).success(function(response){
-				 console.log(response);//查看响应数据是否正确
-				 });*/
-				/*$http({
-				 method:'POST',
-				 url:'book-getBooksForCPIdC.action',//user 大类 浏览量 分页
-				 data: 'book.category.categoryPId=1&pageNum=1&sort=0',
-				 headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-				 }).success(function(response){
-				 console.log(response);//查看响应数据是否正确
-				 });*/
-				$http({
-				 method:'POST',
-				 url:'book-getBooksForCPIdP.action',//user 大类 价格 分页
-				 data: 'book.category.categoryPId=1&pageNum=1&sort=0',
-				 headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-				 }).success(function(response){
-				 console.log(response);//查看响应数据是否正确
-				 });
-
 	    	}
 	    });
 	    /*---------调用分页页码插件，实现分页功能结束-------*/
