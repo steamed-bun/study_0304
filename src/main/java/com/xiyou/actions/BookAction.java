@@ -111,6 +111,8 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
      * user 获取书籍 传入 大类Id 页数
      * url:
      * book-getBooksForCPIdC.action?book.category.categoryPId=1&pageNum=1&totalPageNo=0&sort=0
+     * 分页
+     * book-getBooksForCPIdC.action?book.category.categoryPId=1&pageNum=1&sort=0
      * 大类 浏览量
      * @return books
      */
@@ -129,7 +131,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 	 * user获取书籍 传入子类Id 页数
 	 * 子类 价格
      * url:
-     * book-getBooksForCIdP.action?book.category.categoryId=4&pageNum=1&totalPageNo=0
+     * book-getBooksForCIdP.action?book.category.categoryId=4&pageNum=1&totalPageNo=0&sort=0
      * 不要理下面的url
      * book-getBooksForCIdP.action?book.category.categoryId=4&pageNum=1&totalPageNo=0&priceStart=1.5&priceEnd=50
 	 * @return books
@@ -339,9 +341,9 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 	 * user和后台获取当前类型的所有书籍
 	 * url:
      * 1、点击类别返回第一页数据和总页数 必须传totalPageNo=0
-     * book-getBooksByCategory.action?book.category.categoryId=4&pageNum=1&totalPageNo=0
+     * book-getBooksByCategory.action?book.category.categoryId=4&pageNum=1&totalPageNo=0&sort=0
      * 2、点击页数时不能传totalPageNo=0
-     * book-getBooksByCategory.action?book.category.categoryId=4&pageNum=1
+     * book-getBooksByCategory.action?book.category.categoryId=4&pageNum=1&sort=0
 	 * @return books
      */
 	public String getBooksByCategory(){
