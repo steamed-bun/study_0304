@@ -117,11 +117,22 @@ section{
 .select-condition a:hover{
 	color:#b4a078;
 }
-.all-books,.sort-default{
+.cate-default,.sort-default{
 	color:#b4a078 !important;
 }
 .book-price,.book-pageView{
 	padding:20px !important;
+}
+.price-to-high{
+	background:url("../images/toUp.png") right center no-repeat;
+}
+.price-to-low{
+	background:url("../images/toDown.png") right center no-repeat;
+}
+.view-to-high{
+	background:url("../images/toUp.png") right center no-repeat;
+}
+.view-to-low{
 	background:url("../images/toDown.png") right center no-repeat;
 }
 /*书籍展示开始*/

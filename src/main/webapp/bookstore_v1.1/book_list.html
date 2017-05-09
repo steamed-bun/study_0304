@@ -294,7 +294,7 @@
 		<!-- 书籍列表开始 -->
 		<section ng-app="bookList">
 			<div class="container" ng-controller="bookListCtrl">
-				<nav class="crumbs"><span>首页</span><i></i><span>教育</span></nav>
+				<nav class="crumbs"><span>首页</span><i></i><span data-id="bigCate.bigCateId">{{bigCate.bigCateText}}</span><i></i><span data-id="{{smallCate.smallCateId}}">{{smallCate.smallCateText}}</span></nav>
 				<div class="mainbox">
 					<ul class="clearfix">
 						<li><span style="background-image:url('./images/spotlight/s00001.jpg');background-size:cover;"></span></li>
@@ -313,8 +313,8 @@
 					<div class="select-condition">
 						<p class="classify">
 							<span>分类：</span>
-							<a class="all-books" ng-click="loadAllBooks()">全部</a>
-							<a ng-repeat="smCate in smallCates track by $index" data-id="{{smCate.smCateId}}" ng-click="loadSelectBook()">{{smCate.smCateText}}</a>
+							<a class="cate-default" ng-click="loadAllBooks($event)">全部</a>
+							<a ng-repeat="smCate in smallCates track by $index" data-id="{{smCate.smCateId}}" ng-click="loadSelectBook($event)">{{smCate.smCateText}}</a>
 							<!--<a>文学传记</a>
 							<a>青春文学</a>
 							<a>动漫</a>
@@ -324,9 +324,9 @@
 						</p>
 						<p class="sort">
 							<span>排序：</span>
-							<a class="sort-default">默认</a>
-							<a class="book-price">价格</a>
-							<a class="book-pageView">浏览量</a>
+							<a class="sort-default" ng-click="loadSortByDefault($event)">默认</a>
+							<a class="book-price price-to-low" ng-click="loadSortByPrice($event)">价格</a>
+							<a class="book-pageView view-to-low" ng-click="loadSortByView($event)">浏览量</a>
 						</p>
 					</div>
 					<div>
