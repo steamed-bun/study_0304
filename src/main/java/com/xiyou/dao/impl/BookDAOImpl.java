@@ -47,9 +47,15 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 	}
 
 	@Override
-	public List<Book> getBooksForCPIdC(Integer categoryPId, Integer pageNum) {
-		String hql = "FROM Book b WHERE b.category IN " +
-				"(FROM Category c WHERE c.categoryPId = :categoryPId) ORDER BY b.clickNum DESC";
+	public List<Book> getBooksForCPIdC(Integer categoryPId, Integer pageNum, Integer sort) {
+		String hql;
+			if(sort.equals(0)){
+				hql = "FROM Book b WHERE b.category IN " +
+						"(FROM Category c WHERE c.categoryPId = :categoryPId) ORDER BY b.clickNum DESC";
+			}else {
+				hql = "FROM Book b WHERE b.category IN " +
+						"(FROM Category c WHERE c.categoryPId = :categoryPId) ORDER BY b.clickNum";
+			}
 		@SuppressWarnings("unchecked")
 		List<Book> books = (List<Book>) getSession().createQuery(hql)
 				.setInteger("categoryPId", categoryPId)
@@ -59,11 +65,19 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 	}
 
 	@Override
-	public List<Book> getBooksForCIdP(Integer categoryId, Float priceStart, Float priceEnd, Integer pageNum) {
-		String hql = "FROM Book b WHERE b.bookPrice >= :priceStart " +
-				"AND b.bookPrice <= :priceEnd " +
-				"AND b.category = :categoryId " +
-				"ORDER BY b.bookPrice";
+	public List<Book> getBooksForCIdP(Integer categoryId, Float priceStart, Float priceEnd, Integer pageNum, Integer sort) {
+		String hql;
+		if (sort.equals(0)){
+			hql = "FROM Book b WHERE b.bookPrice >= :priceStart " +
+					"AND b.bookPrice <= :priceEnd " +
+					"AND b.category = :categoryId " +
+					"ORDER BY b.bookPrice DESC";
+		}else {
+			hql = "FROM Book b WHERE b.bookPrice >= :priceStart " +
+					"AND b.bookPrice <= :priceEnd " +
+					"AND b.category = :categoryId " +
+					"ORDER BY b.bookPrice";
+		}
 		@SuppressWarnings("unchecked")
 		List<Book> books = (List<Book>) getSession().createQuery(hql)
 				.setFloat("priceStart", priceStart)
@@ -76,11 +90,20 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 	}
 
 	@Override
-	public List<Book> getBooksForCPIdP(Integer categoryPId, Float priceStart, Float priceEnd, Integer pageNum) {
-		String hql = "FROM Book b WHERE b.bookPrice >= :priceStart " +
-				"AND b.bookPrice <= :priceEnd " +
-				"AND b.category IN (FROM Category c WHERE c.categoryPId = :categoryPId) " +
-				"ORDER BY b.bookPrice";
+	public List<Book> getBooksForCPIdP(Integer categoryPId, Float priceStart, Float priceEnd, Integer pageNum, Integer sort) {
+		String hql;
+		if (sort.equals(0)){
+			hql = "FROM Book b WHERE b.bookPrice >= :priceStart " +
+					"AND b.bookPrice <= :priceEnd " +
+					"AND b.category IN (FROM Category c WHERE c.categoryPId = :categoryPId) " +
+					"ORDER BY b.bookPrice DESC";
+		}else {
+			hql = "FROM Book b WHERE b.bookPrice >= :priceStart " +
+					"AND b.bookPrice <= :priceEnd " +
+					"AND b.category IN (FROM Category c WHERE c.categoryPId = :categoryPId) " +
+					"ORDER BY b.bookPrice";
+		}
+
 		@SuppressWarnings("unchecked")
 		List<Book> books = (List<Book>) getSession().createQuery(hql)
 				.setFloat("priceStart", priceStart)
@@ -93,10 +116,17 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 	}
 
 	@Override
-	public List<Book> getBooksForSPIdC(Integer categoryPId, String shopId, Integer pageNum) {
-		String hql = "FROM Book b WHERE b.category IN (FROM Category c WHERE c.categoryPId = :categoryPId) " +
-				"AND b.shop = :shopId " +
-				"ORDER BY b.clickNum DESC";
+	public List<Book> getBooksForSPIdC(Integer categoryPId, String shopId, Integer pageNum, Integer sort) {
+		String hql;
+		if (sort.equals(0)){
+			hql = "FROM Book b WHERE b.category IN (FROM Category c WHERE c.categoryPId = :categoryPId) " +
+					"AND b.shop = :shopId " +
+					"ORDER BY b.clickNum DESC";
+		}else {
+			hql = "FROM Book b WHERE b.category IN (FROM Category c WHERE c.categoryPId = :categoryPId) " +
+					"AND b.shop = :shopId " +
+					"ORDER BY b.clickNum";
+		}
 		@SuppressWarnings("unchecked")
 		List<Book> books = (List<Book>) getSession().createQuery(hql)
 				.setInteger("categoryPId", categoryPId)
@@ -248,9 +278,15 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 	}
 
 	@Override
-	public List<Book> getBooksByCategory(String categoryId, Integer pageNum) {
-		String hql = "FROM Book AS b " +
-				"WHERE b.category = :categoryId ORDER BY b.clickNum DESC";
+	public List<Book> getBooksByCategory(String categoryId, Integer pageNum, Integer sort) {
+		String hql;
+		if (sort.equals(0)){
+			hql = "FROM Book AS b " +
+					"WHERE b.category = :categoryId ORDER BY b.clickNum DESC";
+		}else {
+			hql = "FROM Book AS b " +
+					"WHERE b.category = :categoryId ORDER BY b.clickNum";
+		}
 		@SuppressWarnings("unchecked")
 		List<Book> books = getSession().createQuery(hql)
 				.setString("categoryId", categoryId)
@@ -260,9 +296,15 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 	}
 
 	@Override
-	public List<Book> getBooksByCategoryTo(String categoryId, String shopId, Integer pageNum) {
-		String hql = "FROM Book AS b " +
-				"WHERE b.category = :categoryId AND b.shop = :shopId ORDER BY b.clickNum DESC";
+	public List<Book> getBooksByCategoryTo(String categoryId, String shopId, Integer pageNum, Integer sort) {
+		String hql;
+		if (sort.equals(0)){
+			hql = "FROM Book AS b " +
+					"WHERE b.category = :categoryId AND b.shop = :shopId ORDER BY b.clickNum DESC";
+		}else {
+			hql = "FROM Book AS b " +
+					"WHERE b.category = :categoryId AND b.shop = :shopId ORDER BY b.clickNum";
+		}
 		@SuppressWarnings("unchecked")
 		List<Book> books = getSession().createQuery(hql).setString("categoryId", categoryId)
 				.setFirstResult(BASE_NUM + (pageNum- 1) * PAGE_SIZE)

@@ -31,7 +31,7 @@ public interface BookDAO {
 	 * 大类 浏览量
 	 * @return books
 	 */
-	List<Book> getBooksForCPIdC(Integer categoryPId, Integer pageNum);
+	List<Book> getBooksForCPIdC(Integer categoryPId, Integer pageNum, Integer sort);
 
 	/**
 	 * 已测
@@ -39,7 +39,7 @@ public interface BookDAO {
 	 * 子类 价格
 	 * @return books
 	 */
-	List<Book> getBooksForCIdP(Integer categoryId, Float priceStart, Float priceEnd, Integer pageNum);
+	List<Book> getBooksForCIdP(Integer categoryId, Float priceStart, Float priceEnd, Integer pageNum, Integer sort);
 
 	/**
 	 * 已测
@@ -47,7 +47,7 @@ public interface BookDAO {
 	 * 大类 价格
 	 * @return books
 	 */
-	List<Book> getBooksForCPIdP(Integer categoryPId, Float priceStart, Float priceEnd, Integer pageNum);
+	List<Book> getBooksForCPIdP(Integer categoryPId, Float priceStart, Float priceEnd, Integer pageNum, Integer sort);
 
 	/**
 	 * 已测
@@ -55,7 +55,7 @@ public interface BookDAO {
 	 * 大类 浏览量
 	 * @return books
 	 */
-	List<Book> getBooksForSPIdC(Integer categoryPId, String shopId, Integer pageNum);
+	List<Book> getBooksForSPIdC(Integer categoryPId, String shopId, Integer pageNum, Integer sort);
 
 	/**
 	 * 已测
@@ -157,14 +157,14 @@ public interface BookDAO {
 	 * @param categoryId 类型Id
 	 * @return books
      */
-	List<Book> getBooksByCategory(String categoryId, Integer pageNum);
+	List<Book> getBooksByCategory(String categoryId, Integer pageNum, Integer sort);
 
 	/**
 	 * 获取当前类型的书本信息，需要当前shopId
 	 * @param categoryId 类型Id
 	 * @return books
 	 */
-	List<Book> getBooksByCategoryTo(String categoryId, String shopId, Integer pageNum);
+	List<Book> getBooksByCategoryTo(String categoryId, String shopId, Integer pageNum, Integer sort);
 
 	/**
 	 * 删除一本书

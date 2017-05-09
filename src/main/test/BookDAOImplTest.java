@@ -27,7 +27,7 @@ public class BookDAOImplTest {
 //        System.out.println(bookDAO.getBooksForCPIdC(1,3).size());
 //        System.out.println(bookDAO.getBooksForCIdP(4, 1.5F, 50F, 2));
 //        System.out.println(bookDAO.getBooksForCPIdP(1, 1.5F, 50F, 2));
-        System.out.println(bookDAO.getBooksForSPIdC(1, "25", 3));
+//        System.out.println(bookDAO.getBooksForSPIdC(1, "25", 3));
     }
 
     @Test
@@ -114,7 +114,7 @@ public class BookDAOImplTest {
     @Transactional
     @Test
     public void TestGetBooksByCategory(){
-        System.out.println(bookDAO.getBooksByCategory("2",2));
+//        System.out.println(bookDAO.getBooksByCategory("2",2));
     }
 
     @Transactional

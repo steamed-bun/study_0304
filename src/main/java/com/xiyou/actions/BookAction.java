@@ -41,6 +41,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 	private Integer totalPageNo;
 	private Float priceStart = 0.0F; //用户自己输入的价格起始值
 	private Float priceEnd = Float.MAX_VALUE; //用户自己输入的价格起始值
+    private Integer sort; //{1 : 从低到高  0 : 从高到低}
 
     /**
      * 非接口
@@ -109,14 +110,14 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
      * 已测
      * user 获取书籍 传入 大类Id 页数
      * url:
-     * book-getBooksForCPIdC.action?book.category.categoryPId=1&pageNum=1&totalPageNo=0
+     * book-getBooksForCPIdC.action?book.category.categoryPId=1&pageNum=1&totalPageNo=0&sort=0
      * 大类 浏览量
      * @return books
      */
     public String getBooksForCPIdC(){
         dataMap = BookStoreWebUtils.getDataMap(session);
         getTotalPageNoForUserPId();
-        List<Book> books = bookService.getBooksForCPIdC(book.getCategory().getCategoryPId(),pageNum);
+        List<Book> books = bookService.getBooksForCPIdC(book.getCategory().getCategoryPId(),pageNum, sort);
         books = BookStoreWebUtils.setNull(books);
         dataMap.put("books",books);
         this.setBook(null);
@@ -137,7 +138,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
         dataMap = BookStoreWebUtils.getDataMap(session);
         getTotalPageNoForUserId();
         List<Book> books = bookService
-                .getBooksForCIdP(book.getCategory().getCategoryId(), priceStart, priceEnd, pageNum);
+                .getBooksForCIdP(book.getCategory().getCategoryId(), priceStart, priceEnd, pageNum, sort);
         books = BookStoreWebUtils.setNull(books);
         dataMap.put("books",books);
         this.setPriceStart(0.0F);
@@ -158,7 +159,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
         dataMap = BookStoreWebUtils.getDataMap(session);
         getTotalPageNoForUserPId();
         List<Book> books = bookService
-                .getBooksForCPIdP(book.getCategory().getCategoryPId(),priceStart, priceEnd, pageNum);
+                .getBooksForCPIdP(book.getCategory().getCategoryPId(),priceStart, priceEnd, pageNum, sort);
         books = BookStoreWebUtils.setNull(books);
         dataMap.put("books",books);
         this.setBook(null);
@@ -180,7 +181,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
         String shopId = session.get("shopId").toString();
         getTotalPageNoForSelPId(shopId);
         List<Book> books = bookService
-                .getBooksForSPIdC(book.getCategory().getCategoryPId(), shopId, pageNum);
+                .getBooksForSPIdC(book.getCategory().getCategoryPId(), shopId, pageNum,sort);
         books = BookStoreWebUtils.setNull(books);
         dataMap.put("books",books);
         this.setBook(null);
@@ -347,7 +348,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 		dataMap = BookStoreWebUtils.getDataMap(session);
 		String categoryId = book.getCategory().getCategoryId().toString();
         getTotalPageNoForUserId();
-		List<Book> books = bookService.getBooksByCategory(categoryId, pageNum);
+		List<Book> books = bookService.getBooksByCategory(categoryId, pageNum, sort);
 		books = BookStoreWebUtils.setNull(books);
 		dataMap.put("books",books);
 		book = null;
@@ -371,7 +372,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 		String categoryId = book.getCategory().getCategoryId().toString();
 		String shopId = session.get("shopId").toString();
         getTotalPageNoForSelId(shopId);
-		List<Book> books = bookService.getBooksByCategoryTo(categoryId, shopId, pageNum);
+		List<Book> books = bookService.getBooksByCategoryTo(categoryId, shopId, pageNum, sort);
 		books = BookStoreWebUtils.setNull(books);
 		dataMap.put("books",books);
 		book = null;
@@ -487,4 +488,8 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 	public void setPriceEnd(Float priceEnd) {
 		this.priceEnd = priceEnd;
 	}
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
 }
