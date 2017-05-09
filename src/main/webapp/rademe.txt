@@ -5,12 +5,22 @@
 
 |---获取用户首页四本书的接口BookAction搜getTopBooks
 |---获取商家书本分类展示接口BookAction搜getBooksByCategoryTo
-|---获取用户书本分类展示接口BookAction搜getBooksByCategory
 |---控制书本每页展示数量在src\main\java\com\xiyou\dao\impl\BookDAOImpl.java 变量 PAGE_SIZE=?
 |---修改书本为良品或非良品搜 updateGookBook
 |---后台获取书本分页 getBooksForBack
 |---后台搜索一本书 getBookForBack
 
+用户
+|---获取书本分类
+    getBooksByCategory  -- 按照 子类 浏览量
+    getBooksForCPIdC    -- 按照 大类 浏览量
+    getBooksForCIdP     -- 按照 子类 价格
+    getBooksForCPIdP    -- 按照 大类 价格
+
+seller
+|---获取书本分类
+    getBooksByCategoryTo -- 按照 子类 浏览量
+    getBooksForSPIdC    -- 按照 大类 浏览量
 
 2、订单接口TradeAction
 
