@@ -6,10 +6,7 @@ import com.xiyou.dao.BookDAO;
 import com.xiyou.domain.Book;
 import com.xiyou.domain.BookImages;
 import com.xiyou.domain.Category;
-import com.xiyou.domain.TradeItem;
 import com.xiyou.exception.DBException;
-import org.apache.struts2.components.If;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 

@@ -1,5 +1,6 @@
 package com.xiyou.actions;
 
+import java.awt.event.FocusAdapter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +39,20 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 	private List<BookImages> bookImages = new ArrayList<BookImages>(5);
     private Integer pageNum = 1;
 	private Integer totalPageNo;
+	private Float priceStart = 0.0F; //用户自己输入的价格起始值
+	private Float priceEnd = Float.MAX_VALUE; //用户自己输入的价格起始值
+
+
+
+	/**
+	 * 获取书籍
+	 * 子类 价格
+	 *
+	 * @return
+     */
+	public String getBooksForCIdP(){
+		return SUCCESS;
+	}
 
 	/**
 	 * 已测
@@ -171,6 +186,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 
 	/**
 	 * 已测
+     *
 	 * user和后台获取当前类型的所有书籍
 	 * url:
      * 1、点击类别返回第一页数据和总页数 必须传totalPageNo=0
@@ -330,4 +346,20 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
     public void setTotalPageNo(Integer totalPageNo) {
         this.totalPageNo = totalPageNo;
     }
+
+	public Float getPriceStart() {
+		return priceStart;
+	}
+
+	public void setPriceStart(Float priceStart) {
+		this.priceStart = priceStart;
+	}
+
+	public Float getPriceEnd() {
+		return priceEnd;
+	}
+
+	public void setPriceEnd(Float priceEnd) {
+		this.priceEnd = priceEnd;
+	}
 }

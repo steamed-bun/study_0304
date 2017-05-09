@@ -42,7 +42,7 @@ public class BookDAOImplTest {
     @Test
     @Transactional
     public void testGetTotalPageNo(){
-        System.out.println(bookDAO.getTotalPageNo("2"));
+        System.out.println(bookDAO.getTotalPageNo("1"));
     }
 
     @Test

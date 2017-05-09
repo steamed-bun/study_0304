@@ -35,11 +35,11 @@ public interface BookDAO {
 
 	/**
 	 * 已测
-	 * 得到符合条件的数据条数
-	 * @param categoryId categoryId
+	 * 获取大类的总条数
+	 * @param categoryPId categoryId
      * @return 总条数
      */
-	long getTotalPageNo(String categoryId);
+	long getTotalPageNo(String categoryPId);
 
 	/**
 	 * 已测
