@@ -21,6 +21,18 @@ public class AddressDAOImplTest {
 
     @Test
     @Transactional
+    public void testDeleteAddress(){
+        addressDAO.deleteAddress(1);
+    }
+
+    @Test
+    @Transactional
+    public void testGetAddressByUserId(){
+        System.out.println(addressDAO.getAddressByUserId(1));
+    }
+
+    @Test
+    @Transactional
     public void testSaveOrUpdateAddress() throws Exception {
     }
 }

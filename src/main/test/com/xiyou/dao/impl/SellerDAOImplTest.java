@@ -24,6 +24,12 @@ public class SellerDAOImplTest {
 
     @Transactional
     @Test
+    public void testGetSellerForBack(){
+        System.out.println(sellerDAO.getSellerForBack(25));
+    }
+
+    @Transactional
+    @Test
     public void testGetSellersForBack(){
         System.out.println(sellerDAO.getTotalPageNo());
     }

@@ -42,6 +42,19 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
 
 	/**
 	 * 已测
+	 * 后台搜索获取seller包括其shop
+	 * url:sel-getSellerForBack.action?seller.shop.shopId=25
+	 * @return
+     */
+	public String getSellerForBack(){
+		dataMap = BookStoreWebUtils.getDataMap(session);
+		Seller seller1 = selService.getSellerForBack(seller.getShop().getShopId());
+		dataMap.put("seller", seller1);
+		return SUCCESS;
+	}
+
+	/**
+	 * 已测
 	 * 后台获取seller包括与其关联的shop 分页
 	 * url:
 	 * 1、点击“评估店铺”返回第一页数据和总页数 必须传totalPageNo=0

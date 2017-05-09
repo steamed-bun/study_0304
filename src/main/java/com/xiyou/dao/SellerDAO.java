@@ -8,6 +8,14 @@ public interface SellerDAO {
 
 	/**
 	 * 已测
+	 * 后台搜索一个seller
+	 * @param shopId shopId
+	 * @return seller
+     */
+	Seller getSellerForBack(Integer shopId);
+
+	/**
+	 * 已测
 	 * 得到seller的总页数
 	 * @return 页数
      */

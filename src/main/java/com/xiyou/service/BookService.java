@@ -23,6 +23,10 @@ public class BookService {
 	@Autowired
 	private ShopDAO shopDAO;
 
+	public Book getBookForBack(Integer bookId){
+		return bookDAO.getBookForBack(bookId);
+	}
+
 	public int getTotalPageNo(){
 		long tatalPageNo = bookDAO.getTotalPageNo();
 		return (int) tatalPageNo;

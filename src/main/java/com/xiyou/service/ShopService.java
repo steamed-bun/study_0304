@@ -1,6 +1,7 @@
 package com.xiyou.service;
 
 import com.xiyou.dao.ShopDAO;
+import com.xiyou.domain.Book;
 import com.xiyou.domain.Shop;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

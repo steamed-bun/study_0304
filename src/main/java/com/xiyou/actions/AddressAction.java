@@ -9,6 +9,7 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -18,9 +19,21 @@ public class AddressAction extends ActionSupport implements SessionAware
     private Map<String, Object> session;
     private Map<String, Object> dataMap;
     private Address address;
+    private Integer userId = 0;
 
     @Autowired
     private AddressService addressService;
+
+    /**
+     * 删除一个地址
+     * url:address-deleteAddress.action?address.addressId=1
+     * @return
+     */
+    public String deleteAddress(){
+        dataMap = BookStoreWebUtils.getDataMap(session);
+        addressService.deleteAddress(address.getAddressId());
+        return SUCCESS;
+    }
 
     /**
      * 已测
@@ -30,7 +43,7 @@ public class AddressAction extends ActionSupport implements SessionAware
      * address-saveOrUpdateAddress.action?address.province.provinceId=1&address.county.countyId=1&address.city.cityId=1&address.street=test&address.user.userId=1
      * 2、修改时需要传入address.addressId
      * address.addressId=1
-     * @return
+     * @return null
      */
     public String saveOrUpdateAddress(){
         dataMap = BookStoreWebUtils.getDataMap(session);
@@ -38,6 +51,20 @@ public class AddressAction extends ActionSupport implements SessionAware
         return SUCCESS;
     }
 
+    /**
+     * 获取当前user的全部地址
+     * url:address-getAddressByUserId.action?userId=1
+     * @return
+     */
+    public String getAddressByUserId(){
+        dataMap = BookStoreWebUtils.getDataMap(session);
+        List<Address> addresses = addressService.getAddressByUserId(userId);
+        for (Address address: addresses) {
+            address.setUser(null);
+        }
+        dataMap.put("addresses", addresses);
+        return SUCCESS;
+    }
 
     @Override
     public Address getModel() {
@@ -59,5 +86,13 @@ public class AddressAction extends ActionSupport implements SessionAware
 
     public Map<String, Object> getDataMap() {
         return dataMap;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }
