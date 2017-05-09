@@ -819,6 +819,60 @@ angular.module('admin-controller',[])
 		//如下是写在页面上的变量（名称不可更改）
 		//保存店铺评估后台返回的数据（应返回数组形式）
 		$scope.shopInfo=[];
+		//根据shopId搜索指定书籍
+		$scope.searchShop=function(){
+			var shopId=$scope.oper.searchShop;
+			console.log($scope.oper.searchShop);
+			if(!shopId){
+				//当输入框没值时，直接返回
+				$scope.oper.hint='请输入待查店铺ID！';
+				$('.oper-hint').slideDown();//错误提示信息缓慢出现
+				setTimeout(function(){
+					$('.oper-hint').slideUp();
+				},3000);
+				return;
+			}
+			$http({
+				method:'POST',
+				url:'sel-getSellerForBack.action',//分页的接口
+				data: 'seller.shop.shopId='+shopId,//传递给后台请求第几页的页码数
+				headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+			}).success(function(data){
+				console.log(data);
+				if(data.seller!=null){
+					data=data.seller;
+					console.log(data); //在此处查看返回的数据是否正确
+					$scope.shopInfo=[];
+					$scope.paging.totalNum=1;
+					var seller={};
+					seller.shopId=data.shop.shopId;
+					seller.shopName=data.shop.shopName;
+					seller.shopDegree=data.shop.shopGrade;
+					seller.selName=data.selName;
+					seller.selTel=data.selTel;
+					seller.selIdCard=data.selIdCard;
+					$scope.shopInfo.push(seller);
+					console.log($scope.shopInfo);
+					$('.page-area').cypager({
+						pg_size:$scope.paging.perNum,
+						pg_nav_count:Math.ceil($scope.paging.totalNum/$scope.paging.perNum),
+						pg_total_count:$scope.paging.totalNum,
+						pg_prev_name:'前一页',
+						pg_next_name:'后一页',
+						pg_call_fun:function(count){
+							//此处只可能有一条数据，故不需要分页
+							console.log('当前要请求第'+count+'页');
+						}
+					});
+				}else{
+					$scope.oper.hint='此店铺ID不存在！';
+					$('.oper-hint').slideDown();//错误提示信息缓慢出现
+					setTimeout(function(){
+						$('.oper-hint').slideUp();
+					},3000);
+				}
+			});
+		}
 		//与分页相关的数据设定
 		$scope.paging={
 			totalNum:'',//数据的总条数
@@ -914,6 +968,59 @@ angular.module('admin-controller',[])
 		};
 		$scope.degreeList=['良品','非良品'];//书籍共有的级别数
 		$scope.bookInfo=[];//保存书籍评估后台返回的数据（应返回数组形式）
+		//根据书籍id搜索指定书籍
+		$scope.searchBook=function(){
+			var bookId=$scope.oper.searchBook;
+			console.log($scope.oper.searchBook);
+			if(!bookId){
+				//当输入框没值时，直接返回
+				$scope.oper.hint='请输入待查书籍ID！';
+				$('.oper-hint').slideDown();//错误提示信息缓慢出现
+				setTimeout(function(){
+					$('.oper-hint').slideUp();
+				},3000);
+				return;
+			}
+			$http({
+				method:'POST',
+				url:'book-getBookForBack.action',//分页的接口
+				data: 'book.bookId='+bookId,//传递给后台请求第几页的页码数
+				headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+			}).success(function(data){
+				console.log(data);
+				if(data.book!=null){
+					data=data.book;
+					console.log(data); //在此处查看返回的数据是否正确
+					$scope.bookInfo=[];
+					var book={};
+					$scope.paging.totalNum=1;
+					book.bookId=data.bookId;
+					book.bookName=data.bookName;
+					book.author=data.author;
+					book.likes=data.likes;
+					book.goodBook=data.goodBook==1 ? '良品':'非良品';
+					$scope.bookInfo.push(book);
+					console.log($scope.bookInfo);
+					$('.page-area').cypager({
+						pg_size:$scope.paging.perNum,
+						pg_nav_count:Math.ceil($scope.paging.totalNum/$scope.paging.perNum),
+						pg_total_count:$scope.paging.totalNum,
+						pg_prev_name:'前一页',
+						pg_next_name:'后一页',
+						pg_call_fun:function(count){
+							//此处只可能有一条数据，故不需要分页
+							console.log('当前要请求第'+count+'页');
+						}
+					});
+				}else{
+					$scope.oper.hint='此书籍ID不存在！';
+					$('.oper-hint').slideDown();//错误提示信息缓慢出现
+					setTimeout(function(){
+						$('.oper-hint').slideUp();
+					},3000);
+				}
+			});
+		}
 		//与分页相关的数据设定
 		$scope.paging={
 			totalNum:'',//数据的总条数
