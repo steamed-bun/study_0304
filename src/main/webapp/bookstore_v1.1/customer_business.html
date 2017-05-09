@@ -44,7 +44,7 @@
 						<div class="shopcar-icon" style="display:none">
 							<a  href="javascript:;"></a>
 							<span class="shop-num">0<i></i></span>
-							<div class="shop-book-list-box shop-book-small-list-box"> 
+							<div class="shop-book-list-box shop-book-small-list-box">
 								<ul class="shop-book-list">
 									<li>
 										<div class="shop-book-img"><a href="javascript:;" style="background:url('./images/index/e00003.jpg') center center no-repeat;background-size:contain;"></a></div>
@@ -290,7 +290,7 @@
 			-->
 		</header>
 		<!-- 头部结束 -->
-		
+
 		<!-- 顾客各种业务开始 -->
 		<section ng-app="custBus" class="cust-bus" ng-controller="custBusCtrl">
 			<div class="clearfix cust-bus-box container">
@@ -300,10 +300,10 @@
 							<img ng-src="{{ user.img }}" align="absmiddle" ng-click="showChangeImg()"/>
 						</span>
 						<span>{{ user.name }}</span>
-						<span>切换账号</span>
+						<span ng-click="changeAccount()">切换账号</span>
 					</div>
 					<ul class="custBus-items">
-						<li ng-click="jumpInfo($event)">个人资料</li>
+						<li ng-click="jumpInfo($event)" class="highlight-oper">个人资料</li>
 						<li ng-click="jumpOrder($event)">订单管理</li>
 						<li ng-click="jumpAddress($event)">地址管理</li>
 						<li ng-click="jumpAccount($event)">账号安全</li>
@@ -321,7 +321,7 @@
     					<div class="spinner" style="display: none"></div>
 					</div>
 					<div class="cust-btn-box clearfix">
-						<a href="javascript:;" class="select-img">点击选择图片<input type="file" id="loadImg"/></a>
+						<a href="javascript:;" class="select-img">点击选择图片<input type="file" id="userImage" name="userImage"/></a>
 						<span class="bigger-img">+</span>
 						<span class="smaller-img">-</span>
 						<span class="save-img" ng-click="saveImg()">保存</span>
@@ -509,7 +509,7 @@
 					<div class="shopcar-big-icon">
 						<a  href="javascript:;"></a>
 						<span class="shop-big-num"><b>0</b><i></i></span>
-						<div class="shop-book-list-box shop-book-big-list-box"> 
+						<div class="shop-book-list-box shop-book-big-list-box">
 							<ul class="shop-book-list">
 								<li>
 									<div class="shop-book-img"><a href="javascript:;" style="background:url('./images/index/e00003.jpg') center center no-repeat;background-size:contain;"></a></div>
@@ -585,15 +585,16 @@
 			</div>
 		</footer>
 		<!-- 页面底部结束-->
-		<script src="js/jquery-1.12.3.js"></script>
-		<script src="js/angular.js"></script>
-		<script src="js/angular-route.js"></script>
-		<script src="js/slider.js"></script>
-		<script src="js/jquery-ui.js"></script>
-		<script src="js/cropbox.js"></script>
-		<script src="app/base.js"></script>
-		<script src="app/getBaseData.js"></script>
-		<script src="app/custBus-controller.js"></script>
-		<script src="app/custBus.js"></script>
+		<script src="./js/jquery-1.12.3.js"></script>
+		<script src="./js/angular.js"></script>
+		<script src="./js/angular-route.js"></script>
+		<script src="./js/slider.js"></script>
+		<script src="./js/jquery-ui.js"></script>
+		<script src="./js/cropbox.js"></script>
+		<script src="./js/ajaxfileupload.js"></script>
+		<script src="./app/base.js"></script>
+		<script src="./app/getBaseData.js"></script>
+		<script src="./app/custBus-controller.js"></script>
+		<script src="./app/custBus.js"></script>
 	</body>
 </html>

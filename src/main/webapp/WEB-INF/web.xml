@@ -57,9 +57,9 @@
 			/ckfinder/core/connector/java/connector.java
 		</url-pattern>
 	</filter-mapping>
-	<session-config>
+	<!--<session-config>
 		<session-timeout>60</session-timeout>
-	</session-config>
+	</session-config>-->
 	<filter>
 		<filter-name>struts2</filter-name>
 		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>

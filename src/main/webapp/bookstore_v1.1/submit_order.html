@@ -7,7 +7,7 @@
 		<link rel="stylesheet" href="./css/base.css"/>
 		<link rel="stylesheet" href="./css/submit_order.css"/>
 	</head>
-	<body ng-app="userLogin">
+	<body>
 		<!-- 头部开始 -->
 		<header>
 			<div class="header-nav">
@@ -291,25 +291,25 @@
 		<!-- 头部结束 -->
 		
 		<!-- 提交订单页面开始（已有地址、选择某个地址作为默认地址、新建或修改地址都有写） -->
-		<section>
+		<section ng-app="submitOrder">
 			<div class="container">
 				<div class="submit-order-box">
-					<div class="select-addr-box" >
+					<div class="select-addr-box" ng-controller="selectAddrCtrl">
 						<p>收货信息</p>
 						<div class="clearfix">
 							<div class="user-addr-info fl">
-								<p class="user-addr-default"><i></i>默认地址<span>修改</span></p>
-								<p><i>收货人：</i><span>哈哈哈</span></p>
-								<p><i>联系方式：</i><span>13829292239</span></p>
-								<p><i>收货地址：</i><span>陕西省西安市长安区西安邮电大学南校区西区</span></p>
+								<p class="user-addr-default"><i></i>默认地址<span ng-click="editMyAddr()">修改</span></p>
+								<p><i>收货人：</i><span>{{userAddr.userName}}</span></p>
+								<p><i>联系方式：</i><span>{{userAddr.tel}}</span></p>
+								<p><i>收货地址：</i><span>{{userAddr.addrDetail}}</span></p>
 							</div>
 							<div class="user-addr-operate fr">
-								<p>切换地址</p>
-								<p>新建地址</p>
+								<p ng-click="changeMyAddr()">切换地址</p>
+								<p ng-click="addNewAddr()">新建地址</p>
 							</div>
 						</div>
 					</div>
-					<div class="edit-addr-box" style="display: none">
+					<div class="edit-addr-box" ng-controller="editAddrCtrl">
 						<p></p>
 						<div class="clearfix">
 							<div class="edit-addr fl">
@@ -350,28 +350,28 @@
 							</div>
 						</div>
 					</div>
-					<div class="addr-as-default">
+					<div class="addr-as-default" ng-controller="addrAsDefaultCtrl">
 						<div class="wait-select-box">
 							<p>选择地址</p>
 							<ul class="wait-addrs">
-								<li>
+								<li ng-repeat="userAddr in userAddrLists track by $index" ng-click="highlightAddrDefault($index)">
+									<p class="obtain-person"><span>收货人：</span><span>{{userAddr.userName}}</span></p>
+									<p><span>联系方式：</span><span>{{userAddr.tel}}</span></p>
+									<p><span>收货地址：</span><span>{{userAddr.addrDetail}}</span></p>
+									<b class="default-addr-mark"></b>
+								</li>
+								<!--<li class="highlight-select-addr">
 									<p class="obtain-person"><span>收货人：</span><span>哈哈哈哈</span></p>
 									<p><span>联系方式：</span><span>13819242249</span></p>
 									<p><span>收货地址：</span><span>陕西省西安市长安区西安邮电大学南校区西区</span></p>
 									<b class="default-addr-mark">默认地址</b>
-								</li>
-								<li>
-									<p class="obtain-person"><span>收货人：</span><span>哈哈哈哈</span></p>
-									<p><span>联系方式：</span><span>13819242249</span></p>
-									<p><span>收货地址：</span><span>陕西省西安市长安区西安邮电大学南校区西区</span></p>
-									<b class="default-addr-mark"></b>
-								</li>
+								</li>-->
 							</ul>
-							<p class="select-default-operate"><span>确认</span><span>取消</span></p>
+							<p class="select-default-operate"><span ng-click="saveDefaultAddr()">确认</span><span ng-click="cancalSaveDefaultAddr()">取消</span></p>
 							<i class="close-wait-addr"></i>
 						</div>
 					</div>
-					<div class="user-order-info">
+					<div class="user-order-info" ng-controller="userBookInfoCtrl">
 						<div class="buy-book-info">
 							<table class="dealSucc-info-box">
 								<thead>

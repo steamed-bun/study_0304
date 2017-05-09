@@ -119,9 +119,9 @@ public class UpLoadAction extends ActionSupport implements SessionAware{
         }
         int length = userImageFileName.length();
         String userImageName = String.valueOf(System.currentTimeMillis())
-                + selWeixinFileName.substring(length - 4, length);
+                + userImageFileName.substring(length - 4, length);
         FileUtils.copyFile(userImage, new File(file, userImageName));
-        path = shopService.updateShopImage(userImageName, session.get("userId").toString());
+        path = userService.updateUserImage(userImageName, session.get("userId").toString());
         return SUCCESS;
     }
 

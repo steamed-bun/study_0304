@@ -19,8 +19,8 @@ import java.util.Map;
 public class UserAction extends ActionSupport implements ModelDriven<User>,
         SessionAware,Preparable {
 //
-    private static final String USER_IMAGE_URL = "http://localhost:8090/study/userImage/00.png";
-    private static final String USER_WEIXIN_URL = "http://localhost:8090/study/userWeiXin/00.png";
+    private static final String USER_IMAGE_URL = "http://localhost:8080/study/userImage/00.png";
+    private static final String USER_WEIXIN_URL = "http://localhost:8080/study/userWeiXin/00.png";
 
     private String status = "yes";
     private User user;

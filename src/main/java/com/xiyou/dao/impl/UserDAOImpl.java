@@ -7,11 +7,18 @@ import org.springframework.stereotype.Repository;
 @Repository("userDAOImpl")
 public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 
+    private static final String USER_IMAGE_URL = "http://localhost:8080/study/userImage/";
+
     @Override
     public String updateUserImage(String userImage, String userId) {
-        String hql = "";
-        getSession().createQuery(hql);
-        return null;
+        userImage = USER_IMAGE_URL + userImage;
+        String hql = "UPDATE User u SET u.userImage = :userImage " +
+                "WHERE u.userId = :userId";
+        getSession().createQuery(hql)
+                .setString("userImage", userImage)
+                .setString("userId", userId)
+                .executeUpdate();
+        return userImage;
     }
 
     @Override

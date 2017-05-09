@@ -235,7 +235,7 @@
 	overflow:hidden;
 	border-radius:4px;
 }
-#loadImg{
+#userImage{
 	position:absolute;
 	top:-20px;
 	left:-20px;
@@ -265,6 +265,7 @@
 	margin-top:8px;
 	color:#E48A78;
 	text-align:center;
+	display:none;
 }
 /*更换头像结束*/
 /*左边栏结束*/
