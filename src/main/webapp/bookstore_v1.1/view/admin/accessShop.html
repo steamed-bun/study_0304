@@ -7,6 +7,7 @@
 		<table class="info-box">
 			<thead>
 				<tr>
+					<td>店铺ID</td>
 					<td>店铺名称</td>
 					<td>店铺主人昵称</td>
 					<td>店铺主人邮箱</td>
@@ -17,6 +18,7 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="shop in shopInfo track by $index">
+					<td>{{shop.shopId}}</td>
 					<td>{{shop.shopName}}</td>
 					<td>{{shop.selName}}</td>
 					<td>{{shop.selTel}}</td>

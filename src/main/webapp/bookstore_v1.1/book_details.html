@@ -5,6 +5,7 @@
 		<title>江南缘书城</title>
 		<link rel="stylesheet" href="./css/reset.css"/>
 		<link rel="stylesheet" href="./css/base.css"/>
+		<link rel="stylesheet" href="./css/font-awesome.css"/>
 		<link rel="stylesheet" href="./css/book_details.css"/>
 	</head>
 	<body>
@@ -314,6 +315,7 @@
 						<p class="book-buy-price">惊喜价：<span>￥{{book.price}}</span></p>
 						<p class="book-buy-num">数量：<i class="disabled-mask"></i><span class="reduce-num" ng-click="reduceNum($event)">-</span><input class="input-num" type="text" ng-model="book.purNum"/><span class="add-num" ng-click="addNum()">+</span></p>
 						<p class="book-evaluate">评价：<span class="good-evaluate">{{book.approve}}</span><span class="bad-evaluate">{{book.disApprove}}</span></p>
+						<p class="book-source">关于店铺：<span class="seller-shop-name">{{book.sellerShopName}}</span><span><i class="icon"></i><i class="icon"></i><i class="icon"></i><i class="icon"></i><i class="icon"></i></span></p>
 						<p class="book-buy-operate"><span class="shop-now">立即购买</span><span class="add-shopcar">加入购物车</span></p>
 					</div>
 				</div>
