@@ -1,10 +1,10 @@
 <!-- 注：此页面没有地址、已有地址的情况我已写了 -->
 <div>
-	<div class="no-addr-box"  style="display:none">
+	<div class="no-addr-box" style="display:none">
 		<div>
 			<p class="addr-img"><span></span></p>
 			<p class="addr-hint"><span>您还没有收货地址</span></p>
-			<p class="addr-add-text"><a href="javascript:;">+ 新建地址</a></p>
+			<p class="addr-add-text"><a ng-click="goAddNewAddr()" >+ 新建地址</a></p>
 		</div>
 	</div>
 	<div class="operate-addr-box" >
@@ -46,22 +46,79 @@
 			<p class="addr-default"><span><input type="checkbox" id="default"/><label for="default">设为默认</label></span><span class="add-addr-sure">确认</span><span class="add-addr-cancel">取消</span></p>
 		</div>
 	</div>
-	<div class="display-addr" style="display:none">
-		<p class="display-addr-hint clearfix"><span class="fl">已保存收货地址（最多保存3条）</span><span class="fr">+ 新建地址</span></p>
+	<div class="display-addr">
+		<p class="display-addr-hint clearfix"><span class="fl">已保存收货地址（最多保存3条）</span><span class="fr" ng-click="goNewAddr2()">+ 新建地址</span></p>
 		<table class="addr-info-box">
 			<thead>
 				<tr style="height:43px"><th>收货人</th><th>地址</th><th>联系方式</th><th>操作</th></tr>
 			</thead>
 			<tbody>
-				<tr><td>黄小霞</td><td>陕西省西安市长安区西安邮电大学南校区</td><td>18829289125</td><td class="display-addr-oper"><span>编辑</span><span>删除</span><span>默认地址</span></td></tr>
-				<tr><td>黄小霞</td><td>陕西省西安市长安区西安邮电大学南校区</td><td>18829289125</td><td class="display-addr-oper"><span>编辑</span><span>删除</span><span>默认地址</span></td></tr>
-				<tr><td>黄小霞</td><td>陕西省西安市长安区西安邮电大学南校区</td><td>18829289125</td><td class="display-addr-oper"><span>编辑</span><span>删除</span><span>默认地址</span></td></tr>
+				<tr ng-repeat="perAddr in userArr">
+					<td>{{perAddr.name}}</td>
+					<td>{{perAddr.addrDetail}}</td>
+					<td>{{perAddr.tel}}</td>
+					<td class="display-addr-oper"><span ng-click="editMyAddr()">编辑</span><span ng-click="deleteMyAddr()">删除</span><span>设为默认地址</span></td>
+				</tr>
+				<!--<tr><td>黄小霞</td><td>陕西省西安市长安区西安邮电大学南校区</td><td>18829289125</td><td class="display-addr-oper"><span>编辑</span><span>删除</span><span>默认地址</span></td></tr>-->
 			</tbody>
 		</table>
 	</div>
+	<div class="edit-addr-box" >
+		<div class="mask"></div>
+		<div class="add-addr">
+			<p class="addr-title"><span>编辑地址</span><i ng-click="closeEditAddr()"></i></p>
+			<from>
+				<ul class="input-addr clearfix">
+					<li class="mer_position">
+						<span>所在地区：</span>
+						<div class="area-box">
+							<div class="province-box">
+								<div id="display-pro"><input type="text" ng-model="user.selectProvince" data-id="{{ user.selectProvinceId }}" readonly="true" class="mer-province"/><i class="mer-pro-icon"></i></div>
+								<ul id="all-provinces">
+									<!--此处用js生成省的信息-->
+								</ul>
+							</div>
+							<div class="city-box">
+								<div id="display-city"><input type="text" ng-model="user.selectCity" data-id="{{ user.selectCityId }}" readonly="true" class="mer-city"/><i class="mer-city-icon"></i></div>
+								<ul id="all-citys">
+									<!--此处用js生成市信息-->
+								</ul>
+							</div>
+							<div class="regi-box">
+								<div id="display-regi"><input type="text" ng-model="user.selectRegi" data-id="{{ user.selectRegiId }}" readonly="true" class="mer-regi"/><i class="mer-area-icon"></i></div>
+								<ul id="all-regis">
+									<!--此处用js生成区信息-->
+								</ul>
+							</div>
+						</div>
+					</li>
+					<li class="mer-detail-addr"><span>详细地址：</span><textarea ng-model="user.street" placeholder="街道、门牌号等" class="user-input"></textarea></li>
+					<li class="clearfix">
+						<p class="user-name fl"><span>收货人：</span><input type="text" placeholder="请输入您的姓名" /></p>
+						<p class="user-tel fl"><span>手机号:</span><input type="text" placeholder="请输入您的手机号" /></p>
+					</li>
+				</ul>
+			</from>
+			<p class="addr-default"><span><input type="checkbox" id="default"/><label for="default">设为默认</label></span><span class="add-addr-sure">确认</span><span class="add-addr-cancel">取消</span></p>
+		</div>
+	</div>
+	<p class="oper-hint">编辑成功</p>
 </div>
 
 <style type="text/css">
+	.oper-hint{
+		position:fixed;
+		top:5px;
+		left:550px;
+		width:300px;
+		height:40px;
+		line-height:40px;
+		color:#FFF;
+		background-color:#E78170;
+		text-align:center;
+		border-radius:3px;
+		z-index:9999999;
+	}
 	/* 没有地址开始 */
 	.no-addr-box{
 		width:100%;
@@ -90,6 +147,7 @@
 		margin-top:10px;
 		color:#69c;
 		text-align: center;
+		cursor:pointer;
 	}
 	/* 没有地址结束 */
 
@@ -322,6 +380,7 @@
 		line-height: 19px;
 		color:#69c;
 		cursor:pointer;
+		margin:0 5px;
 	}
 	.display-addr-oper>span:last-child{
 		position:relative;
@@ -338,4 +397,7 @@
 		background:#FFF;
 	}
 	/* 已保存收货地址结束 */
+	.display-addr,.operate-addr-box,.edit-addr-box{
+		display:none;
+	}
 </style>

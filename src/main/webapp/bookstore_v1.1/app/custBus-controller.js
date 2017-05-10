@@ -6,9 +6,9 @@ angular.module('custBus-controller',[])
           name :'花开半夏',
           sex : '男',
           tel : '18829289125',
-          birth : '2013-1-2'
+          age : '17'
       };
-  	  //从数据库中获得用户的信息
+  	  //TODO 从数据库中获得用户个人的信息
      /* $http({
           method:'POST',
           url:'user-sellectUser.action',
@@ -220,10 +220,60 @@ angular.module('custBus-controller',[])
         };
   })
   .controller('addrMangeCtrl',function($scope){
+      $scope.userArr=[
+          {
+              name:'哈哈哈',
+              addrDetail:'陕西省西安市长安区西安邮电大学南校区',
+              tel:'18829289125'
+          },
+          {
+              name:'哈哈哈',
+              addrDetail:'陕西省西安市长安区西安邮电大学南校区',
+              tel:'18829289125'
+          },
+          {
+              name:'哈哈哈',
+              addrDetail:'陕西省西安市长安区西安邮电大学南校区',
+              tel:'18829289125'
+          }
+      ];
+      //TODO 页面一加载获取用户曾保存的地址
+      /* $http({
+           method:'POST',
+           url:'user-sellectUser.action',
+           data: 'chose=CHOOSE',
+           headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+       }).success(function(data){
+            console.log(data);
+       });*/
+      //给地址列表页的编辑加点击事件
+      $scope.editMyAddr=function(){
+          console.log('我要编辑地址');
+          $('.edit-addr-box').css('display','block');
+      };
+      //给编辑地址页的关闭按钮添加事件
+      $scope.closeEditAddr=function(){
+          $('.edit-addr-box').css('display','none');
+
+      };
+      //给地址列表页的删除加点击事件
+      $scope.deleteMyAddr=function(){
+        console.log('我要删除地址');
+      };
+      //给没有地址页的新建地址添加点击事件
+      $scope.goAddNewAddr=function(){
+          $('.no-addr-box').css('display','none');
+          $('.operate-addr-box').css('display','block');
+      };
+      //给展示地址页的新建地址添加点击事件
+      $scope.goNewAddr2=function(){
+          $('.operate-addr-box').css('display','block');
+      };
        //给关闭按钮添加事件
        $scope.closeAddAddr=function(){
            console.log('我被点击了');
            $('.operate-addr-box').css('display','none');
+           $('.display-addr').css('display','block');
        };
   })
   .controller('accountMangeCtrl',function($scope){
