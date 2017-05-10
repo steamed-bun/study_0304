@@ -4,6 +4,7 @@
 		<title>商家添加新书</title>
 		<meta charset="UTF-8"/>
 		<link rel="stylesheet" href="./css/reset.css"/>
+		<link rel="stylesheet" href="./css/jquery-ui.css"/>
 		<link rel="stylesheet" href="./css/mer_add_book.css"/>
 	</head>
 	<body ng-app="merAddBook">
@@ -65,7 +66,7 @@
 							</li>
 							<li>
 								<span>出版日期：</span>
-								<span class="book-info-input"><input type="text" class="add-book-input" data-veri="bookTime" placeholder="请输入日期，以‘-’分隔" ng-model="book.publicationDate"/></span>
+								<span class="book-info-input"><input type="text" class="add-book-input" placeholder="点击选择日期" data-veri="bookTime" readonly="true" id="cust-info-birth"  ng-model="book.publicationDate"/></span>
 								<span><i class="book-add-hint time-hint"></i></span>
 							</li>
 							<li>
@@ -119,6 +120,7 @@
 			<p><span class="jump-time-hint">5</span>秒后可继续添加新书</p>
 		</aside>
 		<script src="./js/jquery-1.12.3.js"></script>
+		<script src="./js/jquery-ui.js"></script>
 		<script src="./js/angular.js"></script>
 		<script src="./js/zxxFile.js"></script>
 		<script src="./app/merAddBook.js"></script>

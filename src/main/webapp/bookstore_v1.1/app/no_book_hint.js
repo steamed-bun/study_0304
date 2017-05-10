@@ -84,4 +84,6 @@
 	$(".aside-user-box").mouseleave(function(){
 		$(".aside-user-bus").css("display","none");
 	});
+	//TODO   展示未搜索到的书籍名称
+	$('.searchBookName').html('你是我的小确幸');
 })();

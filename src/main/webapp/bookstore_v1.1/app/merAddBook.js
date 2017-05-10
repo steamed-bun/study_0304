@@ -163,6 +163,15 @@
 			console.log('我被点击了');
 			var isSubmit=true;
 			var postData='';
+			if($scope.book.publicationDate){
+				$scope.verTrue[3]=true;
+				$('.time-hint').css('display','none');
+			}else{
+				//当输入信息为空
+				$('.time-hint').html('出版日期不能为空！');
+				$('.time-hint').css('display','inline-block');
+				$scope.verTrue[3]=false;
+			}
 			for(var i=0;i<$scope.verTrue.length;i++){
 				if($scope.verTrue[i]!=true){
 					console.log(i);
@@ -265,6 +274,7 @@
 					data: 'category.categoryPId='+selectId,//已序列化用户输入的数据
 					headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
 				}).success(function(data){
+					console.log(data);
 					$scope.bookOtherInfo.smallCate=data.categories;
 					$('.book-smCate-select').css('display','inline-block');
 					console.log($scope.bookOtherInfo.smallCate);
@@ -340,7 +350,8 @@
 					}
 					break;
 				case 'bookTime':
-					inputInfo=$scope.book.publicationDate;
+					/*inputInfo=$scope.book.publicationDate;
+					console.log($scope.book.publicationDate);
 					if(inputInfo){
 						//当输入信息存在
 						if($scope.reg[1].test(inputInfo)){
@@ -358,7 +369,7 @@
 						$('.time-hint').html('出版日期不能为空！');
 						$('.time-hint').css('display','inline-block');
 						$scope.verTrue[3]=false;
-					}
+					}*/
 					break;
 				case 'bookPublisher':
 					inputInfo=$scope.book.publisher;
@@ -394,7 +405,11 @@
 					break;
 			}
 		});
-
+		//此处用jquery实现输入框获得焦点时，显示日历--开始
+		$('#cust-info-birth').datepicker({
+			dateFormat : 'yy-mm-dd',
+			showOtherMonths : true
+		});
 		/*-------基础功能函数结束----------*/
 	});
 })();

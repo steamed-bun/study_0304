@@ -7,9 +7,10 @@
 		<link rel="stylesheet" href="./css/email_reset.css"/>
 	</head>
 	<body ng-app="emailReset">
-		<div class="emailReset-box">
+		<div class="emailReset-box" ng-controller="emailResetTitleBox">
+			<li class="login-error-txt"></li>
 			<span class="emailReset-logo-img"></span>
-			<div ng-controller="emailResetTitleBox">
+			<div>
 				<p class="emailReset-txt">
 					<span>用邮箱重置密码</span>
 				</p>
@@ -17,7 +18,7 @@
 			<div>
 				<ul class="reset-box">
 					<li>
-						<label for="tel">邮箱：</label><input class="regi-text-area regi_input"  placeholder="请输入您的邮箱" type="tel" id="tel" ng-model="regi.utel"/><i class="regi-err-hint tel-hint">有错误啦</i>
+						<label for="tel">邮箱：</label><input class="regi-text-area regi_input"  placeholder="请输入您的邮箱" type="tel" id="tel" ng-model="regi.uEmail"/><i class="regi-err-hint tel-hint">有错误啦</i>
 					</li>
 					<li>
 						<label for="pwd">密码：</label><input placeholder="请输入您的密码" class="regi-text-area regi_input" type="password" id="pwd" ng-model="regi.pwd"/><i class="regi-err-hint pwd-hint">有错误啦</i>

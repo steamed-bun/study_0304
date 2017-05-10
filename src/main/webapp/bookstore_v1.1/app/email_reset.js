@@ -1,12 +1,20 @@
 angular.module('emailReset',[])
-   .controller('emailResetTitleBox',function($scope){
-      $scope.masterRegi={uname:'',uEmail:'',pwd:'',veri:''};
-      $scope.regi=angular.copy($scope.masterRegi);//实现对象的copy
+   .controller('emailResetTitleBox',function($scope,$http){
+      var locationHref=window.location.href;
+      locationHref=locationHref.slice(locationHref.indexOf('?')+1);
+      locationHref=locationHref.split('=');
+      $scope.regi={
+         uEmail:'',
+         pwd:'',
+         repwd:'',
+         veri:'',
+         role: locationHref[1]
+      };
       $scope.verCode='';
       //下面是angular.js
       var verTrue=[true,true];//验证码(此处为了避免用户多次重复触发获得验证码事件，故用了两个标志即：verTrue[0]和verTrue[1])
       var getMes=function(){
-         //TODO   模拟平台发送验证码
+         //发送验证码
          var postD='receiver='+$scope.regi.uEmail;
          $http({
             method:'POST',
@@ -126,8 +134,9 @@ angular.module('emailReset',[])
       /*------------表单验证结束-----------*/
 
       $scope.sendMessage=function(){
-         if($scope.isThrough[3]){
+         if($scope.isThrough[0]){
             //当写了邮箱时发送验证码才可以点击
+            $('.veri-hint').html('');
             var index=0;
             if(verTrue[0]){
                //当verTrue[0]为真时发送邮箱验证请求
@@ -157,80 +166,19 @@ angular.module('emailReset',[])
          }
       }
 
-      $scope.regist=function(){
-         //当所有数据都合法时，提交数据
-         var postData='';
-         var postUrl;
-         var seller={};
-         var user={};
-         var absUrl;
-         var markIndex;
-         var newUrl;
-         if(!newVal){
-            //当是商家时
-            postUrl='sel-addSeller.action';
-            console.log($scope.isThrough);
-            if($scope.isThrough[0]&&$scope.isThrough[1]&&$scope.isThrough[2]&&$scope.isThrough[3]&&$scope.isThrough[4]&&$scope.isThrough[5]&&$scope.isThrough[6]){
-               console.log('商家可以注册');
-               seller.selIdCard=$scope.mer.sellerId;
-               seller.selAge=$scope.mer.sellerAge;
-               seller.selSex=$scope.mer.sellerSex;
-               seller.selName=$scope.regi.uname;
-               seller.selTel=$scope.regi.uEmail;
-               seller.selPassword=$scope.regi.pwd;
-               //将用户输入的信息拼接成查询字符串
-               $.each(seller,function(key,value) {
-                  postData+='seller.'+key+'='+value+'&'
-               });
-               postData+='selId='+'';
-               console.log(postData);
-               console.log(seller);
-            }else{
-               console.log('商家不可以注册');
-            }
-         }else{
-            //当是顾客时
-            postUrl='user-addUser.action';
-            console.log($scope.isThrough);
-            if($scope.isThrough[3]&&$scope.isThrough[4]&&$scope.isThrough[5]&&$scope.isThrough[6]){
-               console.log('顾客可以注册');
-               user.userName=$scope.regi.uname;
-               user.userPassword=$scope.regi.pwd;
-               user.email=$scope.regi.uEmail;
-               //将用户输入的信息拼接成查询字符串
-               $.each(user,function(key,value) {
-                  postData+='user.'+key+'='+value+'&'
-               });
-               postData+='userId='+'';
-               console.log(postData);
-               console.log(user);
-            }else{
-               console.log('顾客不可以注册');
-            }
-         }
-
-         $http({
+      //提交用户重置的密码
+      $scope.reset=function(){
+         console.log('提交新密码到数据库');
+         console.log($scope.regi);
+        /* $http({
             method:'POST',
-            url:postUrl,
-            data:postData,//序列化用户输入的数据
+            url:'mail-sendEmail.action',
+            data:,//序列化用户输入的数据
             headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
          }).success(function(data){
-            data=data.status;
             console.log(data);
-            if(data=='yes'){
-               //页面跳转到注册成功页
-               absUrl=$location.absUrl();
-               markIndex=absUrl.lastIndexOf('#');
-               newUrl=absUrl.slice(0,markIndex-9)+'register_success.html';
-               $window.location.href=newUrl;
-               console.log("注册成功！");
-            }else{
-               //注册失败，请重新注册
-               $window.location.href=$location.absUrl();
-               console.log("注册失败，服务器有问题，请重新注册！");
-            }
-         });
-      }
+         });*/
+      };
 
       //采用jquery，实现输入框获得焦点和失去焦点的效果
       $(".regi_input").focus(function(){

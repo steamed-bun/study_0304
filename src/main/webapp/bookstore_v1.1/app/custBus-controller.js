@@ -40,11 +40,6 @@ angular.module('custBus-controller',[])
       $location.path('/changeTelOne');
     };
 
-  	//此处用jquery实现输入框获得焦点时，显示日历--开始
-    $('#cust-info-birth').datepicker({
-      dateFormat : 'yy-mm-dd',
-      showOtherMonths : true
-    });
     //此处用jquery实现输入框获得焦点时，显示日历--开始
   })
   .controller('changeTelOneCtrl',function($scope,$location,$interval,$http){

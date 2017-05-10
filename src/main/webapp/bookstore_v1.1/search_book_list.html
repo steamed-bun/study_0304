@@ -5,9 +5,10 @@
 		<title>江南缘书城</title>
 		<link rel="stylesheet" href="./css/reset.css"/>
 		<link rel="stylesheet" href="./css/base.css"/>
-		<link rel="stylesheet" href="./css/purchase.css"/>
+		<link rel="stylesheet" href="./css/cypager.min.css"/>
+		<link rel="stylesheet" href="./css/search_book_list.css"/>
 	</head>
-	<body>
+	<body ng-app="bookList">
 		<!-- 头部开始 -->
 		<header>
 			<div class="header-nav">
@@ -289,43 +290,110 @@
 			-->
 		</header>
 		<!-- 头部结束 -->
-		
-		<!-- 微信付款部分开始 -->
-		<section class="payment-box" ng-app="pay">
-			<div ng-controller="payCtrl">
-				<div class="container">
-					<div class="warm-prompt-box">
-						<p>请及时付款，以便订单尽快处理</p>
-						<!--<p>订单号：<span>11844218</span></p>-->
-						<p>请在提交订单后30分钟内付款，否则订单会被取消<span class="pay-num">实付：<i>￥{{pay.num}}</i></span></p>
-					</div>
-					<div class="payment-method-box">
-						<span class="two-dimension-code"><i>微信扫一扫支付</i></span>
-						<span class="use-method"></span>
-					</div>
-					<div class="payment-result">
-						<div class="already-payment">
-							<p>支付已成功请点击</p>
-							<p><a class="already-payment-txt">已完成付款</a></p>
-						</div>
-						<div class="payment-fail">
-							<p>再想想请点击</p>
-							<p><a class="return-homepage" href="index_login.html">回到首页</a></p>
-						</div>
+
+		<!-- 书籍列表开始 -->
+		<section>
+			<div class="container" ng-controller="bookListCtrl">
+				<div class="more-books">
+					<div>
+						<ul class="book-list clearfix edu-book-list">
+							<li>
+								<a href="javascript:;">
+									<img src="images/index/y00001.jpg"/>
+									<i class="good-book"></i>
+								</a>
+								<div class="book-sell-info">
+									<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+									<h4>追风筝的人</h4>
+									<span>￥23.5</span>
+								</div>
+							</li>
+							<li>
+								<a href="javascript:;">
+									<img src="images/index/y00002.jpg"/>
+									<i></i>
+								</a>
+								<div class="book-sell-info">
+									<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+									<h4>追风筝的人</h4>
+									<span>￥23.5</span>
+								</div>
+							</li>
+							<li>
+								<a href="javascript:;">
+									<img src="images/index/y00003.jpg"/>
+									<i class="good-book"></i>
+								</a>
+								<div class="book-sell-info">
+									<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+									<h4>追风筝的人</h4>
+									<span>￥23.5</span>
+								</div>
+							</li>
+							<li>
+								<a href="javascript:;">
+									<img src="images/index/y00004.jpg"/>
+									<i class="good-book"></i>
+								</a>
+								<div class="book-sell-info">
+									<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+									<h4>追风筝的人</h4>
+									<span>￥23.5</span>
+								</div>
+							</li>
+							<li>
+								<a href="javascript:;">
+									<img src="images/index/y00004.jpg"/>
+									<i class="good-book"></i>
+								</a>
+								<div class="book-sell-info">
+									<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+									<h4>追风筝的人</h4>
+									<span>￥23.5</span>
+								</div>
+							</li>
+							<li>
+								<a href="javascript:;">
+									<img src="images/index/y00004.jpg"/>
+									<i class="good-book"></i>
+								</a>
+								<div class="book-sell-info">
+									<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+									<h4>追风筝的人</h4>
+									<span>￥23.5</span>
+								</div>
+							</li>
+							<li>
+								<a href="javascript:;">
+									<img src="images/index/y00004.jpg"/>
+									<i class="good-book"></i>
+								</a>
+								<div class="book-sell-info">
+									<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+									<h4>追风筝的人</h4>
+									<span>￥23.5</span>
+								</div>
+							</li>
+							<li>
+								<a href="javascript:;">
+									<img src="images/index/y00004.jpg"/>
+									<i class="good-book"></i>
+								</a>
+								<div class="book-sell-info">
+									<p class="recom-txt">关于爱、勇气和忠诚的故事，它讲述一位年轻人终于在这世界上找到了自己的一席之地。</p>
+									<h4>追风筝的人</h4>
+									<span>￥23.5</span>
+								</div>
+							</li>
+						</ul>
 					</div>
 				</div>
-				<div class="check-order-mask">
-					<div class="check-order-box">
-						<p class="order-submit-succ"><i></i>恭喜您订单提交成功！</p>
-						<p class="order-submit-hint">我们会尽快发货，请耐心等待！</p>
-						<p class="jump-order"><span ng-click="goOrderDetail()">点击此处</span>查看订单详情</p>
-						<i class="close-check-order"></i>
-					</div>
+				<div class="page-area">
 				</div>
 			</div>
 		</section>
-		<!-- 微信付款部分结束 -->
-		
+		<!-- 书籍列表结束 -->
+
 		<!-- 页面滚动时的固定定位部分开始 -->
 		<aside>
 			<div class="container clearfix">
@@ -580,9 +648,10 @@
 		<!-- 页面底部结束-->
 		<script src="./js/jquery-1.12.3.js"></script>
 		<script src="./js/angular.js"></script>
-		<script src="./js/slider.js"></script>
+		<script src="./js/jquery.transit.js"></script>
+		<script src="./js/cypager.min.js"></script>
 		<script src="./app/base.js"></script>
-		<script src="./app/base-controller.js"></script>
-		<script src="./app/purchase.js"></script>
+		<script src="./app/getBaseData.js"></script>
+		<script src="./app/search_book_list.js"></script>
 	</body>
 </html>

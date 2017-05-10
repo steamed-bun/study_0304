@@ -21,6 +21,24 @@
 	/*------------顾客登录后各种业务开始----------------*/
 	angular.module('custBus',['ngRoute','custBus-controller'])
 	  .controller('custBusCtrl',function($scope,$location,$timeout,$http){
+		  //获得地址栏中的参数
+		  var locationHref=$location.path();
+		  console.log(locationHref);
+		  //根据地址栏中的参数高亮地址栏中对应的操作名称
+		  switch(locationHref){
+			  case '/custInfo':
+				  $('.custBus-items>li').removeClass('highlight-oper');
+				  $('.custBus-items>li:nth-child(1)').addClass('highlight-oper');
+				  break;
+			  case '/orderMange':
+				  $('.custBus-items>li').removeClass('highlight-oper');
+				  $('.custBus-items>li:nth-child(2)').addClass('highlight-oper');
+				  break;
+			  case '/addrMange':
+				  $('.custBus-items>li').removeClass('highlight-oper');
+				  $('.custBus-items>li:nth-child(3)').addClass('highlight-oper');
+				  break;
+		  }
 		  //此处是对顾客登录后各种业务，左侧栏各项的控制
 		  //基础的数据设置---开始
 		  $scope.user={

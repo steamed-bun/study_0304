@@ -26,6 +26,13 @@ header{
 /*有logo图片结束*/
 
 /* 添加新书开始 */
+#cust-info-birth{
+	height:100%;
+	border:#EEE solid 1px;
+	padding:5px 10px;
+	width:224px;
+	border-radius:5px;
+}
 .add-book-box{
 	margin-top:30px;
 	font-size:16px;

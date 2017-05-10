@@ -105,4 +105,31 @@
 .return-loginAngRegi>a:hover{
 	color:#000;
 }
+.regi-error-hint{
+	background-image:url("../images/error.png");
+	background-position:left center;
+	background-repeat:no-repeat;
+	display: inline-block;
+}
+.regi-right-hint{
+	background-image:url("../images/right.png");
+	background-position:left center;
+	background-repeat:no-repeat;
+	display: inline-block;
+	color:#008058;
+}
+.login-error-txt{
+	position:fixed;
+	top:6px;
+	left:590px;
+	text-align:center;
+	width:320px;
+	height:40px;
+	line-height:40px;
+	background:#E78170;
+	color:#FFF;
+	font-size:16px;
+	border-radius:5px;
+	display:none;
+}
 /* 用邮箱重置密码下面部分结束 */
