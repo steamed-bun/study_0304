@@ -476,5 +476,5 @@ angular.module('sign-controller',[])
         $(".regi_input").blur(function(){
             $(this).css('border-color','#CCC');
         });  
-   });
-});
+        });
+    });
