@@ -24,6 +24,13 @@ public class SellerDAOImplTest {
 
     @Transactional
     @Test
+    public void testGetSelByEmail(){
+//        System.out.println(sellerDAO.getSelByEmail("514156689@qq.com"));
+        sellerDAO.updatePassword("514156689@qq.com","test");
+    }
+
+    @Transactional
+    @Test
     public void testGetSellerForBack(){
         System.out.println(sellerDAO.getSellerForBack(25));
     }

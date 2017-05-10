@@ -13,11 +13,19 @@ public class AddressService {
     @Autowired
     private AddressDAO addressDAO;
 
+    public Address getDefAddress(String userId){
+        return addressDAO.getDefAddress(userId);
+    }
+
+    public Address getAddressById(Integer addressId){
+        return addressDAO.getAddressById(addressId);
+    }
+
     public void deleteAddress(Integer addressId){
         addressDAO.deleteAddress(addressId);
     }
 
-    public List<Address> getAddressByUserId(Integer userId){
+    public List<Address> getAddressByUserId(String userId){
         return addressDAO.getAddressByUserId(userId);
     }
 

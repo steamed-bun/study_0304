@@ -6,17 +6,15 @@ import java.util.Map;
 
 public class ShoppingCart {
 
-
-
-	private Map<Integer, ShopCartItem> ShopCartItems = new HashMap<Integer, ShopCartItem>();
+	private Map<Integer, ShopCartItemTo> shopCartItemTos = new HashMap<Integer, ShopCartItemTo>();
 
 	/**
 	 * 更新购物车中该id对应的交易的quantity
-	 * @param id
-	 * @param quantity
+	 * @param id id
+	 * @param quantity quantity
 	 */
 	public void updateItemQuantity(Integer id, int quantity){
-		ShopCartItem shoppingCartItem = ShopCartItems.get(id);
+		ShopCartItemTo shoppingCartItem = shopCartItemTos.get(id);
 		if(shoppingCartItem != null){
 			shoppingCartItem.setQuantity(quantity);
 		}
@@ -24,17 +22,17 @@ public class ShoppingCart {
 
 	/**
 	 * 从购物车中删除掉改id对应的交易项
-	 * @param id
+	 * @param id id
 	 */
 	public void removeItem(Integer id){
-		ShopCartItems.remove(id);
+		shopCartItemTos.remove(id);
 	}
 
 	/**
 	 * 清空购物车
 	 */
 	public void clear(){
-		ShopCartItems.clear();
+		shopCartItemTos.clear();
 	}
 
 	/**
@@ -42,31 +40,29 @@ public class ShoppingCart {
 	 * @return
 	 */
 	public boolean isEmpty(){
-		return ShopCartItems.isEmpty();
+		return shopCartItemTos.isEmpty();
 	}
 
 	/**
 	 * 获取当前购物车中所有交易的总金额
 	 * @return
 	 */
-/*
 	public float getTotalMoney(){
 		float total = 0;
-		
-		for(ShopCartItem shoppingCartItem: getItems()){
+
+		for(ShopCartItemTo shoppingCartItem: getItems()){
 			total += shoppingCartItem.getItemMoney();
 		}
-		
+
 		return total;
 	}
-*/
 
 	/**
 	 * 获取当前购物车中的所有或交易内容
 	 * @return
 	 */
-	public Collection<ShopCartItem> getItems(){
-		return ShopCartItems.values();
+	public Collection<ShopCartItemTo> getItems(){
+		return shopCartItemTos.values();
 	}
 
 	/**
@@ -75,11 +71,11 @@ public class ShoppingCart {
 	 */
 	public int getBookNumber(){
 		int total = 0;
-		
-		for(ShopCartItem shoppingCartItem: ShopCartItems.values()){
+
+		for(ShopCartItemTo shoppingCartItem: shopCartItemTos.values()){
 			total += shoppingCartItem.getQuantity();
 		}
-		
+
 		return total;
 	}
 
@@ -87,8 +83,8 @@ public class ShoppingCart {
 	 * 获取当前购物车的所有交易记录
 	 * @return
 	 */
-	public Map<Integer, ShopCartItem> getShopCartItems() {
-		return ShopCartItems;
+	public Map<Integer, ShopCartItemTo> getShopCartItemTos() {
+		return shopCartItemTos;
 	}
 
 	/**
@@ -97,31 +93,30 @@ public class ShoppingCart {
 	 * @return
 	 */
 	public boolean hasBook(Integer id){
-		return ShopCartItems.containsKey(id);
+		return shopCartItemTos.containsKey(id);
 	}
 
 	/**
 	 * 添加一条交易到购物车,如果购物车没有购买此书的记录,则新建一条购物车记录,否则只需将原有 记录quantity++;
 	 * @param
 	 */
-/*
-	public void addBook(Book book){
 
-		ShopCartItem shoppingCartItem = ShopCartItems.get(ShopCartItems.getBookId());
-
-		if(shoppingCartItem == null){
-			shoppingCartItem = new ShopCartItem(ShopCartItems);
-			books.put(ShopCartItems.getBookId(), shoppingCartItem);
+	public void addShopCartItemTo(ShopCartItemTo shopCartItemTo){
+        Integer bookId = shopCartItemTo.getBook().getBookId();
+        ShopCartItemTo shopCartItemTo1 = shopCartItemTos.get(bookId);
+        if(shopCartItemTo1 == null){
+            shopCartItemTo.setItemMoney();
+            shopCartItemTos.put(bookId, shopCartItemTo);
 		}else{
-			//shoppingCartItem.increment();
+            shopCartItemTo1.increment(shopCartItemTo.getQuantity());
+            shopCartItemTo1.setItemMoney();
 		}
 	}
-*/
 
 	@Override
 	public String toString() {
 		return "ShoppingCart{" +
-				"ShopCartItems=" + ShopCartItems +
+				"ShopCartItemTos=" + shopCartItemTos +
 				'}';
 	}
 }

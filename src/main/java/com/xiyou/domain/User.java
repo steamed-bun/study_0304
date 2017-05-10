@@ -16,6 +16,12 @@ public class User {
 		super();
 	}
 
+	public User(Integer userId, String userName, String email) {
+		this.userId = userId;
+		this.userName = userName;
+		this.email = email;
+	}
+
 	public User(Integer userId, String userName, String userPassword, int userAge, String userWeiXin, String userImage, String userSex, String userIdCard, String email) {
 		this.userId = userId;
 		this.userName = userName;

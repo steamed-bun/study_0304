@@ -176,6 +176,12 @@
 			</result>
 		</action>
 
+		<action name="cartTo-*" class="shopCartToAction" method="{1}">
+			<result name="success" type="json">
+				<param name="root">dataMap</param>
+			</result>
+		</action>
+
     </package>
 
 </struts>

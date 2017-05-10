@@ -11,16 +11,27 @@ public class UserService {
     @Autowired
     private UserDAOImpl userDAO;
 
+    public User getUserForAddress(String userId){
+        return userDAO.getUserForAddress(userId);
+    }
+
+    public void updatePassword(String email, String password){
+        userDAO.updatePassword(email, password);
+    }
+
+    public int getUserByEmail(String email){
+        return (int) userDAO.getUserByEmail(email);
+    }
+
     public String updateUserImage(String userImage, String userId){
         return userDAO.updateUserImage(userImage, userId);
     }
-
 
     public User getUserById(String userId){
         return userDAO.getUserById(userId);
     }
 
-    public void addUser(User user){
+    public void addUser(User user) throws Exception{
          userDAO.addUser(user);
     }
 

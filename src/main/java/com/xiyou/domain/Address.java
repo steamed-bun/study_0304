@@ -7,6 +7,9 @@ public class Address {
 	private County county;
 	private City city;
 	private String street;
+	private String tel;
+	private Integer def;  //{0:非默认 1:默认}
+	private String name;
 	private User user;
 
 	public Integer getAddressId() {
@@ -67,5 +70,29 @@ public class Address {
 	}
 
 	public Address() {
+	}
+
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+
+	public Integer getDef() {
+		return def;
+	}
+
+	public void setDef(Integer def) {
+		this.def = def;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

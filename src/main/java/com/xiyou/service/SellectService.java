@@ -45,4 +45,8 @@ public class SellectService {
         return sellectDAO.getCategory(categoryPId);
     }
 
+    public Category getCategory(Integer categoryId){
+        return sellectDAO.getCategoryBId(categoryId);
+    }
+
 }

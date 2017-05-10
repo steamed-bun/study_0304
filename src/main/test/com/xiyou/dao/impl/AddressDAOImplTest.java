@@ -28,7 +28,7 @@ public class AddressDAOImplTest {
     @Test
     @Transactional
     public void testGetAddressByUserId(){
-        System.out.println(addressDAO.getAddressByUserId(1));
+        System.out.println(addressDAO.getAddressByUserId("1"));
     }
 
     @Test

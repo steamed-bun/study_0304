@@ -46,7 +46,13 @@ public class UserAction extends ActionSupport implements ModelDriven<User>,
             user.setUserImage(USER_IMAGE_URL);
             user.setUserWeiXin(USER_WEIXIN_URL);
         }
-        userService.addUser(user);
+        try {
+            userService.addUser(user);
+        } catch (Exception e) {
+            dataMap.put("status", "no");
+            dataMap.put("message", "此邮箱已被注册过");
+            return "addUser";
+        }
         session.put("userId", user.getUserId());
         return "addUser";
     }

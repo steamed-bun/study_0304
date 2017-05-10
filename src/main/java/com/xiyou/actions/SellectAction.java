@@ -1,6 +1,5 @@
 package com.xiyou.actions;
 
-import java.sql.SQLException;
 import java.util.Map;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -39,8 +38,10 @@ public class SellectAction extends ActionSupport implements SessionAware{
 		} catch (Exception e) {
 			dataMap.put("status", "no");
 			dataMap.put("noDelete","noDelete");
+			this.setCategory(null);
 			return SUCCESS;
 		}
+		this.setCategory(null);
 		return SUCCESS;
 	}
 
@@ -53,6 +54,7 @@ public class SellectAction extends ActionSupport implements SessionAware{
 	public String saveCategory(){
 		dataMap = BookStoreWebUtils.getDataMap(session);
 		sellectService.saveCategory(category);
+		this.setCategory(null);
 		return SUCCESS;
 	}
 
@@ -65,6 +67,7 @@ public class SellectAction extends ActionSupport implements SessionAware{
 	public String updateCategory(){
 		dataMap = BookStoreWebUtils.getDataMap(session);
 		sellectService.updateCategory(category.getCategoryId().toString(), category.getCategoryName());
+		this.setCategory(null);
 		return "updateCategory";
 	}
 
@@ -76,7 +79,9 @@ public class SellectAction extends ActionSupport implements SessionAware{
      */
 	public String selectCategory(){
 		dataMap = BookStoreWebUtils.getDataMap(session);
+		dataMap.put("category",sellectService.getCategory(category.getCategoryPId()));
 		dataMap.put("categories",sellectService.getCatrgory(category.getCategoryPId().toString()));
+		this.setCategory(null);
 		return SUCCESS;
 	}
 

@@ -62,4 +62,11 @@ public interface SellectDAO {
      */
     List<Category> getCategory(String categoryPId);
 
+    /**
+     * 根据Id获取当前类别
+     * @param categoryId categoryId
+     * @return category
+     */
+    Category getCategoryBId(Integer categoryId);
+
 }

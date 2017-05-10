@@ -4,13 +4,10 @@ import java.util.List;
 
 import com.xiyou.dao.BookDAO;
 import com.xiyou.dao.ShopDAO;
-import com.xiyou.dao.impl.BookDAOImpl;
-import com.xiyou.dao.impl.ShopDAOImpl;
 import com.xiyou.domain.Book;
 import com.xiyou.domain.BookImages;
 import com.xiyou.domain.Category;
 import com.xiyou.domain.Shop;
-import com.xiyou.exception.DBException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +19,14 @@ public class BookService {
 
 	@Autowired
 	private ShopDAO shopDAO;
+
+	public int getTotalPageNoForSearch(String bookName){
+		return (int) bookDAO.getTotalPageNoForSearch(bookName);
+	}
+
+	public List<Book> getBooksForSearch(String bookName, Integer pageNum){
+		return bookDAO.getBooksForSearch(bookName, pageNum);
+	}
 
 	public int getPageNoForCId(Integer categoryId, Float priceStart, Float priceEnd){
 		return (int) bookDAO.getPageNoForCId(categoryId, priceStart, priceEnd);
