@@ -16,6 +16,20 @@ public class SellerDAOImpl extends BaseDAOImpl implements SellerDAO {
 	private static final int BASE_NUM = 0;
 
 	@Override
+	public void updatePassword(String email, String password) {
+		String hql = "UPDATE Seller s SET s.selPassword = :password WHERE s.selTel = :email";
+		getSession().createQuery(hql)
+				.setString("password", password).setString("email", email).executeUpdate();
+	}
+
+	@Override
+	public long getSelByEmail(String email) {
+		String hql = "SELECT count (s.selId) FROM Seller s WHERE s.selTel = :email";
+		long count = (Long) getSession().createQuery(hql).setString("email", email).uniqueResult();
+		return count;
+	}
+
+	@Override
 	public Seller getSellerForBack(Integer shopId) {
 		String hql = "SELECT new Seller (s.selId, s.selName,s.selTel, s.selIdCard, s.shop.shopId, s.shop.shopName, s.shop.shopGrade) " +
 				"FROM Seller s WHERE s.shop = :shopId";
@@ -46,7 +60,7 @@ public class SellerDAOImpl extends BaseDAOImpl implements SellerDAO {
 	}
 
 	@Override
-	public void addSeller(Seller seller) {
+	public void addSeller(Seller seller) throws Exception{
 		getSession().saveOrUpdate(seller);
 	}
 

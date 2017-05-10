@@ -18,6 +18,24 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 	private static final int BASE_NUM = 0;
 
 	@Override
+	public long getTotalPageNoForSearch(String bookName) {
+		String hql = "SELECT count (b.bookId) FROM Book b WHERE b.bookName LIKE '%"
+				+ bookName + "%'";
+		long totalPageNo = (Long) getSession().createQuery(hql).uniqueResult();
+		return totalPageNo;
+	}
+
+	@Override
+	public List<Book> getBooksForSearch(String bookName, Integer pageNum) {
+		String hql = "FROM Book b WHERE b.bookName LIKE '%"+ bookName + "%' ORDER BY b.bookPrice";
+		@SuppressWarnings("unchecked")
+		List<Book> books = (List<Book>) getSession().createQuery(hql)
+				.setFirstResult(BASE_NUM + (pageNum- 1) * PAGE_SIZE)
+				.setMaxResults(PAGE_SIZE).list();
+		return books;
+	}
+
+	@Override
 	public long getPageNoForCId(Integer categoryId, Float priceStart, Float priceEnd) {
 		String hql = "SELECT count (b.bookId) FROM Book b " +
 				"WHERE b.category = :categoryId " +

@@ -68,4 +68,13 @@ public class SellectDAOImpl extends BaseDAOImpl implements SellectDAO{
         return categories;
     }
 
+    @Override
+    public Category getCategoryBId(Integer categoryId) {
+        String hql = "SELECT new Category (c.categoryId, c.categoryName) FROM Category c " +
+                "WHERE c.categoryId = :categoryId";
+        Category category = (Category) getSession().createQuery(hql)
+                .setInteger("categoryId", categoryId).uniqueResult();
+        return category;
+    }
+
 }

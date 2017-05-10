@@ -10,6 +10,30 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
     private static final String USER_IMAGE_URL = "http://localhost:8080/study/userImage/";
 
     @Override
+    public User getUserForAddress(String userId) {
+        String hql = "SELECT new User (u.userId, u.userName, u.email) FROM User u WHERE u.userId = :userId";
+        User user = (User) getSession().createQuery(hql)
+                .setString("userId", userId).uniqueResult();
+        return user;
+    }
+
+    @Override
+    public void updatePassword(String email, String password) {
+        String hql = "UPDATE User u SET u.userPassword = :password " +
+                "WHERE u.email = :email";
+        getSession().createQuery(hql).setString("password", password)
+                .setString("email",email).executeUpdate();
+    }
+
+    @Override
+    public long getUserByEmail(String email) {
+        String hql = "SELECT count (u.userId) FROM User u WHERE u.email = :email";
+        long count = (Long) getSession().createQuery(hql)
+                .setString("email", email).uniqueResult();
+        return count;
+    }
+
+    @Override
     public String updateUserImage(String userImage, String userId) {
         userImage = USER_IMAGE_URL + userImage;
         String hql = "UPDATE User u SET u.userImage = :userImage " +
@@ -36,7 +60,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
     }
 
     @Override
-    public void addUser(User user) {
+    public void addUser(User user) throws Exception {
         getSession().saveOrUpdate(user);
     }
 
