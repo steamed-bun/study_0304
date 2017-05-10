@@ -7,6 +7,15 @@ import java.util.List;
 public interface AddressDAO {
 
     /**
+     * 获取默认地址
+     * @param userId
+     * @return
+     */
+    Address getDefAddress(String userId);
+
+    Address getAddressById(Integer addressId);
+
+    /**
      * 删除一条address记录
      * @param addressId addressId
      */
@@ -17,7 +26,7 @@ public interface AddressDAO {
      * @param userId userId
      * @return addresses
      */
-    List<Address> getAddressByUserId(Integer userId);
+    List<Address> getAddressByUserId(String userId);
 
     void saveOrUpdateAddress(Address address);
 

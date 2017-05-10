@@ -27,6 +27,18 @@
 			<column name="CITY"></column>
 		</many-to-one>
 
+		<property name="tel" type="java.lang.String">
+			<column name="TEL"></column>
+		</property>
+
+		<property name="def" type="int">
+			<column name="DEF"></column>
+		</property>
+
+		<property name="name" type="java.lang.String">
+			<column name="NAME"></column>
+		</property>
+
 		<many-to-one name="user" class="User">
 			<column name="USER"></column>
 		</many-to-one>

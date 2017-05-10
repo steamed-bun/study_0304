@@ -6,14 +6,14 @@ angular.module('submitOrder',[])
             addrDetail:'陕西省西安市长安区西安邮电大学南校区西区'
         };
         //TODO   A.从数据库中获得买家保存的地址信息
-        /*$http({
+        $http({
             method:'POST',
-            url:'',
-            data: ,
+            url:'address-getDefAddress.action',
+            data: '', //no data
             headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
         }).success(function(response){
             console.log(response);
-        });*/
+        });
         //给修改按钮添加事件
         $scope.editMyAddr=function(){
             $('.select-addr-box').css('display','none');
@@ -34,8 +34,9 @@ angular.module('submitOrder',[])
     })
     .controller('newAddrCtrl',function($scope,$http){
         //保存买家输入的地址的对象
+        //provinceId=1&address.county.countyId=1&address.city.cityId=1&address.street=test&address.tel=18829289582&address.def=1
         $scope.userNewAddr={
-            selectProvince:'',
+/*            selectProvince:'',
             selectProvinceId:'',
             selectCity:'',
             selectCityId:'',
@@ -44,18 +45,30 @@ angular.module('submitOrder',[])
             street:'',
             name:'',
             email:'',
-            isDefault:''
+            isDefault:'',*/
+
+            selectProvince:'',
+            provinceId:'',
+            selectCity:'',
+            cityId:'',
+            selectRegi:'',
+            countyId:'',
+            street:'',
+            name:'',
+            tel:'',
+            def:'',
+
         };
         //TODO B.给新建地址的确认按钮添加事件
         $scope.saveNewAddr=function(){
-            /*$http({
+            $http({
              method:'POST',
-             url:'',
-             data: ,
+             url:'address-saveOrUpdateAddress.action',
+             data: 'address.province.provinceId=1&address.county.countyId=1&address.city.cityId=1&address.street=test1',
              headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
              }).success(function(response){
              console.log(response);
-             });*/
+             });
         };
         //给新建地址的取消按钮添加事件
         $scope.cancelNewAddr=function(){
@@ -208,37 +221,37 @@ angular.module('submitOrder',[])
     .controller('editAddrCtrl',function($scope,$http){
         //TODO 从数据库中获得待修改的地址信息
         $scope.userEditAddr={
-            selectProvince:'陕西',
-            selectProvinceId:'1',
-            selectCity:'西安',
-            selectCityId:'1',
-            selectRegi:'长安',
-            selectRegiId:'1',
-            street:'西安邮电大学南校区',
-            name:'系会',
-            email:'2814241400@qq.com',
-            isDefault:true
+            selectProvince:'',
+            provinceId:'',
+            selectCity:'',
+            cityId:'',
+            selectRegi:'',
+            countyId:'',
+            street:'test',
+            name:'',
+            tel:'',
+            def:'',
         };
         //TODO  C.获得用于待编辑的地址所有信息
-        /*$http({
+        $http({
              method:'POST',
-             url:'',
-             data: ,
+             url:'address-getDefAddress.action',
+             data: '',// no data
              headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
          }).success(function(response){
             console.log(response);
-         });*/
+         });
         //TODO 给编辑地址的确认按钮添加事件
-        $scope.saveEditAddr=function(){
-            /*$http({
+        /*$scope.saveEditAddr=function(){
+            $http({
                  method:'POST',
                  url:'',
                  data: ,
                  headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
              }).success(function(response){
                 console.log(response);
-             });*/
-        };
+             });
+        };*/
         //给编辑地址的取消按钮添加事件
         $scope.cancelEditAddr=function(){
             $('.edit-addr-box').css('display','none');
@@ -386,17 +399,19 @@ angular.module('submitOrder',[])
                 userName:'不好就',
                 tel:'13819242249',
                 addrDetail:'陕西省西安市长安区西安邮电大学南校区西区'
-            },
-            {
-                userName:'不好就',
-                tel:'13819242249',
-                addrDetail:'陕西省西安市长安区西安邮电大学南校区西区'
-            },
-            {
-                userName:'不好就',
-                tel:'13819242249',
+            }
+           /*
+           {
+                addressId:"1", //address对象的Id
+                provinceName:'13819242249',//省
+                cityName:'不好就',//市
+                countyName:'',//县
+                street:"test",//街道
+                tel:"120",//电话
+                name:"test",//姓名
                 addrDetail:'陕西省西安市长安区西安邮电大学南校区西区'
             }
+            */
         ];
         //给第一个地址信息块添加‘默认地址’
         $('.wait-addrs>li:first-child default-addr-mark').html('默认地址');
@@ -405,26 +420,26 @@ angular.module('submitOrder',[])
             $('.addr-as-default').css('display','none');
         });
         //TODO D.页面一加载得到该买家的所有地址信息(可能不止一条)
-        /*$http({
+        $http({
              method:'POST',
-             url:'',
-             data: ,
+             url:'address-getAddressByUserId.action',
+             data: '',//no data
              headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
          }).success(function(response){
             console.log(response);
-         });*/
+         });
 
         //TODO E.给选择默认地址的确认按钮添加事件
         $scope.saveDefaultAddr=function(){
             console.log('我要保存选择的默认地址');
-            /*$http({
+            $http({
                  method:'POST',
-                 url:'',
-                 data: ,
+                 url:'address-saveOrUpdateAddress.action',
+                 data: 'address.addressId=1&address.province.provinceId=1&address.county.countyId=1&address.city.cityId=1&address.street=testJS&address.tel=18829289582&address.def=1',
                  headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
              }).success(function(response){
                 console.log(response);
-             });*/
+             });
         };
         //给选择默认地址的取消按钮添加事件
         $scope.cancalSaveDefaultAddr=function(){
@@ -444,33 +459,56 @@ angular.module('submitOrder',[])
         //每本书的信息
         $scope.userBooks=[
             {
+                /*
                 imgUrl:'./images/index/e00001.jpg',
                 bookName:'你是我的小确幸',
                 perPrice:'12',
                 bookNum:'1',
                 totalPrice:'12'
+                 */
+                imageURL:'./images/index/e00001.jpg',
+                bookName:'你是我的小确幸',
+                bookPrice:'12',
+                quantity:'1',
+                itemMoney:'12',
+                bookId:'1'
+
             },
             {
-                imgUrl:'./images/index/e00001.jpg',
+                /*
+                 imgUrl:'./images/index/e00001.jpg',
+                 bookName:'你是我的小确幸',
+                 perPrice:'12',
+                 bookNum:'1',
+                 totalPrice:'12'
+                 */
+                imageURL:'./images/index/e00001.jpg',
                 bookName:'你是我的小确幸',
-                perPrice:'12',
-                bookNum:'1',
-                totalPrice:'12'
-            }
+                bookPrice:'12',
+                quantity:'1',
+                itemMoney:'12',
+                bookId:'1'
+
+            },
         ];
         $scope.order={
+            /*
             totalPrice:'24',
+            totalShouldPay:'24'
+            */
+            //两个变量我只改了一个
+            totalMoney:'24',
             totalShouldPay:'24'
         };
         //TODO F.从数据中获得用户待购买的书籍信息
-        /*$http({
+        $http({
              method:'POST',
-             url:'',
-             data: ,
+             url:'cartTo-getShopCart.action',
+             data: '',//no data
              headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
          }).success(function(response){
             console.log(response);
-         });*/
+         });
         $scope.goPay=function(){
            window.location.href='purchase.html';
         };

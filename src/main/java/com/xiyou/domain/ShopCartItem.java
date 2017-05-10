@@ -1,9 +1,7 @@
 package com.xiyou.domain;
 
-import javax.persistence.Entity;
 import java.sql.Date;
 
-//@Entity(name = "shopCartItem")
 public class ShopCartItem {
 
     private Integer cartItemId;

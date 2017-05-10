@@ -16,10 +16,18 @@ public class UserDAOImplTest {
 
     @Transactional
     @Test
+    public void testGetUserByEmail(){
+//        System.out.println(userDAO.getUserByEmail("12@"));
+        userDAO.updatePassword("12@", "onlyOne");
+    }
+
+
+    @Transactional
+    @Test
     public void addUserTest(){
         User user = new User(null,"nihu","123",1,"23","32","13","32","32");
         System.out.println(user);
-        userDAO.addUser(user);
+//        userDAO.addUser(user);
     }
 
     @Transactional

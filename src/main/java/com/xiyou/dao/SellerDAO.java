@@ -8,6 +8,22 @@ public interface SellerDAO {
 
 	/**
 	 * 已测
+	 * 修改当前seller的密码
+	 * @param email
+	 * @param password
+     */
+	void updatePassword(String email, String password);
+
+	/**
+	 * 已测
+	 * 验证是否 有该seller
+	 * @param email
+	 * @return
+     */
+	long getSelByEmail(String email);
+
+	/**
+	 * 已测
 	 * 后台搜索一个seller
 	 * @param shopId shopId
 	 * @return seller
@@ -34,7 +50,7 @@ public interface SellerDAO {
 	 * 添加一个买家
 	 * @param seller seller
 	 */
-	void addSeller(Seller seller);
+	void addSeller(Seller seller) throws Exception;
 
 	/**
 	 * 已测

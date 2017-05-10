@@ -10,6 +10,23 @@ public interface BookDAO {
 
 	/**
 	 * 已测
+	 * 全网搜书总条数
+	 * @param bookName
+	 * @return
+     */
+	long getTotalPageNoForSearch(String bookName);
+
+	/**
+	 * 已测
+	 * 全网搜书
+	 * @param  bookName bookName
+	 * @param pageNum pageNum
+     * @return books
+     */
+	List<Book> getBooksForSearch(String bookName, Integer pageNum);
+
+	/**
+	 * 已测
 	 * user 得到数据总条数
 	 * 子类
 	 * @param categoryId categoryId

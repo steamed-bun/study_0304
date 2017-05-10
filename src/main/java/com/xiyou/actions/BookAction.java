@@ -44,6 +44,41 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
     private Integer sort; //{1 : 从低到高  0 : 从高到低}
 
     /**
+     * 已测
+     * 全网搜书
+     * url :
+     * book-getBookForSearch.action?book.bookName=测试&pageNum=1&totalPageNo=0
+     * 分页
+     * book-getBookForSearch.action?book.bookName=测试&pageNum=1
+     * @return books
+     */
+	public String getBookForSearch(){
+        dataMap = BookStoreWebUtils.getDataMap(session);
+        getTotalPageNoForSearch();
+        List<Book> books = bookService.getBooksForSearch(book.getBookName(), pageNum);
+        if (books == null || books.size() <= 0){
+            dataMap.put("status","no");
+        }else {
+            books = BookStoreWebUtils.setNull(books);
+            dataMap.put("books", books);
+        }
+
+        this.setBook(null);
+		return SUCCESS;
+	}
+
+    public void getTotalPageNoForSearch(){
+        if (totalPageNo.equals(0)){
+            totalPageNo = bookService.getTotalPageNoForSearch(book.getBookName());
+            session.put("totalPageNo",totalPageNo);
+            dataMap.put("totalPageNo", totalPageNo);
+        }else {
+            totalPageNo = Integer.parseInt(session.get("totalPageNo").toString());
+        }
+        pageNum = (pageNum  <= 0) ? pageNum = 1 : pageNum;
+    }
+
+    /**
      * 非接口
      * seller 大类 数据总条数
      */

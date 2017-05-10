@@ -142,7 +142,13 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
 			seller.setSelImage(SELLER_IMAGE_URL);
 			seller.setSelWeiXin(SELLER_WEIXIN_URL);
 		}
-		selService.addSeller(seller);
+		try {
+			selService.addSeller(seller);
+		} catch (Exception e) {
+			dataMap.put("status", "no");
+			dataMap.put("message","此邮箱已注册过");
+			return "addSeller";
+		}
 		session.put("selId", seller.getSelId());
 		seller = null;
 		return "addSeller";

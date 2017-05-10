@@ -1,6 +1,5 @@
 package com.xiyou.service;
 
-import com.xiyou.dao.SellectDAO;
 import com.xiyou.dao.SellerDAO;
 import com.xiyou.dao.ShopDAO;
 import com.xiyou.domain.*;
@@ -18,6 +17,15 @@ public class SellerService {
 	@Autowired
 	private ShopDAO shopDAO;
 
+	public void updatePassword(String email, String password){
+		sellerDAO.updatePassword(email, password);
+	}
+
+
+	public int getSelByEmail(String email){
+		return (int) sellerDAO.getSelByEmail(email);
+	}
+
 	public Seller getSellerForBack(Integer shopId){
 		return sellerDAO.getSellerForBack(shopId);
 	}
@@ -32,7 +40,7 @@ public class SellerService {
 		return sellers;
 	}
 
-	public void addSeller(Seller seller){
+	public void addSeller(Seller seller) throws Exception{
 		if (seller.getSelId() == null){
 			Shop shop = Shop.getShop();
 			System.out.println(shop);

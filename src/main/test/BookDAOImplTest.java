@@ -39,7 +39,8 @@ public class BookDAOImplTest {
     @Test
     @Transactional
     public void testGetBooks() {
-        System.out.println( bookDAO.getBooks(1));
+//        System.out.println( bookDAO.getBooks(1));
+        System.out.println(bookDAO.getBooksForSearch("测试", 1));
     }
 
     @Test
@@ -54,7 +55,8 @@ public class BookDAOImplTest {
 //        System.out.println(bookDAO.getPageNoForCId(4, 0.0F,  50.0F));
 //        System.out.println(bookDAO.getTotalPageNo("1", 0.0F, 50.0F));
 //        System.out.println(bookDAO.getPageNoForSCPId(1, "25", 0.0F,  Float.MAX_VALUE));
-        System.out.println(bookDAO.getTotalPageNo("4", "25", 0.0F, 50.0F));
+//        System.out.println(bookDAO.getTotalPageNo("4", "25", 0.0F, 50.0F));
+        System.out.println(bookDAO.getTotalPageNoForSearch("测试"));
     }
 
     @Test

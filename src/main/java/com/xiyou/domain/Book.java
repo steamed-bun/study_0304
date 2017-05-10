@@ -22,9 +22,6 @@ public class Book {
 	private Integer goodBook;//{非良品:0 良品:1}
 	private Shop shop;
 
-//	b.bookId, b.bookName, b,author, b.likes, b.goodBook
-
-
 	public Book(Integer bookId, String bookName, String author, int likes, Integer goodBook) {
 		this.bookId = bookId;
 		this.bookName = bookName;

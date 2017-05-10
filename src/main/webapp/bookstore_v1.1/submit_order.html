@@ -318,19 +318,19 @@
 										<span>所在地区：</span>
 										<div class="area-box">
 											<div class="province-box">
-												<div id="display-pro"><input type="text" ng-model="userEditAddr.selectProvince" data-id="{{ userEditAddr.selectProvinceId }}" readonly="true" class="mer-province"/><i class="mer-pro-icon"></i></div>
+												<div id="display-pro"><input type="text" ng-model="userEditAddr.selectProvince" data-id="{{ userEditAddr.provinceId }}" readonly="true" class="mer-province"/><i class="mer-pro-icon"></i></div>
 												<ul id="all-provinces">
 													<!--此处用js生成省的信息-->
 												</ul>
 											</div>
 											<div class="city-box">
-												<div id="display-city"><input type="text" ng-model="userEditAddr.selectCity" data-id="{{ userEditAddr.selectCityId }}" readonly="true" class="mer-city"/><i class="mer-city-icon"></i></div>
+												<div id="display-city"><input type="text" ng-model="userEditAddr.selectCity" data-id="{{ userEditAddr.cityId }}" readonly="true" class="mer-city"/><i class="mer-city-icon"></i></div>
 												<ul id="all-citys">
 													<!--此处用js生成市信息-->
 												</ul>
 											</div>
 											<div class="regi-box">
-												<div id="display-regi"><input type="text" ng-model="userEditAddr.selectRegi" data-id="{{ userEditAddr.selectRegiId }}" readonly="true" class="mer-regi"/><i class="mer-area-icon"></i></div>
+												<div id="display-regi"><input type="text" ng-model="userEditAddr.selectRegi" data-id="{{ userEditAddr.countyId }}" readonly="true" class="mer-regi"/><i class="mer-area-icon"></i></div>
 												<ul id="all-regis">
 													<!--此处用js生成区信息-->
 												</ul>
@@ -340,12 +340,12 @@
 									<li class="mer-detail-addr"><span>详细地址：</span><textarea ng-model="userEditAddr.street" placeholder="街道、门牌号等" class="user-input"></textarea></li>
 									<li class="clearfix">
 										<p class="user-name fl"><span>收货人：</span><input type="text" placeholder="请输入您的姓名" ng-model="userEditAddr.name"/></p>
-										<p class="user-tel fl"><span>邮箱号:</span><input type="text" placeholder="请输入您的邮箱号" ng-model="userEditAddr.email"/></p>
+										<p class="user-tel fl"><span>邮箱号:</span><input type="text" placeholder="请输入您的邮箱号" ng-model="userEditAddr.tel"/></p>
 									</li>
 								</ul>
 							</div>
 							<div class="select-defalut fr">
-								<p><input type="checkbox" id="defaultAddr" ng-model="userEditAddr.isDefault"/><label for="defaultAddr">设为默认</label></p>
+								<p><input type="checkbox" id="defaultAddr" ng-model="userEditAddr.def"/><label for="defaultAddr">设为默认</label></p>
 								<p><span ng-click="saveEditAddr()">确定</span><span ng-click="cancelEditAddr()">取消</span></p>
 							</div>
 						</div>
@@ -359,19 +359,19 @@
 										<span>所在地区：</span>
 										<div class="area-box">
 											<div class="province-box">
-												<div id="display-pro-new"><input type="text" ng-model="userNewAddr.selectProvince" data-id="{{ userNewAddr.selectProvinceId }}" readonly="true" class="mer-province"/><i class="mer-pro-icon"></i></div>
+												<div id="display-pro-new"><input type="text" ng-model="userNewAddr.selectProvince" data-id="{{ userNewAddr.provinceId }}" readonly="true" class="mer-province"/><i class="mer-pro-icon"></i></div>
 												<ul id="all-provinces-new">
 													<!--此处用js生成省的信息-->
 												</ul>
 											</div>
 											<div class="city-box">
-												<div id="display-city-new"><input type="text" ng-model="userNewAddr.selectCity" data-id="{{ userNewAddr.selectCityId }}" readonly="true" class="mer-city"/><i class="mer-city-icon"></i></div>
+												<div id="display-city-new"><input type="text" ng-model="userNewAddr.selectCity" data-id="{{ userNewAddr.cityId }}" readonly="true" class="mer-city"/><i class="mer-city-icon"></i></div>
 												<ul id="all-citys-new">
 													<!--此处用js生成市信息-->
 												</ul>
 											</div>
 											<div class="regi-box">
-												<div id="display-regi-new"><input type="text" ng-model="userNewAddr.selectRegi" data-id="{{ userNewAddr.selectRegiId }}" readonly="true" class="mer-regi"/><i class="mer-area-icon"></i></div>
+												<div id="display-regi-new"><input type="text" ng-model="userNewAddr.selectRegi" data-id="{{ userNewAddr.countyId }}" readonly="true" class="mer-regi"/><i class="mer-area-icon"></i></div>
 												<ul id="all-regis-new">
 													<!--此处用js生成区信息-->
 												</ul>
@@ -381,12 +381,12 @@
 									<li class="mer-detail-addr"><span>详细地址：</span><textarea ng-model="userNewAddr.street" placeholder="街道、门牌号等" class="user-input"></textarea></li>
 									<li class="clearfix">
 										<p class="user-name fl"><span>收货人：</span><input type="text" placeholder="请输入您的姓名" ng-model="userNewAddr.name"/></p>
-										<p class="user-tel fl"><span>邮箱号:</span><input type="text" placeholder="请输入您的邮箱号" ng-model="userNewAddr.email"/></p>
+										<p class="user-tel fl"><span>邮箱号:</span><input type="text" placeholder="请输入您的邮箱号" ng-model="userNewAddr.tel"/></p>
 									</li>
 								</ul>
 							</div>
 							<div class="select-defalut fr">
-								<p><input type="checkbox" id="defaultAddr" ng-model="userNewAddr.isDefault"/><label for="defaultAddr">设为默认</label></p>
+								<p><input type="checkbox" id="defaultAddr" ng-model="userNewAddr.def"/><label for="defaultAddr">设为默认</label></p>
 								<p><span ng-click="saveNewAddr()">确定</span><span ng-click="cancelNewAddr()">取消</span></p>
 							</div>
 						</div>
@@ -427,9 +427,9 @@
 									<tr ng-repeat="book in userBooks track by $index">
 										<td class="book-img" style="background-image: url({{book.imgUrl}})"></td>
 										<td class="book-name">{{book.bookName}}</td>
-										<td>{{book.perPrice}}</td>
-										<td>{{book.bookNum}}</td>
-										<td>{{book.totalPrice}}</td>
+										<td>{{book.bookPrice}}</td>
+										<td>{{book.quantity}}</td>
+										<td>{{book.itemMoney}}</td>
 									</tr>
 									<!--<tr>
 										<td class="book-img" style="background-image: url('./images/index/e00001.jpg')"></td>
@@ -443,7 +443,7 @@
 						</div>
 						<div class="payment-num">
 							<div>
-								<p class="book-total">书籍合计：<span>￥{{order.totalPrice}}</span></p>
+								<p class="book-total">书籍合计：<span>￥{{order.totalMoney}}</span></p>
 								<p class="book-transit-money"><span>全场包邮<i></i></span>运费:<span>￥0.0</span></p>
 							</div>
 							<div>
