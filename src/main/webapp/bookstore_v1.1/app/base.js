@@ -113,29 +113,99 @@
 	/*---------------顾客登录后的首页特效结束-----------------*/
 
 	/*----鼠标悬浮时显示购物车里面的东西开始-----*/
+	//页面一加载得到购物车中东西的数量
+	var shopCarLen;
+	$.ajax({
+		type:"GET",
+		url:"cartTo-getShopCart.action",
+		dataType:"json",
+		success:function(data){
+			console.log(data);
+			var perOrders=data.shopCart;
+			shopCarLen=perOrders.length;
+			$('.shop-num').html(shopCarLen+'<i></i>');
+			$('.shop-big-num>b').html(shopCarLen);
+		},
+		error:function(){
+			console.log('我没有拿到购物车信息');
+		}
+	});
 	//在搜索框旁边的购物车上，鼠标悬浮时显示购物车里面的内容
 	$('.shopcar-icon').mouseenter(function(){
-		$('.shop-book-small-list-box').css('display','block');
 		//TODO  从session中获取与购物车相关的信息
-		/*$.ajax({
+		$.ajax({
 			type:"GET",
 			url:"cartTo-getShopCart.action",
 			dataType:"json",
 			success:function(data){
 				console.log(data);
+				var perOrders=data.shopCart;
+				if(perOrders.length!=0){
+					$('.shop-book-small-list-box').css('display','block');
+					$('.shop-book-list').children().remove();
+					var $fragment;//用来保存要添加的html片段
+					var imgUrl,
+						bName,
+						bPrice,
+						bNum;
+					var prices=[],
+						totalBookPrice=0;
+					for(var i=0;i<perOrders.length;i++){
+						console.log(perOrders[i]);
+						imgUrl=perOrders[i].book.bookImages[0].imageURL;
+						bName=perOrders[i].book.bookName;
+						bTotalPrice=perOrders[i].itemMoney;
+						bNum=perOrders[i].quantity;
+						bId=perOrders[i].book.bookId;
+						prices.push(bTotalPrice);
+						console.log(imgUrl);
+						console.log(bName);
+						console.log(bTotalPrice);
+						console.log(bNum);
+						$fragment=$("<li><div class='shop-book-img'><a href='book_details.html?bookId="+bId+"' style='background:url("+imgUrl+") center center no-repeat;background-size:contain;'></a></div><div class='shop-book-baseInfo'><a href='javascript:;'>"+bName+"</a><a>x"+bNum+"</a></div><div class='shop-book-price'><span>￥"+bTotalPrice+"</span><i class='deleteCurBook' data-id='"+bId+"'></i></div></li>");
+						$('.shop-book-list').append($fragment);
+					}
+					if(prices.length!=0){
+						for(var index in prices){
+							totalBookPrice+=parseFloat(prices[index]);
+						}
+					}
+					$('.bookTotalPrice').html('￥'+totalBookPrice);
+				}else{
+					var $errorInfo=$('.oper-hint');
+					$errorInfo.html('请先选购书籍！');
+					$errorInfo.slideDown();//错误提示信息缓慢出现
+					setTimeout(function(){
+						$errorInfo.slideUp();
+					},3000);
+				}
 			},
 			error:function(){
-				console.log("indexBook.json文件未得到");
+				console.log('我没有拿到购物车信息');
 			}
-		});*/
+		});
 	});
+	//给购物车里面的删除按钮添加事件
+	$(".shop-book-list").on('click', 'i.deleteCurBook', function() {
+		console.log('you clicked a p.test element');
+	});
+
 	//在搜索框旁边的购物车上，鼠标离开时隐藏购物车里面的内容
 	$('.shopcar-icon').mouseleave(function(){
 		$('.shop-book-small-list-box').css('display','none');
 	});
 	//在划出的导航栏上，鼠标悬浮在购物车上时显示购物车里面的内容
 	$('.shopcar-big-icon').mouseenter(function(){
-		$('.shop-book-big-list-box').css('display','block');
+		if(shopCarLen!=0){
+			$('.shop-book-big-list-box').css('display','block');
+		}else{
+			var $errorInfo=$('.oper-hint');
+			$errorInfo.html('请先选购书籍！');
+			$errorInfo.slideDown();//错误提示信息缓慢出现
+			setTimeout(function(){
+				$errorInfo.slideUp();
+			},3000);
+		}
 	});
 	//在搜索框旁边的购物车上，鼠标离开时隐藏购物车里面的内容
 	$('.shopcar-big-icon').mouseleave(function(){

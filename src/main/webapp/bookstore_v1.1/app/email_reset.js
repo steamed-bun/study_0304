@@ -178,7 +178,7 @@ angular.module('emailReset',[])
                //代表商家
                curRole=1;
             }
-            var postData='email='+$scope.regi.email+'&password=$scope.regi.password'+'&role='+curRole;
+            var postData='email='+$scope.regi.email+'&password='+$scope.regi.password+'&role='+curRole;
             console.log(postData);
             $http({
                method:'POST',
