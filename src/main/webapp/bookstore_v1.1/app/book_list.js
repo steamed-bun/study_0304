@@ -1,6 +1,42 @@
 angular.module('bookList',[])
+	.directive('onRepeatFinishedRender', function ($timeout) {
+		return {
+			restrict: 'A',
+			link: function (scope, element, attr) {
+				if (scope.$last === true) {
+					$timeout(function () {
+						//这里element, 就是ng-repeat渲染的最后一个元素
+						scope.$emit('ngRepeatFinished', element);
+					});
+				}
+			}
+		};
+	})
 	.controller('bookListCtrl',function($scope,$http){
-		//TODO：应从地址栏的url中获得如下信息
+		//根据书籍大类id获取对应的子类
+		var getSmallCate=function (cateId){
+			postData='category.categoryPId='+cateId;
+			return   $http({
+				method:'POST',
+				url:'select-selectCategory.action',
+				data:postData,//已序列化用户输入的数据
+				headers:{'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+			}).then(function(response){
+				console.log(response); //打印响应数据（采用then方法获得的响应数据比用success方法获得的响应数据信息多）
+				return response.data;//将响应数据的data属性值返回
+			});
+		};
+		$scope.bigCate={'bigCateId':'','bigCateText':''};
+		$scope.smallCate={'smallCateId':'','smallCateText':''};
+		$scope.smallCates=[];
+		/*$scope.smallCates=[
+			{smCateId:'',smCateText:'教育1'},
+			{smCateId:'',smCateText:'教育1'},
+			{smCateId:'',smCateText:'教育1'},
+			{smCateId:'1',smCateText:'教育1'},
+			{smCateId:'1',smCateText:'教育1'}
+		];*/
+		//应从地址栏的url中获得如下信息
 		var locationHref=window.location.href;
 		locationHref=locationHref.slice(locationHref.indexOf('?')+1);
 		console.log(locationHref);
@@ -10,158 +46,72 @@ angular.module('bookList',[])
 		var smCateId='';
 		if(locationHref.indexOf('=')==locationHref.lastIndexOf('=')){
 			//当地址栏中只有一个参数时（意味着是从大类进来的）
-			console.log('从大类进来的');
+			//console.log('从大类进来的');
 			locationHref=locationHref.split('=');
 			bigCateId=locationHref[1];
-			console.log(bigCateId);
+			//console.log(bigCateId);
+			getSmallCate(bigCateId).then(function(data){
+				var dataHasBigCate=data.category;
+				$scope.bigCate.bigCateId=dataHasBigCate.categoryId;
+				$scope.bigCate.bigCateText=dataHasBigCate.categoryName;
+				$('.nextCateMArk').css('display','none');
+				//加载分类处子类的名称
+				var dataHasSmallCate=data.categories;
+				var smCate;
+				for(var i=0;i<dataHasSmallCate.length;i++){
+					smCate={};
+					smCate.smCateId=dataHasSmallCate[i].categoryId;
+					smCate.smCateText=dataHasSmallCate[i].categoryName;
+					$scope.smallCates.push(smCate);
+				}
+
+			});
 		}else{
 			//当地址栏中有两个参数时（意味着是从子类进来的）
-			console.log('从子类进来的');
 			locationHref=locationHref.split('&');
 			bigCateStr=locationHref[0].split('=');
 			smCateIdStr=locationHref[1].split('=');
-			bigCateStr=bigCateStr[1];
-			smCateIdStr=smCateIdStr[1];
-			console.log(bigCateStr);
-			console.log(smCateIdStr);
-		}
-		console.log(locationHref);
-		$scope.bigCate={'bigCateId':'1','bigCateText':'教育'};
-		$scope.smallCate={'smallCateId':'1','smallCateText':'教育1'};
-		/*---------------多图旋转轮播图开始------------*/
-		//设置基础变量
-		var $butLeft=null,
-		    $butRight=null,
-		  	$butPlay=null,
-			$imglist=null,
-			origin='232px 648px',  //前者是单张图片的宽度，后者根据情况调（只是为了将图片的中心点往下移）
-			originImg='232px 680px',
-			//TODO 此处应从数据库中获得相关图片
-			imgs=[
-						['./images/spotlight/s00005.jpg','./images/spotlight/s00002.jpg','./images/spotlight/s00004.jpg','./images/spotlight/s00002.jpg','./images/spotlight/s00001.jpg'],
-						['./images/spotlight/s00006.jpg','./images/spotlight/s00007.jpg','./images/spotlight/s00003.jpg','./images/spotlight/s00002.jpg','./images/spotlight/s00001.jpg'],
-						['./images/spotlight/s00005.jpg','./images/spotlight/s00003.jpg','./images/spotlight/s00003.jpg','./images/spotlight/s00004.jpg','./images/spotlight/s00005.jpg'],
-						['./images/spotlight/s00006.jpg','./images/spotlight/s00007.jpg','./images/spotlight/s00003.jpg','./images/spotlight/s00002.jpg','./images/spotlight/s00001.jpg'],
-						['./images/spotlight/s00001.jpg','./images/spotlight/s00002.jpg','./images/spotlight/s00003.jpg','./images/spotlight/s00006.jpg','./images/spotlight/s00007.jpg']
-					],
-			imgAll=createImg(imgs),
-			imgArrIndex=0, //记录图片数组的索引
-			imgAng=45,  //做动画时，每张图片旋转的角度
-			imgTime=300,//每张图片的动画间隔是300ms
-			rotating=false, //为标志，只是为了避免在动画期间，用户仍可以点击造成页面出错
-			autoTime=null, //存周期性定时器
-			autoInterval=4000;//自动播放的间隔时间
-
-		//初始化函数
-		function init(){
-			$butLeft=$('.butLeft');
-			$butRight=$('.butRight');
-			$butPlay=$('.butPlay');
-			$imglist=$('.mainbox ul li');
-
-			configer(); //设置页面一加载，图片的旋转角度
-			setEvent();//为各个按钮添加事件
-		}
-		//设置各图片的初始样子
-		function configer(){
-			var ang=6,  //固定角度（每次加的角度）
-				aint=-14;  //初始化角度（第一个图片的角度）
-				$imglist.css('transform-origin',origin);//设置li的旋转中心
-				$imglist.each(function(i){  //i是循环的索引
-					var $this=$(this);
-					$this.css({rotate:aint+(i*ang)+"deg"}); //对每个li进行旋转
-				});
-		}
-		//为各按钮绑定事件
-		function setEvent(){
-			$butLeft.bind("click",function(){
-				anigo(-1);
-				return false;
-			});
-			$butRight.bind("click",function(){
-				anigo(1);
-				return false;
-			});
-			//鼠标悬浮停止图片自动轮播
-			$('.mainbox').mouseenter(function(){
-				autoStop();
-			});
-			//鼠标离开停止图片自动轮播
-			$('.mainbox').mouseleave(function(){
-				autoGo();
-			});
-		}
-		//根据提供的url生成span(有指定的图片背景)
-		function createImg(arr){
-			var imgArr=[];
-			for(var i in arr){
-				var $span;
-				imgArr[i]=arr[i];
-				for(var x in arr[i]){
-					$span=$('<span style="background-image:url('+arr[i][x]+');background-size:cover;"></span>');
-					imgArr[i][x]=$span;
+			bigCateId=bigCateStr[1];
+			smCateId=smCateIdStr[1];
+			//console.log(bigCateId);
+			//console.log(smCateId);
+			getSmallCate(bigCateId).then(function(data){
+				//console.log(data);
+				var dataHasBigCate=data.category;
+				$scope.bigCate.bigCateId=dataHasBigCate.categoryId;
+				$scope.bigCate.bigCateText=dataHasBigCate.categoryName;
+				var dataHasSmallCate=data.categories;
+				var smCate;
+				var markIndex;
+				for(var i=0;i<dataHasSmallCate.length;i++){
+					smCate={};
+					smCate.smCateId=dataHasSmallCate[i].categoryId;
+					smCate.smCateText=dataHasSmallCate[i].categoryName;
+					$scope.smallCates.push(smCate);
+					if(dataHasSmallCate[i].categoryId==smCateId){
+						$scope.smallCate.smallCateId=dataHasSmallCate[i].categoryId;
+						$scope.smallCate.smallCateText=dataHasSmallCate[i].categoryName;
+						$('.nextCateMArk').css('display','inline-block');
+						$('.classify a').removeClass('cate-default');
+						markIndex=i+3;
+						$scope.$on("ngRepeatFinished", function (repeatFinishedEvent, element){
+							var repeatId = element.parent().attr("repeat-id");
+							switch (repeatId){
+								case "r1":
+									//repeat-id为r1的ul, repeat渲染完成
+									//console.log('r1渲染完毕');
+									//console.log($('.classify a:nth-child('+markIndex+')')[0]);
+									$('.classify a:nth-child('+markIndex+')').addClass('cate-default');
+									break;
+							}
+						})
+					}
 				}
-			}
-			return imgArr;
-		}
-		//控制图片的切换和旋转
-		function anigo(d){
-			if(rotating) return false;  //一旦return，后面的代码就不执行了
-			rotating=true;
-			imgArrIndex+=d; //确定显示那一组的下标
-			//下述if语句使得切换可以循环
-			if(imgArrIndex>imgAll.length-1){
-				imgArrIndex=0;
-			}else if(imgArrIndex<0){
-				imgArrIndex=imgAll.length-1;
-			}
-			//遍历页面中的li，并为其添加span，显示指定图片
-			$imglist.each(function(i){
-				var $thisItme=$(this);//当前li
-				var $thisImg=$thisItme.children("span"); //当前li下的span
-				var $targetImg=imgAll[imgArrIndex][i];
-				var thisTime=(d==1) ? imgTime*i : imgTime*(imgAll.length-1-i);//从左往右时间增加，从右往左时间减少（只是为了实现每张图片是一个接一个旋转出来的效果）
-				$thisItme.append($targetImg);
-				
-				$thisImg.css('transform-origin',originImg);  //设定原来图片的圆心点
-				$targetImg.css({transformOrigin:originImg,rotate:(0-d)*imgAng+"deg"});  //初始化新图片的旋转圆心点和旋转角度
-				
-				setTimeout(function(){
-					$thisImg.transition({rotate:imgAng*d+"deg"}); //原来的图片转出去
-					$targetImg.transition({rotate:"0deg"},500,function(){
-						$thisImg.remove(); //删除原来的图片
-						if(thisTime==($imglist.length-1)*imgTime){  //当当前动画执行完之后，才允许再次执行
-							rotating=false;
-						}
-					}); //新图片归位*/
-				},thisTime);
 			});
 		}
-		//实现自动播放
-		function autoGo(){
-			clearInterval(autoTime);//一定要清除，否则会生成多个定时器操作一个东西
-			anigo(1);//使得处于播放状态时，页面一加载，就会自动播放
-			autoTime=setInterval(function(){
-				anigo(1);
-			},autoInterval);
-		}
-
-		//实现暂停
-		function autoStop(){
-			clearInterval(autoTime);
-		}
-		init();//调用初始化函数
-		autoGo();
-		/*---------------多图旋转轮播图结束------------*/
 
 		/*------给分类加事件开始-------*/
-		$scope.smallCates=[
-			{smCateId:'1',smCateText:'教育1'},
-			{smCateId:'1',smCateText:'教育1'},
-			{smCateId:'1',smCateText:'教育1'},
-			{smCateId:'1',smCateText:'教育1'},
-			{smCateId:'1',smCateText:'教育1'}
-		];
+
 		//根据用于选择的类别，加载该类书(根据子类id获取书籍)
 		$scope.loadSelectBook=function($event){
 			console.log('我要加载某类书');
@@ -169,12 +119,14 @@ angular.module('bookList',[])
 			$('.classify a').removeClass('cate-default');
 			$curElem.addClass('cate-default');
 			var smCateId=$curElem.attr('data-id');//获得子类的id
+			var postData='book.category.categoryId='+smCateId+'&pageNum=1&totalPageNo=0&sort=0';
 			console.log(smCateId);
-			//TODO:根据选择的子类id加载书籍
+			console.log(postData);
+			//根据选择的子类id加载书籍
 			$http({
 				method:'POST',
 				url:'book-getBooksByCategory.action', //user 按照点击量查询 sort {1 : 从低到高  0 : 从高到低}
-				data: 'book.category.categoryId=4&pageNum=1&totalPageNo=0&sort=0',
+				data:postData,
 				headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
 			}).success(function(response){
 				console.log(response);//查看响应数据是否正确
@@ -328,4 +280,130 @@ angular.module('bookList',[])
 	    	}
 	    });
 	    /*---------调用分页页码插件，实现分页功能结束-------*/
+
+		/*---------------多图旋转轮播图开始------------*/
+		//设置基础变量
+		var $butLeft=null,
+			$butRight=null,
+			$butPlay=null,
+			$imglist=null,
+			origin='232px 648px',  //前者是单张图片的宽度，后者根据情况调（只是为了将图片的中心点往下移）
+			originImg='232px 680px',
+		//TODO 此处应从数据库中获得相关图片
+			imgs=[
+				['./images/spotlight/s00005.jpg','./images/spotlight/s00002.jpg','./images/spotlight/s00004.jpg','./images/spotlight/s00002.jpg','./images/spotlight/s00001.jpg'],
+				['./images/spotlight/s00006.jpg','./images/spotlight/s00007.jpg','./images/spotlight/s00003.jpg','./images/spotlight/s00002.jpg','./images/spotlight/s00001.jpg'],
+				['./images/spotlight/s00005.jpg','./images/spotlight/s00003.jpg','./images/spotlight/s00003.jpg','./images/spotlight/s00004.jpg','./images/spotlight/s00005.jpg'],
+				['./images/spotlight/s00006.jpg','./images/spotlight/s00007.jpg','./images/spotlight/s00003.jpg','./images/spotlight/s00002.jpg','./images/spotlight/s00001.jpg'],
+				['./images/spotlight/s00001.jpg','./images/spotlight/s00002.jpg','./images/spotlight/s00003.jpg','./images/spotlight/s00006.jpg','./images/spotlight/s00007.jpg']
+			],
+			imgAll=createImg(imgs),
+			imgArrIndex=0, //记录图片数组的索引
+			imgAng=45,  //做动画时，每张图片旋转的角度
+			imgTime=300,//每张图片的动画间隔是300ms
+			rotating=false, //为标志，只是为了避免在动画期间，用户仍可以点击造成页面出错
+			autoTime=null, //存周期性定时器
+			autoInterval=4000;//自动播放的间隔时间
+
+		//初始化函数
+		function init(){
+			$butLeft=$('.butLeft');
+			$butRight=$('.butRight');
+			$butPlay=$('.butPlay');
+			$imglist=$('.mainbox ul li');
+
+			configer(); //设置页面一加载，图片的旋转角度
+			setEvent();//为各个按钮添加事件
+		}
+		//设置各图片的初始样子
+		function configer(){
+			var ang=6,  //固定角度（每次加的角度）
+				aint=-14;  //初始化角度（第一个图片的角度）
+			$imglist.css('transform-origin',origin);//设置li的旋转中心
+			$imglist.each(function(i){  //i是循环的索引
+				var $this=$(this);
+				$this.css({rotate:aint+(i*ang)+"deg"}); //对每个li进行旋转
+			});
+		}
+		//为各按钮绑定事件
+		function setEvent(){
+			$butLeft.bind("click",function(){
+				anigo(-1);
+				return false;
+			});
+			$butRight.bind("click",function(){
+				anigo(1);
+				return false;
+			});
+			//鼠标悬浮停止图片自动轮播
+			$('.mainbox').mouseenter(function(){
+				autoStop();
+			});
+			//鼠标离开停止图片自动轮播
+			$('.mainbox').mouseleave(function(){
+				autoGo();
+			});
+		}
+		//根据提供的url生成span(有指定的图片背景)
+		function createImg(arr){
+			var imgArr=[];
+			for(var i in arr){
+				var $span;
+				imgArr[i]=arr[i];
+				for(var x in arr[i]){
+					$span=$('<span style="background-image:url('+arr[i][x]+');background-size:cover;"></span>');
+					imgArr[i][x]=$span;
+				}
+			}
+			return imgArr;
+		}
+		//控制图片的切换和旋转
+		function anigo(d){
+			if(rotating) return false;  //一旦return，后面的代码就不执行了
+			rotating=true;
+			imgArrIndex+=d; //确定显示那一组的下标
+			//下述if语句使得切换可以循环
+			if(imgArrIndex>imgAll.length-1){
+				imgArrIndex=0;
+			}else if(imgArrIndex<0){
+				imgArrIndex=imgAll.length-1;
+			}
+			//遍历页面中的li，并为其添加span，显示指定图片
+			$imglist.each(function(i){
+				var $thisItme=$(this);//当前li
+				var $thisImg=$thisItme.children("span"); //当前li下的span
+				var $targetImg=imgAll[imgArrIndex][i];
+				var thisTime=(d==1) ? imgTime*i : imgTime*(imgAll.length-1-i);//从左往右时间增加，从右往左时间减少（只是为了实现每张图片是一个接一个旋转出来的效果）
+				$thisItme.append($targetImg);
+
+				$thisImg.css('transform-origin',originImg);  //设定原来图片的圆心点
+				$targetImg.css({transformOrigin:originImg,rotate:(0-d)*imgAng+"deg"});  //初始化新图片的旋转圆心点和旋转角度
+
+				setTimeout(function(){
+					$thisImg.transition({rotate:imgAng*d+"deg"}); //原来的图片转出去
+					$targetImg.transition({rotate:"0deg"},500,function(){
+						$thisImg.remove(); //删除原来的图片
+						if(thisTime==($imglist.length-1)*imgTime){  //当当前动画执行完之后，才允许再次执行
+							rotating=false;
+						}
+					}); //新图片归位*/
+				},thisTime);
+			});
+		}
+		//实现自动播放
+		function autoGo(){
+			clearInterval(autoTime);//一定要清除，否则会生成多个定时器操作一个东西
+			anigo(1);//使得处于播放状态时，页面一加载，就会自动播放
+			autoTime=setInterval(function(){
+				anigo(1);
+			},autoInterval);
+		}
+
+		//实现暂停
+		function autoStop(){
+			clearInterval(autoTime);
+		}
+		init();//调用初始化函数
+		autoGo();
+		/*---------------多图旋转轮播图结束------------*/
 	});

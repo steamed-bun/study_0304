@@ -11,27 +11,28 @@
 	<body>
 		<!-- 头部开始 -->
 		<header>
+			<p class="oper-hint"></p>
 			<div class="header-nav">
 				<div class="container clearfix">
-				<span class="fl">好的生活，与书为伴</span>
-				<div class="fr">
-					<div class="user-box already-user-box">
-						<span class="user-txt">花开半夏</span>
-						<ul class="user-bus">
-							<li><a href="customer_business.html#/custInfo">个人资料</a></li>
-							<li><a href="customer_business.html#/orderMange">订单管理</a></li>
-							<li><a href="customer_business.html#/addrMange">地址管理</a></li>
-							<li><a href="customer_business.html#/accountMange">账号安全</a></li>
-							<li><a href="sign.html#/login">退出登录</a></li>
-						</ul>
-					</div>
-					<div class="user-not-login not-already-user-box">
-						<span class="head-login login-txt">登录</span>
-						<span class="header-separate">|</span>
-						<span class="head-regist regist-txt">注册</span>
+					<span class="fl">好的生活，与书为伴</span>
+					<div class="fr">
+						<div class="user-box already-user-box">
+							<span class="user-txt">花开半夏</span>
+							<ul class="user-bus">
+								<li><a href="customer_business.html#/custInfo">个人资料</a></li>
+								<li><a href="customer_business.html#/orderMange">订单管理</a></li>
+								<li><a href="customer_business.html#/addrMange">地址管理</a></li>
+								<li><a href="customer_business.html#/accountMange">账号安全</a></li>
+								<li><a href="sign.html#/login">退出登录</a></li>
+							</ul>
+						</div>
+						<div class="user-not-login not-already-user-box">
+							<span class="head-login login-txt">登录</span>
+							<span class="header-separate">|</span>
+							<span class="head-regist regist-txt">注册</span>
+						</div>
 					</div>
 				</div>
-			</div>
 			</div>
 			<div class="header-logo-box ">
 				<div class="logo-box-top  container clearfix">
@@ -39,7 +40,7 @@
 						<img src="images/logo.png"/>
 					</div>
 					<div class="fr">
-						<input type="text" placeholder="请输入关键字进行搜索" ng-model="user.keywords" class="keywords-search"/>
+						<input type="text" placeholder="请输入书名进行搜索" class="keywords-search"/>
 						<a class="search-icon" href="javascript:;"></a>
 						<div class="shopcar-icon">
 							<a  href="javascript:;"></a>
@@ -1338,6 +1339,5 @@
 		<script src="./app/base.js"></script>
 		<script src="./js/slider.js"></script>
 		<script src="./app/index_login.js"></script>
-		<script src="./app/getBaseData.js"></script>
 	</body>
 </html>

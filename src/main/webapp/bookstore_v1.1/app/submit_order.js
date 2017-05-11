@@ -1,9 +1,9 @@
 angular.module('submitOrder',[])
     .controller('selectAddrCtrl',function($scope,$http){
         $scope.userAddr={
-            userName:'嘿嘿嘿 ',
-            tel:'18769289125',
-            addrDetail:'陕西省西安市长安区西安邮电大学南校区西区'
+            name:' ',
+            tel:'',
+            addrDetail:''
         };
         //TODO   A.从数据库中获得买家保存的地址信息
         $http({
@@ -13,12 +13,21 @@ angular.module('submitOrder',[])
             headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
         }).success(function(response){
             console.log(response);
+            if(response.status=='no'){
+                //该用户没有默认地址
+                $('.new-addr-box').css('display','block');
+            }else{
+                response=response.address;
+                $scope.userAddr.name=response.name;
+                $scope.userAddr.tel=response.tel;
+                $scope.userAddr.addrDetail=response.province.provinceName+response.city.cityName+response.county.countyName+response.street;
+                $('.select-addr-box').css('display','block');
+            }
         });
         //给修改按钮添加事件
         $scope.editMyAddr=function(){
             $('.select-addr-box').css('display','none');
             $('.edit-addr-box').css('display','block');
-            console.log('我是修改按钮');
         };
         //给切换地址按钮添加点击事件
         $scope.changeMyAddr=function(){
@@ -56,19 +65,60 @@ angular.module('submitOrder',[])
             street:'',
             name:'',
             tel:'',
-            def:'',
+            def:''
 
         };
-        //TODO B.给新建地址的确认按钮添加事件
+        //给新建地址的确认按钮添加事件
         $scope.saveNewAddr=function(){
+            //当数据库中已有3条地址时，则不能再新建了
             $http({
-             method:'POST',
-             url:'address-saveOrUpdateAddress.action',
-             data: 'address.province.provinceId=1&address.county.countyId=1&address.city.cityId=1&address.street=test1',
-             headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-             }).success(function(response){
-             console.log(response);
-             });
+                method:'POST',
+                url:'address-getAddressByUserId.action',
+                data: '',//no data
+                headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+            }).success(function(response){
+                console.log(response);
+                var perAddr;
+                if(response.status=='yes'){
+                    response=response.addresses;
+                    if(response.length>=3){
+                        $('.edit-addr-box').css('display','none');
+                        $('.oper-hint').html('已有3条地址，不能再新建！');
+                        $('.oper-hint').slideDown();//错误提示信息缓慢出现
+                        setTimeout(function(){
+                            $('.oper-hint').slideUp();
+                        },3000);
+                    }else{
+                        var provinceId=$('.mer-province').attr('data-id'),
+                            cityId=$('.mer-city').attr('data-id'),
+                            regiId=$('.mer-regi').attr('data-id');
+                        var isDefault='';
+                        if($scope.userNewAddr.def==true){
+                            isDefault=1;
+                        }else{
+                            isDefault=0;
+                        }
+                        var postData='address.province.provinceId='+provinceId+'&address.city.cityId='+cityId+'&address.county.countyId='+regiId+'&address.street='+$scope.userNewAddr.street+'&address.tel='+$scope.userNewAddr.tel+'&address.def='+isDefault+'&address.name='+$scope.userNewAddr.name;
+                        $http({
+                            method:'POST',
+                            url:'address-saveOrUpdateAddress.action',
+                            data:postData,
+                            headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+                        }).success(function(response){
+                            console.log(response);
+                            if(response.status=='yes'){
+                                $('.select-addr-box').css('display','block');
+                                $('.edit-addr-box').css('display','none');
+                                $('.oper-hint').html('新建地址成功！');
+                                $('.oper-hint').slideDown();//错误提示信息缓慢出现
+                                setTimeout(function(){
+                                    $('.oper-hint').slideUp();
+                                },3000);
+                            }
+                        });
+                    }
+                }
+            });
         };
         //给新建地址的取消按钮添加事件
         $scope.cancelNewAddr=function(){
@@ -126,6 +176,7 @@ angular.module('submitOrder',[])
                 return ;
             }
             //从数据库中拿到省的信息
+            console.log('执行到这');
             $http({
                 method:'GET',
                 url:'select-getProvince.action',
@@ -142,6 +193,7 @@ angular.module('submitOrder',[])
                 displayArea($('#all-provinces-new'),$('.mer-pro-icon'));
                 selectInfo($('#all-provinces-new'),"$('.mer-province')",$('.mer-pro-icon'));
             });
+            console.log('期望到这');
             //provinces=['陕西1','陕西2','陕西3','陕西4','陕西5','陕西6','陕西7','陕西8','陕西9','陕西10','陕西11','陕西12','陕西13','陕西14'];
         });
 
@@ -219,7 +271,7 @@ angular.module('submitOrder',[])
         /*------显示省市区信息结束-------*/
     })
     .controller('editAddrCtrl',function($scope,$http){
-        //TODO 从数据库中获得待修改的地址信息
+        // 获得待修改的地址信息的基础变量设置
         $scope.userEditAddr={
             selectProvince:'',
             provinceId:'',
@@ -231,8 +283,9 @@ angular.module('submitOrder',[])
             name:'',
             tel:'',
             def:'',
+            addressId:''
         };
-        //TODO  C.获得用于待编辑的地址所有信息
+        //获得用于待编辑的地址所有信息
         $http({
              method:'POST',
              url:'address-getDefAddress.action',
@@ -240,18 +293,56 @@ angular.module('submitOrder',[])
              headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
          }).success(function(response){
             console.log(response);
+            if(response.status=='yes'){
+                response=response.address;
+                $scope.userEditAddr.selectProvince=response.province.provinceName;
+                $scope.userEditAddr.provinceId=response.province.provinceId;
+                $scope.userEditAddr.selectCity=response.city.cityName;
+                $scope.userEditAddr.cityId=response.city.cityId;
+                $scope.userEditAddr.selectRegi=response.county.countyName;
+                $scope.userEditAddr.countyId=response.county.countyId;
+                $scope.userEditAddr.street=response.street;
+                $scope.userEditAddr.name=response.name;
+                $scope.userEditAddr.tel=response.tel;
+                if(response.def==1){
+                    $scope.userEditAddr.def=true;
+                }else{
+                    $scope.userEditAddr.def=false;
+                }
+                $scope.userEditAddr.addressId=response.addressId;
+            }
          });
-        //TODO 给编辑地址的确认按钮添加事件
-        /*$scope.saveEditAddr=function(){
+        //给编辑地址的确认按钮添加事件
+        $scope.saveEditAddr=function(){
+            var provinceId=$('.mer-province').attr('data-id'),
+                cityId=$('.mer-city').attr('data-id'),
+                regiId=$('.mer-regi').attr('data-id');
+            var isDefault='';
+            if($scope.userEditAddr.def==true){
+                isDefault=1;
+            }else{
+                isDefault=0;
+            }
+            var postData='address.province.provinceId='+provinceId+'&address.city.cityId='+cityId+'&address.county.countyId='+regiId+'&address.street='+$scope.userEditAddr.street+'&address.tel='+$scope.userEditAddr.tel+'&address.def='+isDefault+'&address.addressId='+$scope.userEditAddr.addressId+'&address.name='+$scope.userEditAddr.name;
+            console.log(postData);
             $http({
                  method:'POST',
-                 url:'',
-                 data: ,
+                 url:'address-saveOrUpdateAddress.action',
+                 data:postData,
                  headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
              }).success(function(response){
                 console.log(response);
+                if(response.status=='yes'){
+                    $('.select-addr-box').css('display','block');
+                    $('.edit-addr-box').css('display','none');
+                    $('.oper-hint').html('编辑地址成功！');
+                    $('.oper-hint').slideDown();//错误提示信息缓慢出现
+                    setTimeout(function(){
+                        $('.oper-hint').slideUp();
+                    },3000);
+                }
              });
-        };*/
+        };
         //给编辑地址的取消按钮添加事件
         $scope.cancelEditAddr=function(){
             $('.edit-addr-box').css('display','none');
@@ -293,6 +384,7 @@ angular.module('submitOrder',[])
         }
         //从数据库中获得省的信息
         $('#display-pro').click(function(){
+            console.log('我被点了');
             var html='';
             var i;
             var len;
@@ -310,6 +402,7 @@ angular.module('submitOrder',[])
                 method:'GET',
                 url:'select-getProvince.action',
             }).success(function(data){
+                console.log(data);
                 for(var i in data.province){
                     provinces[i]=data.province[i].provinceName;
                     provincesId[i]=data.province[i].provinceId;
@@ -344,6 +437,7 @@ angular.module('submitOrder',[])
                 data:postData,//序列化用户输入的数据
                 headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
             }).success(function(data){
+                console.log(data);
                 for(var i in data.cities){
                     citys[i]=data.cities[i].cityName;
                     cityId[i]=data.cities[i].cityId;
@@ -377,6 +471,7 @@ angular.module('submitOrder',[])
                 data:postData,//序列化用户输入的数据
                 headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
             }).success(function(data){
+                console.log(data);
                 for(var i in data.counties){
                     regis[i]=data.counties[i].countyName;
                     regisId[i]=data.counties[i].countyId;
@@ -394,13 +489,14 @@ angular.module('submitOrder',[])
         /*------显示省市区信息结束-------*/
     })
     .controller('addrAsDefaultCtrl',function($scope,$http){
-        $scope.userAddrLists=[
+        $scope.userAddrLists=[];
+       /* $scope.userAddrLists=[
             {
                 userName:'不好就',
                 tel:'13819242249',
                 addrDetail:'陕西省西安市长安区西安邮电大学南校区西区'
             }
-           /*
+           /!*
            {
                 addressId:"1", //address对象的Id
                 provinceName:'13819242249',//省
@@ -411,15 +507,15 @@ angular.module('submitOrder',[])
                 name:"test",//姓名
                 addrDetail:'陕西省西安市长安区西安邮电大学南校区西区'
             }
-            */
-        ];
+            *!/
+        ];*/
         //给第一个地址信息块添加‘默认地址’
         $('.wait-addrs>li:first-child default-addr-mark').html('默认地址');
         //给关闭按钮添加事件
         $('.close-wait-addr').click(function(){
             $('.addr-as-default').css('display','none');
         });
-        //TODO D.页面一加载得到该买家的所有地址信息(可能不止一条)
+        //页面一加载得到该买家的所有地址信息(可能不止一条)
         $http({
              method:'POST',
              url:'address-getAddressByUserId.action',
@@ -427,19 +523,35 @@ angular.module('submitOrder',[])
              headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
          }).success(function(response){
             console.log(response);
+            var perAddr;
+            if(response.status=='yes'){
+                response=response.addresses;
+                for(var i=0;i<response.length;i++){
+                    perAddr={};
+                    perAddr.userName=response[i].name;
+                    perAddr.tel=response[i].tel;
+                    perAddr.addrDetail=response[i].province.provinceName+response[i].city.cityName+response[i].county.countyName+response[i].street;
+                    perAddr.addressId=response[i].addressId;
+                    $scope.userAddrLists.push(perAddr);
+                }
+                console.log($scope.userAddrLists);
+            }
          });
 
-        //TODO E.给选择默认地址的确认按钮添加事件
+        //给选择默认地址的确认按钮添加事件
         $scope.saveDefaultAddr=function(){
+            var postData,
+                addressId=$('.highlight-select-addr').attr('data-id');
+
             console.log('我要保存选择的默认地址');
-            $http({
+            /*$http({
                  method:'POST',
                  url:'address-saveOrUpdateAddress.action',
                  data: 'address.addressId=1&address.province.provinceId=1&address.county.countyId=1&address.city.cityId=1&address.street=testJS&address.tel=18829289582&address.def=1',
                  headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
              }).success(function(response){
                 console.log(response);
-             });
+             });*/
         };
         //给选择默认地址的取消按钮添加事件
         $scope.cancalSaveDefaultAddr=function(){
@@ -501,14 +613,14 @@ angular.module('submitOrder',[])
             totalShouldPay:'24'
         };
         //TODO F.从数据中获得用户待购买的书籍信息
-        $http({
+      /*  $http({
              method:'POST',
              url:'cartTo-getShopCart.action',
              data: '',//no data
              headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
          }).success(function(response){
             console.log(response);
-         });
+         });*/
         $scope.goPay=function(){
            window.location.href='purchase.html';
         };

@@ -22,7 +22,7 @@ section{
 .select-addr-box>div,.edit-addr-box>div,.new-addr-box>div{
 	padding:30px;
 }
-.edit-addr-box,.new-addr-box{
+.edit-addr-box,.new-addr-box,.select-addr-box,.addr-as-default{
 	display:none;
 }
 .user-addr-default{
@@ -40,6 +40,20 @@ section{
 	width:23px;
 	height:23px;
 	background:url("../images/more-img.png") -1px -60px no-repeat;
+}
+.oper-hint{
+	position:fixed;
+	top:5px;
+	left:550px;
+	width:300px;
+	height:40px;
+	line-height:40px;
+	color:#FFF;
+	background-color:#E78170;
+	text-align:center;
+	border-radius:3px;
+	z-index:9999999;
+	display:none;
 }
 .user-addr-default>span{
 	display: inline-block;

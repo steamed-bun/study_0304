@@ -294,7 +294,7 @@
 		<!-- 书籍列表开始 -->
 		<section ng-app="bookList">
 			<div class="container" ng-controller="bookListCtrl">
-				<nav class="crumbs"><span>首页</span><i></i><span data-id="bigCate.bigCateId">{{bigCate.bigCateText}}</span><i></i><span data-id="{{smallCate.smallCateId}}">{{smallCate.smallCateText}}</span></nav>
+				<nav class="crumbs"><span>首页</span><i></i><span data-id="bigCate.bigCateId">{{bigCate.bigCateText}}</span><i class="nextCateMArk"></i><span data-id="{{smallCate.smallCateId}}">{{smallCate.smallCateText}}</span></nav>
 				<div class="mainbox">
 					<ul class="clearfix">
 						<li><span style="background-image:url('./images/spotlight/s00001.jpg');background-size:cover;"></span></li>
@@ -311,10 +311,10 @@
 				</div>
 				<div class="more-books">
 					<div class="select-condition">
-						<p class="classify">
+						<p class="classify" repeat-id="r1">
 							<span>分类：</span>
 							<a class="cate-default" ng-click="loadAllBooks($event)">全部</a>
-							<a ng-repeat="smCate in smallCates track by $index" data-id="{{smCate.smCateId}}" ng-click="loadSelectBook($event)">{{smCate.smCateText}}</a>
+							<a ng-repeat="smCate in smallCates track by $index" data-id="{{smCate.smCateId}}" ng-click="loadSelectBook($event)" on-repeat-finished-render>{{smCate.smCateText}}</a>
 							<!--<a>文学传记</a>
 							<a>青春文学</a>
 							<a>动漫</a>

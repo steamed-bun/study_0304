@@ -1,6 +1,6 @@
 package com.xiyou.service;
 
-import com.xiyou.dao.impl.UserDAOImpl;
+import com.xiyou.dao.UserDAO;
 import com.xiyou.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     @Autowired
-    private UserDAOImpl userDAO;
+    private UserDAO userDAO;
 
     public User getUserForAddress(String userId){
         return userDAO.getUserForAddress(userId);
