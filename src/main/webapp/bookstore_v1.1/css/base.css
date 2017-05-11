@@ -149,7 +149,7 @@ header{
 }
 .shop-book-price{
 	position: relative;
-	top:-29px;
+	top:-23px;
 	width:66px;
 	height:100%;
 }
@@ -177,7 +177,7 @@ header{
 }
 .shop-book-baseInfo{
 	position: relative;
-	top:-26px; 
+	top:-17px;
 	width:144px;
 	margin-left:65px;
 	font-size:12px;

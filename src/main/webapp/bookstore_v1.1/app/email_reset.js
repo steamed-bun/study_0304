@@ -4,15 +4,6 @@ angular.module('emailReset',[])
       locationHref=locationHref.slice(locationHref.indexOf('?')+1);
       locationHref=locationHref.split('=');
       $scope.regi={
-
-         /*
-         uEmail:'',
-         pwd:'',
-         repwd:'',
-         veri:'',
-         role: locationHref[1]
-          email=12@&password=testupdate&role=0
-         */
          email:'',
          password:'',
          repwd:'',
@@ -24,7 +15,7 @@ angular.module('emailReset',[])
       var verTrue=[true,true];//验证码(此处为了避免用户多次重复触发获得验证码事件，故用了两个标志即：verTrue[0]和verTrue[1])
       var getMes=function(){
          //发送验证码
-         var postD='receiver='+$scope.regi.uEmail;
+         var postD='receiver='+$scope.regi.email;
          $http({
             method:'POST',
             url:'mail-sendEmail.action',
@@ -43,7 +34,7 @@ angular.module('emailReset',[])
       $scope.isThrough=[false,false,false,false];
       //验证邮箱
       $('#tel').blur(function(){
-         var userInput=$scope.regi.uEmail;
+         var userInput=$scope.regi.email;
          if(userInput){
             //当用户有输入值时
             if(regExp[0].test(userInput)){
@@ -69,7 +60,7 @@ angular.module('emailReset',[])
       });
       //验证密码
       $('#pwd').blur(function(){
-         var userInput=$scope.regi.pwd;
+         var userInput=$scope.regi.password;
          if(userInput){
             //当用户有输入值时
             if(regExp[1].test(userInput)){
@@ -96,7 +87,7 @@ angular.module('emailReset',[])
       //验证重复密码
       $('#repwd').blur(function(){
          var userInput=$scope.regi.repwd;
-         if(userInput==$scope.regi.pwd){
+         if(userInput==$scope.regi.password){
             $('.repwd-hint').html('恭喜您！两次密码一致');
             $('.repwd-hint').removeClass('regi-error-hint');
             $('.repwd-hint').addClass('regi-right-hint');
@@ -177,16 +168,49 @@ angular.module('emailReset',[])
 
       //提交用户重置的密码
       $scope.reset=function(){
-         console.log('提交新密码到数据库');
-         console.log($scope.regi);
-         $http({
-            method:'POST',
-            url:'test-updatePassword.action',
-            data:'email=12@&password=update&role=0',//序列化用户输入的数据
-            headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-         }).success(function(data){
-            console.log(data);
-         });
+         console.log($scope.isThrough);
+         if($scope.isThrough[0]&&$scope.isThrough[1]&&$scope.isThrough[2]&&$scope.isThrough[3]){
+            var curRole;
+            if($scope.regi.role=='true'){
+               //代表买家
+               curRole=0;
+            }else{
+               //代表商家
+               curRole=1;
+            }
+            var postData='email='+$scope.regi.email+'&password='+$scope.regi.password+'&role='+curRole;
+            console.log(postData);
+            $http({
+               method:'POST',
+               url:'test-updatePassword.action',
+               data:postData,//序列化用户输入的数据
+               headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+            }).success(function(data){
+               console.log(data);
+               if(data.status=='yes'){
+                  var $errorInfo=$('.login-error-txt');
+                  $errorInfo.html('重置成功！');
+                  $errorInfo.slideDown();//错误提示信息缓慢出现
+                  setTimeout(function(){
+                     $errorInfo.slideUp();
+                  },3000);
+               }else{
+                  var $errorInfo=$('.login-error-txt');
+                  $errorInfo.html('用户不存在！');
+                  $errorInfo.slideDown();//错误提示信息缓慢出现
+                  setTimeout(function(){
+                     $errorInfo.slideUp();
+                  },3000);
+               }
+            });
+         }else{
+            var $errorInfo=$('.login-error-txt');
+            $errorInfo.html('重置失败，所填信息不能为空！');
+            $errorInfo.slideDown();//错误提示信息缓慢出现
+            setTimeout(function(){
+               $errorInfo.slideUp();
+            },3000);
+         }
       };
 
       //采用jquery，实现输入框获得焦点和失去焦点的效果

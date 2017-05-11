@@ -313,7 +313,7 @@
 					<div class="select-condition">
 						<p class="classify" repeat-id="r1">
 							<span>分类：</span>
-							<a class="cate-default" ng-click="loadAllBooks($event)">全部</a>
+							<a class="cate-default" ng-click="loadAllBooks($event)" data-id="-1" id="allBooks">全部</a>
 							<a ng-repeat="smCate in smallCates track by $index" data-id="{{smCate.smCateId}}" ng-click="loadSelectBook($event)" on-repeat-finished-render>{{smCate.smCateText}}</a>
 							<!--<a>文学传记</a>
 							<a>青春文学</a>
@@ -331,6 +331,7 @@
 					</div>
 					<div>
 						<ul class="book-list clearfix edu-book-list">
+							<!--
 							<li>
 								<a href="javascript:;">
 									<img src="images/index/y00001.jpg"/>
@@ -419,6 +420,7 @@
 									<span>￥23.5</span>
 								</div>
 							</li>
+							-->
 						</ul>
 					</div>
 				</div>

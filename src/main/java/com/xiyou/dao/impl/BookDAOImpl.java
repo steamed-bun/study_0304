@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 @Repository("bookDAOImpl")
 public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 
-	private static final int PAGE_SIZE = 3;//书本数量
+	private static final int PAGE_SIZE = 8;//书本数量
 	private static final int BACK_PAGE_SIZE = 10;//后台书本数量
 	private static final int BASE_NUM = 0;
 

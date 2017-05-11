@@ -20,8 +20,13 @@ angular.module('bookDetail',[])
        };
        var allImgs=[],
            imgsArr;
-       //应根据链接来获得这个bookId
-       postData='book.bookId='+29;
+       //从地址栏中获取bookId
+       var locationHref=window.location.href;
+       locationHref=locationHref.slice(locationHref.indexOf('?')+1);
+       var locationHref=locationHref.split('=');
+       var bookId=locationHref[1];
+       var postData='book.bookId='+bookId;
+       console.log(postData);
         //从数据库获得书籍的相关信息
        $http({
            method:'POST',
@@ -67,6 +72,57 @@ angular.module('bookDetail',[])
                }
            }
        });
+
+       //加入购物车
+       $scope.addBookToShopcar=function(){
+           console.log('我要加入购物车');
+           //验证库存
+           $http({
+               method:'POST',
+               url:'book-validateBookQuantity.action',
+               data: 'book.bookId='+bookId+'&book.quantity='+$scope.book.purNum,
+               headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+           }).success(function(response){
+               console.log(response); //在此处查看返回的数据是否正确
+               if(response.status=='no'){
+                   //库存不足，不能加入购物车
+                   var $errorInfo=$('.oper-hint');
+                   $errorInfo.html('库存不足，请减少购买数量！');
+                   $errorInfo.slideDown();//错误提示信息缓慢出现
+                   setTimeout(function(){
+                       $errorInfo.slideUp();
+                   },3000);
+               }else{
+                   //库存足够，可以购买
+                   var postData='shopCartItemTo.book.bookId='+bookId+'&shopCartItemTo.book.bookName='+$scope.book.bName+'&shopCartItemTo.book.bookPrice='+$scope.book.price+'&shopCartItemTo.book.bookImages.imageURL='+$scope.book.sImgUrls[0]+'&shopCartItemTo.quantity='+$scope.book.purNum;
+                   console.log(postData);
+                   $http({
+                       method:'POST',
+                       url:'cartTo-addShopCartItem.action',
+                       data: postData,
+                       headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+                   }).success(function(response){
+                       console.log(response); //在此处查看返回的数据是否正确
+                       if(response.status=='yes'){
+                           //加入购物车成功
+                           var $errorInfo=$('.oper-hint');
+                           $errorInfo.html('加入购物车成功！');
+                           $errorInfo.slideDown();//错误提示信息缓慢出现
+                           setTimeout(function(){
+                               $errorInfo.slideUp();
+                           },3000);
+                       }else{
+                           var $errorInfo=$('.oper-hint');
+                           $errorInfo.html('加入购物车失败！');
+                           $errorInfo.slideDown();//错误提示信息缓慢出现
+                           setTimeout(function(){
+                               $errorInfo.slideUp();
+                           },3000);
+                       }
+                   });
+               }
+           });
+       };
        /*-----与放大镜相关的开始------*/
        $scope.changeMediImg=function($event){
            var $curElem=$($event.target);
