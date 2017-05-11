@@ -29,13 +29,6 @@ angular.module('bookList',[])
 		$scope.bigCate={'bigCateId':'','bigCateText':''};
 		$scope.smallCate={'smallCateId':'','smallCateText':''};
 		$scope.smallCates=[];
-		/*$scope.smallCates=[
-			{smCateId:'',smCateText:'教育1'},
-			{smCateId:'',smCateText:'教育1'},
-			{smCateId:'',smCateText:'教育1'},
-			{smCateId:'1',smCateText:'教育1'},
-			{smCateId:'1',smCateText:'教育1'}
-		];*/
 		//应从地址栏的url中获得如下信息
 		var locationHref=window.location.href;
 		locationHref=locationHref.slice(locationHref.indexOf('?')+1);
@@ -46,7 +39,7 @@ angular.module('bookList',[])
 		var smCateId='';
 		if(locationHref.indexOf('=')==locationHref.lastIndexOf('=')){
 			//当地址栏中只有一个参数时（意味着是从大类进来的）
-			//console.log('从大类进来的');
+			console.log('从大类进来的');
 			locationHref=locationHref.split('=');
 			bigCateId=locationHref[1];
 			//console.log(bigCateId);
@@ -64,10 +57,104 @@ angular.module('bookList',[])
 					smCate.smCateText=dataHasSmallCate[i].categoryName;
 					$scope.smallCates.push(smCate);
 				}
-
+				//记载该大类对应的所有书籍
+				var postData='book.category.categoryPId='+$scope.bigCate.bigCateId+'&pageNum=1&totalPageNo=0&sort=0';
+				$http({
+					method:'POST',
+					url:'book-getBooksForCPIdC.action',//user 获取大类 浏览量
+					data: postData,
+					headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+				}).success(function(response){
+					console.log(response);//查看响应数据是否正确
+					if(response.status=='yes'){
+						if(response.status=='yes'){
+							//当拿到书籍时,渲染到页面上
+							data=response.books;
+							console.log(data);
+							$(".book-list").children().remove();
+							var $fragment;//用来保存要添加的html片段
+							for(var i=0;i<data.length;i++){
+								var imgsObj;
+								var imgsUrl=[];  //保存当前书籍的所有图片
+								var curImg;
+								var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+								imgsObj=data[i].bookImages;
+								for(var k=0;k<imgsObj.length;k++){
+									imgsUrl.push(imgsObj[k].imageURL);
+								}
+								//找出可以放在首页的书
+								for(var j=0;j<imgsUrl.length;j++){
+									if(imgsUrl[j].search('-y')!=-1){
+										//当找到可以放在首页的书
+										curImg=imgsUrl[j];
+										break;
+									}
+								}
+								if(isGoodBook==1){
+									$fragment=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+								}else{
+									$fragment=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+								}
+								$(".book-list").append($fragment);
+							}
+							//调用分页插件，进行分页
+							$('.page-area').cypager({
+								pg_size:8,
+								pg_nav_count:Math.ceil(response.totalPageNo/8),
+								pg_total_count:parseInt(response.totalPageNo),
+								pg_prev_name:'前一页',
+								pg_next_name:'后一页',
+								pg_call_fun:function(count){
+									//此处应到数据库中拿数据
+									var postData='book.category.categoryPId='+$scope.bigCate.bigCateId+'&pageNum='+count+'&sort=0';
+									console.log('当前要请求第'+count+'页');
+									//根据商家点击不同的数字显示不同的内容
+									'book.category.categoryPId=1&pageNum=1&sort=0'
+									$http({
+										method:'POST',
+										url:'book-getBooksForCPIdC.action',//user 子类 浏览量 分页
+										data: postData,
+										headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+									}).success(function(response){
+										console.log(response);//查看响应数据是否正确
+										data=response.books;
+										console.log(data);
+										$(".book-list").children().remove();
+										var $fragment2;//用来保存要添加的html片段
+										for(var i=0;i<data.length;i++){
+											var imgsObj;
+											var imgsUrl=[];  //保存当前书籍的所有图片
+											var curImg;
+											var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+											imgsObj=data[i].bookImages;
+											for(var k=0;k<imgsObj.length;k++){
+												imgsUrl.push(imgsObj[k].imageURL);
+											}
+											//找出可以放在首页的书
+											for(var j=0;j<imgsUrl.length;j++){
+												if(imgsUrl[j].search('-y')!=-1){
+													//当找到可以放在首页的书
+													curImg=imgsUrl[j];
+													break;
+												}
+											}
+											if(isGoodBook==1){
+												$fragment2=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+											}else{
+												$fragment2=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+											}
+											$(".book-list").append($fragment2);
+										}
+									});
+								}
+							});
+						}
+					}
+				});
 			});
 		}else{
 			//当地址栏中有两个参数时（意味着是从子类进来的）
+			console.log('我从子类进来的');
 			locationHref=locationHref.split('&');
 			bigCateStr=locationHref[0].split('=');
 			smCateIdStr=locationHref[1].split('=');
@@ -89,6 +176,7 @@ angular.module('bookList',[])
 					smCate.smCateText=dataHasSmallCate[i].categoryName;
 					$scope.smallCates.push(smCate);
 					if(dataHasSmallCate[i].categoryId==smCateId){
+						console.log('我找到相等的了');
 						$scope.smallCate.smallCateId=dataHasSmallCate[i].categoryId;
 						$scope.smallCate.smallCateText=dataHasSmallCate[i].categoryName;
 						$('.nextCateMArk').css('display','inline-block');
@@ -104,7 +192,103 @@ angular.module('bookList',[])
 									$('.classify a:nth-child('+markIndex+')').addClass('cate-default');
 									break;
 							}
-						})
+						});
+						//加载该子类对应的所有书籍
+						var postData='book.category.categoryId='+$scope.smallCate.smallCateId+'&pageNum=1&totalPageNo=0&sort=0';
+						console.log(smCateId);
+						console.log(postData);
+						//根据选择的子类id加载书籍
+						$http({
+							method:'POST',
+							url:'book-getBooksByCategory.action', //user 按照点击量查询 sort {1 : 从低到高  0 : 从高到低}
+							data:postData,
+							headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+						}).success(function(response){
+							console.log(response);//查看响应数据是否正确
+							if(response.status=='yes'){
+								//当拿到书籍时,渲染到页面上
+								data=response.books;
+								console.log(data);
+								$(".book-list").children().remove();
+								var $fragment;//用来保存要添加的html片段
+								for(var i=0;i<data.length;i++){
+									var imgsObj;
+									var imgsUrl=[];  //保存当前书籍的所有图片
+									var curImg;
+									var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+									imgsObj=data[i].bookImages;
+									for(var k=0;k<imgsObj.length;k++){
+										imgsUrl.push(imgsObj[k].imageURL);
+									}
+									//找出可以放在首页的书
+									for(var j=0;j<imgsUrl.length;j++){
+										if(imgsUrl[j].search('-y')!=-1){
+											//当找到可以放在首页的书
+											curImg=imgsUrl[j];
+											break;
+										}
+									}
+									if(isGoodBook==1){
+										$fragment=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+									}else{
+										$fragment=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+									}
+									$(".book-list").append($fragment);
+								}
+
+
+								//调用分页插件，进行分页
+								$('.page-area').cypager({
+									pg_size:8,
+									pg_nav_count:Math.ceil(response.totalPageNo/8),
+									pg_total_count:parseInt(response.totalPageNo),
+									pg_prev_name:'前一页',
+									pg_next_name:'后一页',
+									pg_call_fun:function(count){
+										//此处应到数据库中拿数据
+										var postData='book.category.categoryId='+smCateId+'&pageNum='+count+'&sort=0';
+										console.log('当前要请求第'+count+'页');
+										//根据商家点击不同的数字显示不同的内容
+										$http({
+											method:'POST',
+											url:'book-getBooksByCategory.action',//user 子类 浏览量 分页
+											data: postData,
+											headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+										}).success(function(response){
+											console.log(response);//查看响应数据是否正确
+											data=response.books;
+											console.log(data);
+											$(".book-list").children().remove();
+											var $fragment2;//用来保存要添加的html片段
+											for(var i=0;i<data.length;i++){
+												var imgsObj;
+												var imgsUrl=[];  //保存当前书籍的所有图片
+												var curImg;
+												var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+												imgsObj=data[i].bookImages;
+												for(var k=0;k<imgsObj.length;k++){
+													imgsUrl.push(imgsObj[k].imageURL);
+												}
+												//找出可以放在首页的书
+												for(var j=0;j<imgsUrl.length;j++){
+													if(imgsUrl[j].search('-y')!=-1){
+														//当找到可以放在首页的书
+														curImg=imgsUrl[j];
+														break;
+													}
+												}
+												if(isGoodBook==1){
+													$fragment2=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+												}else{
+													$fragment2=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+												}
+												$(".book-list").append($fragment2);
+											}
+										});
+									}
+								});
+							}
+						});
 					}
 				}
 			});
@@ -119,6 +303,8 @@ angular.module('bookList',[])
 			$('.classify a').removeClass('cate-default');
 			$curElem.addClass('cate-default');
 			var smCateId=$curElem.attr('data-id');//获得子类的id
+			$scope.smallCate.smallCateId=smCateId;
+			$scope.smallCate.smallCateText=$curElem.html();
 			var postData='book.category.categoryId='+smCateId+'&pageNum=1&totalPageNo=0&sort=0';
 			console.log(smCateId);
 			console.log(postData);
@@ -130,6 +316,89 @@ angular.module('bookList',[])
 				headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
 			}).success(function(response){
 				console.log(response);//查看响应数据是否正确
+				if(response.status=='yes'){
+					//当拿到书籍时,渲染到页面上
+					data=response.books;
+					console.log(data);
+					$(".book-list").children().remove();
+					var $fragment;//用来保存要添加的html片段
+					for(var i=0;i<data.length;i++){
+						var imgsObj;
+						var imgsUrl=[];  //保存当前书籍的所有图片
+						var curImg;
+						var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+						imgsObj=data[i].bookImages;
+						for(var k=0;k<imgsObj.length;k++){
+							imgsUrl.push(imgsObj[k].imageURL);
+						}
+						//找出可以放在首页的书
+						for(var j=0;j<imgsUrl.length;j++){
+							if(imgsUrl[j].search('-y')!=-1){
+								//当找到可以放在首页的书
+								curImg=imgsUrl[j];
+								break;
+							}
+						}
+						if(isGoodBook==1){
+							$fragment=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+						}else{
+							$fragment=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+						}
+						$(".book-list").append($fragment);
+					}
+
+
+					//调用分页插件，进行分页
+					$('.page-area').cypager({
+						pg_size:8,
+						pg_nav_count:Math.ceil(response.totalPageNo/8),
+						pg_total_count:parseInt(response.totalPageNo),
+						pg_prev_name:'前一页',
+						pg_next_name:'后一页',
+						pg_call_fun:function(count){
+							//此处应到数据库中拿数据
+							var postData='book.category.categoryId='+smCateId+'&pageNum='+count+'&sort=0';
+							console.log('当前要请求第'+count+'页');
+							//根据商家点击不同的数字显示不同的内容
+							$http({
+							 method:'POST',
+							 url:'book-getBooksByCategory.action',//user 子类 浏览量 分页
+							 data: postData,
+							 headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+							 }).success(function(response){
+							 	console.log(response);//查看响应数据是否正确
+								data=response.books;
+								console.log(data);
+								$(".book-list").children().remove();
+								var $fragment2;//用来保存要添加的html片段
+								for(var i=0;i<data.length;i++){
+									var imgsObj;
+									var imgsUrl=[];  //保存当前书籍的所有图片
+									var curImg;
+									var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+									imgsObj=data[i].bookImages;
+									for(var k=0;k<imgsObj.length;k++){
+										imgsUrl.push(imgsObj[k].imageURL);
+									}
+									//找出可以放在首页的书
+									for(var j=0;j<imgsUrl.length;j++){
+										if(imgsUrl[j].search('-y')!=-1){
+											//当找到可以放在首页的书
+											curImg=imgsUrl[j];
+											break;
+										}
+									}
+									if(isGoodBook==1){
+										$fragment2=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+									}else{
+										$fragment2=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+									}
+									$(".book-list").append($fragment2);
+								}
+							 });
+						}
+					});
+				}
 			});
 		};
 		//加载所有的书籍（根据大类id来获取）
@@ -139,14 +408,96 @@ angular.module('bookList',[])
 			$('.classify a').removeClass('cate-default');
 			$curElem.addClass('cate-default');
 			console.log($(this)[0]);
-			//TODO:点击“全部”加载所有书籍
+			var postData='book.category.categoryPId='+$scope.bigCate.bigCateId+'&pageNum=1&totalPageNo=0&sort=0';
 			$http({
 				method:'POST',
 				url:'book-getBooksForCPIdC.action',//user 获取大类 浏览量
-				data: 'book.category.categoryPId=1&pageNum=1&totalPageNo=0&sort=1',
+				data: postData,
 				headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
 			}).success(function(response){
 				console.log(response);//查看响应数据是否正确
+				if(response.status=='yes'){
+						//当拿到书籍时,渲染到页面上
+						data=response.books;
+						console.log(data);
+						$(".book-list").children().remove();
+						var $fragment;//用来保存要添加的html片段
+						for(var i=0;i<data.length;i++){
+							var imgsObj;
+							var imgsUrl=[];  //保存当前书籍的所有图片
+							var curImg;
+							var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+							imgsObj=data[i].bookImages;
+							for(var k=0;k<imgsObj.length;k++){
+								imgsUrl.push(imgsObj[k].imageURL);
+							}
+							//找出可以放在首页的书
+							for(var j=0;j<imgsUrl.length;j++){
+								if(imgsUrl[j].search('-y')!=-1){
+									//当找到可以放在首页的书
+									curImg=imgsUrl[j];
+									break;
+								}
+							}
+							if(isGoodBook==1){
+								$fragment=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+							}else{
+								$fragment=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+							}
+							$(".book-list").append($fragment);
+						}
+						//调用分页插件，进行分页
+						$('.page-area').cypager({
+							pg_size:8,
+							pg_nav_count:Math.ceil(response.totalPageNo/8),
+							pg_total_count:parseInt(response.totalPageNo),
+							pg_prev_name:'前一页',
+							pg_next_name:'后一页',
+							pg_call_fun:function(count){
+								//此处应到数据库中拿数据
+								var postData='book.category.categoryPId='+$scope.bigCate.bigCateId+'&pageNum='+count+'&sort=0';
+								console.log('当前要请求第'+count+'页');
+								//根据商家点击不同的数字显示不同的内容
+								'book.category.categoryPId=1&pageNum=1&sort=0'
+								$http({
+									method:'POST',
+									url:'book-getBooksForCPIdC.action',//user 子类 浏览量 分页
+									data: postData,
+									headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+								}).success(function(response){
+									console.log(response);//查看响应数据是否正确
+									data=response.books;
+									console.log(data);
+									$(".book-list").children().remove();
+									var $fragment2;//用来保存要添加的html片段
+									for(var i=0;i<data.length;i++){
+										var imgsObj;
+										var imgsUrl=[];  //保存当前书籍的所有图片
+										var curImg;
+										var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+										imgsObj=data[i].bookImages;
+										for(var k=0;k<imgsObj.length;k++){
+											imgsUrl.push(imgsObj[k].imageURL);
+										}
+										//找出可以放在首页的书
+										for(var j=0;j<imgsUrl.length;j++){
+											if(imgsUrl[j].search('-y')!=-1){
+												//当找到可以放在首页的书
+												curImg=imgsUrl[j];
+												break;
+											}
+										}
+										if(isGoodBook==1){
+											$fragment2=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+										}else{
+											$fragment2=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+										}
+										$(".book-list").append($fragment2);
+									}
+								});
+							}
+						});
+				}
 			});
 		};
 		//默认排序（默认按浏览量view-to-low排序）
@@ -155,14 +506,189 @@ angular.module('bookList',[])
 			$('.sort a').removeClass('sort-default');
 			$curElem.addClass('sort-default');
 			console.log('我是默认排序');
-			/*$http({
-				method:'POST',
-				url:'',
-				data: ,
-				headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-			}).success(function(response){
-				console.log(response);//查看响应数据是否正确
-			});*/
+			if($('#allBooks').hasClass('cate-default')){
+				//对大类进行按浏览量排序
+				$http({
+					method:'POST',
+					url:'book-getBooksForCPIdC.action',//user 大类 浏览量
+					data: 'book.category.categoryPId='+$scope.bigCate.bigCateId+'&pageNum=1&totalPageNo=0&sort=0',
+					headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+				}).success(function(response){
+					console.log(response);//查看响应数据是否正确
+					if(response.status=='yes'){
+						//当拿到书籍时,渲染到页面上
+						data=response.books;
+						console.log(data);
+						$(".book-list").children().remove();
+						var $fragment;//用来保存要添加的html片段
+						for(var i=0;i<data.length;i++){
+							var imgsObj;
+							var imgsUrl=[];  //保存当前书籍的所有图片
+							var curImg;
+							var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+							imgsObj=data[i].bookImages;
+							for(var k=0;k<imgsObj.length;k++){
+								imgsUrl.push(imgsObj[k].imageURL);
+							}
+							//找出可以放在首页的书
+							for(var j=0;j<imgsUrl.length;j++){
+								if(imgsUrl[j].search('-y')!=-1){
+									//当找到可以放在首页的书
+									curImg=imgsUrl[j];
+									break;
+								}
+							}
+							if(isGoodBook==1){
+								$fragment=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+							}else{
+								$fragment=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+							}
+							$(".book-list").append($fragment);
+						}
+						//调用分页插件，进行分页
+						$('.page-area').cypager({
+							pg_size:8,
+							pg_nav_count:Math.ceil(response.totalPageNo/8),
+							pg_total_count:parseInt(response.totalPageNo),
+							pg_prev_name:'前一页',
+							pg_next_name:'后一页',
+							pg_call_fun:function(count){
+								//此处应到数据库中拿数据
+								var postData='book.category.categoryPId='+$scope.bigCate.bigCateId+'&pageNum='+count+'&sort=0';
+								console.log('当前要请求第'+count+'页');
+								//根据商家点击不同的数字显示不同的内容
+								$http({
+									method:'POST',
+									url:'book-getBooksForCPIdC.action',//user 子类 浏览量 分页
+									data: postData,
+									headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+								}).success(function(response){
+									console.log(response);//查看响应数据是否正确
+									data=response.books;
+									console.log(data);
+									$(".book-list").children().remove();
+									var $fragment2;//用来保存要添加的html片段
+									for(var i=0;i<data.length;i++){
+										var imgsObj;
+										var imgsUrl=[];  //保存当前书籍的所有图片
+										var curImg;
+										var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+										imgsObj=data[i].bookImages;
+										for(var k=0;k<imgsObj.length;k++){
+											imgsUrl.push(imgsObj[k].imageURL);
+										}
+										//找出可以放在首页的书
+										for(var j=0;j<imgsUrl.length;j++){
+											if(imgsUrl[j].search('-y')!=-1){
+												//当找到可以放在首页的书
+												curImg=imgsUrl[j];
+												break;
+											}
+										}
+										if(isGoodBook==1){
+											$fragment2=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+										}else{
+											$fragment2=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+										}
+										$(".book-list").append($fragment2);
+									}
+								});
+							}
+						});
+					}
+				});
+			}else{
+				//对子类进行按浏览量排序
+				$http({
+					method:'POST',
+					url:'book-getBooksByCategory.action',//user 子类 浏览量
+					data: 'book.category.categoryId='+$scope.smallCate.smallCateId+'&pageNum=1&totalPageNo=0&sort=0',
+					headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+				}).success(function(response){
+					console.log(response);//查看响应数据是否正确
+					if(response.status=='yes'){
+						//当拿到书籍时,渲染到页面上
+						data=response.books;
+						console.log(data);
+						$(".book-list").children().remove();
+						var $fragment;//用来保存要添加的html片段
+						for(var i=0;i<data.length;i++){
+							var imgsObj;
+							var imgsUrl=[];  //保存当前书籍的所有图片
+							var curImg;
+							var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+							imgsObj=data[i].bookImages;
+							for(var k=0;k<imgsObj.length;k++){
+								imgsUrl.push(imgsObj[k].imageURL);
+							}
+							//找出可以放在首页的书
+							for(var j=0;j<imgsUrl.length;j++){
+								if(imgsUrl[j].search('-y')!=-1){
+									//当找到可以放在首页的书
+									curImg=imgsUrl[j];
+									break;
+								}
+							}
+							if(isGoodBook==1){
+								$fragment=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+							}else{
+								$fragment=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+							}
+							$(".book-list").append($fragment);
+						}
+						//调用分页插件，进行分页
+						$('.page-area').cypager({
+							pg_size:8,
+							pg_nav_count:Math.ceil(response.totalPageNo/8),
+							pg_total_count:parseInt(response.totalPageNo),
+							pg_prev_name:'前一页',
+							pg_next_name:'后一页',
+							pg_call_fun:function(count){
+								//此处应到数据库中拿数据
+								var postData='book.category.categoryId='+$scope.smallCate.smallCateId+'&pageNum='+count+'&sort=0';
+								console.log('当前要请求第'+count+'页');
+								//根据商家点击不同的数字显示不同的内容
+								$http({
+									method:'POST',
+									url:'book-getBooksByCategory.action',//user 子类 浏览量 分页
+									data: postData,
+									headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+								}).success(function(response){
+									console.log(response);//查看响应数据是否正确
+									data=response.books;
+									console.log(data);
+									$(".book-list").children().remove();
+									var $fragment2;//用来保存要添加的html片段
+									for(var i=0;i<data.length;i++){
+										var imgsObj;
+										var imgsUrl=[];  //保存当前书籍的所有图片
+										var curImg;
+										var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+										imgsObj=data[i].bookImages;
+										for(var k=0;k<imgsObj.length;k++){
+											imgsUrl.push(imgsObj[k].imageURL);
+										}
+										//找出可以放在首页的书
+										for(var j=0;j<imgsUrl.length;j++){
+											if(imgsUrl[j].search('-y')!=-1){
+												//当找到可以放在首页的书
+												curImg=imgsUrl[j];
+												break;
+											}
+										}
+										if(isGoodBook==1){
+											$fragment2=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+										}else{
+											$fragment2=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+										}
+										$(".book-list").append($fragment2);
+									}
+								});
+							}
+						});
+					}
+				});
+			}
 		};
 		//按价格展示书籍
 		$scope.loadSortByPrice=function($event){
@@ -170,32 +696,207 @@ angular.module('bookList',[])
 			$('.sort a').removeClass('sort-default');
 			$curElem.addClass('sort-default');
 			console.log('按价格排序');
+			var sortPriceMark;
 			if($curElem.hasClass('price-to-low')){
 				//需要price-to-high
 				$curElem.removeClass('price-to-low');
 				$curElem.addClass('price-to-high');
+				sortPriceMark=1;
 			}else{
 				//需要price-to-low
 				$curElem.removeClass('price-to-high');
 				$curElem.addClass('price-to-low');
+				sortPriceMark=0;
 			}
-			//TODO:根据价格进行排序
-			/*$http({
-				method:'POST',
-				url:'book-getBooksForCIdP.action',//user 子类 价格
-				data: 'book.category.categoryId=4&pageNum=1&totalPageNo=0&sort=1',
-				headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-			}).success(function(response){
-				console.log(response);//查看响应数据是否正确
-			});*/
-			$http({
-				method:'POST',
-				url:'book-getBooksForCPIdP.action',//user 大类 价格
-				data: 'book.category.categoryPId=1&pageNum=1&totalPageNo=0&sort=1',
-				headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-			}).success(function(response){
-				console.log(response);//查看响应数据是否正确
-			});
+			//根据价格进行排序
+			//确定当前显示的是大类还是子类
+			if($('#allBooks').hasClass('cate-default')){
+				//当前显示的是“全部”，则请求大类的接口
+				$http({
+					method:'POST',
+					url:'book-getBooksForCPIdP.action',//user 大类 价格
+					data: 'book.category.categoryPId='+$scope.bigCate.bigCateId+'&pageNum=1&totalPageNo=0&sort='+sortPriceMark,
+					headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+				}).success(function(response){
+					console.log(response);//查看响应数据是否正确
+					console.log('大类接口');
+					if(response.status=='yes'){
+						//当拿到书籍时,渲染到页面上
+						data=response.books;
+						console.log(data);
+						$(".book-list").children().remove();
+						var $fragment;//用来保存要添加的html片段
+						for(var i=0;i<data.length;i++){
+							var imgsObj;
+							var imgsUrl=[];  //保存当前书籍的所有图片
+							var curImg;
+							var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+							imgsObj=data[i].bookImages;
+							for(var k=0;k<imgsObj.length;k++){
+								imgsUrl.push(imgsObj[k].imageURL);
+							}
+							//找出可以放在首页的书
+							for(var j=0;j<imgsUrl.length;j++){
+								if(imgsUrl[j].search('-y')!=-1){
+									//当找到可以放在首页的书
+									curImg=imgsUrl[j];
+									break;
+								}
+							}
+							if(isGoodBook==1){
+								$fragment=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+							}else{
+								$fragment=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+							}
+							$(".book-list").append($fragment);
+						}
+						//调用分页插件，进行分页
+						$('.page-area').cypager({
+							pg_size:8,
+							pg_nav_count:Math.ceil(response.totalPageNo/8),
+							pg_total_count:parseInt(response.totalPageNo),
+							pg_prev_name:'前一页',
+							pg_next_name:'后一页',
+							pg_call_fun:function(count){
+								//此处应到数据库中拿数据
+								var postData='book.category.categoryPId='+$scope.bigCate.bigCateId+'&pageNum='+count+'&sort='+sortPriceMark;
+								console.log('当前要请求第'+count+'页');
+								//根据商家点击不同的数字显示不同的内容
+								$http({
+									method:'POST',
+									url:'book-getBooksForCPIdP.action',//user 大类 价格 分页
+									data: postData,
+									headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+								}).success(function(response){
+									console.log(response);//查看响应数据是否正确
+									data=response.books;
+									console.log(data);
+									$(".book-list").children().remove();
+									var $fragment2;//用来保存要添加的html片段
+									for(var i=0;i<data.length;i++){
+										var imgsObj;
+										var imgsUrl=[];  //保存当前书籍的所有图片
+										var curImg;
+										var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+										imgsObj=data[i].bookImages;
+										for(var k=0;k<imgsObj.length;k++){
+											imgsUrl.push(imgsObj[k].imageURL);
+										}
+										//找出可以放在首页的书
+										for(var j=0;j<imgsUrl.length;j++){
+											if(imgsUrl[j].search('-y')!=-1){
+												//当找到可以放在首页的书
+												curImg=imgsUrl[j];
+												break;
+											}
+										}
+										if(isGoodBook==1){
+											$fragment2=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+										}else{
+											$fragment2=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+										}
+										$(".book-list").append($fragment2);
+									}
+								});
+							}
+						});
+					}
+				});
+			}else{
+				//当前显示的是某个子类，则请求子类接口
+				$http({
+					method:'POST',
+					url:'book-getBooksForCIdP.action',//user 子类 价格
+					data: 'book.category.categoryId='+$scope.smallCate.smallCateId+'&pageNum=1&totalPageNo=0&sort='+sortPriceMark,
+					headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+				}).success(function(response){
+					console.log(response);//查看响应数据是否正确
+					console.log('子类接口');
+					data=response.books;
+					console.log(data);
+					$(".book-list").children().remove();
+					var $fragment;//用来保存要添加的html片段
+					for(var i=0;i<data.length;i++){
+						var imgsObj;
+						var imgsUrl=[];  //保存当前书籍的所有图片
+						var curImg;
+						var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+						imgsObj=data[i].bookImages;
+						for(var k=0;k<imgsObj.length;k++){
+							imgsUrl.push(imgsObj[k].imageURL);
+						}
+						//找出可以放在首页的书
+						for(var j=0;j<imgsUrl.length;j++){
+							if(imgsUrl[j].search('-y')!=-1){
+								//当找到可以放在首页的书
+								curImg=imgsUrl[j];
+								break;
+							}
+						}
+						if(isGoodBook==1){
+							$fragment=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+						}else{
+							$fragment=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+						}
+						$(".book-list").append($fragment);
+					}
+
+
+					//调用分页插件，进行分页
+					$('.page-area').cypager({
+						pg_size:8,
+						pg_nav_count:Math.ceil(response.totalPageNo/8),
+						pg_total_count:parseInt(response.totalPageNo),
+						pg_prev_name:'前一页',
+						pg_next_name:'后一页',
+						pg_call_fun:function(count){
+							//此处应到数据库中拿数据
+							var postData='book.category.categoryId='+$scope.smallCate.smallCateId+'&pageNum='+count+'&sort='+sortPriceMark;
+							console.log('当前要请求第'+count+'页');
+							//根据商家点击不同的数字显示不同的内容
+							$http({
+								method:'POST',
+								url:'book-getBooksForCIdP.action',//user 子类 价格 分页
+								data: postData,
+								headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+							}).success(function(response){
+								console.log(response);//查看响应数据是否正确
+								data=response.books;
+								console.log(data);
+								$(".book-list").children().remove();
+								var $fragment2;//用来保存要添加的html片段
+								for(var i=0;i<data.length;i++){
+									var imgsObj;
+									var imgsUrl=[];  //保存当前书籍的所有图片
+									var curImg;
+									var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+									imgsObj=data[i].bookImages;
+									for(var k=0;k<imgsObj.length;k++){
+										imgsUrl.push(imgsObj[k].imageURL);
+									}
+									//找出可以放在首页的书
+									for(var j=0;j<imgsUrl.length;j++){
+										if(imgsUrl[j].search('-y')!=-1){
+											//当找到可以放在首页的书
+											curImg=imgsUrl[j];
+											break;
+										}
+									}
+									if(isGoodBook==1){
+										$fragment2=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+									}else{
+										$fragment2=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+									}
+									$(".book-list").append($fragment2);
+								}
+							});
+						}
+					});
+				});
+			}
+			console.log($scope.bigCate.bigCateId);
+			console.log($scope.smallCate.smallCateId);
+			console.log($scope.smallCate.smallCateText);
 		};
 		//根据浏览量进行排序
 		$scope.loadSortByView=function($event){
@@ -204,82 +905,203 @@ angular.module('bookList',[])
 			$curElem.addClass('sort-default');
 			$curElem=$($event.target);
 			console.log('根据浏览量进行排序');
+			var sortViewMark;
 			if($curElem.hasClass('view-to-low')){
 				//需要view-to-high
 				$curElem.removeClass('view-to-low');
 				$curElem.addClass('view-to-high');
+				sortViewMark=1;
 			}else{
 				//需要view-to-low
 				$curElem.removeClass('view-to-high');
 				$curElem.addClass('view-to-low');
+				sortViewMark=0;
 			}
-			//TODO:根据浏览量进行排序
-			$http({
-			 method:'POST',
-			 url:'book-getBooksForCPIdC.action',//user 大类 浏览量
-			 data: 'book.category.categoryPId=1&pageNum=1&totalPageNo=0&sort=0',
-			 headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-			 }).success(function(response){
-			 console.log(response);//查看响应数据是否正确
-			 });
-			/*$http({
-				method:'POST',
-				url:'book-getBooksByCategory.action',//user 子类 浏览量
-				data: 'book.category.categoryId=4&pageNum=1&totalPageNo=0&sort=0',
-				headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-			}).success(function(response){
-				console.log(response);//查看响应数据是否正确
-			});*/
+			if($('#allBooks').hasClass('cate-default')){
+				//对大类进行按浏览量排序
+				$http({
+					method:'POST',
+					url:'book-getBooksForCPIdC.action',//user 大类 浏览量
+					data: 'book.category.categoryPId='+$scope.bigCate.bigCateId+'&pageNum=1&totalPageNo=0&sort='+sortViewMark,
+					headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+				}).success(function(response){
+					console.log(response);//查看响应数据是否正确
+					if(response.status=='yes'){
+						//当拿到书籍时,渲染到页面上
+						data=response.books;
+						console.log(data);
+						$(".book-list").children().remove();
+						var $fragment;//用来保存要添加的html片段
+						for(var i=0;i<data.length;i++){
+							var imgsObj;
+							var imgsUrl=[];  //保存当前书籍的所有图片
+							var curImg;
+							var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+							imgsObj=data[i].bookImages;
+							for(var k=0;k<imgsObj.length;k++){
+								imgsUrl.push(imgsObj[k].imageURL);
+							}
+							//找出可以放在首页的书
+							for(var j=0;j<imgsUrl.length;j++){
+								if(imgsUrl[j].search('-y')!=-1){
+									//当找到可以放在首页的书
+									curImg=imgsUrl[j];
+									break;
+								}
+							}
+							if(isGoodBook==1){
+								$fragment=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+							}else{
+								$fragment=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+							}
+							$(".book-list").append($fragment);
+						}
+						//调用分页插件，进行分页
+						$('.page-area').cypager({
+							pg_size:8,
+							pg_nav_count:Math.ceil(response.totalPageNo/8),
+							pg_total_count:parseInt(response.totalPageNo),
+							pg_prev_name:'前一页',
+							pg_next_name:'后一页',
+							pg_call_fun:function(count){
+								//此处应到数据库中拿数据
+								var postData='book.category.categoryPId='+$scope.bigCate.bigCateId+'&pageNum='+count+'&sort='+sortViewMark;
+								console.log('当前要请求第'+count+'页');
+								//根据商家点击不同的数字显示不同的内容
+								$http({
+									method:'POST',
+									url:'book-getBooksForCPIdC.action',//user 子类 浏览量 分页
+									data: postData,
+									headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+								}).success(function(response){
+									console.log(response);//查看响应数据是否正确
+									data=response.books;
+									console.log(data);
+									$(".book-list").children().remove();
+									var $fragment2;//用来保存要添加的html片段
+									for(var i=0;i<data.length;i++){
+										var imgsObj;
+										var imgsUrl=[];  //保存当前书籍的所有图片
+										var curImg;
+										var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+										imgsObj=data[i].bookImages;
+										for(var k=0;k<imgsObj.length;k++){
+											imgsUrl.push(imgsObj[k].imageURL);
+										}
+										//找出可以放在首页的书
+										for(var j=0;j<imgsUrl.length;j++){
+											if(imgsUrl[j].search('-y')!=-1){
+												//当找到可以放在首页的书
+												curImg=imgsUrl[j];
+												break;
+											}
+										}
+										if(isGoodBook==1){
+											$fragment2=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+										}else{
+											$fragment2=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+										}
+										$(".book-list").append($fragment2);
+									}
+								});
+							}
+						});
+					}
+				});
+			}else{
+				//对子类进行按浏览量排序
+				$http({
+					method:'POST',
+					url:'book-getBooksByCategory.action',//user 子类 浏览量
+					data: 'book.category.categoryId='+$scope.smallCate.smallCateId+'&pageNum=1&totalPageNo=0&sort='+sortViewMark,
+					headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+				}).success(function(response){
+					console.log(response);//查看响应数据是否正确
+					if(response.status=='yes'){
+						//当拿到书籍时,渲染到页面上
+						data=response.books;
+						console.log(data);
+						$(".book-list").children().remove();
+						var $fragment;//用来保存要添加的html片段
+						for(var i=0;i<data.length;i++){
+							var imgsObj;
+							var imgsUrl=[];  //保存当前书籍的所有图片
+							var curImg;
+							var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+							imgsObj=data[i].bookImages;
+							for(var k=0;k<imgsObj.length;k++){
+								imgsUrl.push(imgsObj[k].imageURL);
+							}
+							//找出可以放在首页的书
+							for(var j=0;j<imgsUrl.length;j++){
+								if(imgsUrl[j].search('-y')!=-1){
+									//当找到可以放在首页的书
+									curImg=imgsUrl[j];
+									break;
+								}
+							}
+							if(isGoodBook==1){
+								$fragment=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+							}else{
+								$fragment=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+							}
+							$(".book-list").append($fragment);
+						}
+						//调用分页插件，进行分页
+						$('.page-area').cypager({
+							pg_size:8,
+							pg_nav_count:Math.ceil(response.totalPageNo/8),
+							pg_total_count:parseInt(response.totalPageNo),
+							pg_prev_name:'前一页',
+							pg_next_name:'后一页',
+							pg_call_fun:function(count){
+								//此处应到数据库中拿数据
+								var postData='book.category.categoryId='+$scope.smallCate.smallCateId+'&pageNum='+count+'&sort='+sortViewMark;
+								console.log('当前要请求第'+count+'页');
+								//根据商家点击不同的数字显示不同的内容
+								$http({
+									method:'POST',
+									url:'book-getBooksByCategory.action',//user 子类 浏览量 分页
+									data: postData,
+									headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+								}).success(function(response){
+									console.log(response);//查看响应数据是否正确
+									data=response.books;
+									console.log(data);
+									$(".book-list").children().remove();
+									var $fragment2;//用来保存要添加的html片段
+									for(var i=0;i<data.length;i++){
+										var imgsObj;
+										var imgsUrl=[];  //保存当前书籍的所有图片
+										var curImg;
+										var isGoodBook=parseInt(data[i].goodBook);//由这个标志来确定到底是否显示“正品保证”这个标志
+										imgsObj=data[i].bookImages;
+										for(var k=0;k<imgsObj.length;k++){
+											imgsUrl.push(imgsObj[k].imageURL);
+										}
+										//找出可以放在首页的书
+										for(var j=0;j<imgsUrl.length;j++){
+											if(imgsUrl[j].search('-y')!=-1){
+												//当找到可以放在首页的书
+												curImg=imgsUrl[j];
+												break;
+											}
+										}
+										if(isGoodBook==1){
+											$fragment2=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i class='good-book'></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+										}else{
+											$fragment2=$("<li><a href='book_details.html?bookId="+data[i].bookId+"'><img src='"+curImg+"'/><i></i></a><div class='book-sell-info'><p class='recom-txt'>"+data[i].oneWord+"</p><h4>"+data[i].bookName+"</h4><span>"+data[i].bookPrice+"</span></div></li>");
+										}
+										$(".book-list").append($fragment2);
+									}
+								});
+							}
+						});
+					}
+				});
+			}
 		};
 		/*------给分类加事件结束-------*/
-
-		/*---------调用分页页码插件，实现分页功能开始-------*/
-	    $('.page-area').cypager({
-	    	pg_size:25,
-	    	pg_nav_count:8,
-	    	pg_total_count:300,
-	    	pg_prev_name:'前一页',
-	    	pg_next_name:'后一页',
-	    	pg_call_fun:function(count){
-	    		//此处应到数据库中拿数据
-	    		console.log('当前要请求第'+count+'页');
-          		//TODO 根据商家点击不同的数字显示不同的内容
-				/*$http({
-				 method:'POST',
-				 url:'book-getBooksByCategory.action',//user 子类 浏览量 分页
-				 data: 'book.category.categoryId=4&pageNum=1&sort=0',
-				 headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-				 }).success(function(response){
-				 console.log(response);//查看响应数据是否正确
-				 });*/
-				/*$http({
-				 method:'POST',
-				 url:'book-getBooksForCIdP.action',//user 子类 价格 分页
-				 data: 'book.category.categoryId=4&pageNum=1&sort=0',
-				 headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-				 }).success(function(response){
-				 console.log(response);//查看响应数据是否正确
-				 });*/
-				/*$http({
-				 method:'POST',
-				 url:'book-getBooksForCPIdC.action',//user 大类 浏览量 分页
-				 data: 'book.category.categoryPId=1&pageNum=1&sort=0',
-				 headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-				 }).success(function(response){
-				 console.log(response);//查看响应数据是否正确
-				 });*/
-				$http({
-				 method:'POST',
-				 url:'book-getBooksForCPIdP.action',//user 大类 价格 分页
-				 data: 'book.category.categoryPId=1&pageNum=1&sort=0',
-				 headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-				 }).success(function(response){
-				 console.log(response);//查看响应数据是否正确
-				 });
-
-	    	}
-	    });
-	    /*---------调用分页页码插件，实现分页功能结束-------*/
 
 		/*---------------多图旋转轮播图开始------------*/
 		//设置基础变量
