@@ -31,7 +31,7 @@ public class TradeService {
     public void updateQuantity(List<TradeItem> tradeItems, Map<String, Object> dataMap)  throws DBException{
         for (TradeItem tradeItem: tradeItems) {
             dataMap.put("bookId",tradeItem.getBook().getBookId());
-            bookDAO.updateQuantity(tradeItem.getBook().getBookId().toString(),tradeItem.getQuantity());
+            bookDAO.updateQuantity(tradeItem.getBook().getBookId(),tradeItem.getQuantity());
         }
     }
 
