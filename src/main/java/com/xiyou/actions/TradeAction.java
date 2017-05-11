@@ -36,7 +36,7 @@ public class TradeAction extends ActionSupport implements SessionAware{
     private List<TradeItem> tradeItems = new ArrayList<TradeItem>(5);
     private List<ShopCartItem> shopCartItems = new ArrayList<ShopCartItem>(5);
     private Trade trade;
-    private String status;
+    private String status; //
 
     /**
      * seller必须是登录状态

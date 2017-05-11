@@ -2,27 +2,27 @@
   <ul class="cust-info-box">
   	<li>
 		<span class="cust-info-title">用户ID：</span>
-		<span>{{ cust.id }}</span>
+		<span>{{ cust.userId }}</span>
 	</li>
 	<li>
 		<span class="cust-info-title">昵称：</span>
-		<input type="text" ng-model="cust.name" class="cust-info-name"/>
+		<input type="text" ng-model="cust.userName" class="cust-info-name"/>
 	</li>
 	<li>
 		<span class="cust-info-title">性别：</span>
 		<span class="cust-info-title">性别：</span>
-		<input type="radio" id="custMale" name="sex" ng-model="cust.sex" value="男"/>
+		<input type="radio" id="custMale" name="sex" ng-model="cust.userSex" value="男"/>
 		<label for="custMale">男</label>
 		<input type="radio" id="custFemale" name="sex" ng-model="cust.sex" value="女"/>
 		<label for="custFemale">女</label>
 	</li>
 	<li>
 		<span class="cust-info-title">邮箱：</span>
-		<span>{{ cust.tel }}</span>
+		<span>{{ cust.email }}</span>
 		<span class="cust-change-tel" ng-click="changeTel()">更换邮箱号</span>
 	</li>
 	<li>
-	  <span class="cust-info-title">年龄：</span><input type="text" id="cust-info-birth" ng-model="cust.age" />
+	  <span class="cust-info-title">年龄：</span><input type="text" id="cust-info-birth" ng-model="cust.userAge" />
 	</li>
 	<li><span id="cust-info-save" ng-click="saveInfo()">保存</span></li>
   </ul>

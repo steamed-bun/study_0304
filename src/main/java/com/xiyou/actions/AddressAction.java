@@ -2,6 +2,7 @@ package com.xiyou.actions;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+import com.opensymphony.xwork2.Preparable;
 import com.xiyou.domain.Address;
 import com.xiyou.domain.User;
 import com.xiyou.service.AddressService;
@@ -16,7 +17,7 @@ import java.util.Map;
 
 @Controller
 public class AddressAction extends ActionSupport implements SessionAware
-        , ModelDriven<Address> {
+        , ModelDriven<Address>, Preparable{
 
     private Map<String, Object> session;
     private Map<String, Object> dataMap;
@@ -83,6 +84,14 @@ public class AddressAction extends ActionSupport implements SessionAware
         return SUCCESS;
     }
 
+    public void prepareSaveOrUpdateAddress(){
+        if (address.getAddressId() == null){
+            address = new Address();
+        }else {
+            address = addressService.getAddressById(address.getAddressId());
+        }
+    }
+
     /**
      * 获取当前user的全部地址
      * url:address-getAddressByUserId.action
@@ -129,5 +138,9 @@ public class AddressAction extends ActionSupport implements SessionAware
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    @Override
+    public void prepare() throws Exception {
     }
 }

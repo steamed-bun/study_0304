@@ -246,7 +246,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
      * book-getBooksForBack.action?pageNum=1&totalPageNo=0
      * 2、点击页数时不能传totalPageNo=0
      * book-getBooksForBack.action?pageNum=2
-	 * @return
+	 * @return book
      */
 	public String getBooksForBack(){
         dataMap = BookStoreWebUtils.getDataMap(session);
@@ -348,7 +348,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
     /**
      * 已测 删除单本书 包括其图片
      * book-deleteBook.action?book.bookId=19
-     * @return
+     * @return no data
      */
 	public String deleteBook(){
 		bookService.deleteBook(book.getBookId());
@@ -359,7 +359,7 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 	 * 已测
 	 * 验证库存
 	 * url:book-validateBookQuantity.action?book.bookId=13&book.quantity=20
-	 * @retur 库存不足返回{status:no}
+	 * @return 库存不足返回{status:no}
      */
 	public String validateBookQuantity(){
 		dataMap = BookStoreWebUtils.getDataMap(session);
