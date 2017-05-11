@@ -4,8 +4,17 @@ angular.module('emailReset',[])
       locationHref=locationHref.slice(locationHref.indexOf('?')+1);
       locationHref=locationHref.split('=');
       $scope.regi={
+
+         /*
          uEmail:'',
          pwd:'',
+         repwd:'',
+         veri:'',
+         role: locationHref[1]
+          email=12@&password=testupdate&role=0
+         */
+         email:'',
+         password:'',
          repwd:'',
          veri:'',
          role: locationHref[1]
@@ -170,14 +179,14 @@ angular.module('emailReset',[])
       $scope.reset=function(){
          console.log('提交新密码到数据库');
          console.log($scope.regi);
-        /* $http({
+         $http({
             method:'POST',
-            url:'mail-sendEmail.action',
-            data:,//序列化用户输入的数据
+            url:'test-updatePassword.action',
+            data:'email=12@&password=update&role=0',//序列化用户输入的数据
             headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
          }).success(function(data){
             console.log(data);
-         });*/
+         });
       };
 
       //采用jquery，实现输入框获得焦点和失去焦点的效果
