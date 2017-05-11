@@ -119,7 +119,7 @@
 		//TODO  从session中获取与购物车相关的信息
 		/*$.ajax({
 			type:"GET",
-			url:"data/index/indexBook.json",
+			url:"cartTo-getShopCart.action",
 			dataType:"json",
 			success:function(data){
 				console.log(data);
@@ -168,11 +168,11 @@
 			return;
 		}
 		//TODO 在数据库中搜索指定书籍
-		/*$.ajax({
+/*		$.ajax({
 			type: 'POST',
-			url: url,
-			data: data,
-			dataType: dataType,
+			url: 'book-getBookForSearch.action',
+			data: 'book.bookName=测试&pageNum=1&totalPageNo=0',
+			dataType: 'JSON',
 			success: function(data){
 				console.log(data);
 			}

@@ -2,14 +2,14 @@ angular.module('custBus-controller',[])
   .controller('custInfoCtrl',function($scope,$location,$http){
   	 //$scope.cust={};
       $scope.cust={
-          id : '03131098',
-          name :'花开半夏',
-          sex : '男',
-          tel : '18829289125',
-          age : '17'
+          userId : '03131098',
+          userName :'花开半夏',
+          userSex : '男',
+          email : '18829289125',
+          userAge : '17'
       };
   	  //TODO 从数据库中获得用户个人的信息
-     /* $http({
+      /*$http({
           method:'POST',
           url:'user-sellectUser.action',
           data: 'chose=CHOOSE',
@@ -28,8 +28,8 @@ angular.module('custBus-controller',[])
         //TODO 将用户修改过的数据保存到数据库中
         /*$http({
             method:'POST',
-            url:'user-sellectUser.action',
-            data: 'chose=CHOOSE',
+            url:'user-addUser.action',
+            data: 'user.userId=37&user.userName=表存心',
             headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
         }).success(function(data){
              console.log(data);
@@ -123,7 +123,7 @@ angular.module('custBus-controller',[])
           }
         };
   })
-  .controller('changeTelTwoCtrl',function($scope,$interval,$location){
+  .controller('changeTelTwoCtrl',function($scope,$interval,$location,$http){
         $scope.user={
           newTel:'',
           verCode:''
@@ -153,7 +153,7 @@ angular.module('custBus-controller',[])
         var verTrue=[true,true];//(此处为了避免用户多次重复触发获得验证码事件，故用了两个标志即：verTrue[0]和verTrue[1])
         var timer;
         $scope.getVeriCode=function(){
-            var reg=/^1[3|4|5|7|8][0-9]{9}$/;
+            var reg=/^([a-zA-Z0-9]+[_|_|.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|_|.]?)*[a-zA-Z0-9]+.[a-zA-Z]{2,4}$/;
             var userInput=$scope.user.newTel;
             if(reg.test(userInput)){
                     //当手机号合法时，可以发送验证码
@@ -202,8 +202,8 @@ angular.module('custBus-controller',[])
                 //TODO 将用户修改过后的邮箱等数据提交到后台
                /* $http({
                     method:'POST',
-                    url:'mail-sendEmail.action',
-                    data:postD,//序列化用户输入的数据
+                    url:'user-addUser.action',//可以只提交userId 和修改后的邮箱
+                    data:'user.userId=1&user.email=test@qq.com',//序列化用户输入的数据
                     headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
                 }).success(function(data){
                     console.log(data);

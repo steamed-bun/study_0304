@@ -1,10 +1,10 @@
 angular.module('bookList',[])
-	.controller('bookListCtrl',function($scope){
+	.controller('bookListCtrl',function($scope,$http){
 		//TODO  页面一加载显示搜索到的书籍信息
 		/*$http({
 			method:'POST',
-			url:'shop-updateShopGrade.action',
-			data: postData,
+			url:'book-getBookForSearch.action',
+			data: 'book.bookName=测试&pageNum=1&totalPageNo=0',
 			headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
 		}).success(function(response){
 			console.log(response);
