@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title>江南缘书城</title>
+		<link rel="stylesheet" href="./css/reset.css"/>
+		<link rel="stylesheet" href="./css/base.css"/>
+		<link rel="stylesheet" href="./css/font-awesome.css"/>
+		<link rel="stylesheet" href="./css/book_details_merchant.css"/>
+	</head>
+	<body>
+		<!-- 书籍详情页开始 -->
+		<section ng-app="bookDetail">
+			<div class="container" ng-controller="bookDetailCtrl">
+				<nav class="crumbs"><span>首页</span><i></i><span data-id="{{book.bigCateId}}">{{book.bigCateName}}</span><i></i><span data-id="{{book.smCataId}}">{{book.smCataName}}</span><i></i><span data-id="{{book.bId}}">{{book.bName}}</span></nav>
+				<div class="book-info clearfix">
+					<div class="fl">
+						<div class="book-big-img">
+							<img src="./images/bigImg/m00001.jpg" class="demo-img pos-center"/>
+						</div>
+						<ul class="book-small-img clearfix">
+							<li ng-repeat="curimg in book.sImgUrls"><img src="{{curimg}}" ng-mouseover="changeMediImg($event)"/></li>
+							<!--<li><img src="./images/bigImg/m00001-s.jpg"/></li>
+							<li><img src="./images/bigImg/m00002-s.jpg"/></li>
+							<li><img src="./images/bigImg/m00003-s.jpg"/></li>
+							<li><img src="./images/bigImg/m00004-s.jpg"/></li>-->
+						</ul>
+					</div>
+					<div class="book-price-box fr">
+						<p class="book-buy-name">{{book.bName}} </p>
+						<p class="book-buy-recommend">{{book.recom}}</p>
+						<p class="book-buy-author"><span>{{book.author}}</span>著</p>
+						<p class="book-buy-price">惊喜价：<span>￥{{book.price}}</span></p>
+						<p class="book-buy-num">数量：<i class="disabled-mask"></i><span class="reduce-num" ng-click="reduceNum($event)">-</span><input class="input-num" type="text" ng-model="book.purNum"/><span class="add-num" ng-click="addNum()">+</span></p>
+						<p class="book-evaluate">评价：<span class="good-evaluate">{{book.approve}}</span><span class="bad-evaluate">{{book.disApprove}}</span></p>
+						<p class="book-source">关于店铺：<span class="seller-shop-name">{{book.sellerShopName}}</span><span><i class="icon"></i><i class="icon"></i><i class="icon"></i><i class="icon"></i><i class="icon"></i></span></p>
+						<p class="book-buy-operate"><span class="shop-now" ng-click="hintMerchant()">立即购买</span><span class="add-shopcar"  ng-click="hintMerchant()">加入购物车</span></p>
+					</div>
+				</div>
+				<div class="book-details-box">
+					<p class="detail-title"><span>详情</span></p>
+					<div id="book-details-info" class="book-details-info">
+						<iframe src="{{book.detailUrl}}" frameBorder=0 marginwidth=0 marginheight=0 scrolling="no"></iframe>
+					</div>
+				</div>
+				<p class="oper-hint"></p>
+			</div>
+		</section>
+		<!-- 书籍详情页结束 -->
+		<script src="./js/jquery-1.12.3.js"></script>
+		<script src="./js/angular.js"></script>
+		<script src="./js/blowup.js"></script>
+		<script src="./app/base.js"></script>
+		<script src="./app/getBaseData.js"></script>
+		<script src="./app/book_details_merchant.js"></script>
+	</body>
+</html>

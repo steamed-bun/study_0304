@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>商家添加新书</title>
+		<meta charset="UTF-8"/>
+		<link rel="stylesheet" href="./css/reset.css"/>
+		<link rel="stylesheet" href="./css/jquery-ui.css"/>
+		<link rel="stylesheet" href="./css/mer_edit_book.css"/>
+	</head>
+	<body ng-app="merAddBook">
+		<header>
+			<div class="container clearfix">
+				<div class="logo-img fl">
+					<img src="./images/logo.png"/>
+				</div>
+				<div class="wel-merchant fr" ng-controller="merNameCtrl">
+					<p>欢迎您！<a>{{ mer.name }}</a><i>|</i><a href="javascript:;">退出</a></p>
+				</div>
+			</div>
+		</header>
+		<section ng-controller="uploadCtrl">
+			<div class="add-book-box">
+				<div class="container">
+					<from>
+						<ul class="book-info-items">
+							<li>
+								<span>类别：</span>
+								<span>
+									<select class="book-cate-select">
+										<option data-id="0">--请选择--</option>
+										<option data-id="1">教育</option>
+										<option  data-id="2">小说</option>
+										<option data-id="3">文艺</option>
+										<option data-id="4">青春</option>
+										<option data-id="5">童书</option>
+										<option data-id="6">生活</option>
+										<option data-id="7">人文社科</option>
+										<option data-id="8">经管</option>
+										<option data-id="9">励志</option>
+										<option data-id="10">科技</option>
+										<option data-id="11">工具书</option>
+									</select>
+								</span>
+								<span>
+									<select class="book-smCate-select">
+										<option data-id="0">--请选择--</option>
+										<option ng-repeat="smCate in bookOtherInfo.smallCate" data-id={{smCate.categoryId}}>{{smCate.categoryName}}</option>
+									</select>
+								</span>
+								<span><i class="book-add-hint cate-hint"></i></span>
+							</li>
+							<li>
+								<span>名称：</span>
+								<span class="book-info-input"><input type="text" class="add-book-input" data-veri="bookName" placeholder="请输入书籍名称" ng-model="book.bookName"/></span>
+								<span><i class="book-add-hint name-hint"></i></span>
+							</li>
+							<li>
+								<span>价格：</span>
+								<span class="book-info-input"><input type="text" class="add-book-input" data-veri="bookPrice" placeholder="请输入价格" ng-model="book.bookPrice"/></span>
+								<span><i class="book-add-hint price-hint"></i></span>
+							</li>
+							<li>
+								<span>作者：</span>
+								<span class="book-info-input"><input type="text" class="add-book-input" data-veri="bookAuthor" placeholder="请输入作者姓名" ng-model="book.author"/></span>
+								<span><i class="book-add-hint author-hint"></i></span>
+							</li>
+							<li>
+								<span>出版日期：</span>
+								<span class="book-info-input"><input type="text" class="add-book-input" placeholder="点击选择日期" data-veri="bookTime" readonly="true" id="cust-info-birth"  ng-model="book.publicationDate"/></span>
+								<span><i class="book-add-hint time-hint"></i></span>
+							</li>
+							<li>
+								<span>出版商：</span>
+								<span class="book-info-input"><input type="text" class="add-book-input" placeholder="请输入出版商" data-veri="bookPublisher" ng-model="book.publisher"/></span>
+								<span><i class="book-add-hint publisher-hint"></i></span>
+							</li>
+							<li>
+								<span class="brief-text">简介：</span>
+								<span class="book-info-add">
+									<label ng-click="!summery.isAdd && addBook()">{{ summery.textHint }}</label>
+								</span>
+								<span><i class="book-add-hint brief-hint"></i></span>
+							</li>
+							<li>
+								<span class="recom-text">推荐语：</span>
+								<div class="book-recom-box"><textarea class="add-book-input" placeholder="请输入书籍的中文推荐语，字数为30-100字" data-veri="bookRecom" maxlength="100" ng-model="book.oneWord"></textarea></div>
+								<span><i class="book-add-hint recom-hint"></i></span>
+							</li>
+							<li>
+								<span class="img-text">图片：</span>
+								<div class="book-img-box" >
+									<form id="uploadForm" action="upLoad-saveBookImages.action" method="post" enctype="multipart/form-data" namespace="/">
+										<div class="upload_box">
+											<div class="upload_main">
+												<div class="upload_choose">
+													<input id="fileImage" type="file" size="30" name="images" multiple />
+													<span id="fileDragArea" class="upload_drag_area">或者将图片拖到此处</span>
+												</div>
+												<div id="preview" class="upload_preview"></div>
+											</div>
+											<div class="upload_submit">
+												<button type="button" id="fileSubmit" class="upload_submit_btn">确认上传图片</button>
+											</div>
+											<div id="uploadInf" class="upload_inf"></div>
+										</div>
+									</form>
+								</div>
+								<span><i class="book-add-hint img-hint"></i></span>
+							</li>
+						</ul>
+					</from>
+				</div>
+			</div>
+			<div class="add-book-operate container">
+				<span ng-click="saveNewBookInfo()">保存</span><span ng-click="cancelAddBook()">取消</span>
+			</div>
+		</section>
+		<aside class="login-error-txt">
+			<p class="submit-hint">保存成功！</p>
+			<p><span class="jump-time-hint">5</span>秒后可继续添加新书</p>
+		</aside>
+		<script src="./js/jquery-1.12.3.js"></script>
+		<script src="./js/jquery-ui.js"></script>
+		<script src="./js/angular.js"></script>
+		<script src="./js/zxxFile.js"></script>
+		<script src="./app/merEditBook.js"></script>
+	</body>
+</html>
