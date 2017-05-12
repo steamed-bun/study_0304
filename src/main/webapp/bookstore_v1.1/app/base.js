@@ -185,9 +185,31 @@
 			}
 		});
 	});
+	//给去结算添加事件
+	$('.goPayPage').click(function(){
+		window.location.href='submit_order.html';
+	});
 	//给购物车里面的删除按钮添加事件
 	$(".shop-book-list").on('click', 'i.deleteCurBook', function() {
-		console.log('you clicked a p.test element');
+		var bookId=$(this).attr('data-id');
+		var $parElem=$(this).parent().parent();
+		console.log($parElem[0]);
+		var postData='shopCartItemTo.book.bookId='+bookId;
+		console.log(bookId);
+		console.log('我要删除');
+		$.ajax({
+			type: 'POST',
+			url: 'cartTo-deleteItem.action',
+			data: postData,
+			dataType: 'JSON',
+			success: function(data){
+				console.log(data);
+				if(data.status=='yes'){
+					//删除成功
+					$parElem.remove();
+				}
+			}
+		});
 	});
 
 	//在搜索框旁边的购物车上，鼠标离开时隐藏购物车里面的内容

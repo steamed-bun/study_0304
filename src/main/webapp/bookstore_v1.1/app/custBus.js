@@ -184,11 +184,11 @@
 	  	       templateUrl:'view/custBus/account_mange.html',
 	  	       controller:'accountMangeCtrl'
 	  	    })
-	  	    .when('/changeTelOne',{
+	  	    .when('/changeTelOne/:userId/:email',{
 	  	    	templateUrl:'view/custBus/changeTel/change_tel_one.html',
 	  	    	controller:'changeTelOneCtrl'
 	  	    })
-	  	    .when('/changeTelTwo',{
+	  	    .when('/changeTelTwo/:userId',{
 	  	    	templateUrl:'view/custBus/changeTel/change_tel_two.html',
 	  	    	controller:'changeTelTwoCtrl'
 	  	    })

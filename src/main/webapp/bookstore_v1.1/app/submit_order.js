@@ -1,4 +1,17 @@
 angular.module('submitOrder',[])
+    .directive('onRepeatFinishedRender', function ($timeout) {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attr) {
+                if (scope.$last === true) {
+                    $timeout(function () {
+                        //这里element, 就是ng-repeat渲染的最后一个元素
+                        scope.$emit('ngRepeatFinished', element);
+                    });
+                }
+            }
+        };
+    })
     .controller('selectAddrCtrl',function($scope,$http){
         $scope.userAddr={
             name:' ',
@@ -335,11 +348,12 @@ angular.module('submitOrder',[])
                 if(response.status=='yes'){
                     $('.select-addr-box').css('display','block');
                     $('.edit-addr-box').css('display','none');
-                    $('.oper-hint').html('编辑地址成功！');
+                   /* $('.oper-hint').html('编辑地址成功！');
                     $('.oper-hint').slideDown();//错误提示信息缓慢出现
                     setTimeout(function(){
                         $('.oper-hint').slideUp();
-                    },3000);
+                    },3000);*/
+                    window.location.href='submit_order.html';
                 }
              });
         };
@@ -509,8 +523,6 @@ angular.module('submitOrder',[])
             }
             *!/
         ];*/
-        //给第一个地址信息块添加‘默认地址’
-        $('.wait-addrs>li:first-child default-addr-mark').html('默认地址');
         //给关闭按钮添加事件
         $('.close-wait-addr').click(function(){
             $('.addr-as-default').css('display','none');
@@ -534,24 +546,43 @@ angular.module('submitOrder',[])
                     perAddr.addressId=response[i].addressId;
                     $scope.userAddrLists.push(perAddr);
                 }
+                $scope.$on("ngRepeatFinished", function (repeatFinishedEvent, element){
+                    var repeatId = element.parent().attr("repeat-id");
+                    switch (repeatId){
+                        case "r1":
+                           console.log('r1渲染完了');
+                            //给第一个地址信息块添加‘默认地址’
+                            var $firstElem=$('.wait-addrs>li:first-child');
+                            $('.wait-addrs>li').removeClass('highlight-select-addr');
+                            $firstElem.addClass('highlight-select-addr');
+                            $('.default-addr-mark').html('');
+                            $($firstElem.children('.default-addr-mark')).html('默认地址');
+                            break;
+
+                    }
+                });
                 console.log($scope.userAddrLists);
             }
          });
 
         //给选择默认地址的确认按钮添加事件
         $scope.saveDefaultAddr=function(){
-            var postData,
-                addressId=$('.highlight-select-addr').attr('data-id');
-
-            console.log('我要保存选择的默认地址');
-            /*$http({
+            var addressId=$('.highlight-select-addr').attr('data-id');
+            var postData='address.addressId='+addressId+'&address.def=1';
+            $http({
                  method:'POST',
                  url:'address-saveOrUpdateAddress.action',
-                 data: 'address.addressId=1&address.province.provinceId=1&address.county.countyId=1&address.city.cityId=1&address.street=testJS&address.tel=18829289582&address.def=1',
+                 data:postData ,
                  headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
              }).success(function(response){
                 console.log(response);
-             });*/
+                if(response.status=='yes'){
+                    //设置默认地址成功
+                    $('.select-addr-box').css('display','block');
+                    $('.addr-as-default').css('display','none');
+                    window.location.href='submit_order.html';
+                }
+             });
         };
         //给选择默认地址的取消按钮添加事件
         $scope.cancalSaveDefaultAddr=function(){

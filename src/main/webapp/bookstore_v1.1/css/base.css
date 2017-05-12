@@ -33,20 +33,6 @@ header{
 	height:23px;
 	border-bottom:#ddd solid 1px;
 }
-.oper-hint{
-	position:fixed;
-	top:5px;
-	left:550px;
-	width:300px;
-	height:40px;
-	line-height:40px;
-	color:#FFF;
-	background-color:#E78170;
-	text-align:center;
-	border-radius:3px;
-	z-index:9999999;
-	display:none;
-}
 /*购物车开始*/
 .shopcar-icon{
 	display:inline-block;
