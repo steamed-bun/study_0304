@@ -5,22 +5,22 @@
 		<title>欢迎登录后台管理系统</title>
 		<meta charset="UTF-8"/>
 		<link rel="stylesheet" href="./css/reset.css"/>
-		<link rel="stylesheet" href="./css/admin_login.css"/>
+		<link rel="stylesheet" href="./css/admin_edit_pwd.css"/>
 	</head>
 	<body>
 		<section class="admin-login-bg" ng-app="adminLogin">
 			<div class="admin-login-box" ng-controller="adminCtrl">
-				<h3>欢迎登录“江南缘”后台管理系统</h3>
+				<h3>请修改“江南缘”后台管理登录密码</h3>
 				<ul class="admin-input-area">
-					<li><label></label><input type="text" placeholder="请输入用户名" ng-model="manager.managerEmail" autofocus/></li>
-					<li><label></label><input type="password" placeholder="请输入密码" ng-model="manager.password"/></li>
+					<li><label></label><input type="password" placeholder="请输入密码" ng-model="manager.pwd" autofocus/></li>
+					<li><label></label><input type="password" placeholder="请再次输入密码" ng-model="manager.repwd"/></li>
 				</ul>
 				<p class="login-hint"></p>
-				<p class="login-submit" ng-click="goEditPwd()">登录</p>
+				<p class="login-submit" ng-click="goAdmin()">登录</p>
 			</div>
 		</section>
 	</body>
 	<script src="./js/jquery-1.12.3.js"></script>
 	<script src="./js/angular.js"></script>
-	<script src="./app/admin_login.js"></script>
+	<script src="./app/admin_edit_pwd.js"></script>
 </html>

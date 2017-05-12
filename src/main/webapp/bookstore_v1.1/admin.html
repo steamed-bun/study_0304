@@ -10,9 +10,9 @@
 	</head>
 	<body ng-app="admin">
 		<header class="admin-title">
-			<div class="clearfix">
+			<div class="clearfix" ng-controller="quitAdminCtrl">
 				<span class="fl">“江南缘”后台管理中心</span>
-				<a class="fr exit-system">退出</a>
+				<a class="fr exit-system" ng-click="quitAdmin()">退出</a>
 			</div>
 		</header>
 		<section class="admin-oper clearfix">
