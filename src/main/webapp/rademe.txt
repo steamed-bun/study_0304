@@ -54,7 +54,7 @@ seller
 |---获取当前user的全部地址 getAddressByUserId
 |---删除一个地址 deleteAddress
 |---设置为默认地址 saveOrUpdateAddress 不用理方法上面的话 只需传入address.addressId=1&address.def=1
-    def {0:非默认 1:默认}
+    def {0:非默认 1:默认}-----已做
 
 8、后台管理者接口 ManagerAction
 

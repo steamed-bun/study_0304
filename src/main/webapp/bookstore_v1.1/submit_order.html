@@ -394,8 +394,8 @@
 					<div class="addr-as-default" ng-controller="addrAsDefaultCtrl">
 						<div class="wait-select-box">
 							<p>选择地址</p>
-							<ul class="wait-addrs">
-								<li ng-repeat="userPerAddr in userAddrLists track by $index" ng-click="highlightAddrDefault($index)" data-id="{{userPerAddr.addressId}}">
+							<ul class="wait-addrs" repeat-id="r1">
+								<li ng-repeat="userPerAddr in userAddrLists track by $index" on-repeat-finished-render ng-click="highlightAddrDefault($index)" data-id="{{userPerAddr.addressId}}">
 									<p class="obtain-person"><span>收货人：</span><span>{{userPerAddr.userName}}</span></p>
 									<p><span>联系方式：</span><span>{{userPerAddr.tel}}</span></p>
 									<p><span>收货地址：</span><span>{{userPerAddr.addrDetail}}</span></p>
