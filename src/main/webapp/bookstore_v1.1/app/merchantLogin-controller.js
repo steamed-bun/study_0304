@@ -571,6 +571,7 @@ angular.module('merchantLogin-controller',[])
             var $curElem=$($event.target);
             var bookId=$curElem.attr('data-id');
             console.log(bookId);
+            window.location.href='mer_edit_book.html?bookId='+bookId;
         };
 	  	/*-----与页面样式相关的功能函数开始------*/
         //点击加号时，页面跳转到添加新书页面

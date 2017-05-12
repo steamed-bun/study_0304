@@ -433,6 +433,10 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
             addImages(book);
 			this.setBook(null);
 		}else {
+			if (book.getSummary().equals("")){
+				Book book1 = bookService.getBook(book.getBookId().toString());
+				book.setSummary(book1.getSummary());
+			}
 			bookService.addBook(book);
 			this.setBook(null);
 		}
