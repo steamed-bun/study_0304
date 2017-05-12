@@ -1,4 +1,11 @@
 (function(){
+	//从地址栏中获得书籍名称
+	var locationHref=window.location.href;
+	locationHref=locationHref.slice(locationHref.indexOf('?')+1);
+	var locationHref=locationHref.split('=');
+	var bookName=decodeURI(locationHref[1]);
+	console.log(bookName);
+	$('.searchBookName').html(bookName);
 	/*----------------与数据相关开始---------------------*/
 	//猜你喜欢开始
 	$(function(){
@@ -84,6 +91,4 @@
 	$(".aside-user-box").mouseleave(function(){
 		$(".aside-user-bus").css("display","none");
 	});
-	//TODO   展示未搜索到的书籍名称
-	$('.searchBookName').html('你是我的小确幸');
 })();

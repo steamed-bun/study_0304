@@ -114,7 +114,7 @@
 
 	/*----鼠标悬浮时显示购物车里面的东西开始-----*/
 	//页面一加载得到购物车中东西的数量
-	var shopCarLen;
+	/*var shopCarLen;
 	$.ajax({
 		type:"GET",
 		url:"cartTo-getShopCart.action",
@@ -129,11 +129,11 @@
 		error:function(){
 			console.log('我没有拿到购物车信息');
 		}
-	});
+	});*/
 	//在搜索框旁边的购物车上，鼠标悬浮时显示购物车里面的内容
 	$('.shopcar-icon').mouseenter(function(){
 		//TODO  从session中获取与购物车相关的信息
-		$.ajax({
+		/*$.ajax({
 			type:"GET",
 			url:"cartTo-getShopCart.action",
 			dataType:"json",
@@ -183,14 +183,14 @@
 			error:function(){
 				console.log('我没有拿到购物车信息');
 			}
-		});
+		});*/
 	});
 	//给去结算添加事件
 	$('.goPayPage').click(function(){
 		window.location.href='submit_order.html';
 	});
 	//给购物车里面的删除按钮添加事件
-	$(".shop-book-list").on('click', 'i.deleteCurBook', function() {
+	/*$(".shop-book-list").on('click', 'i.deleteCurBook', function() {
 		var bookId=$(this).attr('data-id');
 		var $parElem=$(this).parent().parent();
 		console.log($parElem[0]);
@@ -210,15 +210,15 @@
 				}
 			}
 		});
-	});
+	});*/
 
 	//在搜索框旁边的购物车上，鼠标离开时隐藏购物车里面的内容
 	$('.shopcar-icon').mouseleave(function(){
-		$('.shop-book-small-list-box').css('display','none');
+		//$('.shop-book-small-list-box').css('display','none');
 	});
 	//在划出的导航栏上，鼠标悬浮在购物车上时显示购物车里面的内容
 	$('.shopcar-big-icon').mouseenter(function(){
-		if(shopCarLen!=0){
+		/*if(shopCarLen!=0){
 			$('.shop-book-big-list-box').css('display','block');
 		}else{
 			var $errorInfo=$('.oper-hint');
@@ -227,11 +227,11 @@
 			setTimeout(function(){
 				$errorInfo.slideUp();
 			},3000);
-		}
+		}*/
 	});
 	//在搜索框旁边的购物车上，鼠标离开时隐藏购物车里面的内容
 	$('.shopcar-big-icon').mouseleave(function(){
-		$('.shop-book-big-list-box').css('display','none');
+		//$('.shop-book-big-list-box').css('display','none');
 	});
 	/*----鼠标悬浮时显示购物车里面的东西结束-----*/
 
@@ -260,18 +260,21 @@
 			return;
 		}
 		//TODO 在数据库中搜索指定书籍
-/*		$.ajax({
+		$.ajax({
 			type: 'POST',
 			url: 'book-getBookForSearch.action',
-			data: 'book.bookName=测试&pageNum=1&totalPageNo=0',
+			data: 'book.bookName='+keyWord+'&pageNum=1&totalPageNo=0',
 			dataType: 'JSON',
 			success: function(data){
 				console.log(data);
+				if(data.status=='no'){
+					//当没有搜索到指定书籍时
+					window.location.href='no_book_hint.html?bookName='+keyWord;
+				}else{
+					window.location.href='search_book_list.html?bookName='+keyWord;
+				}
 			}
-		});*/
-
-		console.log('我要到数据库中去搜索书籍了')
-		;
+		});
 	});
 	/*--------根据数名搜索书籍结束-----------*/
 
