@@ -11,12 +11,12 @@
   	 	<li>更换新的邮箱号</li>
   	 	<li>完成</li>
   	</ul>
-  	<p class="already-bind-tel">已绑定的邮箱号：{{ oldTel }}</p>
+  	<p class="already-bind-tel">已绑定的邮箱号：{{ changeEmail.email }}</p>
   	<div class="veri-code-box">
   	 	<input type="text" placeholder="请输入验证码" ng-model="veriCode" ng-keyup="checkPast()"/><span ng-click="getVeriCode()">获得验证码</span>
   	</div>
     <p class="veri-error-hint">验证码错误</p>
-  	<p class="change-next-btn" ng-click="nextStep()">下一步</p>
+  	<p class="change-next-btn" ng-click="nextStep($event)" data-id="{{changeEmail.userId}}">下一步</p>
   </div>
 </div>
 <style type="text/css">
