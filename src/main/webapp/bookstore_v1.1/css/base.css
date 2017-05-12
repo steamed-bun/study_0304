@@ -85,7 +85,7 @@ header{
 	background:#fff;
 	border-radius: 3px;
 	padding-top:14px;
-	display:none;
+	/*display:none;*/
 }
 .shop-book-list-box:before{
 	content:"";
@@ -139,6 +139,9 @@ header{
 	width:66px;
 	height:100%;
 }
+.shop-book-price-small{
+	top:-31px !important;
+}
 .shop-book-price>span{
 	position: relative;
 	top:-26px;
@@ -167,6 +170,9 @@ header{
 	width:144px;
 	margin-left:65px;
 	font-size:12px;
+}
+.shop-book-baseInfo-small{
+	top:-27px !important;
 }
 .shop-book-baseInfo>a{
 	display:block;

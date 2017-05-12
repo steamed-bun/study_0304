@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 
 	private static final int PAGE_SIZE = 8;//书本数量
+	private static final int SELLER_PAGE_SIZE = 9;//书本数量
 	private static final int BACK_PAGE_SIZE = 10;//后台书本数量
 	private static final int BASE_NUM = 0;
 
@@ -173,8 +174,8 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 		List<Book> books = (List<Book>) getSession().createQuery(hql)
 				.setInteger("categoryPId", categoryPId)
 				.setString("shopId", shopId)
-				.setFirstResult(BASE_NUM + (pageNum- 1) * PAGE_SIZE)
-				.setMaxResults(PAGE_SIZE)
+				.setFirstResult(BASE_NUM + (pageNum- 1) * SELLER_PAGE_SIZE)
+				.setMaxResults(SELLER_PAGE_SIZE)
 				.list();
 		return books;
 	}

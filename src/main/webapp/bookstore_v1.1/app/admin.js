@@ -74,6 +74,12 @@ angular.module('admin',['ngRoute','admin-controller'])
 		});
 		/*----根据商家点击不同的选项，高亮不同的条目并在右边显示不同的内容结束---*/
 	})
+	.controller('quitAdminCtrl',function($scope){
+		$scope.quitAdmin=function(){
+			window.location.href='admin_login.html';
+			//console.log('我被点击了');
+		};
+	})
 	.config(function($routeProvider){
 		$routeProvider
 			.when('/saleroom',{

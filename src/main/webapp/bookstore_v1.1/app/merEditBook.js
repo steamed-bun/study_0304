@@ -14,12 +14,12 @@
 	.controller('uploadCtrl',function($scope,$http,$window,$interval){
 		//基本信息
 		$scope.book={
-		 	 bookName:'',
-		 	 bookPrice:'',
-			 author:'',
-			 publicationDate:'',
-			 publisher:'',
-			 oneWord:''
+			bookName:'',
+			bookPrice:'',
+			author:'',
+			publicationDate:'',
+			publisher:'',
+			oneWord:''
 		};
 		$scope.bookOtherInfo={
 			smallCate:'',
@@ -28,6 +28,27 @@
 			summeryUrl:'',
 			imgsUrl:''
 		};
+		//从地址栏中获取待编辑书籍的id
+		var locationHref=window.location.href;
+		locationHref=locationHref.slice(locationHref.indexOf('?')+1);
+		var locationHref=locationHref.split('=');
+		var myBookId=locationHref[1];
+		//根据书籍id获取书籍信息
+		$http({
+			method:'POST',
+			url:'book-getBookById.action',
+			data:'book.bookId='+myBookId,//已经序列化的用户输入的数据
+			headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+		}).success(function(data){
+			console.log(data);
+			$scope.book.bookName=data.book.bookName;
+			$scope.book.bookPrice=data.book.bookPrice;
+			$scope.book.author=data.book.author;
+			$scope.book.publicationDate=data.book.publicationDate;
+			$scope.book.publisher=data.book.publisher;
+			$scope.book.oneWord=data.book.oneWord;
+		});
+
 		$scope.summery={
 			textHint:'点击添加',
 			isAdd:false
@@ -35,7 +56,7 @@
 		$scope.reg=[/^((([1-9]{1}\d{0,9}))|([0]{1}))((\.(\d){2}))?$/, /^((((19|20)\d{2})-(0?(1|[3-9])|1[012])-(0?[1-9]|[12]\d|30))|(((19|20)\d{2})-(0?[13578]|1[02])-31)|(((19|20)\d{2})-0?2-(0?[1-9]|1\d|2[0-8]))|((((19|20)([13579][26]|[2468][048]|0[48]))|(2000))-0?2-29))$/,/^.{30,60}$/];
 		$scope.verTrue=[false,false,false,false,false,false,false,false,false];
 		//提示用户是否已添加过书籍详情
-		if(window.location.search){
+		if(myBookId==undefined){
 			//当用户已经添加书籍简介时
 			$scope.summery.textHint='您已添加了书籍简介';
 			$('.book-info-add>label').css('cursor','default');
@@ -46,7 +67,7 @@
 			$scope.verTrue[5]=true;
 			$('.brief-hint').css('display','none');
 		}else{
-			$scope.summery.textHint='点击添加';
+			$scope.summery.textHint='点击重新写简介';
 			$('.book-info-add>label').css('cursor','pinter');
 			$scope.summery.isAdd=false;
 			$scope.verTrue[5]=false;
@@ -172,7 +193,7 @@
 				$('.time-hint').css('display','inline-block');
 				$scope.verTrue[3]=false;
 			}
-			for(var i=0;i<$scope.verTrue.length;i++){
+			/*for(var i=0;i<$scope.verTrue.length;i++){
 				if($scope.verTrue[i]!=true){
 					console.log(i);
 					isSubmit=false;
@@ -216,13 +237,14 @@
 						return ;
 					}
 				}
-			}
+			}*/
+			isSubmit=true;
 			if(isSubmit){
 				console.log('我要提交了');
 				for(var key in $scope.book){
 					postData+='book.'+key+'='+$scope.book[key]+'&';
 				}
-				postData+='book.category.categoryId='+$scope.bookOtherInfo.smallCateId+'&book.summary='+$scope.bookOtherInfo.summeryUrl+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[0]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[1]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[2]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[3]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[4]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[5]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[6]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[7]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[8];
+				postData+='book.category.categoryId='+$scope.bookOtherInfo.smallCateId+'&book.summary='+$scope.bookOtherInfo.summeryUrl+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[0]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[1]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[2]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[3]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[4]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[5]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[6]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[7]+'&bookImages.imageURL='+$scope.bookOtherInfo.imgsUrl[8]+'&book.bookId='+myBookId;
 				console.log(postData);
 				$http({
 					method:'POST',
@@ -242,7 +264,7 @@
 								//清除定时器
 								$interval.cancel(timer);
 								//当倒计时完后，页面跳转到上架新书页
-								$window.location.href='http://localhost:8080/bookstore_v1.1/mer_add_book.html';
+								$window.location.href='merchant_login.html#/bookAdmin';
 								$('.login-error-txt').slideUp();
 							}
 						},1000);

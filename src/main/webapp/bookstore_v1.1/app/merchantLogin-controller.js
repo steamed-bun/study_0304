@@ -342,13 +342,21 @@ angular.module('merchantLogin-controller',[])
         /*------------表单验证结束-----------*/
   })
     .controller('bookAdminCtrl',function($scope,$window,$location,$http){
-	  	/*-------书籍管理获取基础信息开始-----------*/
+	  	$scope.bookList=[];
+        //与分页相关的数据设定
+        $scope.paging={
+            totalNum:'',//数据的总条数
+            perNum:10,//每页显示数据的条数
+            totalNav:''//显示的导航数目
+        };
+        /*-------书籍管理获取基础信息开始-----------*/
 	  	//根据书籍大类的id值从数据库中获得书籍信息
         var getBookInfo=function (cateId){
-            postData='book.category.categoryId='+cateId;
+            var postData='book.category.categoryPId='+cateId+'&pageNum=1&totalPageNo=0&sort=0';
+            console.log(postData);
             return   $http({
                         method:'POST',
-                        url:'book-getBooksByCategory.action',
+                        url:'book-getBooksForSPIdC.action',
                         data:postData,//已序列化用户输入的数据
                         headers:{'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
                      }).then(function(response){
@@ -363,30 +371,208 @@ angular.module('merchantLogin-controller',[])
                 reData;
             $('.book-big-categorys a').css('color','#656565');
             $(this).css('color','#ddbea1');//高亮显示当前点击的书籍大类名称
-            getBookInfo(categoryId).then(function(myData){
-                console.log(myData.books[0]);
-                console.log('我执行了');
+            getBookInfo(categoryId).then(function(data){
+                console.log(data);
+                var books=data.books;
+                $scope.bookList=[];
+                $scope.paging.totalNum=data.totalPageNo;
+                for(var i=0;i<books.length;i++){
+                    var book={};
+                    var imgsObj;
+                    var imgsUrl=[];
+                    book.name=books[i].bookName;
+                    book.id=books[i].bookId;
+                    book.price=books[i].bookPrice;
+                    book.likes=books[i].likes;
+                    imgsObj=books[i].bookImages;
+                    for(var k=0;k<imgsObj.length;k++){
+                        imgsUrl.push(imgsObj[k].imageURL);
+                    }
+                    //找出可以放在首页的书
+                    for(var j=0;j<imgsUrl.length;j++){
+                        if(imgsUrl[j].search('-y')!=-1){
+                            //当找到可以放在首页的书
+                            book.curImg=imgsUrl[j];
+                            break;
+                        }
+                    }
+                    $scope.bookList.push(book);
+                }
+                console.log($scope.bookList);
+                //调用分页码插件分页
+                //调用分页页码插件，实现分页功能
+                $('.page-area').cypager({
+                    pg_size:parseInt($scope.paging.perNum),
+                    pg_nav_count:Math.ceil($scope.paging.totalNum/$scope.paging.perNum),
+                    pg_total_count:parseInt($scope.paging.totalNum),
+                    pg_prev_name:'前一页',
+                    pg_next_name:'后一页',
+                    pg_call_fun:function(count){
+                        //此处应到数据库中拿数据
+                        console.log('当前要请求第'+count+'页');
+                        //根据商家点击不同的数字显示不同的内容
+                        var postData='book.category.categoryPId='+categoryId+'&pageNum='+count+'&sort=0';
+                        $http({
+                            method:'POST',
+                            url:'book-getBooksForSPIdC.action',
+                            data: postData,
+                            headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+                        }).success(function(data){
+                            console.log(data);
+                            var books=data.books;
+                            $scope.bookList=[];
+                            for(var i=0;i<books.length;i++){
+                                var book={};
+                                var imgsObj;
+                                var imgsUrl=[];
+                                book.name=books[i].bookName;
+                                book.id=books[i].bookId;
+                                book.price=books[i].bookPrice;
+                                book.likes=books[i].likes;
+                                imgsObj=books[i].bookImages;
+                                for(var k=0;k<imgsObj.length;k++){
+                                    imgsUrl.push(imgsObj[k].imageURL);
+                                }
+                                //找出可以放在首页的书
+                                for(var j=0;j<imgsUrl.length;j++){
+                                    if(imgsUrl[j].search('-y')!=-1){
+                                        //当找到可以放在首页的书
+                                        book.curImg=imgsUrl[j];
+                                        break;
+                                    }
+                                }
+                                $scope.bookList.push(book);
+                            }
+                        });
+                    }
+                });
             });
         });
-
-
-
-	  	$scope.bookNum={
-	  		edu:344,
-	  		story:112,
-	  		art:97,
-	  		youth:102,
-	  		child:99,
-	  		life:123,
-	  		hum:99,
-	  		manage:109,
-	  		motivate:113,
-	  		science:89,
-	  		reference:56
-	  	};
+        //页面一加载默认显示第一个大类的书籍
+        getBookInfo(1).then(function(data){
+            console.log(data);
+            var books=data.books;
+            $scope.bookList=[];
+            $scope.paging.totalNum=data.totalPageNo;
+            for(var i=0;i<books.length;i++){
+                var book={};
+                var imgsObj;
+                var imgsUrl=[];
+                book.name=books[i].bookName;
+                book.id=books[i].bookId;
+                book.price=books[i].bookPrice;
+                book.likes=books[i].likes;
+                imgsObj=books[i].bookImages;
+                for(var k=0;k<imgsObj.length;k++){
+                    imgsUrl.push(imgsObj[k].imageURL);
+                }
+                //找出可以放在首页的书
+                for(var j=0;j<imgsUrl.length;j++){
+                    if(imgsUrl[j].search('-y')!=-1){
+                        //当找到可以放在首页的书
+                        book.curImg=imgsUrl[j];
+                        break;
+                    }
+                }
+                $scope.bookList.push(book);
+            }
+            console.log($scope.bookList);
+            //调用分页码插件分页
+            //调用分页页码插件，实现分页功能
+            $('.page-area').cypager({
+                pg_size:parseInt($scope.paging.perNum),
+                pg_nav_count:Math.ceil($scope.paging.totalNum/$scope.paging.perNum),
+                pg_total_count:parseInt($scope.paging.totalNum),
+                pg_prev_name:'前一页',
+                pg_next_name:'后一页',
+                pg_call_fun:function(count){
+                    //此处应到数据库中拿数据
+                    console.log('当前要请求第'+count+'页');
+                    //根据商家点击不同的数字显示不同的内容
+                    var postData='book.category.categoryPId=1&pageNum='+count+'&sort=0';
+                    $http({
+                        method:'POST',
+                        url:'book-getBooksForSPIdC.action',
+                        data: postData,
+                        headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+                    }).success(function(data){
+                        console.log(data);
+                        var books=data.books;
+                        $scope.bookList=[];
+                        for(var i=0;i<books.length;i++){
+                            var book={};
+                            var imgsObj;
+                            var imgsUrl=[];
+                            book.name=books[i].bookName;
+                            book.id=books[i].bookId;
+                            book.price=books[i].bookPrice;
+                            book.likes=books[i].likes;
+                            imgsObj=books[i].bookImages;
+                            for(var k=0;k<imgsObj.length;k++){
+                                imgsUrl.push(imgsObj[k].imageURL);
+                            }
+                            //找出可以放在首页的书
+                            for(var j=0;j<imgsUrl.length;j++){
+                                if(imgsUrl[j].search('-y')!=-1){
+                                    //当找到可以放在首页的书
+                                    book.curImg=imgsUrl[j];
+                                    break;
+                                }
+                            }
+                            $scope.bookList.push(book);
+                        }
+                    });
+                }
+            });
+        });
 	  	/*-------书籍管理获取基础信息结束-----------*/
 
-
+        //点击书籍时跳到书籍详情页
+        $scope.jumpDetail=function($event){
+            var $curElem=$($event.target);
+            var bookId=$curElem.attr('data-id');
+            console.log($curElem[0]);
+            window.location.href='book_details_merchant.html?bigSmateId='+bookId;
+        };
+        //给删除按钮添加事件
+        $scope.toDeleteBook=function($event){
+            var $curElem=$($event.target);
+            var bookId=$curElem.attr('data-id');
+            console.log(bookId);
+            //根据书籍id删除书籍
+            $http({
+                method:'POST',
+                url:'book-deleteBook.action',
+                data:'book.bookId='+bookId,//已经序列化的用户输入的数据
+                headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+            }).success(function(data){
+                console.log(data);
+                if(data.status=='yes'){
+                    //删除成功
+                    var $errorInfo=$('.oper-hint');
+                    $errorInfo.html('删除成功！');
+                    $errorInfo.slideDown();//错误提示信息缓慢出现
+                    setTimeout(function(){
+                        $errorInfo.slideUp();
+                    },3000);
+                    $curElem.parent().parent().parent().remove();
+                }else{
+                    var $errorInfo=$('.oper-hint');
+                    $errorInfo.html('删除失败！');
+                    $errorInfo.slideDown();//错误提示信息缓慢出现
+                    setTimeout(function(){
+                        $errorInfo.slideUp();
+                    },3000);
+                }
+            });
+        };
+        //给编辑按钮添加事件
+        $scope.toEditBook=function($event){
+            var $curElem=$($event.target);
+            var bookId=$curElem.attr('data-id');
+            console.log(bookId);
+            window.location.href='mer_edit_book.html?bookId='+bookId;
+        };
 	  	/*-----与页面样式相关的功能函数开始------*/
         //点击加号时，页面跳转到添加新书页面
         $scope.jumpAddNewBook=function(){
@@ -400,10 +586,11 @@ angular.module('merchantLogin-controller',[])
 	  		$('.book-cate-more').toggle(500);
 	  	};
 	  	//点击设置时显示或隐藏编辑或删除选项
-	  	$('.oper-icon').click(function(){
-	  		$siblingItem=$(this).next();
-	  		$siblingItem.toggle(500);
-	  	});
+        $scope.showOrHideOper=function($event){
+            var $curElem=$($event.target);
+            $siblingItem=$curElem.next();
+            $siblingItem.toggle(500);
+        };
 	  	/*
 	  	//鼠标移除时隐藏操作
 	  	$('.book-display>li').mouseleave(function(){
@@ -411,19 +598,6 @@ angular.module('merchantLogin-controller',[])
 	  		$bookOper.css('display','none');
 	  	});
 	  	*/
-	    //调用分页页码插件，实现分页功能
-	    $('.page-area').cypager({
-	    	pg_size:25,
-	    	pg_nav_count:8,
-	    	pg_total_count:300,
-	    	pg_prev_name:'前一页',
-	    	pg_next_name:'后一页',
-	    	pg_call_fun:function(count){
-	    		//此处应到数据库中拿数据
-	    		console.log('当前要请求第'+count+'页');
-          //TODO 根据商家点击不同的数字显示不同的内容
-	    	}
-	    });
 	   
 	  	/*-----与页面样式相关的功能函数结束------*/
   })

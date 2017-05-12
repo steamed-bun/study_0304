@@ -51,7 +51,7 @@
 	margin-top:12px;
 }
 .admin-input-area>li:first-child label{
-	background:url("../images/user.png") center center no-repeat;
+	background:url("../images/lock.png") center center no-repeat;
 	background-size: contain;
 }
 .admin-input-area>li:last-child label{

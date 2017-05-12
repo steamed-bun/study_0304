@@ -5,7 +5,7 @@
 		<meta charset="UTF-8"/>
 		<link rel="stylesheet" href="./css/reset.css"/>
 		<link rel="stylesheet" href="./css/jquery-ui.css"/>
-		<link rel="stylesheet" href="./css/mer_add_book.css"/>
+		<link rel="stylesheet" href="./css/mer_edit_book.css"/>
 	</head>
 	<body ng-app="merAddBook">
 		<header>
@@ -112,17 +112,17 @@
 				</div>
 			</div>
 			<div class="add-book-operate container">
-				<span ng-click="saveNewBookInfo()">保存</span><span ng-click="cancelAddBook()">取消</span>
+				<span ng-click="saveNewBookInfo()">修改</span><span ng-click="cancelAddBook()">取消</span>
 			</div>
 		</section>
 		<aside class="login-error-txt">
-			<p class="submit-hint">保存成功！</p>
-			<p><span class="jump-time-hint">5</span>秒后可继续添加新书</p>
+			<p class="submit-hint">修改成功！</p>
+			<p><span class="jump-time-hint">5</span>秒后回到书籍管理页</p>
 		</aside>
 		<script src="./js/jquery-1.12.3.js"></script>
 		<script src="./js/jquery-ui.js"></script>
 		<script src="./js/angular.js"></script>
 		<script src="./js/zxxFile.js"></script>
-		<script src="./app/merAddBook.js"></script>
+		<script src="./app/merEditBook.js"></script>
 	</body>
 </html>

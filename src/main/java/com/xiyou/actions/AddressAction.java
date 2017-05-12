@@ -38,6 +38,7 @@ public class AddressAction extends ActionSupport implements SessionAware
             dataMap.put("message", "无该地址");
             return SUCCESS;
         }
+        address.setUser(null);
         dataMap.put("address", address);
         this.setAddress(null);
         return SUCCESS;

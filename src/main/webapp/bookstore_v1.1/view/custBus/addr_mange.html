@@ -1,108 +1,110 @@
 <!-- 注：此页面没有地址、已有地址的情况我已写了 -->
 <div>
-	<div class="no-addr-box" style="display:none">
-		<div>
-			<p class="addr-img"><span></span></p>
-			<p class="addr-hint"><span>您还没有收货地址</span></p>
-			<p class="addr-add-text"><a ng-click="goAddNewAddr()" >+ 新建地址</a></p>
+	<div ng-controller="isNoAddrCtrl">
+		<div class="no-addr-box" >
+			<div>
+				<p class="addr-img"><span></span></p>
+				<p class="addr-hint"><span>您还没有收货地址</span></p>
+				<p class="addr-add-text"><a ng-click="goAddNewAddr()" >+ 新建地址</a></p>
+			</div>
 		</div>
-	</div>
-	<div class="operate-addr-box" >
-		<div class="mask"></div>
-		<div class="add-addr">
-			<p class="addr-title"><span>新建地址</span><i ng-click="closeAddAddr()"></i></p>
-			<from>
-				<ul class="input-addr clearfix">
-					<li class="mer_position">
-						<span>所在地区：</span>
-						<div class="area-box">
-							<div class="province-box">
-								<div id="display-pro"><input type="text" ng-model="user.selectProvince" data-id="{{ user.selectProvinceId }}" readonly="true" class="mer-province"/><i class="mer-pro-icon"></i></div>
-								<ul id="all-provinces">
-									<!--此处用js生成省的信息-->
-								</ul>
-							</div>
-							<div class="city-box">
-								<div id="display-city"><input type="text" ng-model="user.selectCity" data-id="{{ user.selectCityId }}" readonly="true" class="mer-city"/><i class="mer-city-icon"></i></div>
-								<ul id="all-citys">
-									<!--此处用js生成市信息-->
-								</ul>
-							</div>
-							<div class="regi-box">
-								<div id="display-regi"><input type="text" ng-model="user.selectRegi" data-id="{{ user.selectRegiId }}" readonly="true" class="mer-regi"/><i class="mer-area-icon"></i></div>
-								<ul id="all-regis">
-									<!--此处用js生成区信息-->
-								</ul>
-							</div>
-						</div>
-					</li>
-					<li class="mer-detail-addr"><span>详细地址：</span><textarea ng-model="user.street" placeholder="街道、门牌号等" class="user-input"></textarea></li>
-					<li class="clearfix">
-						<p class="user-name fl"><span>收货人：</span><input type="text" placeholder="请输入您的姓名" /></p>
-						<p class="user-tel fl"><span>手机号:</span><input type="text" placeholder="请输入您的手机号" /></p>
-					</li>
-				</ul>
-			</from>
-			<p class="addr-default"><span><input type="checkbox" id="default"/><label for="default">设为默认</label></span><span class="add-addr-sure">确认</span><span class="add-addr-cancel">取消</span></p>
-		</div>
-	</div>
-	<div class="display-addr">
-		<p class="display-addr-hint clearfix"><span class="fl">已保存收货地址（最多保存3条）</span><span class="fr" ng-click="goNewAddr2()">+ 新建地址</span></p>
-		<table class="addr-info-box">
-			<thead>
+		<div class="display-addr">
+			<p class="display-addr-hint clearfix"><span class="fl">已保存收货地址（最多保存3条）</span><span class="fr" ng-click="goNewAddr2()">+ 新建地址</span></p>
+			<table class="addr-info-box">
+				<thead>
 				<tr style="height:43px"><th>收货人</th><th>地址</th><th>联系方式</th><th>操作</th></tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="perAddr in userArr">
+				</thead>
+				<tbody>
+				<tr ng-repeat="perAddr in userArr track by $index">
 					<td>{{perAddr.name}}</td>
 					<td>{{perAddr.addrDetail}}</td>
 					<td>{{perAddr.tel}}</td>
-					<td class="display-addr-oper"><span ng-click="editMyAddr()">编辑</span><span ng-click="deleteMyAddr()">删除</span><span>设为默认地址</span></td>
+					<td class="display-addr-oper"><span ng-click="editMyAddr($event)" data-id="{{perAddr.addressId}}">编辑</span><span ng-click="deleteMyAddr($event)" data-id="{{perAddr.addressId}}">删除</span><span ng-class="{true: 'default-addr', false: 'no-default-addr'}[perAddr.def]" data-id="{{perAddr.addressId}}">{{perAddr.defText}}</span></td>
 				</tr>
 				<!--<tr><td>黄小霞</td><td>陕西省西安市长安区西安邮电大学南校区</td><td>18829289125</td><td class="display-addr-oper"><span>编辑</span><span>删除</span><span>默认地址</span></td></tr>-->
-			</tbody>
-		</table>
+				</tbody>
+			</table>
+		</div>
 	</div>
-	<div class="edit-addr-box" >
+	<div class="edit-addr-box" ng-controller="editAddrCtrl">
 		<div class="mask"></div>
 		<div class="add-addr">
-			<p class="addr-title"><span>编辑地址</span><i ng-click="closeEditAddr()"></i></p>
+			<p class="addr-title"><span>编辑地址</span><i ng-click="cancelEditAddr()"></i></p>
 			<from>
 				<ul class="input-addr clearfix">
 					<li class="mer_position">
 						<span>所在地区：</span>
 						<div class="area-box">
 							<div class="province-box">
-								<div id="display-pro"><input type="text" ng-model="user.selectProvince" data-id="{{ user.selectProvinceId }}" readonly="true" class="mer-province"/><i class="mer-pro-icon"></i></div>
+								<div id="display-pro"><input type="text" ng-model="userEditAddr.selectProvince" data-id="{{ userEditAddr.provinceId }}" readonly="true" class="mer-province"/><i class="mer-pro-icon"></i></div>
 								<ul id="all-provinces">
 									<!--此处用js生成省的信息-->
 								</ul>
 							</div>
 							<div class="city-box">
-								<div id="display-city"><input type="text" ng-model="user.selectCity" data-id="{{ user.selectCityId }}" readonly="true" class="mer-city"/><i class="mer-city-icon"></i></div>
+								<div id="display-city"><input type="text" ng-model="userEditAddr.selectCity" data-id="{{ userEditAddr.cityId }}" readonly="true" class="mer-city"/><i class="mer-city-icon"></i></div>
 								<ul id="all-citys">
 									<!--此处用js生成市信息-->
 								</ul>
 							</div>
 							<div class="regi-box">
-								<div id="display-regi"><input type="text" ng-model="user.selectRegi" data-id="{{ user.selectRegiId }}" readonly="true" class="mer-regi"/><i class="mer-area-icon"></i></div>
+								<div id="display-regi"><input type="text" ng-model="userEditAddr.selectRegi" data-id="{{ userEditAddr.countyId }}" readonly="true" class="mer-regi"/><i class="mer-area-icon"></i></div>
 								<ul id="all-regis">
 									<!--此处用js生成区信息-->
 								</ul>
 							</div>
 						</div>
 					</li>
-					<li class="mer-detail-addr"><span>详细地址：</span><textarea ng-model="user.street" placeholder="街道、门牌号等" class="user-input"></textarea></li>
+					<li class="mer-detail-addr"><span>详细地址：</span><textarea ng-model="userEditAddr.street" placeholder="街道、门牌号等" class="user-input"></textarea></li>
 					<li class="clearfix">
-						<p class="user-name fl"><span>收货人：</span><input type="text" placeholder="请输入您的姓名" /></p>
-						<p class="user-tel fl"><span>手机号:</span><input type="text" placeholder="请输入您的手机号" /></p>
+						<p class="user-name fl"><span>收货人：</span><input type="text" placeholder="请输入您的姓名" ng-model="userEditAddr.name"/></p>
+						<p class="user-tel fl"><span>手机号:</span><input type="text" placeholder="请输入您的手机号" ng-model="userEditAddr.tel"/></p>
 					</li>
 				</ul>
 			</from>
-			<p class="addr-default"><span><input type="checkbox" id="default"/><label for="default">设为默认</label></span><span class="add-addr-sure">确认</span><span class="add-addr-cancel">取消</span></p>
+			<p class="addr-default"><span><input type="checkbox" ng-model="userEditAddr.def" id="default2"/><label for="default2">设为默认</label></span><span class="add-addr-sure" ng-click="saveEditAddr()" data-id="{{userEditAddr.addressId}}">确认</span><span class="add-addr-cancel" ng-click="cancelEditAddr()">取消</span></p>
 		</div>
 	</div>
-	<p class="oper-hint">编辑成功</p>
+	<div class="new-addr-box" ng-controller="newAddrCtrl">
+		<div class="mask"></div>
+		<div class="add-addr">
+			<p class="addr-title"><span>新建地址</span><i ng-click="cancelNewAddr()"></i></p>
+			<from>
+				<ul class="input-addr clearfix">
+					<li class="mer_position">
+						<span>所在地区：</span>
+						<div class="area-box">
+							<div class="province-box">
+								<div id="display-pro-new"><input type="text" ng-model="userNewAddr.selectProvince" data-id="{{ userNewAddr.selectProvinceId }}" readonly="true" class="mer-province"/><i class="mer-pro-icon"></i></div>
+								<ul id="all-provinces-new">
+									<!--此处用js生成省的信息-->
+								</ul>
+							</div>
+							<div class="city-box">
+								<div id="display-city-new"><input type="text" ng-model="userNewAddr.selectCity" data-id="{{ userNewAddr.selectCityId }}" readonly="true" class="mer-city"/><i class="mer-city-icon"></i></div>
+								<ul id="all-citys-new">
+									<!--此处用js生成市信息-->
+								</ul>
+							</div>
+							<div class="regi-box">
+								<div id="display-regi-new"><input type="text" ng-model="userNewAddr.selectRegi" data-id="{{ userNewAddr.selectRegiId }}" readonly="true" class="mer-regi"/><i class="mer-area-icon"></i></div>
+								<ul id="all-regis-new">
+									<!--此处用js生成区信息-->
+								</ul>
+							</div>
+						</div>
+					</li>
+					<li class="mer-detail-addr"><span>详细地址：</span><textarea ng-model="userNewAddr.street" placeholder="街道、门牌号等" class="user-input"></textarea></li>
+					<li class="clearfix">
+						<p class="user-name fl"><span>收货人：</span><input type="text" placeholder="请输入您的姓名" ng-model="userNewAddr.name"/></p>
+						<p class="user-tel fl"><span>手机号:</span><input type="text" placeholder="请输入您的手机号" ng-model="userNewAddr.tel"/></p>
+					</li>
+				</ul>
+			</from>
+			<p class="addr-default"><span><input type="checkbox" id="myDefault" ng-model="userNewAddr.def"/><label for="myDefault">设为默认</label></span><span class="add-addr-sure" ng-click="saveNewAddr()">确认</span><span class="add-addr-cancel" ng-click="cancelNewAddr()">取消</span></p>
+		</div>
+	</div>
+	<p class="oper-hint"></p>
 </div>
 
 <style type="text/css">
@@ -118,6 +120,7 @@
 		text-align:center;
 		border-radius:3px;
 		z-index:9999999;
+		display:none;
 	}
 	/* 没有地址开始 */
 	.no-addr-box{
@@ -133,6 +136,9 @@
 		height:50px;
 		background:url("./images/more-img.png") 0 0 no-repeat;
 		margin:0 auto;
+	}
+	.addr-hint{
+		text-align: center;
 	}
 	.addr-hint>span{
 		display:block;
@@ -229,7 +235,7 @@
 		border:1px solid #e8e8e8;
 		padding:2px 5px;
 	}
-	#display-pro,#display-city,#display-regi{
+	#display-pro,#display-city,#display-regi,#display-pro-new,#display-city-new,#display-regi-new{
 		height:28px;
 	}
 	.mer-pro-icon,.mer-city-icon,.mer-area-icon{
@@ -244,7 +250,7 @@
 		border:1px solid #e8e8e8;
 		border-left:none;
 	}
-	#all-provinces,#all-citys,#all-regis{
+	#all-provinces,#all-citys,#all-regis,#all-provinces-new,#all-citys-new,#all-regis-new{
 		position: absolute;
 		top:28px;
 		background:#FFFFFF;
@@ -256,12 +262,12 @@
 		overflow-y: auto;
 		display:none;
 	}
-	#all-provinces>li,#all-citys>li,#all-regis>li{
+	#all-provinces>li,#all-citys>li,#all-regis>li,#all-provinces-new>li,#all-citys-new>li,#all-regis-new>li{
 		line-height: 16px;
 		padding:2px 5px;
 		font-size:12px;
 	}
-	#all-provinces>li:hover,#all-citys>li:hover,#all-regis>li:hover{
+	#all-provinces>li:hover,#all-citys>li:hover,#all-regis>li:hover,#all-provinces-new>li:hover,#all-citys-new>li:hover,#all-regis-new>li:hover{
 		background:#a1c1c0;
 	}
 	.mer-detail-addr>textarea{
@@ -310,8 +316,8 @@
 	/*新建地址主要部分结束*/
 	.addr-default input{
 		position: relative;
-		top:-6px;
-		left:3px;
+		top:1px;
+		left:1px;
 	}
 	#default+label{
 		position: relative;
@@ -388,16 +394,30 @@
 		width:96px;
 		height:28px;
 		line-height:28px;
-		border:#c0ae8a solid 1px;
-		color:#c0ae8a;
-		background:#f5f3ef;
 		border-radius: 3px;
 	}
-	.display-addr-oper>span:last-child:hover{
-		background:#FFF;
+	.display-addr-oper>span:hover{
+		text-decoration: underline;
+	}
+	.default-addr{
+		border:#c0ae8a solid 1px;
+		color:#c0ae8a !important;
+		background:#f5f3ef;
+		text-decoration: none !important;
+		cursor: default !important;
+	}
+	.no-default-addr{
+		border:none;
+		cursor: default !important;
 	}
 	/* 已保存收货地址结束 */
-	.display-addr,.operate-addr-box,.edit-addr-box{
+	.no-addr-box,.edit-addr-box,.new-addr-box,.display-addr{
 		display:none;
+	}
+	label[for='myDefault']{
+		margin-left:5px;
+	}
+	label[for='default2']{
+		margin-left:5px;
 	}
 </style>
