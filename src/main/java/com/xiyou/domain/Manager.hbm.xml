@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.xiyou.domain">
+    
+    <class name="Manager" table="MANAGER">
+    	<id name="managerId" type="java.lang.Integer">
+    		<column name="MANAGER_ID"></column>
+    		<generator class="native"></generator>
+    	</id>
+
+		<property name="managerEmail" type="java.lang.String">
+			<column name="MANAGER_EMAIL"></column>
+		</property>
+
+    	<property name="password" type="java.lang.String">
+    		<column name="password"></column>
+    	</property>
+
+		<property name="fresh" type="int">
+			<column name="FRESH" default="0"></column>
+		</property>
+		
+    </class>
+
+</hibernate-mapping>

@@ -5,8 +5,16 @@ import java.util.List;
 import com.xiyou.domain.Book;
 import com.xiyou.domain.BookImages;
 import com.xiyou.domain.Category;
+import com.xiyou.exception.DBException;
 
 public interface BookDAO {
+
+	/**
+	 * 恢复库存
+	 * @param bookId bookId
+	 * @param quantity quantity
+     */
+	void revertQuantity(Integer bookId, Integer quantity);
 
 	/**
 	 * 已测
@@ -161,7 +169,12 @@ public interface BookDAO {
      */
 	Integer getQuantity(Book book);
 
-	void updateQuantity(String bookId, Integer quantity);
+	/**
+	 * 修改库存
+	 * @param bookId bookId
+	 * @param quantity quantity
+     */
+	void updateQuantity(Integer bookId, Integer quantity) throws DBException;
 
 	/**
 	 * 批量插入bookImages

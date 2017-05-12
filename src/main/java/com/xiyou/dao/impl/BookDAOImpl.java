@@ -18,6 +18,16 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 	private static final int BASE_NUM = 0;
 
 	@Override
+	public void revertQuantity(Integer bookId, Integer quantity) {
+		String hql= "UPDATE Book b SET b.quantity = (b.quantity + :quantity) " +
+				"WHERE b.bookId = :bookId";
+		getSession().createQuery(hql)
+				.setInteger("quantity", quantity)
+				.setInteger("bookId", bookId)
+				.executeUpdate();
+	}
+
+	@Override
 	public long getTotalPageNoForSearch(String bookName) {
 		String hql = "SELECT count (b.bookId) FROM Book b WHERE b.bookName LIKE '%"
 				+ bookName + "%'";
@@ -265,17 +275,15 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 	}
 
 	@Override
-	public void updateQuantity(String bookId, Integer quantity) throws DBException {
-		Integer quantityDB = getQuantity(bookId);
-		System.out.println(bookId + "的quantityDB:" + quantityDB);
-		System.out.println(bookId + "的quantity:" + quantity);
+	public void updateQuantity(Integer bookId, Integer quantity) throws DBException{
+		Integer quantityDB = getQuantity(bookId.toString());
 		if (quantity > quantityDB) {
 			throw new DBException(bookId + "库存不足");
 		}
 		String hql = "UPDATE Book b SET b.quantity = (b.quantity - :quantity ) " +
 				"WHERE b.bookId= :bookId";
 		getSession().createQuery(hql)
-				.setInteger("quantity", quantity.intValue()).setString("bookId", bookId)
+				.setInteger("quantity", quantity.intValue()).setInteger("bookId", bookId)
 				.executeUpdate();
 	}
 

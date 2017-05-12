@@ -4,6 +4,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 import com.xiyou.domain.*;
+import com.xiyou.exception.DBException;
 import com.xiyou.service.BookService;
 import com.xiyou.service.ShopCartService;
 import com.xiyou.service.UserService;
@@ -19,6 +20,9 @@ import java.util.Map;
 @Controller("shopCartToAction")
 public class ShopCartToAction extends ActionSupport implements SessionAware, ModelDriven<ShopCartItemTo>,
         Preparable{
+
+    @Autowired
+    private BookService bookService;
 
     private ShopCartItemTo shopCartItemTo;
     private Map<String, Object> session;
@@ -54,6 +58,13 @@ public class ShopCartToAction extends ActionSupport implements SessionAware, Mod
      */
     public String addShopCartItem(){
         dataMap = BookStoreWebUtils.getDataMap(session);
+        try {
+            bookService.updateQuantity(shopCartItemTo.getBook().getBookId(), shopCartItemTo.getQuantity());
+        }catch (DBException e){
+            dataMap.put("status", "no");
+            dataMap.put("message", "库存不足");
+            return SUCCESS;
+        }
         shoppingCart = BookStoreWebUtils.getShoppingCart(session);
         shoppingCart.addShopCartItemTo(shopCartItemTo);
         dataMap.put("totalNum", shoppingCart.getBookNumber());
@@ -78,13 +89,15 @@ public class ShopCartToAction extends ActionSupport implements SessionAware, Mod
     /**
      * 已测
      * 删除一条Item
-     * url: cartTo-deleteItem.action?shopCartItemTo.book.bookId=17
-     * @return
+     * url: cartTo-deleteItem.action?shopCartItemTo.book.bookId=17&shopCartItemTo.quantity=12
+     * @return no data
      */
     public String deleteItem(){
         dataMap = BookStoreWebUtils.getDataMap(session);
+        Integer bookId = shopCartItemTo.getBook().getBookId();
+        bookService.revertQuantity(bookId, shopCartItemTo.getQuantity());
         shoppingCart = BookStoreWebUtils.getShoppingCart(session);
-        shoppingCart.removeItem(shopCartItemTo.getBook().getBookId());
+        shoppingCart.removeItem(bookId);
         return SUCCESS;
     }
 

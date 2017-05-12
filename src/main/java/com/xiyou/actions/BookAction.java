@@ -1,10 +1,8 @@
 package com.xiyou.actions;
 
-import java.awt.event.FocusAdapter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.xiyou.domain.BookImages;
 import com.xiyou.domain.Category;

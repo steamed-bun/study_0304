@@ -53,7 +53,20 @@ seller
 |---添加或修改地址 saveOrUpdateAddress
 |---获取当前user的全部地址 getAddressByUserId
 |---删除一个地址 deleteAddress
+|---设置为默认地址 saveOrUpdateAddress 不用理方法上面的话 只需传入address.addressId=1&address.def=1
+    def {0:非默认 1:默认}
 
+8、后台管理者接口 ManagerAction
+
+|---登陆 getSellerByEmail
+|---修改密码 updatePassword
+
+9、购物车接口 ShopCartToAction
+
+|---清空购物车 clearShopCart
+|---更新数量 updateItemQuantity
+|---删除一条Item 即点一本书的叉号 deleteItem
+(特别注意：相对于之前需多传一个参数给我-->shopCartItemTo.quantity=12)
 
 
 

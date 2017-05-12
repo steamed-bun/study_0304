@@ -3,6 +3,7 @@ import com.xiyou.dao.ShopDAO;
 import com.xiyou.domain.Book;
 import com.xiyou.domain.BookImages;
 import com.xiyou.domain.Shop;
+import com.xiyou.exception.DBException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,7 +104,11 @@ public class BookDAOImplTest {
     @Test
     @Transactional
     public void testUpdateQuantity(){
-        bookDAO.updateQuantity("13",19);
+        try {
+            bookDAO.updateQuantity(1,19);
+        }catch (DBException e){
+            System.out.println("异常");
+        }
     }
 
     @Test

@@ -1,0 +1,53 @@
+搜索到很多书籍页
+页面url:     http://localhost:8080/bookstore_v1.1/search_book_list.html
+(1)页面一加载显示从数据库搜索到的书籍信息  app->search_book_list.js   搜  页面一加载显示搜索到的书籍信息
+（接口代码已写好，参数自拟，查看返回结果符合页面需求即可）
+
+|---已測
+
+买家个人信息页：
+页面url： http://localhost:8080/bookstore_v1.1/customer_business.html#/custInfo
+（1）页面一加载获取用户个人信息：app-> custBus-controller.js 搜  从数据库中获得用户个人的信息
+（此处的数据写死即可，查看返回数据是否正常，正常即OK）
+承上---在app-> custBus-controller.js  搜  $scope.cust  将这个对象的变量名改成和你一样的
+承上---在 view->custBus->cust_info.html  搜  ng-model  (可看到ng-model=””)把cust的属性名改成和你一样即可
+承上---刷新页面，不报错即可
+
+|---已測
+
+（2）保存用户的个人信息：app-> custBus-controller.js 搜  将用户修改过的数据保存到数据库中
+（此处的数据写死即可，查看返回数据是否正常，正常即OK）
+
+|---已測
+
+（3）保存修改后的邮箱：app-> custBus-controller.js
+搜  将用户修改过后的邮箱等数据提交到后台  （此处的数据写死即可，查看返回数据是否正常，正常即OK）
+
+|---已測
+
+购物车页面
+页面url：http://localhost:8080/bookstore_v1.1/index_login.html
+(1)鼠标悬浮在购物车图标上时，显示购物车中的内容  在app->base.js 中
+搜 从session中获取与购物车相关的信息
+（接口代码已写好，此次采用的ajax与以往的$http表现有不同，但是用法相同，查看返回书籍正常  即ok）
+
+|---已測
+
+在输入框中输入书籍名称，搜索指定书籍
+页面url：http://localhost:8080/bookstore_v1.1/index_login.html
+(1)在输入框中输入书籍名称，搜索指定书籍  (1)在app->base.js 中
+搜 在数据库中搜索指定书籍
+（接口代码已写好，此次采用的ajax与以往的$http表现有不同，但是用法相同，查看返回书籍正常  即ok）
+
+|---已測
+
+大类
+    价格
+        直接进入
+        分页进入
+    浏览量
+        直接进入
+        分页进入
+子类
+    价格
+    浏览量
