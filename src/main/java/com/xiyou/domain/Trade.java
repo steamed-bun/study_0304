@@ -9,7 +9,15 @@ public class Trade {
 	private User user;
 	private Integer status;
     private int quantity;
-    private float totalPrice;
+    private float totalPrice;//购物车所有书本的总价
+
+    public Trade(Integer tradeId) {
+        this.tradeId = tradeId;
+    }
+
+    public Trade(Date tradeTime) {
+        this.tradeTime = tradeTime;
+    }
 
     public static Trade getTrade(){
         Trade trade = new Trade();

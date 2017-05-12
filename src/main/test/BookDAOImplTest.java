@@ -105,7 +105,7 @@ public class BookDAOImplTest {
     @Transactional
     public void testUpdateQuantity(){
         try {
-            bookDAO.updateQuantity(1,19);
+            bookDAO.updateQuantity(18,-4);
         }catch (DBException e){
             System.out.println("异常");
         }

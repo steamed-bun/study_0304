@@ -20,6 +20,18 @@ public class TradeService {
     @Autowired
     private BookDAO bookDAO;
 
+    public Integer getStatusById(Integer itemId){
+        return tradeDAO.getStatusById(itemId);
+    }
+
+    public void deleteTradeItem(Integer itemId){
+        tradeDAO.deleteTradeItem(itemId);
+    }
+
+    public  void updateStatus(Integer itemId){
+        tradeDAO.updateStatus(itemId);
+    }
+
     public Integer getTradeNumByStatus(String shopId){
         return tradeDAO.getTradeNumByStatus(shopId);
     }

@@ -21,6 +21,14 @@ public class BookService {
 	@Autowired
 	private ShopDAO shopDAO;
 
+	public  void updateNoLike(Integer bookId){
+		bookDAO.updateNoLike(bookId);
+	}
+
+	public void updateLike(Integer bookId){
+		bookDAO.updateLike(bookId);
+	}
+
 	public void revertQuantity(Integer bookId, Integer quantity){
 		bookDAO.revertQuantity(bookId, quantity);
 	}

@@ -37,7 +37,18 @@ public class ShopCartToAction extends ActionSupport implements SessionAware, Mod
     public String updateItemQuantity(){
         dataMap = BookStoreWebUtils.getDataMap(session);
         shoppingCart = BookStoreWebUtils.getShoppingCart(session);
-        shoppingCart.updateItemQuantity(shopCartItemTo.getBook().getBookId(), shopCartItemTo.getQuantity());
+        Integer bookId = shopCartItemTo.getBook().getBookId();
+        Integer newQuantity = shopCartItemTo.getQuantity();
+        Integer oldQuantity = shoppingCart.getItemQuantity(bookId);
+        Integer stock = newQuantity - oldQuantity;
+        try {
+            bookService.updateQuantity(bookId, stock);
+        }catch (DBException e){
+            dataMap.put("status", "no");
+            dataMap.put("message", "库存不足");
+            return SUCCESS;
+        }
+        shoppingCart.updateItemQuantity(bookId, newQuantity);
         return SUCCESS;
     }
 

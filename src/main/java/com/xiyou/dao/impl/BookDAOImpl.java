@@ -18,6 +18,20 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 	private static final int BASE_NUM = 0;
 
 	@Override
+	public void updateNoLike(Integer bookId) {
+		String hql = "UPDATE Book b SET b.noLike = (b.noLike + 1) WHERE b.bookId = :bookId";
+		getSession().createQuery(hql)
+				.setInteger("bookId", bookId).executeUpdate();
+	}
+
+	@Override
+	public void updateLike(Integer bookId) {
+		String hql = "UPDATE Book b SET b.likes = (b.likes + 1) WHERE b.bookId = :bookId";
+		getSession().createQuery(hql)
+				.setInteger("bookId", bookId).executeUpdate();
+	}
+
+	@Override
 	public void revertQuantity(Integer bookId, Integer quantity) {
 		String hql= "UPDATE Book b SET b.quantity = (b.quantity + :quantity) " +
 				"WHERE b.bookId = :bookId";

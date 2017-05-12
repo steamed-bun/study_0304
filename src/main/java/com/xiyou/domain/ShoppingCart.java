@@ -17,7 +17,23 @@ public class ShoppingCart {
 		ShopCartItemTo shoppingCartItem = shopCartItemTos.get(id);
 		if(shoppingCartItem != null){
 			shoppingCartItem.setQuantity(quantity);
+			shoppingCartItem.setItemMoney();
 		}
+	}
+
+	/**
+	 * 获取当前id 对应的交易项数量
+	 * @param id
+	 * @param quantity
+     * @return
+     */
+	public Integer getItemQuantity(Integer id){
+		ShopCartItemTo shoppingCartItem = shopCartItemTos.get(id);
+		Integer oldQuantity = 0;
+		if(shoppingCartItem != null){
+			oldQuantity = shoppingCartItem.getQuantity();
+		}
+		return oldQuantity;
 	}
 
 	/**

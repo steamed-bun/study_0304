@@ -41,6 +41,25 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 	private Float priceEnd = Float.MAX_VALUE; //用户自己输入的价格起始值
     private Integer sort; //{1 : 从低到高  0 : 从高到低}
 
+	public String updateNoLike(){
+		dataMap = BookStoreWebUtils.getDataMap(session);
+		bookService.updateNoLike(book.getBookId());
+		this.setBook(null);
+		return SUCCESS;
+	}
+
+	/**
+	 * 点赞
+	 * url : book-updateLike.action?book.bookId=1
+	 * @return
+     */
+	public String updateLike(){
+		dataMap = BookStoreWebUtils.getDataMap(session);
+		bookService.updateLike(book.getBookId());
+		this.setBook(null);
+		return SUCCESS;
+	}
+
     /**
      * 已测
      * 全网搜书

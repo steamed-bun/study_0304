@@ -11,6 +11,45 @@ import java.util.List;
 @Repository
 public class TradeDAOImpl extends BaseDAOImpl implements TradeDAO {
 
+    @Override
+    public Integer getStatusById(Integer itemId) {
+        String hql = "SELECT t.status FROM TradeItem t WHERE t.itemId = :itemId";
+        Integer status = (Integer) getSession().createQuery(hql).setInteger("itemId", itemId).uniqueResult();
+        return status;
+    }
+
+    @Override
+    public void deleteTradeItem(Integer itemId) {
+        String hql  = "DELETE TradeItem t WHERE t.itemId = :itemId";
+        getSession().createQuery(hql).setInteger("itemId", itemId);
+    }
+
+    @Override
+    public List<TradeItem> getTradeItems(String userId, Integer status) {
+        String hql = "SELECT new TradeItem " +
+                "( " +
+                "i.price, i.status, i.trade.tradeTime, i.book.bookId, i.book.bookName, " +
+                "i.quantity, i.itemId " +
+                ") " +
+                "FROM TradeItem i " +
+                "WHERE i.trade IN " +
+                "(SELECT new Trade (t.tradeId) FROM Trade t WHERE t.user = :userId) " +
+                "AND i.status = :status";
+        @SuppressWarnings("unchecked")
+        List<TradeItem> tradeItems = (List<TradeItem>) getSession().createQuery(hql)
+                .setString("userId", userId)
+                .setInteger("status", status)
+                .list();
+        return tradeItems;
+    }
+
+    @Override
+    public void updateStatus(Integer itemId) {
+        String hql = "UPDATE TradeItem t SET t.status = t.status + 1 " +
+                "WHERE t.itemId = :itemId";
+        getSession().createQuery(hql)
+                .setInteger("itemId", itemId).executeUpdate();
+    }
 
     @Override
     public List<TradeItem> getTradeItemsByShopId(String shopId, String status) {

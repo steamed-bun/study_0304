@@ -23,7 +23,7 @@ public class TradeAction extends ActionSupport implements SessionAware{
     private TradeService tradeService;
 
     @Autowired
-    private ShopCartService shopCartService;
+    private BookService bookService;
 
     @Autowired
     private UserService userService;
@@ -33,7 +33,38 @@ public class TradeAction extends ActionSupport implements SessionAware{
     private List<TradeItem> tradeItems = new ArrayList<TradeItem>(5);
     private List<ShopCartItem> shopCartItems = new ArrayList<ShopCartItem>(5);
     private Trade trade;
+    private TradeItem tradeItem;
     private String status; //
+
+    /**
+     * 取消订单
+     * trade-deleteTradeItem.action?tradeItem.itemId=1&tradeItem.book.bookId=18&tradeItem.quantity=12
+     * @return dataMap
+     */
+    public String deleteTradeItem(){
+        dataMap = BookStoreWebUtils.getDataMap(session);
+        Integer status = tradeService.getStatusById(tradeItem.getItemId());
+        //如果0是上一个状态
+        if (status.equals(0)){
+            tradeService.deleteTradeItem(tradeItem.getItemId());
+            bookService.revertQuantity(tradeItem.getBook().getBookId(), tradeItem.getQuantity());
+        }else {
+            dataMap.put("status", "no");
+            dataMap.put("message", "此订单已发货，不能修改");
+        }
+        return SUCCESS;
+    }
+
+    /**
+     * 修改订单状态
+     * url:trade-updateTradeStatus.action?tradeItem.itemId=1
+     * @return
+     */
+    public String updateTradeStatus(){
+        dataMap = BookStoreWebUtils.getDataMap(session);
+        tradeService.updateStatus(tradeItem.getItemId());
+        return SUCCESS;
+    }
 
     /**
      * seller必须是登录状态
@@ -77,7 +108,9 @@ public class TradeAction extends ActionSupport implements SessionAware{
      * 添加订单
      * url:trade-addTrade.action?shopCartItems[0].cartItemId=1&tradeItems[0].book.bookPrice=4.5&tradeItems[0].quantity=2&tradeItems[0].book.bookId=13&tradeItems[1].book.bookPrice=5&tradeItems[1].quantity=3&tradeItems[1].book.bookId=12
      *
-     * @return status : {0：success 1:购物车为空 2：库存不足}
+     * @return status : {0：success 1:购物车为空}
+     *
+     *
      * {"result":"库存不足","status":"no","bookId":12}
      */
     public String addTrade(){
@@ -91,7 +124,8 @@ public class TradeAction extends ActionSupport implements SessionAware{
                 dataMap.put("status", "1");
                 dataMap.put("message", "购物车为空");
             }else {
-                trade.setUser(user);
+                trade.setUser(user);//获得购买用户
+                trade.setTotalPrice(shoppingCart.getTotalMoney());//获得购物总价
                 /*try {
                     tradeService.updateQuantity(tradeItems,dataMap);
                 } catch (DBException e) {
@@ -106,12 +140,25 @@ public class TradeAction extends ActionSupport implements SessionAware{
                 }
                 trade.setQuantity(tradeItems.size());
                 trade.setTotalPrice(totalPrice);*/
+                //获取购物车所有数据并转换为订单数组
+                Map<Integer, ShopCartItemTo> shopCartItemToMap = shoppingCart.getShopCartItemTos();
+                List<ShopCartItemTo> shopCartItemTos = new ArrayList<ShopCartItemTo>(shopCartItemToMap.values());
+                trade.setQuantity(shopCartItemTos.size());
                 tradeService.addTrade(trade);
-                for (TradeItem tradeItem : tradeItems) {
-                    tradeItem.setTrade(trade);
+                List<TradeItem> tradeItems = new ArrayList<TradeItem>(shopCartItemTos.size());
+                TradeItem tradeItem ;
+                for (ShopCartItemTo shopCartItemTo : shopCartItemTos) {
+                    tradeItem = new TradeItem();
+                    tradeItem.setPrice(shopCartItemTo.getItemMoney());//获取购物车一条数据的价格
+                    tradeItem.setTrade(trade);//关联当前总交易
+                    tradeItem.setQuantity(shopCartItemTo.getQuantity());//获取购物车一条数据购买数量
+                    tradeItem.setBook(shopCartItemTo.getBook());
+                    tradeItem.setStatus(0);//重复设置为默认状态
+                    tradeItems.add(tradeItem);
                 }
                 tradeService.addTradeItems(tradeItems);
-                shopCartService.deleteShopItems(shopCartItems);
+//                shopCartService.deleteShopItems(shopCartItems);
+                shoppingCart.clear();//清空购物车
             }
         }else {
             System.out.println("无此用户！or用户未登录");
@@ -150,5 +197,13 @@ public class TradeAction extends ActionSupport implements SessionAware{
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public TradeItem getTradeItem() {
+        return tradeItem;
+    }
+
+    public void setTradeItem(TradeItem tradeItem) {
+        this.tradeItem = tradeItem;
     }
 }

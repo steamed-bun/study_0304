@@ -1,13 +1,27 @@
 package com.xiyou.domain;
 
+//import java.sql.Date;
+import java.util.Date;
+import java.util.Set;
+
+
 public class TradeItem {
 
 	private Integer itemId;
 	private Integer quantity;
 	private Book book;
 	private Trade trade;
-	private Integer status;
+	private Integer status = 0;//订单完成情况 默认为0
 	private float price;
+
+	public TradeItem(float price, Integer status, Date tradeTime, Integer bookId, String bookName, Integer quantity, Integer itemId) {
+		this.price = price;
+		this.status = status;
+		this.trade = new Trade(new java.sql.Date(tradeTime.getTime()));
+		this.book = new Book(bookId,bookName);
+		this.quantity = quantity;
+		this.itemId = itemId;
+	}
 
 	public TradeItem(Integer itemId, Integer quantity, Book book, Trade trade, Integer status, float price) {
 		this.itemId = itemId;
