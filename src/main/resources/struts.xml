@@ -24,9 +24,6 @@
 			<result name="addTrade" type="json">
 				<param name="root">dataMap</param>
 			</result>
-			<result name="stock" type="json">
-				<param name="root">dataMap</param>
-			</result>
 			<result name="success" type="json">
 				<param name="root">dataMap</param>
 			</result>

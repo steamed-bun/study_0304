@@ -1,10 +1,7 @@
 package com.xiyou.actions;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.xiyou.domain.ShopCartItem;
-import com.xiyou.domain.User;
-import com.xiyou.domain.Trade;
-import com.xiyou.domain.TradeItem;
+import com.xiyou.domain.*;
 import com.xiyou.exception.DBException;
 import com.xiyou.service.BookService;
 import com.xiyou.service.ShopCartService;
@@ -80,33 +77,35 @@ public class TradeAction extends ActionSupport implements SessionAware{
      * 添加订单
      * url:trade-addTrade.action?shopCartItems[0].cartItemId=1&tradeItems[0].book.bookPrice=4.5&tradeItems[0].quantity=2&tradeItems[0].book.bookId=13&tradeItems[1].book.bookPrice=5&tradeItems[1].quantity=3&tradeItems[1].book.bookId=12
      *
-     * @return {"result":"库存不足","status":"no","bookId":12}
+     * @return status : {0：success 1:购物车为空 2：库存不足}
+     * {"result":"库存不足","status":"no","bookId":12}
      */
     public String addTrade(){
         dataMap = BookStoreWebUtils.getDataMap(session);
         trade = Trade.getTrade();
         User user = userService.getUserById(session.get("userId").toString());
         if (user != null){
-            if (tradeItems == null || tradeItems.size() <= 0 ){
+            ShoppingCart shoppingCart = BookStoreWebUtils.getShoppingCart(session);
+            if (shoppingCart.isEmpty()){
                 System.out.println("无交易");
+                dataMap.put("status", "1");
+                dataMap.put("message", "购物车为空");
             }else {
-                float totalPrice = 0;
-                float price;
                 trade.setUser(user);
-                try {
+                /*try {
                     tradeService.updateQuantity(tradeItems,dataMap);
                 } catch (DBException e) {
-                    dataMap.put("status","no");
-                    dataMap.put("result","库存不足");
-                    return "stock";
-                }
-                for (TradeItem tradeItem : tradeItems) {
+                    dataMap.put("status","2");
+                    dataMap.put("message","库存不足");
+                    return SUCCESS;
+                }*/
+                /*for (TradeItem tradeItem : tradeItems) {
                     price = tradeItem.getBook().getBookPrice() * tradeItem.getQuantity();
                     tradeItem.setPrice(price);
                     totalPrice += price;
                 }
                 trade.setQuantity(tradeItems.size());
-                trade.setTotalPrice(totalPrice);
+                trade.setTotalPrice(totalPrice);*/
                 tradeService.addTrade(trade);
                 for (TradeItem tradeItem : tradeItems) {
                     tradeItem.setTrade(trade);

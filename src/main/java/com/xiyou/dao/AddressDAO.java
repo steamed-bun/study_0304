@@ -13,6 +13,11 @@ public interface AddressDAO {
      */
     Address getDefAddress(String userId);
 
+    /**
+     * 获取一条数据
+     * @param addressId addressId
+     * @return address
+     */
     Address getAddressById(Integer addressId);
 
     /**

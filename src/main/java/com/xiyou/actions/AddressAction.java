@@ -30,6 +30,19 @@ public class AddressAction extends ActionSupport implements SessionAware
     @Autowired
     private UserService userService;
 
+    public String getAddressById(){
+        dataMap = BookStoreWebUtils.getDataMap(session);
+        address = addressService.getAddressById(address.getAddressId());
+        if (address == null){
+            dataMap.put("status", "no");
+            dataMap.put("message", "无该地址");
+            return SUCCESS;
+        }
+        dataMap.put("address", address);
+        this.setAddress(null);
+        return SUCCESS;
+    }
+
     /**
      * 删除一个地址
      * url:address-deleteAddress.action?address.addressId=1
