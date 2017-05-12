@@ -20,6 +20,18 @@ public class TradeDAOImplTest {
 
     @Transactional
     @Test
+    public void testDeleteTradeItem(){
+        tradeDAO.deleteTradeItem(1);
+    }
+
+    @Transactional
+    @Test
+    public void testGetTradeItems(){
+        tradeDAO.getTradeItems("37",1);
+    }
+
+    @Transactional
+    @Test
     public void testGetTradeItemsByShopId(){
         System.out.println(tradeDAO.getTradeItemsByShopId("25","3"));
     }

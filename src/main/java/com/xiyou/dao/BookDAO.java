@@ -9,6 +9,18 @@ import com.xiyou.exception.DBException;
 
 public interface BookDAO {
 
+    /**
+     * 差评
+     * @param bookId bookId
+     */
+    void updateNoLike(Integer bookId);
+
+	/**
+	 * 点赞
+	 * @param bookId bookId
+     */
+	void updateLike(Integer bookId);
+
 	/**
 	 * 恢复库存
 	 * @param bookId bookId

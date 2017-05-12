@@ -8,6 +8,34 @@ import java.util.List;
 public interface TradeDAO {
 
     /**
+     * 获取当前订单的状态
+     * @param itemId
+     * @return
+     */
+    Integer getStatusById(Integer itemId);
+
+    /**
+     * 取消订单
+     * @param itemId itemId
+     */
+    void deleteTradeItem(Integer itemId);
+
+    /**
+     * 已测
+     * 获取当前user的某种状态的全部订单
+     * @param userId userId
+     * @param status status
+     * @return
+     */
+    List<TradeItem> getTradeItems(String userId,Integer status);
+
+    /**
+     * 修改订单状态
+     * @param itemId itemId
+     */
+    void updateStatus(Integer itemId);
+
+    /**
      * 已测
      * seller 查询其商铺的各类订单
      * @param shopId shopId
