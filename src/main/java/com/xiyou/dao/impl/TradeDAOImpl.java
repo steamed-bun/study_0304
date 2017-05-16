@@ -12,6 +12,14 @@ import java.util.List;
 public class TradeDAOImpl extends BaseDAOImpl implements TradeDAO {
 
     @Override
+    public long getTradeSize(Integer itemId) {
+        String hql = "SELECT count (t.itemId) FROM TradeItem t " +
+                "WHERE t.itemId = :itemId";
+        return (Long) getSession().createQuery(hql)
+                .setInteger("itemId", itemId).uniqueResult();
+    }
+
+    @Override
     public Integer getStatusById(Integer itemId) {
         String hql = "SELECT t.status FROM TradeItem t WHERE t.itemId = :itemId";
         Integer status = (Integer) getSession().createQuery(hql).setInteger("itemId", itemId).uniqueResult();
@@ -44,21 +52,30 @@ public class TradeDAOImpl extends BaseDAOImpl implements TradeDAO {
     }
 
     @Override
-    public void updateStatus(Integer itemId) {
-        String hql = "UPDATE TradeItem t SET t.status = t.status + 1 " +
-                "WHERE t.itemId = :itemId";
+    public void updateStatus(Integer itemId, Integer status) {
+        String hql = "UPDATE TradeItem t SET t.status = (t.status + 1) " +
+                "WHERE t.itemId = :itemId AND t.status = :status";
         getSession().createQuery(hql)
-                .setInteger("itemId", itemId).executeUpdate();
+                .setInteger("itemId", itemId)
+                .setInteger("status",status)
+                .executeUpdate();
     }
 
     @Override
-    public List<TradeItem> getTradeItemsByShopId(String shopId, String status) {
-        String hql = "FROM TradeItem t LEFT OUTER JOIN FETCH t.book "+
-                "WHERE t.status = :status AND t.book IN " +
-                "(SELECT new Book (b.bookId) FROM Book b WHERE b.shop = :shopId)";
+    public List<TradeItem> getTradeItemsByShopId(String shopId, Integer status) {
+        String hql;
+           if (!status.equals(2)){
+               hql = "FROM TradeItem t LEFT OUTER JOIN FETCH t.book "+
+                       "WHERE t.status = :status AND t.book IN " +
+                       "(SELECT new Book (b.bookId) FROM Book b WHERE b.shop = :shopId)";
+           }else {
+               hql = "FROM TradeItem t LEFT OUTER JOIN FETCH t.book "+
+                       "WHERE t.status >= :status AND t.book IN " +
+                       "(SELECT new Book (b.bookId) FROM Book b WHERE b.shop = :shopId)";
+           }
         @SuppressWarnings("unchecked")
         List<TradeItem> tradeItems = (List<TradeItem>) getSession().createQuery(hql)
-                .setString("status", status).setString("shopId", shopId).list();
+                .setInteger("status", status).setString("shopId", shopId).list();
         return tradeItems;
     }
 

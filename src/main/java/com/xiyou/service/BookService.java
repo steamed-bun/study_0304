@@ -21,6 +21,10 @@ public class BookService {
 	@Autowired
 	private ShopDAO shopDAO;
 
+	public void deleteBookFalse(Integer bookId){
+		bookDAO.deleteBookFalse(bookId);
+	}
+
 	public  void updateNoLike(Integer bookId){
 		bookDAO.updateNoLike(bookId);
 	}
@@ -113,8 +117,8 @@ public class BookService {
 		bookDAO.updateBookImage(bookImages);
 	}
 
-	public void deleteBookImage(List<BookImages> bookImages){
-		bookDAO.deleteBookImage(bookImages);
+	public void deleteBookImage(Integer bookId){
+		bookDAO.deleteBookImage(bookId);
 	}
 
 	public Integer getQuantity(Book book){
@@ -136,7 +140,7 @@ public class BookService {
 		return shopDAO.selectShop(shopId);
 	}
 
-	public void deleteBook(Integer bookId){
+	public void deleteBook(Integer bookId) throws Exception {
 		bookDAO.deleteBook(bookId);
 	}
 

@@ -41,25 +41,6 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 	private Float priceEnd = Float.MAX_VALUE; //用户自己输入的价格起始值
     private Integer sort; //{1 : 从低到高  0 : 从高到低}
 
-	public String updateNoLike(){
-		dataMap = BookStoreWebUtils.getDataMap(session);
-		bookService.updateNoLike(book.getBookId());
-		this.setBook(null);
-		return SUCCESS;
-	}
-
-	/**
-	 * 点赞
-	 * url : book-updateLike.action?book.bookId=1
-	 * @return
-     */
-	public String updateLike(){
-		dataMap = BookStoreWebUtils.getDataMap(session);
-		bookService.updateLike(book.getBookId());
-		this.setBook(null);
-		return SUCCESS;
-	}
-
     /**
      * 已测
      * 全网搜书
@@ -353,23 +334,18 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 	}
 
     /**
-     * 删除书本图片
-	 * url:book-deleteBookImage.action?bookImages.imageURL=url1&bookImages.imageURL=url2
-     * @return null
-     */
-    public String deleteBookImage(){
-		bookService.deleteBookImage(bookImages);
-        return SUCCESS;
-    }
-
-    /**
      * 已测 删除单本书 包括其图片
-     * book-deleteBook.action?book.bookId=19
+     * book-deleteBook.action?book.bookId=17
      * @return no data
      */
 	public String deleteBook(){
 		dataMap = BookStoreWebUtils.getDataMap(session);
-		bookService.deleteBook(book.getBookId());
+		try {
+			bookService.deleteBook(book.getBookId());
+		} catch (Exception e) {
+			System.out.println("此书信息被引用，不能删除，库存被置为空");
+			bookService.deleteBookFalse(book.getBookId());
+		}
 		return SUCCESS;
 	}
 
@@ -456,6 +432,10 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 				Book book1 = bookService.getBook(book.getBookId().toString());
 				book.setSummary(book1.getSummary());
 			}
+			if (!bookImages.get(0).equals("")){
+				bookService.deleteBookImage(book.getBookId());
+				addImages(book);
+			}
 			bookService.addBook(book);
 			this.setBook(null);
 		}
@@ -463,7 +443,6 @@ public class BookAction extends ActionSupport implements ModelDriven<Book>,
 	}
 
     public String addImages(Book book){
-        System.out.println("addImages");
         dataMap = BookStoreWebUtils.getDataMap(session);
         if (bookImages != null && bookImages.size() > 0){
             bookService.addImages(book, bookImages);

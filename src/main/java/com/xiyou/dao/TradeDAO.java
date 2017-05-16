@@ -8,6 +8,13 @@ import java.util.List;
 public interface TradeDAO {
 
     /**
+     * 判断当前订单是否存在
+     * @param itemId
+     * @return
+     */
+    long getTradeSize(Integer itemId);
+
+    /**
      * 获取当前订单的状态
      * @param itemId
      * @return
@@ -33,7 +40,7 @@ public interface TradeDAO {
      * 修改订单状态
      * @param itemId itemId
      */
-    void updateStatus(Integer itemId);
+    void updateStatus(Integer itemId, Integer status);
 
     /**
      * 已测
@@ -42,7 +49,7 @@ public interface TradeDAO {
      * @param status 分类：已完成、未完成...
      * @return
      */
-    List<TradeItem> getTradeItemsByShopId(String shopId, String status);
+    List<TradeItem> getTradeItemsByShopId(String shopId, Integer status);
 
     /**
      * 已测

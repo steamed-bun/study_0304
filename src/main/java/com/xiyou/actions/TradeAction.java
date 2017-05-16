@@ -19,6 +19,8 @@ import java.util.Map;
 @Controller("tradeAction")
 public class TradeAction extends ActionSupport implements SessionAware{
 
+//    private static final String TRADE_KEY = "order";
+
     @Autowired
     private TradeService tradeService;
 
@@ -34,7 +36,56 @@ public class TradeAction extends ActionSupport implements SessionAware{
     private List<ShopCartItem> shopCartItems = new ArrayList<ShopCartItem>(5);
     private Trade trade;
     private TradeItem tradeItem;
-    private String status; //
+    private Address address;
+
+    /**
+     * user获取当前状态所有订单
+     * trade-getTradeItemsByUserId.action?tradeItem.status=?
+     * {
+     *     status=0:待发货（有取消订单的按钮）
+     *     status=1:已发货（有确认收货的按钮）
+     *     status=2:待评价 (有点赞或点down的按钮)
+     *     status=3:已完成
+     * }
+     * @return
+     */
+    public  String getTradeItemsByUserId(){
+        dataMap = BookStoreWebUtils.getDataMap(session);
+//        String userId = session.get("userId").toString();
+        Object object = session.get("userId");
+        if (object == null){
+            dataMap.put("status", "no");
+            dataMap.put("meseage", "用户未登录");
+            return SUCCESS;
+        }
+        String userId = object.toString();
+        List<TradeItem> tradeItems1 = tradeService.getTradeItemsByUserId(userId, tradeItem.getStatus());
+        dataMap.put("tradeItems", tradeItems1);
+        this.setTradeItem(null);
+        return SUCCESS;
+    }
+
+    public String updateNoLike(){
+        dataMap = BookStoreWebUtils.getDataMap(session);
+        bookService.updateNoLike(tradeItem.getBook().getBookId());
+        this.setTradeItem(null);
+        return SUCCESS;
+    }
+
+    /**
+     * 点赞
+     * url : trade-updateLike.action?tradeItem。book.bookId=1&tradeItem.status=2&tradeItem.itemId=1
+     * 这个2是死的 不变的
+     * @return
+     */
+    public String updateLike(){
+        dataMap = BookStoreWebUtils.getDataMap(session);
+        tradeService.updateStatus(tradeItem.getItemId(), tradeItem.getStatus());
+
+        bookService.updateLike(tradeItem.getBook().getBookId());
+        this.setTradeItem(null);
+        return SUCCESS;
+    }
 
     /**
      * 取消订单
@@ -44,7 +95,6 @@ public class TradeAction extends ActionSupport implements SessionAware{
     public String deleteTradeItem(){
         dataMap = BookStoreWebUtils.getDataMap(session);
         Integer status = tradeService.getStatusById(tradeItem.getItemId());
-        //如果0是上一个状态
         if (status.equals(0)){
             tradeService.deleteTradeItem(tradeItem.getItemId());
             bookService.revertQuantity(tradeItem.getBook().getBookId(), tradeItem.getQuantity());
@@ -52,30 +102,54 @@ public class TradeAction extends ActionSupport implements SessionAware{
             dataMap.put("status", "no");
             dataMap.put("message", "此订单已发货，不能修改");
         }
+        this.setTradeItem(null);
         return SUCCESS;
     }
 
     /**
      * 修改订单状态
-     * url:trade-updateTradeStatus.action?tradeItem.itemId=1
+     * url:trade-updateTradeStatus.action?tradeItem.itemId=1&tradeItem.status=?
+     * {
+     *      卖家确认发货status=0
+     *      买家确认收货status=1
+     * }
      * @return
      */
     public String updateTradeStatus(){
         dataMap = BookStoreWebUtils.getDataMap(session);
-        tradeService.updateStatus(tradeItem.getItemId());
+        Integer itemId = tradeItem.getItemId();
+        Integer status = tradeItem.getStatus();
+        if (status.equals(0)){
+            int count = tradeService.getTradeSize(itemId);
+            if (count != 1){
+                dataMap.put("status", "no");
+                dataMap.put("message1", "如果是买家就提示:卖家刚才发货喽...");
+                dataMap.put("message2", "如果是卖家家就提示:买家刚刚取消订单啦...");
+                this.setTradeItem(null);
+                return SUCCESS;
+            }
+        }
+        if (status < tradeService.getStatusById(itemId)){
+            dataMap.put("status", "no");
+            dataMap.put("message", "此订单已修改，请勿重复操作");
+            this.setTradeItem(null);
+            return SUCCESS;
+        }
+        tradeService.updateStatus(itemId, tradeItem.getStatus());
+        this.setTradeItem(null);
         return SUCCESS;
     }
 
     /**
      * seller必须是登录状态
      * seller获取TradeItems的接口
-     * url:trade-getTradeItemBySelId.action?status=3
+     * url:trade-getTradeItemBySelId.action?tradeItem.status=3
      * @return
      */
     public String getTradeItemBySelId(){
         dataMap = BookStoreWebUtils.getDataMap(session);
         String shopId = session.get("shopId").toString();
-        List<TradeItem> tradeItems = tradeService.getTradeItemsByShopId(shopId, status);
+        tradeItems = tradeService.getTradeItemsByShopId(shopId, tradeItem.getStatus());
         BookStoreWebUtils.setNullTradeItems(tradeItems);
         int i = 0;
         for (TradeItem tradeItem : tradeItems) {
@@ -83,6 +157,7 @@ public class TradeAction extends ActionSupport implements SessionAware{
             i++;
         }
         dataMap.put("size", i);
+        dataMap.put("tradeItems", tradeItems);
         tradeItems.clear();
         return SUCCESS;
     }
@@ -104,9 +179,10 @@ public class TradeAction extends ActionSupport implements SessionAware{
     }
 
     /**
+     * 已测
      * user 必须是登录状态
      * 添加订单
-     * url:trade-addTrade.action?shopCartItems[0].cartItemId=1&tradeItems[0].book.bookPrice=4.5&tradeItems[0].quantity=2&tradeItems[0].book.bookId=13&tradeItems[1].book.bookPrice=5&tradeItems[1].quantity=3&tradeItems[1].book.bookId=12
+     * url:trade-addTrade.action
      *
      * @return status : {0：success 1:购物车为空}
      *
@@ -191,19 +267,19 @@ public class TradeAction extends ActionSupport implements SessionAware{
         return dataMap;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public TradeItem getTradeItem() {
         return tradeItem;
     }
 
     public void setTradeItem(TradeItem tradeItem) {
         this.tradeItem = tradeItem;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

@@ -30,6 +30,7 @@ public class ShopCartToAction extends ActionSupport implements SessionAware, Mod
     private ShoppingCart shoppingCart;
 
     /**
+     * 已测
      * 更新数量
      * url: cartTo-updateItemQuantity.action?shopCartItemTo.quantity=23&shopCartItemTo.book.bookId=17
      * @return
