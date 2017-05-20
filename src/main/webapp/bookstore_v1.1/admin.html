@@ -20,20 +20,20 @@
 				<li>
 					<a href="#/merchantInfo" class="my-bookstore child-menu-par" data-id="1">信息统计<i class="arrow-icon arrIcon-one"></i></a>
 					<ul class="info-items">
-						<li><a href="#/saleroom">销售额</a></li>
-						<li><a href="#/customerRegNum">买家注册数</a></li>
-						<li><a href="#/sellerRegNum">商家注册数</a></li>
+						<li><a class="oper-item" ng-click="highlightCurItem($event)" href="#/saleroom">销售额</a></li>
+						<li><a class="oper-item" ng-click="highlightCurItem($event)" href="#/customerRegNum">买家注册数</a></li>
+						<li><a class="oper-item" ng-click="highlightCurItem($event)" href="#/sellerRegNum">商家注册数</a></li>
 					</ul>
 				</li>
 				<li>
 					<a href="#/merchantInfo" class="order-query child-menu-par" data-id="2">书籍推荐<i class="arrow-icon arrIcon-two"></i></a>
 					<ul class="recom-items">
-						<li><a href="#/hotBook">热销书籍</a></li>
-						<li><a href="#/weSearch">大家都在搜</a></li>
-						<li><a href="#/weSpeak">大家都在说</a></li>
+						<li><a class="oper-item" ng-click="highlightCurItem($event)" href="#/hotBook">热销书籍</a></li>
+						<li><a class="oper-item" ng-click="highlightCurItem($event)" href="#/weSearch">大家都在搜</a></li>
+						<li><a class="oper-item" ng-click="highlightCurItem($event)" href="#/weSpeak">大家都在说</a></li>
 					</ul>
 				</li>
-				<li>
+				<!--<li>
 					<a href="#/merchantInfo" class="my-bookstore child-menu-par" data-id="3">订单查询<i class="arrow-icon arrIcon-three"></i></a>
 					<ul class="order-items">
 						<li><a href="#/allOrder">全部订单</a></li>
@@ -41,19 +41,19 @@
 						<li><a href="#/waitGoods">待收货</a></li>
 						<li><a href="#/waitRecom">待评价</a></li>
 					</ul>
-				</li>
+				</li>-->
 				<li>
 					<a href="#/merchantInfo" class="order-query child-menu-par" data-id="4">级别评定<i class="arrow-icon arrIcon-four"></i></a>
 					<ul class="grade-items">
-						<li><a href="#/accessShop">评估店铺</a></li>
-						<li><a href="#/accessBook">评估书籍</a></li>
+						<li><a class="oper-item" ng-click="highlightCurItem($event)" href="#/accessShop">评估店铺</a></li>
+						<li><a class="oper-item" ng-click="highlightCurItem($event)" href="#/accessBook">评估书籍</a></li>
 					</ul>
 				</li>
 				<li>
 					<a href="#/merchantInfo" class="order-query child-menu-par" data-id="5">管理书籍类别<i class="arrow-icon arrIcon-five"></i></a>
 					<ul class="admin-items">
-						<li><a href="#/editSmCate">编辑子类</a></li>
-						<li><a href="#/addSmCate">添加子类</a></li>
+						<li><a class="oper-item" ng-click="highlightCurItem($event)" href="#/editSmCate">编辑子类</a></li>
+						<li><a class="oper-item" ng-click="highlightCurItem($event)" href="#/addSmCate">添加子类</a></li>
 					</ul>
 				</li>
 			</div>

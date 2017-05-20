@@ -9,41 +9,57 @@
 	</div>
 	<div class="display-order-box">
 		<ul class="order-status clearfic">
-			<li class="highlight-orderStatus"><span>全部订单</span></li>
-			<li><span>待付款</span></li>
-			<li><span>待收货</span></li>
-			<li><span>已发货</span></li>
-			<li><span>待点赞</span></li>
+			<li class="highlight-orderStatus" data-id="1"><span>全部订单</span></li>
+			<li data-id="2"><span>待付款</span></li>
+			<li data-id="3"><span>待收货</span></li>
+			<li data-id="4"><span>已发货</span></li>
+			<li data-id="5"><span>待点赞</span></li>
 		</ul>
-		<table class="dealSucc-info-box">
-			<thead>
-				<tr class="dealSucc-title">
-					<td colspan="3">下单时间：<span>2017-04-21 20:03:02</span></td>
-					<td colspan="3">订单号：<span>11833247</span></td>
-					<td colspan="1" class="delete-order"></td>
-				</tr>
-			</thead>
-			<tbody class="dealSucc-content">
-				<tr>
-					<td class="book-img" style="background-image: url('./images/index/e00001.jpg')"><i class="book-num">共3本</i></td>
-					<td class="book-name">三生花三生三世三生十里桃花</td>
-					<td>12</td>
-					<td>1</td>
-					<td>12</td>
-					<td>待发货</td>
-					<td class="book-delete"><span>订单详情</span><span>确认收货</span></td>
-				</tr>
-				<tr>
-					<td class="book-img" style="background-image: url('./images/index/e00001.jpg')"><i class="book-num">共1本</i></td>
-					<td class="book-name">三生花三生三世三生十里桃花</td>
-					<td>12</td>
-					<td>1</td>
-					<td>12</td>
-					<td>待确认</td>
-					<td class="book-delete"><span>订单详情</span><span>确认收货</span></td>
-				</tr>
-			</tbody>
-		</table>
+		<div class="order-box">
+			<div class="order-one">
+				<table class="dealSucc-info-box">
+					<thead>
+					<tr class="dealSucc-title">
+						<td colspan="3">下单时间：<span>2017-04-21 20:03:02</span></td>
+						<td colspan="3">订单号：<span>11833247</span></td>
+						<td colspan="1" class="delete-order"></td>
+					</tr>
+					</thead>
+					<tbody class="dealSucc-content">
+					<tr>
+						<td class="book-img" style="background-image: url('./images/index/e00001.jpg')"><i class="book-num">共3本</i></td>
+						<td class="book-name">三生花三生三世三生十里桃花</td>
+						<td>12</td>
+						<td>1</td>
+						<td>12</td>
+						<td>待发货</td>
+						<td class="book-delete"><span>订单详情</span><span>确认收货</span></td>
+					</tr>
+					<tr>
+						<td class="book-img" style="background-image: url('./images/index/e00001.jpg')"><i class="book-num">共1本</i></td>
+						<td class="book-name">三生花三生三世三生十里桃花</td>
+						<td>12</td>
+						<td>1</td>
+						<td>12</td>
+						<td>待确认</td>
+						<td class="book-delete"><span>订单详情</span><span>确认收货</span></td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="order-two">
+				<h1>我是2</h1>
+			</div>
+			<div class="order-three">
+				<h1>我是3</h1>
+			</div>
+			<div class="order-four">
+				<h1>我是4</h1>
+			</div>
+			<div class="order-five">
+				<h1>我是5</h1>
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -86,7 +102,6 @@
 		width:100%;
 		border-collapse: collapse;
 		text-align: center;
-		margin-top:20px;
 	}
 	.dealSucc-title{
 		height:41px;
@@ -172,4 +187,11 @@
 		color:#b4a078;
 	}
 	/* 订单状态部分结束 */
+	.order-box{
+		width:100%;
+		margin-top:20px;
+	}
+	.order-box>div:not(.order-one){
+		display:none;
+	}
 </style>

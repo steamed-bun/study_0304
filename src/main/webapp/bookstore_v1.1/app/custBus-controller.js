@@ -790,6 +790,13 @@ angular.module('custBus-controller',[])
         });
         /*------显示省市区信息结束-------*/
     })
-    .controller('accountMangeCtrl',function($scope){
-
-  });
+    .controller('orderMangeCtrl',function($scope){
+        //给关于订单的每一项加单击事件
+        $('.order-status>li').click(function(){
+            var index=parseInt($(this).attr('data-id'));
+            $('.order-status>li').removeClass('highlight-orderStatus');
+            $(this).addClass('highlight-orderStatus');
+            $('.order-box>div').css('display','none');
+            $('.order-box>div:nth-child('+index+')').css('display','block');
+        });
+    });

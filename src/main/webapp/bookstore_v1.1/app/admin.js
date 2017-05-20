@@ -57,7 +57,7 @@ angular.module('admin',['ngRoute','admin-controller'])
 				$sbilingItem.slideDown();
 				$iconItem.css('background-image','url("./images/up-arrow.png")');
 				$sbilingItem.addClass('open');
-			}	
+			}
 		});
 		/*-------------展开与隐藏二级菜单结束-------------*/
 
@@ -73,6 +73,13 @@ angular.module('admin',['ngRoute','admin-controller'])
 			}
 		});
 		/*----根据商家点击不同的选项，高亮不同的条目并在右边显示不同的内容结束---*/
+		/*----------与页面跳转有关开始----------------*/
+		$scope.highlightCurItem=function($event){
+			console.log('我喜欢');
+			$('.oper-item').removeClass('highlight-item');
+			$($event.target).addClass('highlight-item');
+		};
+		/*----------与页面跳转有关结束----------------*/
 	})
 	.controller('quitAdminCtrl',function($scope){
 		$scope.quitAdmin=function(){

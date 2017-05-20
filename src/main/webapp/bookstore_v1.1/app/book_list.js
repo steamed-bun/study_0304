@@ -401,6 +401,14 @@ angular.module('bookList',[])
 				}
 			});
 		};
+		//回到首页
+		$scope.goIndex=function(){
+			window.location.href='index_login.html';
+		};
+		//回到指定大类的书籍
+		$scope.goBigCate=function(){
+			window.location.href='book_list.html?bigSmateId='+$scope.bigCate.bigCateId;
+		};
 		//加载所有的书籍（根据大类id来获取）
 		$scope.loadAllBooks=function($event){
 			console.log('我要加载所有的书籍');

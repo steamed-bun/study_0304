@@ -2,40 +2,58 @@
     <table class="dealSucc-info-box">
         <thead>
         <tr class="dealSucc-title">
-            <th colspan="2">书籍信息</th>
+            <th>书籍名称</th>
             <th>单价</th>
             <th>数量</th>
             <th>实收</th>
             <th>交易时间</th>
-            <th>购买者</th>
             <th>状态</th>
         </tr>
         </thead>
         <tbody class="dealSucc-content">
         <tr>
-            <td class="book-img" style="background-image: url('./images/index/e00001.jpg')"></td>
             <td class="book-name">三生花三生三世三生十里桃花</td>
             <td>12</td>
             <td>1</td>
             <td>12</td>
             <td>2017-04-2</td>
-            <td>花开半夏</td>
-            <td class="book-delete">待发货</td>
+            <td class="book-delete"><span>确认发货</span></td>
         </tr>
         <tr>
-            <td class="book-img" style="background-image: url('./images/index/e00001.jpg')"></td>
             <td class="book-name">三生花三生三世三生十里桃花</td>
             <td>12</td>
             <td>1</td>
             <td>12</td>
             <td>2017-04-2</td>
-            <td>花开半夏</td>
-            <td class="book-delete">待发货</td>
+            <td class="book-delete"><span>确认发货</span></td>
+        </tr>
+        <tr>
+            <td class="book-name">三生花三生三世三生十里桃花</td>
+            <td>12</td>
+            <td>1</td>
+            <td>12</td>
+            <td>2017-04-2</td>
+            <td class="book-delete"><span>确认发货</span></td>
         </tr>
         </tbody>
     </table>
+    <span class="oper-hint">已确认发货</span>
 </div>
 <style>
+    .oper-hint{
+        position:fixed;
+        top:14px;
+        left:650px;
+        width:240px;
+        height:50px;
+        line-height: 50px;
+        color:#FFF;
+        background:#E78170;
+        text-align: center;
+        border-radius: 3px;
+        font-size:18px;
+        /*display:none;*/
+    }
     .dealSucc-info-box{
         width:100%;
         border-collapse: collapse;
@@ -67,7 +85,7 @@
     }
     .book-delete>span{
         display:inline-block;
-        width:50px;
+        width:68px;
         height:30px;
         line-height: 30px;
         background:#ddbea1;
@@ -76,5 +94,7 @@
         color:#FFF;
         cursor:pointer;
     }
-
+    .book-delete>span:hover{
+        background:rgb(221, 161, 161);
+    }
 </style>

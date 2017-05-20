@@ -174,15 +174,15 @@
 	  	    })
 	  	    .when('/orderMange',{
 	  	       templateUrl:'view/custBus/order_mange.html',
-	  	       //controller:'orderMangeCtrl'
+	  	       controller:'orderMangeCtrl'
 	  	    })
 	  	    .when('/addrMange',{
 	  	       templateUrl:'view/custBus/addr_mange.html',
 	  	       controller:'addrMangeCtrl'
 	  	    })
 	  	    .when('/accountMange',{
-	  	       templateUrl:'view/custBus/account_mange.html',
-	  	       controller:'accountMangeCtrl'
+	  	       /*templateUrl:'view/custBus/account_mange.html',
+	  	       controller:'accountMangeCtrl'*/
 	  	    })
 	  	    .when('/changeTelOne/:userId/:email',{
 	  	    	templateUrl:'view/custBus/changeTel/change_tel_one.html',

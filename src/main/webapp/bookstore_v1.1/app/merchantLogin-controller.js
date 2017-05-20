@@ -929,12 +929,19 @@ angular.module('merchantLogin-controller',[])
         /*------显示省市区信息结束-------*/
     })
     .controller('dealSuccCtrl',function($scope){
+        //已完成的订单
     })
-    .controller('dealingCtrl', function($scope) {
+    .controller('sentGoodsCtrl', function($scope) {
+        //已发货（书籍在运输中）
+        //给查看物流按钮添加点击事件
+        $scope.showLogistics=function(){
+            $('.logistics-mask').css('display','block');
+        };
+        //给关闭按钮添加点击事件
+        $scope.closeLogistics=function(){
+            $('.logistics-mask').css('display','none');
+        };
     })
-    .controller('waitDealingCtrl',function($scope){
-
-    })
-    .controller('waitSureCtrl',function($scope){
-
+    .controller('newOrderCtrl',function($scope){
+        //新订单（商家需确认发货）
     });
