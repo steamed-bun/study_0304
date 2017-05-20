@@ -9,7 +9,8 @@ public class Trade {
 	private User user;
 	private Integer status;
     private int quantity;
-    private float totalPrice;//购物车所有书本的总价
+    private float totalPrice;//购物车所有书本的总价\
+    private Address address;
 
     public Trade(Integer tradeId) {
         this.tradeId = tradeId;
@@ -74,17 +75,25 @@ public class Trade {
         this.totalPrice = totalPrice;
     }
 
-    public Trade(Integer tradeId, Date tradeTime, User user, Integer status, int quantity, float totalPrice) {
+    public Trade(Integer tradeId, Date tradeTime, User user, Integer status, int quantity, float totalPrice, Address address) {
         this.tradeId = tradeId;
         this.tradeTime = tradeTime;
         this.user = user;
         this.status = status;
         this.quantity = quantity;
         this.totalPrice = totalPrice;
+        this.address = address;
     }
 
     public Trade() {
 		super();
 	}
-	
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 }

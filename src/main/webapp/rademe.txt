@@ -1,26 +1,59 @@
 此次更新的
 所有的接口都在src.main.java.com.xiyou.action下面
 
-未整合的接口:
+此次更新未整合的接口:
 
-1、点赞 url : book-updateLike.action?book.bookId=1
+13、单本书的删除包括其图片url : book-deleteBook.action?book.bookId=17
+如果当前所删除的书籍与订单等等有关系，则不能被删除，但是此本书的名字会被换成“此书已下架”，
+同时库存被设置为0。
 
-2、点不赞 url : book-updateNoLike.action?book.bookId=1
+12、我将书本修改时同时修改图片的问题修改好了，由于页面和后台的端口号和路径问题，我后台不好测，
+你之后跑的时候，顺便测一下，就看看重新上传书本图片后，再次打开书本详细页面时候图片有没有修改成功。
+
+11、新增地址现已有返回值 key-value形式 ：key的name为addressId
+
+订单相关：
+1、点赞 url :trade-updateLike.action?tradeItem.book.bookId=1&tradeItem.status=2
+
+2、点down url : trade-updateNoLike.action?tradeItem.book.bookId=1&tradeItem.status=2
 
 3、将购物车信息提交订单 url:trade-addTrade.action
 
-4、修改订单状态 trade-updateTradeStatus.action?tradeItem.itemId=1
+4、修改订单状态 trade-updateTradeStatus.action?tradeItem.itemId=1tradeItem.status=?
+    {
+          卖家确认发货status=0
+          买家确认收货status=1
+    }
     (无论是卖家还是买家都是同一个接口)
-
-5、获取购物车所有数据 cartTo-getShopCart.action
-
-6、更新购物车单条数量 url: cartTo-updateItemQuantity.action?shopCartItemTo.quantity=23&shopCartItemTo.book.bookId=17
-
-7、删除一条Item 即点一本书的叉号 url: cartTo-deleteItem.action?shopCartItemTo.book.bookId=17&shopCartItemTo.quantity=12
 
 8、取消订单 trade-deleteTradeItem.action?tradeItem.itemId=1&tradeItem.book.bookId=18&tradeItem.quantity=12
 
-9、
+9、seller卖家获取当前状态下的所有订单 trade-getTradeItemBySelId.action?tradeItem.status=?
+{
+    status=0:新订单
+    status=1:已发货（待买家确认收货）
+    status=3:已完成
+}
+
+10、买家获取当前状态下的所有订单 url: trade-getTradeItemsByUserId.action?tradeItem.status=?
+                      * {
+                      *     status=0:待发货（有取消订单的按钮）
+                      *     status=1:已发货（有确认收货的按钮）
+                      *     status=2:待评价 (有点赞或点down的按钮)
+                      *     status=3:已完成
+                      * }
+
+购物车相关：
+5、获取购物车所有数据 cartTo-getShopCart.action
+{
+    我顺便还返回了购物车当前购物总，变量名为totalMoney
+}
+
+6、更新购物车单条数量 url: cartTo-updateItemQuantity.action?shopCartItemTo.quantity=23&shopCartItemTo.book.bookId=17
+
+7、购物车删除一条Item 即点一本书的叉号 url: cartTo-deleteItem.action?shopCartItemTo.book.bookId=17&shopCartItemTo.quantity=12
+
+
 
 
 

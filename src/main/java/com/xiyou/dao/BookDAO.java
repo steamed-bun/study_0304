@@ -9,6 +9,12 @@ import com.xiyou.exception.DBException;
 
 public interface BookDAO {
 
+	/**
+	 * 假性删除书本
+	 * @param bookId
+     */
+	void deleteBookFalse(Integer bookId);
+
     /**
      * 差评
      * @param bookId bookId
@@ -169,10 +175,10 @@ public interface BookDAO {
 
 	/**
 	 * 已测
-	 * 删除任意张图片
-	 * @param bookImages 图片Id
+	 * 删除当前书本的图片
+	 * @param bookId 关联书本Id
      */
-	void deleteBookImage(List<BookImages> bookImages);
+	void deleteBookImage(Integer bookId);
 
 	/**
 	 * 获取书本数量
@@ -212,7 +218,7 @@ public interface BookDAO {
 	 * 删除一本书
 	 * @param bookId bookId
 	 */
-	void deleteBook(Integer bookId);
+	void deleteBook(Integer bookId) throws Exception ;
 	
 	/**
 	 * 添加一本书

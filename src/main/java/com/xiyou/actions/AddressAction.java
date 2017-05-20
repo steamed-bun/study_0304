@@ -94,6 +94,7 @@ public class AddressAction extends ActionSupport implements SessionAware
         User user = userService.getUserForAddress(userId);
         address.setUser(user);
         addressService.saveOrUpdateAddress(address);
+        dataMap.put("addressId", address.getAddressId());
         this.setAddress(null);
         return SUCCESS;
     }

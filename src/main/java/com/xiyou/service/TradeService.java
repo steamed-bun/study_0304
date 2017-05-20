@@ -20,6 +20,15 @@ public class TradeService {
     @Autowired
     private BookDAO bookDAO;
 
+    public List<TradeItem> getTradeItemsByUserId(String userId, Integer status){
+        return tradeDAO.getTradeItems(userId, status);
+    }
+
+    public int getTradeSize(Integer itemId){
+        int count = (int) tradeDAO.getTradeSize(itemId);
+        return count;
+    }
+
     public Integer getStatusById(Integer itemId){
         return tradeDAO.getStatusById(itemId);
     }
@@ -28,15 +37,15 @@ public class TradeService {
         tradeDAO.deleteTradeItem(itemId);
     }
 
-    public  void updateStatus(Integer itemId){
-        tradeDAO.updateStatus(itemId);
+    public  void updateStatus(Integer itemId, Integer status){
+        tradeDAO.updateStatus(itemId, status);
     }
 
     public Integer getTradeNumByStatus(String shopId){
         return tradeDAO.getTradeNumByStatus(shopId);
     }
 
-    public List<TradeItem> getTradeItemsByShopId(String shopId, String status){
+    public List<TradeItem> getTradeItemsByShopId(String shopId, Integer status){
         return tradeDAO.getTradeItemsByShopId(shopId, status);
     }
 

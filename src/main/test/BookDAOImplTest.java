@@ -98,7 +98,8 @@ public class BookDAOImplTest {
     @Test
     @Transactional
     public void testGetQuantity(){
-        System.out.println(bookDAO.getQuantity(new Book(13)));
+//        System.out.println(bookDAO.getQuantity(new Book(13)));
+        bookDAO.deleteBookFalse(16);
     }
 
     @Test

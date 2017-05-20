@@ -104,6 +104,7 @@ public class SellerAction extends ActionSupport implements ModelDriven<Seller>,
 	 * 已测
      * 1、登录方法  url: sel-sellectSeller.action?chose=login
      * 需传入seller.selTel 和 seller.selPassword
+	 * sel-sellectSeller.action?chose=login&seller.selTel=514156689@qq.com&seller.selPassword=123asdASD
 	 * return status {success: yes} {error: no} 会返回到data中
      * 2、登录完 即其它页面需要显示时
 	 * 查找显示seller的信息 url: sel-sellectSeller.action?chose=CHOSE

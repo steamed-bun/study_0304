@@ -17,6 +17,14 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 	private static final int SELLER_PAGE_SIZE = 9;//书本数量
 	private static final int BACK_PAGE_SIZE = 10;//后台书本数量
 	private static final int BASE_NUM = 0;
+	private static final String DELETE_BOOK_NAME = "此书已下架";
+
+	@Override
+	public void deleteBookFalse(Integer bookId) {
+		String hql= "UPDATE Book b SET b.bookName = '" + DELETE_BOOK_NAME + "', b.quantity = 0 " +
+				"WHERE b.bookId = :bookId";
+		getSession().createQuery(hql).setInteger("bookId", bookId).executeUpdate();
+	}
 
 	@Override
 	public void updateNoLike(Integer bookId) {
@@ -273,13 +281,9 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 	}
 
 	@Override
-	public void deleteBookImage(List<BookImages> bookImages) {
-		Session session = getSession();
-		String hql = "DELETE FROM BookImages b WHERE b.imageId = :imageId";
-		for (BookImages bookImage : bookImages) {
-			session.createQuery(hql)
-					.setString("imageId", bookImage.getImageId().toString()).executeUpdate();
-		}
+	public void deleteBookImage(Integer bookId) {
+		String hql = "DELETE FROM BookImages b WHERE b.book = :bookId";
+		getSession().createQuery(hql).setInteger("bookId", bookId).executeUpdate();
 	}
 
 	public Integer getQuantity(Book book) {
@@ -355,7 +359,7 @@ public class BookDAOImpl extends BaseDAOImpl implements BookDAO {
 	}
 
 	@Override
-	public void deleteBook(Integer bookId) {
+	public void deleteBook(Integer bookId) throws Exception {
 		Session session = getSession();
 		String hql = "DELETE Book b WHERE b.bookId = :bookId";
 		session.createQuery(hql).setInteger("bookId", bookId).executeUpdate();

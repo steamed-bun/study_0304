@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface SellerDAO {
 
+//	void deleteSeller(String selId);
+
 	/**
 	 * 已测
 	 * 修改当前seller的密码
