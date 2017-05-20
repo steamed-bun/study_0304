@@ -157,7 +157,7 @@ public class TradeAction extends ActionSupport implements SessionAware{
             i++;
         }
         dataMap.put("size", i);
-        dataMap.put("tradeItems", tradeItems);
+//        dataMap.put("tradeItems", tradeItems);
         tradeItems.clear();
         return SUCCESS;
     }

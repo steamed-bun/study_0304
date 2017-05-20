@@ -188,7 +188,18 @@
 	});
 	//给去结算添加事件
 	$('.goPayPage').click(function(){
-		window.location.href='submit_order.html';
+		$.ajax({
+			type: 'POST',
+			url: 'trade-addTrade.action',
+			data: '',//no data
+			dataType: 'JSON',
+			success: function(data){
+				console.log(data);
+				if(data.status=='yes'){
+					window.location.href='submit_order.html';
+				}
+			}
+		});
 	});
 	//给购物车里面的删除按钮添加事件
 	$(".shop-book-list").on('click', 'i.deleteCurBook', function() {

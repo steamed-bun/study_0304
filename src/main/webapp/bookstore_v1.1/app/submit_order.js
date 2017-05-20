@@ -12,6 +12,15 @@ angular.module('submitOrder',[])
             }
         };
     })
+    .controller('submitCtrl',function($scope){
+        $scope.$on("to-parent",function(e,data){
+            console.log(data);
+            $scope.$broadcast('to-child',data);
+        });
+        $scope.$on("to-parent-edit-addr",function(e,data){
+            $scope.$broadcast('to-child-edit-addr',data);
+        });
+    })
     .controller('selectAddrCtrl',function($scope,$http){
         $scope.userAddr={
             name:' ',
@@ -29,46 +38,105 @@ angular.module('submitOrder',[])
             if(response.status=='no'){
                 //该用户没有默认地址
                 $('.new-addr-box').css('display','block');
+                console.log('我走的是没有默认地址这条路');
             }else{
+                console.log('我走的是有默认地址这条路');
+                //该用户有默认地址
                 response=response.address;
+                console.log(response);
                 $scope.userAddr.name=response.name;
                 $scope.userAddr.tel=response.tel;
                 $scope.userAddr.addrDetail=response.province.provinceName+response.city.cityName+response.county.countyName+response.street;
                 $('.select-addr-box').css('display','block');
+                //给修改按钮添加事件
+                $scope.editMyAddr=function(){
+                    $('.select-addr-box').css('display','none');
+                    $('.edit-addr-box').css('display','block');
+                    $scope.userEditAddr={
+                        selectProvince:'',
+                        provinceId:'',
+                        selectCity:'',
+                        cityId:'',
+                        selectRegi:'',
+                        countyId:'',
+                        street:'test',
+                        name:'',
+                        tel:'',
+                        def:'',
+                        addressId:''
+                    };
+                    //获得用于待编辑的地址所有信息
+                    $http({
+                        method:'POST',
+                        url:'address-getDefAddress.action',
+                        data: '',// no data
+                        headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+                    }).success(function(response){
+                        console.log(response);
+                        if(response.status=='yes'){
+                            response=response.address;
+                            $scope.userEditAddr.selectProvince=response.province.provinceName;
+                            $scope.userEditAddr.provinceId=response.province.provinceId;
+                            $scope.userEditAddr.selectCity=response.city.cityName;
+                            $scope.userEditAddr.cityId=response.city.cityId;
+                            $scope.userEditAddr.selectRegi=response.county.countyName;
+                            $scope.userEditAddr.countyId=response.county.countyId;
+                            $scope.userEditAddr.street=response.street;
+                            $scope.userEditAddr.name=response.name;
+                            $scope.userEditAddr.tel=response.tel;
+                            if(response.def==1){
+                                $scope.userEditAddr.def=true;
+                            }else{
+                                $scope.userEditAddr.def=false;
+                            }
+                            $scope.userEditAddr.addressId=response.addressId;
+                            $scope.$emit("to-parent-edit-addr",$scope.userEditAddr);
+                        }
+                    });
+                };
+                //给切换地址按钮添加点击事件
+                $scope.changeMyAddr=function(){
+                    $('.addr-as-default').css('display','block');
+                    console.log('我是切换地址');
+                    //页面一加载得到该买家的所有地址信息(可能不止一条)
+                    $scope.userAddrLists=[];
+                    $http({
+                        method:'POST',
+                        url:'address-getAddressByUserId.action',
+                        data: '',//no data
+                        headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+                    }).success(function(response){
+                        console.log(response);
+                        var perAddr;
+                        if(response.status=='yes'){
+                            response=response.addresses;
+                            for(var i=0;i<response.length;i++){
+                                perAddr={};
+                                perAddr.userName=response[i].name;
+                                perAddr.tel=response[i].tel;
+                                perAddr.addrDetail=response[i].province.provinceName+response[i].city.cityName+response[i].county.countyName+response[i].street;
+                                perAddr.addressId=response[i].addressId;
+                                $scope.userAddrLists.push(perAddr);
+                            }
+                            console.log($scope.userAddrLists);
+                            //将获得的地址信息，传给父ctrl
+                            $scope.$emit("to-parent",$scope.userAddrLists);
+                        }
+                    });
+                };
+                //给新建地址按钮添加事件
+                $scope.addNewAddr=function(){
+                    $('.select-addr-box').css('display','none');
+                    $('.new-addr-box').css('display','block');
+                    console.log('我是新建地址');
+                };
             }
         });
-        //给修改按钮添加事件
-        $scope.editMyAddr=function(){
-            $('.select-addr-box').css('display','none');
-            $('.edit-addr-box').css('display','block');
-        };
-        //给切换地址按钮添加点击事件
-        $scope.changeMyAddr=function(){
-            $('.addr-as-default').css('display','block');
-            console.log('我是切换地址');
-        };
-        //给新建地址按钮添加事件
-        $scope.addNewAddr=function(){
-            $('.select-addr-box').css('display','none');
-            $('.new-addr-box').css('display','block');
-            console.log('我是新建地址');
-        };
     })
     .controller('newAddrCtrl',function($scope,$http){
         //保存买家输入的地址的对象
         //provinceId=1&address.county.countyId=1&address.city.cityId=1&address.street=test&address.tel=18829289582&address.def=1
         $scope.userNewAddr={
-/*            selectProvince:'',
-            selectProvinceId:'',
-            selectCity:'',
-            selectCityId:'',
-            selectRegi:'',
-            selectRegiId:'',
-            street:'',
-            name:'',
-            email:'',
-            isDefault:'',*/
-
             selectProvince:'',
             provinceId:'',
             selectCity:'',
@@ -284,47 +352,24 @@ angular.module('submitOrder',[])
         /*------显示省市区信息结束-------*/
     })
     .controller('editAddrCtrl',function($scope,$http){
-        // 获得待修改的地址信息的基础变量设置
-        $scope.userEditAddr={
-            selectProvince:'',
-            provinceId:'',
-            selectCity:'',
-            cityId:'',
-            selectRegi:'',
-            countyId:'',
-            street:'test',
-            name:'',
-            tel:'',
-            def:'',
-            addressId:''
-        };
-        //获得用于待编辑的地址所有信息
-        $http({
-             method:'POST',
-             url:'address-getDefAddress.action',
-             data: '',// no data
-             headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-         }).success(function(response){
-            console.log(response);
-            if(response.status=='yes'){
-                response=response.address;
-                $scope.userEditAddr.selectProvince=response.province.provinceName;
-                $scope.userEditAddr.provinceId=response.province.provinceId;
-                $scope.userEditAddr.selectCity=response.city.cityName;
-                $scope.userEditAddr.cityId=response.city.cityId;
-                $scope.userEditAddr.selectRegi=response.county.countyName;
-                $scope.userEditAddr.countyId=response.county.countyId;
-                $scope.userEditAddr.street=response.street;
-                $scope.userEditAddr.name=response.name;
-                $scope.userEditAddr.tel=response.tel;
-                if(response.def==1){
-                    $scope.userEditAddr.def=true;
-                }else{
-                    $scope.userEditAddr.def=false;
-                }
-                $scope.userEditAddr.addressId=response.addressId;
-            }
-         });
+        $scope.$on("to-child-edit-addr",function(e,data){
+            console.log(data);
+            // 获得待修改的地址信息的基础变量设置
+            $scope.userEditAddr={
+                selectProvince:data.selectProvince,
+                provinceId:data.provinceId,
+                selectCity:data.selectCity,
+                cityId:data.cityId,
+                selectRegi:data.selectRegi,
+                countyId:data.countyId,
+                street:data.street,
+                name:data.name,
+                tel:data.tel,
+                def:data.def,
+                addressId:data.addressId
+            };
+        });
+
         //给编辑地址的确认按钮添加事件
         $scope.saveEditAddr=function(){
             var provinceId=$('.mer-province').attr('data-id'),
@@ -504,67 +549,29 @@ angular.module('submitOrder',[])
     })
     .controller('addrAsDefaultCtrl',function($scope,$http){
         $scope.userAddrLists=[];
-       /* $scope.userAddrLists=[
-            {
-                userName:'不好就',
-                tel:'13819242249',
-                addrDetail:'陕西省西安市长安区西安邮电大学南校区西区'
-            }
-           /!*
-           {
-                addressId:"1", //address对象的Id
-                provinceName:'13819242249',//省
-                cityName:'不好就',//市
-                countyName:'',//县
-                street:"test",//街道
-                tel:"120",//电话
-                name:"test",//姓名
-                addrDetail:'陕西省西安市长安区西安邮电大学南校区西区'
-            }
-            *!/
-        ];*/
+        $scope.$on("to-child",function(e,data){
+            console.log(data);
+            $scope.userAddrLists=data;
+            $scope.$on("ngRepeatFinished", function (repeatFinishedEvent, element){
+                var repeatId = element.parent().attr("repeat-id");
+                switch (repeatId){
+                    case "r1":
+                        console.log('r1渲染完了');
+                        //给第一个地址信息块添加‘默认地址’
+                        var $firstElem=$('.wait-addrs>li:first-child');
+                        $('.wait-addrs>li').removeClass('highlight-select-addr');
+                        $firstElem.addClass('highlight-select-addr');
+                        $('.default-addr-mark').html('');
+                        $($firstElem.children('.default-addr-mark')).html('默认地址');
+                        break;
+
+                }
+            });
+        });
         //给关闭按钮添加事件
         $('.close-wait-addr').click(function(){
             $('.addr-as-default').css('display','none');
         });
-        //页面一加载得到该买家的所有地址信息(可能不止一条)
-        $http({
-             method:'POST',
-             url:'address-getAddressByUserId.action',
-             data: '',//no data
-             headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-         }).success(function(response){
-            console.log(response);
-            var perAddr;
-            if(response.status=='yes'){
-                response=response.addresses;
-                for(var i=0;i<response.length;i++){
-                    perAddr={};
-                    perAddr.userName=response[i].name;
-                    perAddr.tel=response[i].tel;
-                    perAddr.addrDetail=response[i].province.provinceName+response[i].city.cityName+response[i].county.countyName+response[i].street;
-                    perAddr.addressId=response[i].addressId;
-                    $scope.userAddrLists.push(perAddr);
-                }
-                $scope.$on("ngRepeatFinished", function (repeatFinishedEvent, element){
-                    var repeatId = element.parent().attr("repeat-id");
-                    switch (repeatId){
-                        case "r1":
-                           console.log('r1渲染完了');
-                            //给第一个地址信息块添加‘默认地址’
-                            var $firstElem=$('.wait-addrs>li:first-child');
-                            $('.wait-addrs>li').removeClass('highlight-select-addr');
-                            $firstElem.addClass('highlight-select-addr');
-                            $('.default-addr-mark').html('');
-                            $($firstElem.children('.default-addr-mark')).html('默认地址');
-                            break;
-
-                    }
-                });
-                console.log($scope.userAddrLists);
-            }
-         });
-
         //给选择默认地址的确认按钮添加事件
         $scope.saveDefaultAddr=function(){
             var addressId=$('.highlight-select-addr').attr('data-id');
@@ -600,59 +607,55 @@ angular.module('submitOrder',[])
     })
     .controller('userBookInfoCtrl',function($scope,$http){
         //每本书的信息
-        $scope.userBooks=[
-            {
-                /*
-                imgUrl:'./images/index/e00001.jpg',
-                bookName:'你是我的小确幸',
-                perPrice:'12',
-                bookNum:'1',
-                totalPrice:'12'
-                 */
-                imageURL:'./images/index/e00001.jpg',
-                bookName:'你是我的小确幸',
-                bookPrice:'12',
-                quantity:'1',
-                itemMoney:'12',
-                bookId:'1'
-
-            },
-            {
-                /*
-                 imgUrl:'./images/index/e00001.jpg',
-                 bookName:'你是我的小确幸',
-                 perPrice:'12',
-                 bookNum:'1',
-                 totalPrice:'12'
-                 */
-                imageURL:'./images/index/e00001.jpg',
-                bookName:'你是我的小确幸',
-                bookPrice:'12',
-                quantity:'1',
-                itemMoney:'12',
-                bookId:'1'
-
-            },
-        ];
+        $scope.userBooks=[];
         $scope.order={
-            /*
-            totalPrice:'24',
-            totalShouldPay:'24'
-            */
-            //两个变量我只改了一个
             totalMoney:'24',
             totalShouldPay:'24'
         };
-        //TODO F.从数据中获得用户待购买的书籍信息
-      /*  $http({
+        //从数据中获得用户待购买的书籍信息
+        $http({
              method:'POST',
-             url:'cartTo-getShopCart.action',
-             data: '',//no data
+             url:'trade-getTradeItemsByUserId.action',
+             data: 'tradeItem.status=0',//no data
              headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-         }).success(function(response){
-            console.log(response);
-         });*/
+         }).success(function(data){
+            console.log(data);
+            console.log('没看上档次');
+            data=data.tradeItems;
+            for(var k=0;k<data.length;k++){
+                var book={};
+                book.bookName=data[k].book.bookName;
+                book.bookPrice=data[k].book.bookPrice;
+                book.quantity=data[k].book.quantity;
+                book.itemMoney=parseFloat(data[k].book.bookPrice*data[k].book.quantity);
+                book.bookId=data[k].book.bookId;
+                $scope.userBooks.push(book);
+            }
+            $scope.order.totalMoney=data[0].trade.totalPrice;
+            $scope.order.totalShouldPay=data[0].trade.totalPrice;
+            $scope.order.tradeId=data[0].trade.tradeId;
+         });
+        //去付款
         $scope.goPay=function(){
-           window.location.href='purchase.html';
+            //检测是否有默认地址
+            $http({
+                method:'POST',
+                url:'address-getDefAddress.action',
+                data:'',//已经序列化的用户输入的数据
+                headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+            }).success(function(data){
+                console.log(data);
+                if(data.status=='no'){
+                    //没有默认地址，要给买家提示
+                    var $errorInfo=$('.oper-hint');
+                    $errorInfo.html('请输入收货地址！');
+                    $errorInfo.slideDown();//错误提示信息缓慢出现
+                    setTimeout(function(){
+                        $errorInfo.slideUp();
+                    },3000);
+                }else{
+                    window.location.href='purchase.html?money='+$scope.order.totalMoney+'&tradeId='+$scope.order.tradeId;
+                }
+            });
         };
     });

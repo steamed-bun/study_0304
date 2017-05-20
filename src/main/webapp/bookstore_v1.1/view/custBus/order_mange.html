@@ -9,61 +9,224 @@
 	</div>
 	<div class="display-order-box">
 		<ul class="order-status clearfic">
-			<li class="highlight-orderStatus" data-id="1"><span>全部订单</span></li>
-			<li data-id="2"><span>待付款</span></li>
-			<li data-id="3"><span>待收货</span></li>
-			<li data-id="4"><span>已发货</span></li>
-			<li data-id="5"><span>待点赞</span></li>
+			<li class="highlight-orderStatus" data-id="1"><span>待发货</span></li>
+			<li data-id="2"><span>已发货</span></li>
+			<li data-id="3"><span>待评价</span></li>
+			<li data-id="4"><span>已完成</span></li>
 		</ul>
 		<div class="order-box">
 			<div class="order-one">
 				<table class="dealSucc-info-box">
 					<thead>
-					<tr class="dealSucc-title">
-						<td colspan="3">下单时间：<span>2017-04-21 20:03:02</span></td>
-						<td colspan="3">订单号：<span>11833247</span></td>
-						<td colspan="1" class="delete-order"></td>
-					</tr>
+						<tr class="dealSucc-title">
+							<!--<td colspan="3">下单时间：<span>2017-04-21 20:03:02</span></td>
+							<td colspan="3">订单号：<span>11833247</span></td>
+							<td colspan="1" class="delete-order"></td>-->
+							<td>订单号</td>
+							<td>书籍名称</td>
+							<td>单价</td>
+							<td>数量</td>
+							<td>小计</td>
+							<td>下单时间</td>
+							<td>操作</td>
+						</tr>
 					</thead>
 					<tbody class="dealSucc-content">
-					<tr>
-						<td class="book-img" style="background-image: url('./images/index/e00001.jpg')"><i class="book-num">共3本</i></td>
-						<td class="book-name">三生花三生三世三生十里桃花</td>
-						<td>12</td>
-						<td>1</td>
-						<td>12</td>
-						<td>待发货</td>
-						<td class="book-delete"><span>订单详情</span><span>确认收货</span></td>
-					</tr>
-					<tr>
-						<td class="book-img" style="background-image: url('./images/index/e00001.jpg')"><i class="book-num">共1本</i></td>
-						<td class="book-name">三生花三生三世三生十里桃花</td>
-						<td>12</td>
-						<td>1</td>
-						<td>12</td>
-						<td>待确认</td>
-						<td class="book-delete"><span>订单详情</span><span>确认收货</span></td>
-					</tr>
+						<tr ng-repeat="book in readyOrder track by $index">
+							<td>{{book.tradeId}}</td>
+							<td class="book-name">{{book.bookName}}</td>
+							<td>{{book.bookPrice}}</td>
+							<td>{{book.bookNum}}</td>
+							<td>{{book.totalMoney}}</td>
+							<td>{{book.tradeTime}}</td>
+							<td class="book-delete"><span data-id="{{book.tradeId}}" data-bookId="{{book.bookId}}" data-bookNum="{{book.bookNum}}" ng-click="cancelOrder($event)">取消订单</span></td>
+						</tr>
+						<!--<tr>
+							<td>1111</td>
+							<td class="book-name">三生花三生三世三生十里桃花</td>
+							<td>12</td>
+							<td>1</td>
+							<td>12</td>
+							<td>2017-09-20</td>
+							<td class="book-delete"><span>取消订单</span></td>
+						</tr>-->
 					</tbody>
 				</table>
 			</div>
 			<div class="order-two">
-				<h1>我是2</h1>
+				<table class="dealSucc-info-box">
+					<thead>
+					<tr class="dealSucc-title">
+						<!--<td colspan="3">下单时间：<span>2017-04-21 20:03:02</span></td>
+                        <td colspan="3">订单号：<span>11833247</span></td>
+                        <td colspan="1" class="delete-order"></td>-->
+						<td>订单号</td>
+						<td>书籍名称</td>
+						<td>单价</td>
+						<td>数量</td>
+						<td>小计</td>
+						<td>下单时间</td>
+						<td>操作</td>
+					</tr>
+					</thead>
+					<tbody class="dealSucc-content">
+						<tr ng-repeat="book in waitOrder track by $index">
+							<td>{{book.tradeId}}</td>
+							<td class="book-name">{{book.bookName}}</td>
+							<td>{{book.bookPrice}}</td>
+							<td>{{book.bookNum}}</td>
+							<td>{{book.totalMoney}}</td>
+							<td>{{book.tradeTime}}</td>
+							<td class="book-delete"><span ng-click="showLogistics()">查看物流</span><span data-id="{{book.tradeId}}" ng-click="confirmGoods($event)">确认收货</span></td>
+						</tr>
+						<!--<tr>
+							<td>1111</td>
+							<td class="book-name">三生花三生三世三生十里桃花</td>
+							<td>12</td>
+							<td>1</td>
+							<td>12</td>
+							<td>2017-09-20</td>
+							<td class="book-delete"><span>查看物流</span><span>确认收货</span></td>
+						</tr>-->
+					</tbody>
+				</table>
 			</div>
 			<div class="order-three">
-				<h1>我是3</h1>
+				<table class="dealSucc-info-box">
+					<thead>
+					<tr class="dealSucc-title">
+						<!--<td colspan="3">下单时间：<span>2017-04-21 20:03:02</span></td>
+                        <td colspan="3">订单号：<span>11833247</span></td>
+                        <td colspan="1" class="delete-order"></td>-->
+						<td>订单号</td>
+						<td>书籍名称</td>
+						<td>单价</td>
+						<td>数量</td>
+						<td>小计</td>
+						<td>下单时间</td>
+						<td>操作</td>
+					</tr>
+					</thead>
+					<tbody class="dealSucc-content">
+						<tr ng-repeat="book in waitAccess track by $index">
+							<td>{{book.tradeId}}</td>
+							<td class="book-name">{{book.bookName}}</td>
+							<td>{{book.bookPrice}}</td>
+							<td>{{book.bookNum}}</td>
+							<td>{{book.totalMoney}}</td>
+							<td>{{book.tradeTime}}</td>
+							<td class="book-delete"><span data-bookId="{{book.bookId}}" data-tradeId="{{book.tradeId}}" class="approve-book" ng-click="approveBook($event)"></span><span data-tradeId="{{book.tradeId}}" ng-click="disApproveBook($event)" data-bookId="{{book.bookId}}" class="disapprove-book"></span></td>
+						</tr>
+					<!--<tr>
+						<td>1111</td>
+						<td class="book-name">三生花三生三世三生十里桃花</td>
+						<td>12</td>
+						<td>1</td>
+						<td>12</td>
+						<td>2017-09-20</td>
+						<td class="book-delete"><span>赞</span><span>不赞</span></td>
+					</tr>-->
+					</tbody>
+				</table>
 			</div>
 			<div class="order-four">
-				<h1>我是4</h1>
-			</div>
-			<div class="order-five">
-				<h1>我是5</h1>
+				<table class="dealSucc-info-box">
+					<thead>
+					<tr class="dealSucc-title">
+						<!--<td colspan="3">下单时间：<span>2017-04-21 20:03:02</span></td>
+                        <td colspan="3">订单号：<span>11833247</span></td>
+                        <td colspan="1" class="delete-order"></td>-->
+						<td>订单号</td>
+						<td>书籍名称</td>
+						<td>单价</td>
+						<td>数量</td>
+						<td>小计</td>
+						<td>下单时间</td>
+					</tr>
+					</thead>
+					<tbody class="dealSucc-content">
+						<tr ng-repeat="book in accomlishOrder track by $index">
+							<td>{{book.tradeId}}</td>
+							<td class="book-name">{{book.bookName}}</td>
+							<td>{{book.bookPrice}}</td>
+							<td>{{book.bookNum}}</td>
+							<td>{{book.totalMoney}}</td>
+							<td>{{book.tradeTime}}</td>
+						</tr>
+					<!--<tr>
+						<td>1111</td>
+						<td class="book-name">三生花三生三世三生十里桃花</td>
+						<td>12</td>
+						<td>1</td>
+						<td>12</td>
+						<td>2017-09-20</td>
+					</tr>-->
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
+	<div class="logistics-mask">
+		<div class="logistics-box">
+			<span class="close-icon" ng-click="closeLogistics()"></span>
+			<div class="logistics-info">
+				<iframe src="./logistics.html" width="100%" height="100%" frameborder="0"></iframe>
+			</div>
+		</div>
+	</div>
+	<span class="oper-hint">已确认发货</span>
 </div>
 
 <style type="text/css">
+	.logistics-mask{
+		position: fixed;
+		top:0;
+		left:0;
+		width:100%;
+		height:100%;
+		background:rgba(0,0,0,0.4);
+		display:none;
+		z-index:999999;
+	}
+	.logistics-box{
+		position: absolute;
+		top:50%;
+		left:50%;
+		width:500px;
+		height:400px;
+		margin-left:-250px;
+		margin-top:-200px;
+		background:#FFF;
+		padding:40px 40px 40px 4px;
+	}
+	.close-icon{
+		position: absolute;
+		top:10px;
+		right:10px;
+		width:24px;
+		height:24px;
+		background:url('./images/close.png') center center no-repeat;
+		cursor:pointer;
+	}
+	.logistics-info{
+		width:100%;
+		height:100%;
+	}
+	.oper-hint{
+		position:fixed;
+		top:14px;
+		left:650px;
+		width:240px;
+		height:50px;
+		line-height: 50px;
+		color:#FFF;
+		background:#E78170;
+		text-align: center;
+		border-radius: 3px;
+		font-size:18px;
+		display:none;
+		z-index:99999;
+	}
 	/* 没有订单开始 */
 	.no-addr-box{
 		width:100%;
@@ -147,6 +310,25 @@
 		color:#69c;
 		cursor:pointer;
 		margin:0 auto 5px auto;
+	}
+	.approve-book,.disapprove-book{
+		width:50px !important;
+		height:32px !important;
+		display:inline-block !important;
+	}
+	.approve-book{
+		background:url("./images/approve.png") center center no-repeat;
+	}
+	.approve-book:hover{
+		background:url("./images/approve-highlight.png") center center no-repeat;
+	}
+	.disapprove-book{
+		position:relative;
+		top:7px;
+		background:url("./images/disApprove.png") center center no-repeat;
+	}
+	.disapprove-book:hover{
+		background:url("./images/disApprove-highlight.png") center center no-repeat;
 	}
 	.book-delete>span:hover{
 		text-decoration: underline;

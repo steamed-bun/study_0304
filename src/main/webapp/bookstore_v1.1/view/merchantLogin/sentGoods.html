@@ -11,22 +11,22 @@
 			</tr>
 		</thead>
 		<tbody class="dealSucc-content">
-			<tr>
+			<tr ng-repeat="book in dealingOrder track by $index">
+				<td class="book-name">{{book.bookName}}</td>
+				<td>{{book.bookPrice}}</td>
+				<td>{{book.bookNum}}</td>
+				<td>{{book.bookTotalPrice}}</td>
+				<td>{{book.tradeTime}}</td>
+				<td class="book-sure"><span ng-click="showLogistics()" data-id="{{book.tradeId}}">查看物流</span></td>
+			</tr>
+			<!--<tr>
 				<td class="book-name">三生花三生三世三生十里桃花</td>
 				<td>12</td>
 				<td>1</td>
 				<td>12</td>
 				<td>2017-04-2</td>
 				<td class="book-sure"><span ng-click="showLogistics()">查看物流</span></td>
-			</tr>
-			<tr>
-				<td class="book-name">三生花三生三世三生十里桃花</td>
-				<td>12</td>
-				<td>1</td>
-				<td>12</td>
-				<td>2017-04-2</td>
-				<td class="book-sure"><span ng-click="showLogistics()">查看物流</span></td>
-			</tr>
+			</tr>-->
 		</tbody>
 	</table>
 	<div class="logistics-mask">
@@ -37,8 +37,13 @@
 			</div>
 		</div>
 	</div>
+	<p class="no-order">暂无订单信息</p>
 </div>
 <style>
+	.no-order{
+		display:none;
+		text-align: center;
+	}
 	.logistics-mask{
 		position: fixed;
 		top:0;
@@ -76,6 +81,7 @@
 		width:100%;
 		border-collapse: collapse;
 		text-align: center;
+		empty-cells: hide;
 	}
 	.dealSucc-title{
 		height:41px;

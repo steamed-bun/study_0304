@@ -14,11 +14,11 @@ public class TradeItem {
 	private Integer status = 0;//订单完成情况 默认为0
 	private float price;
 
-	public TradeItem(float price, Integer status, Date tradeTime, Integer bookId, String bookName, Integer quantity, Integer itemId) {
+	public TradeItem(float price, Integer status, Date tradeTime,Integer tradeId, float totalPrice, Integer bookId, String bookName, float bookPrice, Integer quantity, Integer itemId) {
 		this.price = price;
 		this.status = status;
-		this.trade = new Trade(new java.sql.Date(tradeTime.getTime()));
-		this.book = new Book(bookId,bookName);
+		this.trade = new Trade(tradeId, new java.sql.Date(tradeTime.getTime()), totalPrice);
+		this.book = new Book(bookId,bookName,bookPrice);
 		this.quantity = quantity;
 		this.itemId = itemId;
 	}

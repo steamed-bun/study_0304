@@ -29,14 +29,14 @@ public class TradeDAOImpl extends BaseDAOImpl implements TradeDAO {
     @Override
     public void deleteTradeItem(Integer itemId) {
         String hql  = "DELETE TradeItem t WHERE t.itemId = :itemId";
-        getSession().createQuery(hql).setInteger("itemId", itemId);
+        getSession().createQuery(hql).setInteger("itemId", itemId).executeUpdate();
     }
 
     @Override
     public List<TradeItem> getTradeItems(String userId, Integer status) {
         String hql = "SELECT new TradeItem " +
                 "( " +
-                "i.price, i.status, i.trade.tradeTime, i.book.bookId, i.book.bookName, " +
+                "i.price, i.status, i.trade.tradeTime, i.trade.tradeId, i.trade.totalPrice, i.book.bookId, i.book.bookName, i.book.bookPrice, " +
                 "i.quantity, i.itemId " +
                 ") " +
                 "FROM TradeItem i " +
@@ -65,12 +65,22 @@ public class TradeDAOImpl extends BaseDAOImpl implements TradeDAO {
     public List<TradeItem> getTradeItemsByShopId(String shopId, Integer status) {
         String hql;
            if (!status.equals(2)){
-               hql = "FROM TradeItem t LEFT OUTER JOIN FETCH t.book "+
-                       "WHERE t.status = :status AND t.book IN " +
+               hql = "SELECT new TradeItem " +
+                       "( " +
+                       "i.price, i.status, i.trade.tradeTime, i.trade.tradeId, i.trade.totalPrice, i.book.bookId, i.book.bookName, i.book.bookPrice, " +
+                       "i.quantity, i.itemId " +
+                       ") " +
+                       "FROM TradeItem i " +
+                       "WHERE i.status = :status AND i.book IN " +
                        "(SELECT new Book (b.bookId) FROM Book b WHERE b.shop = :shopId)";
            }else {
-               hql = "FROM TradeItem t LEFT OUTER JOIN FETCH t.book "+
-                       "WHERE t.status >= :status AND t.book IN " +
+               hql = "SELECT new TradeItem " +
+                       "( " +
+                       "i.price, i.status, i.trade.tradeTime, i.trade.tradeId, i.trade.totalPrice, i.book.bookId, i.book.bookName, i.book.bookPrice," +
+                       "i.quantity, i.itemId " +
+                       ") " +
+                       "FROM TradeItem i " +
+                       "WHERE i.status >= :status AND i.book IN " +
                        "(SELECT new Book (b.bookId) FROM Book b WHERE b.shop = :shopId)";
            }
         @SuppressWarnings("unchecked")

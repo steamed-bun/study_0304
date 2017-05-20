@@ -790,13 +790,228 @@ angular.module('custBus-controller',[])
         });
         /*------显示省市区信息结束-------*/
     })
-    .controller('orderMangeCtrl',function($scope){
+    .controller('orderMangeCtrl',function($scope,$http){
+        //请求订单信息的接口
+        var getOrder=function (statusId){
+            postData='tradeItem.status='+statusId;
+            return   $http({
+                method:'POST',
+                url:'trade-getTradeItemsByUserId.action',
+                data:postData,//已序列化用户输入的数据
+                headers:{'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+            }).then(function(response){
+                //console.log(response); //打印响应数据（采用then方法获得的响应数据比用success方法获得的响应数据信息多）
+                return response.data;//将响应数据的data属性值返回
+            });
+        };
+        $scope.readyOrder=[];//待发货
+        $scope.waitOrder=[];//已发货
+        $scope.waitAccess=[];//待评价
+        $scope.accomlishOrder=[];//已完成
+        //页面一加载，先显示待发货
+        getOrder(0).then(function(data){
+            console.log(data);
+            data=data.tradeItems;
+            for(var i=0;i<data.length;i++){
+                var book={};
+                book.tradeId=data[i].itemId;
+                book.bookName=data[i].book.bookName;
+                book.bookPrice=data[i].book.bookPrice;
+                book.bookNum=data[i].quantity;
+                book.totalMoney=data[i].price;
+                book.tradeTime=data[i].trade.tradeTime.slice(0,10);
+                book.bookId=data[i].book.bookId;
+                $scope.readyOrder.push(book);
+            }
+            console.log($scope.readyOrder);
+            console.log('我是待发货');
+        });
         //给关于订单的每一项加单击事件
         $('.order-status>li').click(function(){
             var index=parseInt($(this).attr('data-id'));
+            var order;
             $('.order-status>li').removeClass('highlight-orderStatus');
             $(this).addClass('highlight-orderStatus');
             $('.order-box>div').css('display','none');
             $('.order-box>div:nth-child('+index+')').css('display','block');
+            switch(index){
+                case 1 :
+                    getOrder(0).then(function(data){
+                        console.log(data);
+
+                        console.log('我是待发货');
+                    });
+                    break;
+                case 2:
+                    getOrder(1).then(function(data){
+                        console.log(data);
+                        data=data.tradeItems;
+                        $scope.waitOrder=[];
+                        for(var i=0;i<data.length;i++){
+                            var book={};
+                            book.tradeId=data[i].itemId;
+                            book.bookName=data[i].book.bookName;
+                            book.bookPrice=data[i].book.bookPrice;
+                            book.bookNum=data[i].quantity;
+                            book.totalMoney=data[i].price;
+                            book.tradeTime=data[i].trade.tradeTime.slice(0,10);
+                            book.bookId=data[i].book.bookId;
+                            $scope.waitOrder.push(book);
+                        }
+                        console.log('我是已发货');
+                    });
+                    break;
+                case 3:
+                    getOrder(2).then(function(data){
+                        console.log(data);
+                        data=data.tradeItems;
+                        $scope.waitAccess=[];
+                        for(var i=0;i<data.length;i++){
+                            var book={};
+                            book.tradeId=data[i].itemId;
+                            book.bookName=data[i].book.bookName;
+                            book.bookPrice=data[i].book.bookPrice;
+                            book.bookNum=data[i].quantity;
+                            book.totalMoney=data[i].price;
+                            book.tradeTime=data[i].trade.tradeTime.slice(0,10);
+                            book.bookId=data[i].book.bookId;
+                            $scope.waitAccess.push(book);
+                        }
+                        console.log($scope.waitAccess);
+                        console.log('我是待评价');
+                    });
+                    break;
+                case 4:
+                    getOrder(3).then(function(data){
+                        console.log(data);
+                        data=data.tradeItems;
+                        $scope.accomlishOrder=[];
+                        for(var i=0;i<data.length;i++){
+                            var book={};
+                            book.tradeId=data[i].itemId;
+                            book.bookName=data[i].book.bookName;
+                            book.bookPrice=data[i].book.bookPrice;
+                            book.bookNum=data[i].quantity;
+                            book.totalMoney=data[i].price;
+                            book.tradeTime=data[i].trade.tradeTime.slice(0,10);
+                            book.bookId=data[i].book.bookId;
+                            $scope.accomlishOrder.push(book);
+                        }
+                        console.log($scope.accomlishOrder);
+                        console.log('我是已完成');
+                    });
+                    break;
+            }
         });
+        //点赞书籍
+        $scope.approveBook=function($event){
+            var $curElem=$($event.target);
+            var bookId=$curElem.attr('data-bookId');
+            var tradeId=$curElem.attr('data-tradeId')
+            var postData='tradeItem.book.bookId='+bookId+'&tradeItem.status=2&tradeItem.itemId='+tradeId;
+            console.log(postData);
+            $http({
+                method:'POST',
+                url:'trade-updateLike.action',
+                data:postData,//序列化用户输入的数据
+                headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+            }).success(function(data){
+                console.log(data);
+                if(data.status=='yes'){
+                    //点赞成功，移除当前订单
+                    $curElem.parent().parent().remove();
+                    var $errorInfo=$('.oper-hint');
+                    $errorInfo.html('已成功点赞！');
+                    $errorInfo.slideDown();//错误提示信息缓慢出现
+                    setTimeout(function(){
+                        $errorInfo.slideUp();
+                    },3000);
+                }
+            });
+        };
+        //点不赞书籍
+        $scope.disApproveBook=function($event){
+            var $curElem=$($event.target);
+            var bookId=$curElem.attr('data-bookId');
+            var tradeId=$curElem.attr('data-tradeId');
+            console.log(bookId);
+            var postData='tradeItem.book.bookId='+bookId+'&tradeItem.status=2&tradeItem.itemId='+tradeId;
+            console.log(postData);
+            $http({
+                method:'POST',
+                url:'trade-updateNoLike.action',
+                data:postData,//序列化用户输入的数据
+                headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+            }).success(function(data){
+                console.log(data);
+                if(data.status=='yes'){
+                    //确认点不赞成功，移除当前订单
+                    $curElem.parent().parent().remove();
+                    var $errorInfo=$('.oper-hint');
+                    $errorInfo.html('已评论成功！');
+                    $errorInfo.slideDown();//错误提示信息缓慢出现
+                    setTimeout(function(){
+                        $errorInfo.slideUp();
+                    },3000);
+                }
+            });
+        };
+        //给查看物流按钮加点击事件
+        $scope.showLogistics=function(){
+            $('.logistics-mask').css('display','block');
+        };
+        //给物流的关闭按钮加点击事件
+        $scope.closeLogistics=function(){
+            $('.logistics-mask').css('display','none');
+        };
+        //给确认收货按钮加点击事件
+        $scope.confirmGoods=function($event){
+            var $curElem=$($event.target);
+            var orderId=$curElem.attr('data-id');
+            $http({
+                method:'POST',
+                url:'trade-updateTradeStatus.action',
+                data:'tradeItem.itemId='+orderId+'&tradeItem.status=1',//序列化用户输入的数据
+                headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+            }).success(function(data){
+                console.log(data);
+                if(data.status=='yes'){
+                    //确认收货成功，移除当前订单
+                    $curElem.parent().parent().remove();
+                    var $errorInfo=$('.oper-hint');
+                    $errorInfo.html('已确认收货！');
+                    $errorInfo.slideDown();//错误提示信息缓慢出现
+                    setTimeout(function(){
+                        $errorInfo.slideUp();
+                    },3000);
+                }
+            });
+        };
+        //给取消订单按钮加事件
+        $scope.cancelOrder=function($event){
+            var $curElem=$($event.target);
+            var tradeId=$curElem.attr('data-id');
+            var bookId=$curElem.attr('data-bookId');
+            var bookNum=$curElem.attr('data-bookNum');
+            var postData='tradeItem.itemId='+tradeId+'&tradeItem.book.bookId='+bookId+'&tradeItem.quantity='+bookNum;
+
+            $http({
+                method:'POST',
+                url:'trade-deleteTradeItem.action',
+                data:postData,//序列化用户输入的数据
+                headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+            }).success(function(data){
+                console.log(data);
+                if(data.status=='yes'){
+                    //确认发货成功，移除当前订单
+                    $curElem.parent().parent().remove();
+                    var $errorInfo=$('.oper-hint');
+                    $errorInfo.html('已取消订单！');
+                    $errorInfo.slideDown();//错误提示信息缓慢出现
+                    setTimeout(function(){
+                        $errorInfo.slideUp();
+                    },3000);
+                }
+            });
+        };
     });

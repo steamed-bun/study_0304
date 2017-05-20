@@ -261,7 +261,7 @@
 		<!-- 提交订单页面开始（已有地址、选择某个地址作为默认地址、新建或修改地址都有写） -->
 		<section ng-app="submitOrder">
 			<div class="container">
-				<div class="submit-order-box">
+				<div class="submit-order-box" ng-controller="submitCtrl">
 					<div class="select-addr-box" ng-controller="selectAddrCtrl">
 						<p>收货信息</p>
 						<div class="clearfix">
@@ -385,7 +385,7 @@
 							<table class="dealSucc-info-box">
 								<thead>
 									<tr class="dealSucc-title">
-										<th colspan="2">书籍信息</th>
+										<th>书籍名称</th>
 										<th>单价</th>
 										<th>数量</th>
 										<th>小计</th>
@@ -400,14 +400,12 @@
 										<td>{{book.itemMoney}}</td>
 									</tr>-->
 									<tr>
-										<td class="book-img" style="background-image: url('./images/index/e00001.jpg')"></td>
 										<td class="book-name">三生花三生三世三生十里桃花</td>
 										<td>12</td>
 										<td>1</td>
 										<td>12</td>
 									</tr>
 									<tr>
-										<td class="book-img" style="background-image: url('./images/index/e00001.jpg')"></td>
 										<td class="book-name">三生花三生三世三生十里桃花</td>
 										<td>12</td>
 										<td>1</td>

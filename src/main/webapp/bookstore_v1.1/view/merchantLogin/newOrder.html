@@ -1,45 +1,42 @@
 <div>
     <table class="dealSucc-info-box">
         <thead>
-        <tr class="dealSucc-title">
-            <th>书籍名称</th>
-            <th>单价</th>
-            <th>数量</th>
-            <th>实收</th>
-            <th>交易时间</th>
-            <th>状态</th>
-        </tr>
+            <tr class="dealSucc-title" style="display:none">
+                <th>书籍名称</th>
+                <th>单价</th>
+                <th>数量</th>
+                <th>实收</th>
+                <th>交易时间</th>
+                <th>状态</th>
+            </tr>
         </thead>
         <tbody class="dealSucc-content">
-        <tr>
-            <td class="book-name">三生花三生三世三生十里桃花</td>
-            <td>12</td>
-            <td>1</td>
-            <td>12</td>
-            <td>2017-04-2</td>
-            <td class="book-delete"><span>确认发货</span></td>
-        </tr>
-        <tr>
-            <td class="book-name">三生花三生三世三生十里桃花</td>
-            <td>12</td>
-            <td>1</td>
-            <td>12</td>
-            <td>2017-04-2</td>
-            <td class="book-delete"><span>确认发货</span></td>
-        </tr>
-        <tr>
-            <td class="book-name">三生花三生三世三生十里桃花</td>
-            <td>12</td>
-            <td>1</td>
-            <td>12</td>
-            <td>2017-04-2</td>
-            <td class="book-delete"><span>确认发货</span></td>
-        </tr>
+            <tr ng-repeat="book in newOrder track by $index">
+                <td class="book-name">{{book.bookName}}</td>
+                <td>{{book.bookPrice}}</td>
+                <td>{{book.bookNum}}</td>
+                <td>{{book.bookTotalPrice}}</td>
+                <td>{{book.tradeTime}}</td>
+                <td class="book-delete"><span data-id="{{book.tradeId}}" ng-click="confirmOrder($event)">确认发货</span></td>
+            </tr>
+           <!-- <tr>
+                <td class="book-name">三生花三生三世三生十里桃花</td>
+                <td>12</td>
+                <td>1</td>
+                <td>12</td>
+                <td>2017-04-2</td>
+                <td class="book-delete"><span>确认发货</span></td>
+            </tr>-->
         </tbody>
     </table>
     <span class="oper-hint">已确认发货</span>
+    <p class="no-order">暂无订单信息</p>
 </div>
 <style>
+    .no-order{
+        display:none;
+        text-align: center;
+    }
     .oper-hint{
         position:fixed;
         top:14px;
@@ -52,7 +49,7 @@
         text-align: center;
         border-radius: 3px;
         font-size:18px;
-        /*display:none;*/
+        display:none;
     }
     .dealSucc-info-box{
         width:100%;
