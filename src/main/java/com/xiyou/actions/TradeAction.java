@@ -39,6 +39,63 @@ public class TradeAction extends ActionSupport implements SessionAware{
     private Address address;
 
     /**
+     * 删除一条item
+     * url:trade-deleteItem.action?tradeItem.itemId=1
+     * @return
+     */
+    public String deleteItem(){
+        dataMap = BookStoreWebUtils.getDataMap(session);
+        tradeService.deleteItem(tradeItem.getItemId());
+        return SUCCESS;
+    }
+
+    /**
+     * trade-updateAddress?trade.tradeId=19&trade.address.addressId=1
+     * @return
+     */
+    public String updateAddress(){
+        dataMap = BookStoreWebUtils.getDataMap(session);
+        tradeService.updateAddress(trade.getTradeId(), trade.getAddress().getAddressId());
+        tradeService.updateStatus(trade.getTradeId());
+        return SUCCESS;
+    }
+
+    /**
+     * trade-slapAddTrade.action?tradeItem.book.bookId=1&tradeItem.book.bookPrice=12.4&tradeItem.quantity=19
+     *
+     */
+    public String slapAddTrade(){
+        dataMap = BookStoreWebUtils.getDataMap(session);
+        trade = Trade.getTrade();
+        Object userId = session.get("userId");
+        if (userId == null){
+            dataMap.put("status", "no");
+            dataMap.put("message", "此用户登录超时，重新登录");
+            return SUCCESS;
+        }
+        User user = userService.getUserById(userId.toString());
+        try {
+            tradeService.updateQuantity(tradeItem.getBook().getBookId(), tradeItem.getQuantity());
+        }catch (DBException e){
+            dataMap.put("status", "no");
+            System.out.println();
+            dataMap.put("message", "库存不足");
+            return SUCCESS;
+        }
+        trade.setUser(user);
+        trade.setQuantity(tradeItem.getQuantity());
+        float price = tradeItem.getQuantity()*tradeItem.getBook().getBookPrice();
+        trade.setTotalPrice(price);
+        tradeService.addTrade(trade);
+        tradeItem.setTrade(trade);
+        tradeItem.setPrice(price);
+        tradeItem.setStatus(-1);
+        tradeService.addItem(tradeItem);
+        this.setTradeItem(null);
+        return SUCCESS;
+    }
+
+    /**
      * user获取当前状态所有订单
      * trade-getTradeItemsByUserId.action?tradeItem.status=?
      * {
@@ -229,7 +286,7 @@ public class TradeAction extends ActionSupport implements SessionAware{
                     tradeItem.setTrade(trade);//关联当前总交易
                     tradeItem.setQuantity(shopCartItemTo.getQuantity());//获取购物车一条数据购买数量
                     tradeItem.setBook(shopCartItemTo.getBook());
-                    tradeItem.setStatus(0);//重复设置为默认状态
+                    tradeItem.setStatus(-1);//重复设置为默认状态
                     tradeItems.add(tradeItem);
                 }
                 tradeService.addTradeItems(tradeItems);
@@ -281,5 +338,13 @@ public class TradeAction extends ActionSupport implements SessionAware{
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public Trade getTrade() {
+        return trade;
+    }
+
+    public void setTrade(Trade trade) {
+        this.trade = trade;
     }
 }

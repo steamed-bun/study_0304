@@ -20,6 +20,22 @@ public class TradeService {
     @Autowired
     private BookDAO bookDAO;
 
+    public void deleteItem(Integer itemId){
+        tradeDAO.deleteItem(itemId);
+    }
+
+    public void updateStatus(Integer tradeId){
+        tradeDAO.updateStatus(tradeId);
+    }
+
+    public void updateAddress(Integer tradeId, Integer addressId){
+        tradeDAO.updateAddress(tradeId, addressId);
+    }
+
+    public void addItem(TradeItem tradeItem){
+        tradeDAO.addItem(tradeItem);
+    }
+
     public List<TradeItem> getTradeItemsByUserId(String userId, Integer status){
         return tradeDAO.getTradeItems(userId, status);
     }
@@ -49,11 +65,8 @@ public class TradeService {
         return tradeDAO.getTradeItemsByShopId(shopId, status);
     }
 
-    public void updateQuantity(List<TradeItem> tradeItems, Map<String, Object> dataMap)  throws DBException{
-        for (TradeItem tradeItem: tradeItems) {
-            dataMap.put("bookId",tradeItem.getBook().getBookId());
-            bookDAO.updateQuantity(tradeItem.getBook().getBookId(),tradeItem.getQuantity());
-        }
+    public void updateQuantity(Integer bookId, Integer quantity)  throws DBException{
+        bookDAO.updateQuantity(bookId, quantity);
     }
 
     public void addTrade(Trade trade){
