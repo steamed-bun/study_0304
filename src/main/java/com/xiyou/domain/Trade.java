@@ -16,8 +16,10 @@ public class Trade {
         this.tradeId = tradeId;
     }
 
-    public Trade(Date tradeTime) {
+    public Trade(Integer tradeId, Date tradeTime, float totalPrice) {
+        this.tradeId = tradeId;
         this.tradeTime = tradeTime;
+        this.totalPrice = totalPrice;
     }
 
     public static Trade getTrade(){

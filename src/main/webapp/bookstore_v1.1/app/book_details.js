@@ -75,54 +75,117 @@ angular.module('bookDetail',[])
 
        //加入购物车
        $scope.addBookToShopcar=function(){
+           //验证用户是否登录，若登录了才可以加入购物车
+           var userIsLogin=sessionStorage.getItem('isLogin');
+           if(userIsLogin){
+               //意味着用户登录着
+               //验证库存
+               $http({
+                   method:'POST',
+                   url:'book-validateBookQuantity.action',
+                   data: 'book.bookId='+bookId+'&book.quantity='+$scope.book.purNum,
+                   headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+               }).success(function(response){
+                   console.log(response); //在此处查看返回的数据是否正确
+                   if(response.status=='no'){
+                       //库存不足，不能加入购物车
+                       var $errorInfo=$('.oper-hint');
+                       $errorInfo.html('库存不足，请减少购买数量！');
+                       $errorInfo.slideDown();//错误提示信息缓慢出现
+                       setTimeout(function(){
+                           $errorInfo.slideUp();
+                       },3000);
+                   }else{
+                       //库存足够，可以购买
+                       var postData='shopCartItemTo.book.bookId='+bookId+'&shopCartItemTo.book.bookName='+$scope.book.bName+'&shopCartItemTo.book.bookPrice='+$scope.book.price+'&shopCartItemTo.book.bookImages.imageURL='+$scope.book.sImgUrls[0]+'&shopCartItemTo.quantity='+$scope.book.purNum;
+                       console.log(postData);
+                       $http({
+                           method:'POST',
+                           url:'cartTo-addShopCartItem.action',
+                           data: postData,
+                           headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+                       }).success(function(response){
+                           console.log(response); //在此处查看返回的数据是否正确
+                           if(response.status=='yes'){
+                               //加入购物车成功
+                               var $errorInfo=$('.oper-hint');
+                               $errorInfo.html('加入购物车成功！');
+                               $errorInfo.slideDown();//错误提示信息缓慢出现
+                               setTimeout(function(){
+                                   $errorInfo.slideUp();
+                               },3000);
+                           }else{
+                               var $errorInfo=$('.oper-hint');
+                               $errorInfo.html('加入购物车失败！');
+                               $errorInfo.slideDown();//错误提示信息缓慢出现
+                               setTimeout(function(){
+                                   $errorInfo.slideUp();
+                               },3000);
+                           }
+                       });
+                       //向localStorage中存储时间
+                       sessionStorage.setItem('time_remain',60000);
+                   }
+               });
+           }else{
+               //意味着用户没有登录
+               var $errorInfo=$('.oper-hint');
+               $errorInfo.html('请先登录！');
+               $errorInfo.slideDown();//错误提示信息缓慢出现
+               setTimeout(function(){
+                   $errorInfo.slideUp();
+               },3000);
+           }
            console.log('我要加入购物车');
-           //验证库存
-           $http({
-               method:'POST',
-               url:'book-validateBookQuantity.action',
-               data: 'book.bookId='+bookId+'&book.quantity='+$scope.book.purNum,
-               headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-           }).success(function(response){
-               console.log(response); //在此处查看返回的数据是否正确
-               if(response.status=='no'){
-                   //库存不足，不能加入购物车
-                   var $errorInfo=$('.oper-hint');
-                   $errorInfo.html('库存不足，请减少购买数量！');
-                   $errorInfo.slideDown();//错误提示信息缓慢出现
-                   setTimeout(function(){
-                       $errorInfo.slideUp();
-                   },3000);
-               }else{
-                   //库存足够，可以购买
-                   var postData='shopCartItemTo.book.bookId='+bookId+'&shopCartItemTo.book.bookName='+$scope.book.bName+'&shopCartItemTo.book.bookPrice='+$scope.book.price+'&shopCartItemTo.book.bookImages.imageURL='+$scope.book.sImgUrls[0]+'&shopCartItemTo.quantity='+$scope.book.purNum;
-                   console.log(postData);
-                   $http({
-                       method:'POST',
-                       url:'cartTo-addShopCartItem.action',
-                       data: postData,
-                       headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
-                   }).success(function(response){
-                       console.log(response); //在此处查看返回的数据是否正确
-                       if(response.status=='yes'){
-                           //加入购物车成功
-                           var $errorInfo=$('.oper-hint');
-                           $errorInfo.html('加入购物车成功！');
-                           $errorInfo.slideDown();//错误提示信息缓慢出现
-                           setTimeout(function(){
-                               $errorInfo.slideUp();
-                           },3000);
-                       }else{
-                           var $errorInfo=$('.oper-hint');
-                           $errorInfo.html('加入购物车失败！');
-                           $errorInfo.slideDown();//错误提示信息缓慢出现
-                           setTimeout(function(){
-                               $errorInfo.slideUp();
-                           },3000);
-                       }
-                   });
-               }
-           });
        };
+       //去购买
+       $scope.goPurchase=function(){
+           var userIsLogin=sessionStorage.getItem('isLogin');
+           if(userIsLogin){
+               //当用户处于登录状态
+               $http({
+                   method:'POST',
+                   url:'book-validateBookQuantity.action',
+                   data: 'book.bookId='+bookId+'&book.quantity='+$scope.book.purNum,
+                   headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+               }).success(function(response){
+                   console.log(response); //在此处查看返回的数据是否正确
+                   if(response.status=='no'){
+                       //库存不足，不能加入购物车
+                       var $errorInfo=$('.oper-hint');
+                       $errorInfo.html('库存不足，请减少购买数量！');
+                       $errorInfo.slideDown();//错误提示信息缓慢出现
+                       setTimeout(function(){
+                           $errorInfo.slideUp();
+                       },3000);
+                   }else{
+                       //库存足够，可以购买
+                       window.location.href='submit_order.html?bookId='+bookId;
+                   }
+               });
+           }else{
+               //当用户处于非登录状态
+               var $errorInfo=$('.oper-hint');
+               $errorInfo.html('请先登录！');
+               $errorInfo.slideDown();//错误提示信息缓慢出现
+               setTimeout(function(){
+                   $errorInfo.slideUp();
+               },3000);
+           }
+       };
+       //回到首页
+       $scope.goIndex=function(){
+           window.location.href='index_login.html';
+       };
+       //回到指定大类的书籍
+       $scope.goBigCate=function(){
+            window.location.href='book_list.html?bigSmateId='+$scope.book.bigCateId;
+       };
+       //回到指定子类
+       $scope.goSmCate=function(){
+           window.location.href=' book_list.html?bigCateId='+$scope.book.bigCateId+'&smCateId='+$scope.book.smCataId;
+       };
+
        /*-----与放大镜相关的开始------*/
        $scope.changeMediImg=function($event){
            var $curElem=$($event.target);

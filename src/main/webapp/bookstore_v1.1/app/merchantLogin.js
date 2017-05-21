@@ -22,17 +22,13 @@
 	      	 templateUrl:'./view/merchantLogin/dealSuccess.html',
 	  	     controller:'dealSuccCtrl'
 	      })
-	      .when('/dealing',{
-	      	 templateUrl:'./view/merchantLogin/dealing.html',
-	  	     controller:'dealingCtrl'
+	      .when('/sentGoods',{
+	      	 templateUrl:'./view/merchantLogin/sentGoods.html',
+	  	     controller:'sentGoodsCtrl'
 	      })
-		   .when('/waitDealing',{
-			   templateUrl:'./view/merchantLogin/waitDealing.html',
-			   controller:'waitDealingCtrl'
-		   })
-		   .when('/waitSure',{
-			   templateUrl:'./view/merchantLogin/waitSure.html',
-			   controller:'waitSureCtrl'
+		   .when('/newOrder',{
+			   templateUrl:'./view/merchantLogin/newOrder.html',
+			   controller:'newOrderCtrl'
 		   })
 	      .when('/bookAdmin',{
 	      	 templateUrl:'./view/merchantLogin/bookAdmin.html',

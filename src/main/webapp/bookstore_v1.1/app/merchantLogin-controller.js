@@ -928,13 +928,132 @@ angular.module('merchantLogin-controller',[])
         });
         /*------显示省市区信息结束-------*/
     })
-    .controller('dealSuccCtrl',function($scope){
+    .controller('dealSuccCtrl',function($scope,$http){
+        //已完成的订单
+        $scope.accomplishOrder=[];
+        //向服务器请求新订单信息
+        $http({
+            method:'POST',
+            url:'trade-getTradeItemBySelId.action',
+            data:'tradeItem.status=3',//序列化用户输入的数据
+            headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+        }).success(function(data){
+            console.log(data);
+            if(parseInt(data.size)==0){
+                //说明暂无订单信息
+                $('.no-order').css('display','block');
+            }else{
+                $('.no-order').css('display','none');
+                //有订单信息
+                for(var i=0;i<data.size;i++){
+                    var book={};
+                    book.bookName=data[i].book.bookName;
+                    book.bookPrice=data[i].book.bookPrice;
+                    book.bookNum=data[i].quantity;
+                    book.bookTotalPrice=data[i].price;
+                    book.tradeId=data[i].itemId;
+                    book.tradeTime=data[i].trade.tradeTime.slice(0,10);
+                    $scope.accomplishOrder.push(book);
+                }
+                console.log($scope.accomplishOrder);
+            }
+        });
     })
-    .controller('dealingCtrl', function($scope) {
+    .controller('sentGoodsCtrl', function($scope,$http) {
+        //已发货（书籍在运输中）
+        $scope.dealingOrder=[];
+        //向服务器请求新订单信息
+        $http({
+            method:'POST',
+            url:'trade-getTradeItemBySelId.action',
+            data:'tradeItem.status=1',//序列化用户输入的数据
+            headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+        }).success(function(data){
+            console.log(data);
+            if(parseInt(data.size)==0){
+                //说明暂无订单信息
+                $('.no-order').css('display','inline-block');
+                $('.dealSucc-title').css('display','none');
+            }else{
+                $('.no-order').css('display','none');
+                $('.dealSucc-title').css('display','');
+                //有订单信息
+                for(var i=0;i<data.size;i++){
+                    var book={};
+                    book.bookName=data[i].book.bookName;
+                    book.bookPrice=data[i].book.bookPrice;
+                    book.bookNum=data[i].quantity;
+                    book.bookTotalPrice=data[i].price;
+                    book.tradeId=data[i].itemId;
+                    book.tradeTime=data[i].trade.tradeTime.slice(0,10);
+                    $scope.dealingOrder.push(book);
+                }
+                console.log($scope.dealingOrder);
+            }
+        });
+        //给查看物流按钮添加点击事件
+        $scope.showLogistics=function(){
+            $('.logistics-mask').css('display','block');
+        };
+        //给关闭按钮添加点击事件
+        $scope.closeLogistics=function(){
+            $('.logistics-mask').css('display','none');
+        };
     })
-    .controller('waitDealingCtrl',function($scope){
-
-    })
-    .controller('waitSureCtrl',function($scope){
-
+    .controller('newOrderCtrl',function($scope,$http){
+        //新订单（商家需确认发货）
+        $scope.newOrder=[];
+        //向服务器请求新订单信息
+        $http({
+            method:'POST',
+            url:'trade-getTradeItemBySelId.action',
+            data:'tradeItem.status=0',//序列化用户输入的数据
+            headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+        }).success(function(data){
+            console.log(data);
+            if(parseInt(data.size)==0){
+                //说明暂无订单信息
+                $('.no-order').css('display','block');
+                $('.dealSucc-title').css('display','none');
+            }else{
+                $('.no-order').css('display','none');
+                $('.dealSucc-title').show();
+                //有订单信息
+                for(var i=0;i<data.size;i++){
+                    var book={};
+                    book.bookName=data[i].book.bookName;
+                    book.bookPrice=data[i].book.bookPrice;
+                    book.bookNum=data[i].quantity;
+                    book.bookTotalPrice=data[i].price;
+                    book.tradeId=data[i].itemId;
+                    book.tradeTime=data[i].trade.tradeTime.slice(0,10);
+                    $scope.newOrder.push(book);
+                }
+                console.log($scope.newOrder);
+            }
+        });
+        //给确认发货按钮添加点击事件
+        $scope.confirmOrder=function($event){
+            var $curElem=$($event.target);
+            var orderId=$curElem.attr('data-id');
+            console.log(orderId);
+            $http({
+                method:'POST',
+                url:'trade-updateTradeStatus.action',
+                data:'tradeItem.itemId='+orderId+'&tradeItem.status=0',//序列化用户输入的数据
+                headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+            }).success(function(data){
+                console.log(data);
+                if(data.status=='yes'){
+                    //确认发货成功，移除当前订单
+                    $curElem.parent().parent().remove();
+                    var $errorInfo=$('.oper-hint');
+                    $errorInfo.html('已确认发货！');
+                    $errorInfo.slideDown();//错误提示信息缓慢出现
+                    setTimeout(function(){
+                        $errorInfo.slideUp();
+                    },3000);
+                }
+            });
+        };
     });

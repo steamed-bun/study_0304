@@ -37,7 +37,7 @@ public class BookStoreWebUtils {
 
 	public static List<TradeItem> setNullTradeItems(List<TradeItem> tradeItems){
 		for (TradeItem tradeItem : tradeItems) {
-			tradeItem.setTrade(null);
+//			tradeItem.setTrade(null);
 			tradeItem.getBook().setShop(null);
 			tradeItem.getBook().setCategory(null);
 		}

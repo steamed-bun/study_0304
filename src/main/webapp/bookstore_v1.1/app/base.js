@@ -125,6 +125,7 @@
 			shopCarLen=perOrders.length;
 			$('.shop-num').html(shopCarLen+'<i></i>');
 			$('.shop-big-num>b').html(shopCarLen);
+			time_remain=20;
 		},
 		error:function(){
 			console.log('我没有拿到购物车信息');
@@ -187,7 +188,18 @@
 	});
 	//给去结算添加事件
 	$('.goPayPage').click(function(){
-		window.location.href='submit_order.html';
+		$.ajax({
+			type: 'POST',
+			url: 'trade-addTrade.action',
+			data: '',//no data
+			dataType: 'JSON',
+			success: function(data){
+				console.log(data);
+				if(data.status=='yes'){
+					window.location.href='submit_order.html';
+				}
+			}
+		});
 	});
 	//给购物车里面的删除按钮添加事件
 	$(".shop-book-list").on('click', 'i.deleteCurBook', function() {
@@ -207,6 +219,9 @@
 				if(data.status=='yes'){
 					//删除成功
 					$parElem.remove();
+					shopCarLen--;
+					$('.shop-num').html(shopCarLen+'<i></i>');
+					$('.shop-big-num>b').html(shopCarLen);
 				}
 			}
 		});
@@ -218,16 +233,6 @@
 	});
 	//在划出的导航栏上，鼠标悬浮在购物车上时显示购物车里面的内容
 	$('.shopcar-big-icon').mouseenter(function(){
-	/*	if(shopCarLen!=0){
-			$('.shop-book-big-list-box').css('display','block');
-		}else{
-			var $errorInfo=$('.oper-hint');
-			$errorInfo.html('请先选购书籍！');
-			$errorInfo.slideDown();//错误提示信息缓慢出现
-			setTimeout(function(){
-				$errorInfo.slideUp();
-			},3000);
-		}*/
 		//从session中获取与购物车相关的信息
 		$.ajax({
 			type:"GET",
@@ -330,6 +335,26 @@
 	});
 	/*--------根据数名搜索书籍结束-----------*/
 
+	/*-----显示倒计时开始------*/
+	var time_remain=sessionStorage.getItem('time_remain');
+	if(time_remain){
+		$('.clearShopCarTime').html(time_remain+'分钟');
+		var timer=setInterval(function(){
+			time_remain--;
+			$('.clearShopCarTime').html(time_remain+'分钟');
+			if(time_remain==0){
+				sessionStorage.removeItem('time_remain');
+				clearInterval(timer);
+				//TODO  向后台发送时间已到
+				$('.shop-book-big-list-box').css('display','none');
+				$('.shop-book-small-list-box').css('display','none');
+				$('.shop-book-list').children().remove();
+				$('.shop-num').html('0<i></i>');
+				$('.shop-big-num>b').html('0');
+			}
+		},3000)
+	}
+	/*-----显示倒计时结束------*/
 
 	/*----显示用户名开始--*/
 	var userIsLogin=sessionStorage.getItem('isLogin');
@@ -340,6 +365,7 @@
 		$('.shopcar-icon').css('display','inline-block');
 		$('.not-already-login-aside-img-box').css('display','none');
 		$('.not-already-user-box').css('display','none');
+		console.log('我已登录');
 	}else{
 		//当为假时，意味着用户未登录
 		$('.already-login-aside-img-box').css('display','none');
@@ -347,6 +373,7 @@
 		$('.shopcar-icon').css('display','none');
 		$('.not-already-login-aside-img-box').css('display','block');
 		$('.not-already-user-box').css('display','block');
+		console.log('我没有登录');
 	}
 	/*----显示用户名结束--*/
 })();

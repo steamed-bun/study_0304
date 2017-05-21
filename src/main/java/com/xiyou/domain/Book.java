@@ -22,9 +22,10 @@ public class Book {
 	private Integer goodBook;//{非良品:0 良品:1}
 	private Shop shop;
 
-	public Book(Integer bookId, String bookName) {
+	public Book(Integer bookId, String bookName, float bookPrice) {
 		this.bookId = bookId;
 		this.bookName = bookName;
+		this.bookPrice = bookPrice;
 	}
 
 	public Book(Integer bookId, String bookName, String author, int likes, Integer goodBook) {
