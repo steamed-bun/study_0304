@@ -67,6 +67,7 @@ public class TradeAction extends ActionSupport implements SessionAware{
 
     public String updateNoLike(){
         dataMap = BookStoreWebUtils.getDataMap(session);
+        tradeService.updateStatus(tradeItem.getItemId(), tradeItem.getStatus());
         bookService.updateNoLike(tradeItem.getBook().getBookId());
         this.setTradeItem(null);
         return SUCCESS;

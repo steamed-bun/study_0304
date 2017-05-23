@@ -6,6 +6,12 @@ public class County {
 	private String countyName;
 	private City city;
 
+	public County(Integer countyId, String countyName, City city) {
+		this.countyId = countyId;
+		this.countyName = countyName;
+		this.city = city;
+	}
+
 	public County(Integer countyId) {
 		this.countyId = countyId;
 	}

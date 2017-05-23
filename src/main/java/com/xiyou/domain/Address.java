@@ -12,6 +12,17 @@ public class Address {
 	private String name;
 	private User user;
 
+	public Address(Integer addressId, Integer provinceId, String provinceName, Integer cityId, String cityName, Integer countyId, String countyName, String street, String tel, Integer def, String name) {
+		this.addressId = addressId;
+		this.province = new Province(provinceId, provinceName);
+		this.county = new County(countyId, countyName);
+		this.city = new City(cityId, cityName);
+		this.street = street;
+		this.tel = tel;
+		this.def = def;
+		this.name = name;
+	}
+
 	public Integer getAddressId() {
 		return addressId;
 	}

@@ -1,12 +1,5 @@
 <!-- 注：此页面没有购买书籍、有购买书籍的情况我已写了 -->
 <div>
-	<div class="no-addr-box" style="display:none">
-		<div>
-			<p class="addr-img"><span></span></p>
-			<p class="addr-hint"><span>您还没有任何订单呢</span></p>
-			<p class="addr-add-text"><a href="javascript:;">去挑选好书>></a></p>
-		</div>
-	</div>
 	<div class="display-order-box">
 		<ul class="order-status clearfic">
 			<li class="highlight-orderStatus" data-id="1"><span>待发货</span></li>
@@ -165,6 +158,13 @@
 				</table>
 			</div>
 		</div>
+		<div class="no-addr-box">
+			<div>
+				<p class="addr-img"><span></span></p>
+				<p class="addr-hint"><span>您还没有任何订单呢</span></p>
+				<p class="addr-add-text"><a href="index_login.html">去挑选好书>></a></p>
+			</div>
+		</div>
 	</div>
 	<div class="logistics-mask">
 		<div class="logistics-box">
@@ -234,6 +234,7 @@
 		display:flex;
 		justify-content: center;
 		align-items: center;
+		display:none;
 	}
 	.addr-img>span{
 		display:block;
@@ -373,7 +374,7 @@
 		width:100%;
 		margin-top:20px;
 	}
-	.order-box>div:not(.order-one){
+	.order-box>div{
 		display:none;
 	}
 </style>

@@ -812,19 +812,28 @@ angular.module('custBus-controller',[])
         getOrder(0).then(function(data){
             console.log(data);
             data=data.tradeItems;
-            for(var i=0;i<data.length;i++){
-                var book={};
-                book.tradeId=data[i].itemId;
-                book.bookName=data[i].book.bookName;
-                book.bookPrice=data[i].book.bookPrice;
-                book.bookNum=data[i].quantity;
-                book.totalMoney=data[i].price;
-                book.tradeTime=data[i].trade.tradeTime.slice(0,10);
-                book.bookId=data[i].book.bookId;
-                $scope.readyOrder.push(book);
+            if(data.length == 0){
+                //意味着无订单信息
+                $('.no-addr-box').css('display','flex');
+                $('.order-one').css('display','none');
+            }else{
+                //有订单信息
+                $('.no-addr-box').css('display','none');
+                $('.order-one').css('display','block');
+                for(var i=0;i<data.length;i++){
+                    var book={};
+                    book.tradeId=data[i].itemId;
+                    book.bookName=data[i].book.bookName;
+                    book.bookPrice=data[i].book.bookPrice;
+                    book.bookNum=data[i].quantity;
+                    book.totalMoney=data[i].price;
+                    book.tradeTime=data[i].trade.tradeTime.slice(0,10);
+                    book.bookId=data[i].book.bookId;
+                    $scope.readyOrder.push(book);
+                }
+                console.log($scope.readyOrder);
+                console.log('我是待发货');
             }
-            console.log($scope.readyOrder);
-            console.log('我是待发货');
         });
         //给关于订单的每一项加单击事件
         $('.order-status>li').click(function(){
@@ -838,67 +847,115 @@ angular.module('custBus-controller',[])
                 case 1 :
                     getOrder(0).then(function(data){
                         console.log(data);
-
-                        console.log('我是待发货');
+                        data=data.tradeItems;
+                        if(data.length == 0){
+                            //意味着无订单信息
+                            $('.no-addr-box').css('display','flex');
+                            $('.order-one').css('display','none');
+                        }else{
+                            //有订单信息
+                            $('.no-addr-box').css('display','none');
+                            $('.order-one').css('display','block');
+                            for(var i=0;i<data.length;i++){
+                                var book={};
+                                book.tradeId=data[i].itemId;
+                                book.bookName=data[i].book.bookName;
+                                book.bookPrice=data[i].book.bookPrice;
+                                book.bookNum=data[i].quantity;
+                                book.totalMoney=data[i].price;
+                                book.tradeTime=data[i].trade.tradeTime.slice(0,10);
+                                book.bookId=data[i].book.bookId;
+                                $scope.readyOrder.push(book);
+                            }
+                            console.log($scope.readyOrder);
+                            console.log('我是待发货');
+                        }
                     });
                     break;
                 case 2:
                     getOrder(1).then(function(data){
                         console.log(data);
                         data=data.tradeItems;
-                        $scope.waitOrder=[];
-                        for(var i=0;i<data.length;i++){
-                            var book={};
-                            book.tradeId=data[i].itemId;
-                            book.bookName=data[i].book.bookName;
-                            book.bookPrice=data[i].book.bookPrice;
-                            book.bookNum=data[i].quantity;
-                            book.totalMoney=data[i].price;
-                            book.tradeTime=data[i].trade.tradeTime.slice(0,10);
-                            book.bookId=data[i].book.bookId;
-                            $scope.waitOrder.push(book);
+                        if(data.length==0){
+                            //没有订单信息
+                            $('.no-addr-box').css('display','flex');
+                            $('.order-two').css('display','none');
+                        }else{
+                            //有订单信息
+                            $('.no-addr-box').css('display','none');
+                            $('.order-two').css('display','block');
+                            $scope.waitOrder=[];
+                            for(var i=0;i<data.length;i++){
+                                var book={};
+                                book.tradeId=data[i].itemId;
+                                book.bookName=data[i].book.bookName;
+                                book.bookPrice=data[i].book.bookPrice;
+                                book.bookNum=data[i].quantity;
+                                book.totalMoney=data[i].price;
+                                book.tradeTime=data[i].trade.tradeTime.slice(0,10);
+                                book.bookId=data[i].book.bookId;
+                                $scope.waitOrder.push(book);
+                            }
+                            console.log('我是已发货');
                         }
-                        console.log('我是已发货');
                     });
                     break;
                 case 3:
                     getOrder(2).then(function(data){
                         console.log(data);
                         data=data.tradeItems;
-                        $scope.waitAccess=[];
-                        for(var i=0;i<data.length;i++){
-                            var book={};
-                            book.tradeId=data[i].itemId;
-                            book.bookName=data[i].book.bookName;
-                            book.bookPrice=data[i].book.bookPrice;
-                            book.bookNum=data[i].quantity;
-                            book.totalMoney=data[i].price;
-                            book.tradeTime=data[i].trade.tradeTime.slice(0,10);
-                            book.bookId=data[i].book.bookId;
-                            $scope.waitAccess.push(book);
+                        if(data.length==0){
+                            //没有订单信息
+                            $('.no-addr-box').css('display','flex');
+                            $('.order-three').css('display','none');
+                        }else{
+                            //有订单信息
+                            $('.no-addr-box').css('display','none');
+                            $('.order-three').css('display','block');
+                            $scope.waitAccess=[];
+                            for(var i=0;i<data.length;i++){
+                                var book={};
+                                book.tradeId=data[i].itemId;
+                                book.bookName=data[i].book.bookName;
+                                book.bookPrice=data[i].book.bookPrice;
+                                book.bookNum=data[i].quantity;
+                                book.totalMoney=data[i].price;
+                                book.tradeTime=data[i].trade.tradeTime.slice(0,10);
+                                book.bookId=data[i].book.bookId;
+                                $scope.waitAccess.push(book);
+                            }
+                            console.log($scope.waitAccess);
+                            console.log('我是待评价');
                         }
-                        console.log($scope.waitAccess);
-                        console.log('我是待评价');
                     });
                     break;
                 case 4:
                     getOrder(3).then(function(data){
                         console.log(data);
                         data=data.tradeItems;
-                        $scope.accomlishOrder=[];
-                        for(var i=0;i<data.length;i++){
-                            var book={};
-                            book.tradeId=data[i].itemId;
-                            book.bookName=data[i].book.bookName;
-                            book.bookPrice=data[i].book.bookPrice;
-                            book.bookNum=data[i].quantity;
-                            book.totalMoney=data[i].price;
-                            book.tradeTime=data[i].trade.tradeTime.slice(0,10);
-                            book.bookId=data[i].book.bookId;
-                            $scope.accomlishOrder.push(book);
+                        if(data.length==0){
+                            //没有订单信息
+                            $('.no-addr-box').css('display','flex');
+                            $('.order-four').css('display','none');
+                        }else{
+                            //有订单信息
+                            $('.no-addr-box').css('display','none');
+                            $('.order-four').css('display','block');
+                            $scope.accomlishOrder=[];
+                            for(var i=0;i<data.length;i++){
+                                var book={};
+                                book.tradeId=data[i].itemId;
+                                book.bookName=data[i].book.bookName;
+                                book.bookPrice=data[i].book.bookPrice;
+                                book.bookNum=data[i].quantity;
+                                book.totalMoney=data[i].price;
+                                book.tradeTime=data[i].trade.tradeTime.slice(0,10);
+                                book.bookId=data[i].book.bookId;
+                                $scope.accomlishOrder.push(book);
+                            }
+                            console.log($scope.accomlishOrder);
+                            console.log('我是已完成');
                         }
-                        console.log($scope.accomlishOrder);
-                        console.log('我是已完成');
                     });
                     break;
             }

@@ -10,6 +10,12 @@ public class City {
 		this.cityId = cityId;
 	}
 
+	public City(Integer cityId, String cityName, Province province) {
+		this.cityId = cityId;
+		this.cityName = cityName;
+		this.province = province;
+	}
+
 	@Override
 	public String toString() {
 		return "City [cityId=" + cityId + ", cityName=" + cityName

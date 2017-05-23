@@ -163,7 +163,7 @@ angular.module('submitOrder',[])
                 if(response.status=='yes'){
                     response=response.addresses;
                     if(response.length>=3){
-                        $('.edit-addr-box').css('display','none');
+                        $('.new-addr-box').css('display','none');
                         $('.oper-hint').html('已有3条地址，不能再新建！');
                         $('.oper-hint').slideDown();//错误提示信息缓慢出现
                         setTimeout(function(){
@@ -626,8 +626,8 @@ angular.module('submitOrder',[])
                 var book={};
                 book.bookName=data[k].book.bookName;
                 book.bookPrice=data[k].book.bookPrice;
-                book.quantity=data[k].book.quantity;
-                book.itemMoney=parseFloat(data[k].book.bookPrice*data[k].book.quantity);
+                book.quantity=data[k].quantity;
+                book.itemMoney=data[k].price;
                 book.bookId=data[k].book.bookId;
                 $scope.userBooks.push(book);
             }

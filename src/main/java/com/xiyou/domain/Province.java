@@ -5,6 +5,11 @@ public class Province {
 	private Integer provinceId;
 	private String provinceName;
 
+	public Province(Integer provinceId, String provinceName) {
+		this.provinceId = provinceId;
+		this.provinceName = provinceName;
+	}
+
 	public Province(Integer provinceId) {
 		this.provinceId = provinceId;
 	}

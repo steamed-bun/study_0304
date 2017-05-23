@@ -10,8 +10,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.Assert.*;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:applicationContext-beans.xml","classpath:applicationContext.xml"})
 public class AddressDAOImplTest {
@@ -28,7 +26,7 @@ public class AddressDAOImplTest {
     @Test
     @Transactional
     public void testGetAddressByUserId(){
-        System.out.println(addressDAO.getAddressByUserId("1"));
+        java.util.List<Address> addresses = addressDAO.getAddressByUserId("1");
     }
 
     @Test

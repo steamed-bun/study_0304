@@ -5,6 +5,7 @@ import com.xiyou.dao.AddressDAO;
 import com.xiyou.domain.Address;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -41,14 +42,23 @@ public class AddressDAOImpl extends BaseDAOImpl implements AddressDAO {
         String hql = "DELETE Address a WHERE a.addressId = :addressId";
         getSession().createQuery(hql).setInteger("addressId", addressId).executeUpdate();
     }
-
+//String street, String tel, Integer def, String name
     @Override
+    @Transactional
     public List<Address> getAddressByUserId(String userId) {
         String hql = "FROM Address a " +
                 "LEFT OUTER JOIN FETCH a.province " +
                 "LEFT OUTER JOIN FETCH a.city " +
                 "LEFT OUTER JOIN FETCH a.county " +
                 "WHERE a.user = :userId";
+       /* String hql = "SELECT new Address " +
+                "(" +
+                "a.addressId, a.province.provinceId, a.province.provinceName, " +
+                "a.city.cityId, a.city.cityName, " +
+                "a.county.countyId, a.county.countyName, " +
+                "a.street, a.tel, a.def, a.name" +
+                ") FROM Address a " +
+                "WHERE a.user = :userId";*/
         @SuppressWarnings("unchecked")
         List<Address> addresses = (List<Address>) getSession().createQuery(hql)
                 .setString("userId", userId).list();

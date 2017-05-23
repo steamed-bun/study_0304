@@ -941,9 +941,11 @@ angular.module('merchantLogin-controller',[])
             console.log(data);
             if(parseInt(data.size)==0){
                 //说明暂无订单信息
-                $('.no-order').css('display','block');
+                $('.no-order').css('display','inline-block');
+                $('.dealSucc-info-box').css('display','none');
             }else{
                 $('.no-order').css('display','none');
+                $('.dealSucc-info-box').css('display','table');
                 //有订单信息
                 for(var i=0;i<data.size;i++){
                     var book={};
@@ -973,10 +975,10 @@ angular.module('merchantLogin-controller',[])
             if(parseInt(data.size)==0){
                 //说明暂无订单信息
                 $('.no-order').css('display','inline-block');
-                $('.dealSucc-title').css('display','none');
+                $('.dealSucc-info-box').css('display','none');
             }else{
                 $('.no-order').css('display','none');
-                $('.dealSucc-title').css('display','');
+                $('.dealSucc-info-box').css('display','table');
                 //有订单信息
                 for(var i=0;i<data.size;i++){
                     var book={};
@@ -1013,11 +1015,11 @@ angular.module('merchantLogin-controller',[])
             console.log(data);
             if(parseInt(data.size)==0){
                 //说明暂无订单信息
-                $('.no-order').css('display','block');
-                $('.dealSucc-title').css('display','none');
+                $('.no-order').css('display','inline-block');
+                $('.dealSucc-info-box').css('display','none');
             }else{
                 $('.no-order').css('display','none');
-                $('.dealSucc-title').show();
+                $('.dealSucc-info-box').css('display','table');
                 //有订单信息
                 for(var i=0;i<data.size;i++){
                     var book={};
