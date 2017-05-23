@@ -3,6 +3,9 @@
 
 此次更新未整合的接口:
 
+点击立即去购买：
+trade-slapAddTrade.action?tradeItem.book.bookId=1&tradeItem.book.bookPrice=12.4&tradeItem.quantity=19
+
 15、删除一条订单 trade-deleteItem.action?tradeItem.itemId=1
 
 14、去结算时需要把地址保存 trade-updateAddress?trade.tradeId=19&trade.address.addressId=1

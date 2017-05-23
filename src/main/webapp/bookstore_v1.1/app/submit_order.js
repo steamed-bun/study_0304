@@ -164,6 +164,7 @@ angular.module('submitOrder',[])
                     response=response.addresses;
                     if(response.length>=3){
                         $('.new-addr-box').css('display','none');
+                        $('.select-addr-box').css('display','block');
                         $('.oper-hint').html('已有3条地址，不能再新建！');
                         $('.oper-hint').slideDown();//错误提示信息缓慢出现
                         setTimeout(function(){
@@ -616,7 +617,7 @@ angular.module('submitOrder',[])
         $http({
              method:'POST',
              url:'trade-getTradeItemsByUserId.action',
-             data: 'tradeItem.status=0',//no data
+             data: 'tradeItem.status=-1',//no data
              headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
          }).success(function(data){
             console.log(data);
