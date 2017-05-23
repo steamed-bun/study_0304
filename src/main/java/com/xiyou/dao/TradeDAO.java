@@ -7,6 +7,14 @@ import java.util.List;
 
 public interface TradeDAO {
 
+    void deleteItem(Integer itemId);
+
+    void updateStatus(Integer tradeId);
+
+    void updateAddress(Integer tradeId, Integer addressId);
+
+    void addItem(TradeItem tradeItem);
+
     /**
      * 判断当前订单是否存在
      * @param itemId

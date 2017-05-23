@@ -3,6 +3,10 @@
 
 此次更新未整合的接口:
 
+15、删除一条订单 trade-deleteItem.action?tradeItem.itemId=1
+
+14、去结算时需要把地址保存 trade-updateAddress?trade.tradeId=19&trade.address.addressId=1
+
 13、单本书的删除包括其图片url : book-deleteBook.action?book.bookId=17
 如果当前所删除的书籍与订单等等有关系，则不能被删除，但是此本书的名字会被换成“此书已下架”，
 同时库存被设置为0。
@@ -37,6 +41,7 @@
 
 10、买家获取当前状态下的所有订单 url: trade-getTradeItemsByUserId.action?tradeItem.status=?
                       * {
+                      *     status=-1:未支付完成 （刚点完购物车去结算，还未点击去付款）
                       *     status=0:待发货（有取消订单的按钮）
                       *     status=1:已发货（有确认收货的按钮）
                       *     status=2:待评价 (有点赞或点down的按钮)

@@ -12,6 +12,31 @@ import java.util.List;
 public class TradeDAOImpl extends BaseDAOImpl implements TradeDAO {
 
     @Override
+    public void deleteItem(Integer itemId) {
+        String hql = "DELETE TradeItem t WHERE t.itemId = :itemId";
+        getSession().createQuery(hql).setInteger("itemId", itemId).executeUpdate();
+    }
+
+    @Override
+    public void updateStatus(Integer tradeId) {
+        String hql = "UPDATE TradeItem t SET t.status = 0 WHERE t.trade = :tradeId";
+        getSession().createQuery(hql).setInteger("tradeId", tradeId).executeUpdate();
+    }
+
+    @Override
+    public void updateAddress(Integer tradeId, Integer addressId) {
+        String hql = "UPDATE Trade t SET t.address = :addressId " +
+                "WHERE t.tradeId = :tradeId";
+        getSession().createQuery(hql).setInteger("addressId", addressId)
+                .setInteger("tradeId", tradeId).executeUpdate();
+    }
+
+    @Override
+    public void addItem(TradeItem tradeItem) {
+        getSession().saveOrUpdate(tradeItem);
+    }
+
+    @Override
     public long getTradeSize(Integer itemId) {
         String hql = "SELECT count (t.itemId) FROM TradeItem t " +
                 "WHERE t.itemId = :itemId";
