@@ -655,7 +655,18 @@ angular.module('submitOrder',[])
                         $errorInfo.slideUp();
                     },3000);
                 }else{
-                    window.location.href='purchase.html?money='+$scope.order.totalMoney+'&tradeId='+$scope.order.tradeId;
+                    var postData='trade.tradeId='+$scope.order.tradeId+'&trade.address.addressId='+data.address.addressId;
+                    $http({
+                        method:'POST',
+                        url:'trade-updateAddress.action',
+                        data:postData,//已经序列化的用户输入的数据
+                        headers:{ 'Content-Type': 'application/x-www-form-urlencoded' } //当POST请求时，必须添加的
+                    }).success(function(data){
+                        console.log(data);
+                        if(data.status=='yes'){
+                            window.location.href='purchase.html?money='+$scope.order.totalMoney+'&tradeId='+$scope.order.tradeId;
+                        }
+                    });
                 }
             });
         };
