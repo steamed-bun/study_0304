@@ -19,6 +19,7 @@
 			author:'',
 			publicationDate:'',
 			publisher:'',
+			quantity:'',
 			oneWord:''
 		};
 		$scope.bookOtherInfo={
@@ -46,6 +47,7 @@
 			$scope.book.author=data.book.author;
 			$scope.book.publicationDate=data.book.publicationDate;
 			$scope.book.publisher=data.book.publisher;
+			$scope.book.quantity=data.book.quantity;
 			$scope.book.oneWord=data.book.oneWord;
 		});
 
@@ -54,7 +56,7 @@
 			isAdd:false
 		};
 		$scope.reg=[/^((([1-9]{1}\d{0,9}))|([0]{1}))((\.(\d){2}))?$/, /^((((19|20)\d{2})-(0?(1|[3-9])|1[012])-(0?[1-9]|[12]\d|30))|(((19|20)\d{2})-(0?[13578]|1[02])-31)|(((19|20)\d{2})-0?2-(0?[1-9]|1\d|2[0-8]))|((((19|20)([13579][26]|[2468][048]|0[48]))|(2000))-0?2-29))$/,/^.{30,60}$/];
-		$scope.verTrue=[false,false,false,false,false,false,false,false,false];
+		$scope.verTrue=[false,false,false,false,false,false,false,false,false,false];
 		//提示用户是否已添加过书籍详情
 		if(myBookId==undefined){
 			//当用户已经添加书籍简介时
@@ -184,7 +186,7 @@
 			console.log('我被点击了');
 			var isSubmit=true;
 			var postData='';
-			if($scope.book.publicationDate){
+			/*if($scope.book.publicationDate){
 				$scope.verTrue[3]=true;
 				$('.time-hint').css('display','none');
 			}else{
@@ -192,7 +194,7 @@
 				$('.time-hint').html('出版日期不能为空！');
 				$('.time-hint').css('display','inline-block');
 				$scope.verTrue[3]=false;
-			}
+			}*/
 			/*for(var i=0;i<$scope.verTrue.length;i++){
 				if($scope.verTrue[i]!=true){
 					console.log(i);
@@ -327,7 +329,7 @@
 			$(this).css('border','#DDD solid 1px');
 			var veriLabel=$(this).attr('data-veri');
 			var inputInfo;
-			switch (veriLabel){
+			/*switch (veriLabel){
 				case 'bookName':
 					inputInfo=$scope.book.bookName;
 					if(inputInfo){
@@ -372,7 +374,7 @@
 					}
 					break;
 				case 'bookTime':
-					/*inputInfo=$scope.book.publicationDate;
+					/!*inputInfo=$scope.book.publicationDate;
 					console.log($scope.book.publicationDate);
 					if(inputInfo){
 						//当输入信息存在
@@ -391,7 +393,7 @@
 						$('.time-hint').html('出版日期不能为空！');
 						$('.time-hint').css('display','inline-block');
 						$scope.verTrue[3]=false;
-					}*/
+					}*!/
 					break;
 				case 'bookPublisher':
 					inputInfo=$scope.book.publisher;
@@ -425,7 +427,7 @@
 						$('.recom-hint').css('display','inline-block');
 					}
 					break;
-			}
+			}*/
 		});
 		//此处用jquery实现输入框获得焦点时，显示日历--开始
 		$('#cust-info-birth').datepicker({

@@ -167,7 +167,7 @@ angular.module('sign-controller',[])
 
             /*------------表单验证开始-----------*/
             var regExp=[/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/,
-                        /^[1-9]{2,3}$/,
+                        /^\d{2,3}$/,
                         /^[\u4e00-\u9fa5]{4,10}$/,
                         /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/,
                         /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,16}$/];
@@ -201,6 +201,7 @@ angular.module('sign-controller',[])
             //验证年龄
             $('#myAge').blur(function(){
                var userInput=$scope.mer.sellerAge;
+                console.log(userInput);
                if(userInput){
                   //当用户有输入值时
                   if(regExp[1].test(userInput)){
@@ -211,7 +212,7 @@ angular.module('sign-controller',[])
                      $scope.isThrough[1]=true;
                   }else{
                      //当用户输入的不符合正则表单式时
-                     $('.sellerAge-hint').html('年龄不符合实际，最小11岁');
+                     $('.sellerAge-hint').html('请输入大于9数字');
                      $('.sellerAge-hint').removeClass('regi-right-hint');
                      $('.sellerAge-hint').addClass('regi-error-hint');
                      $scope.isThrough[1]=false;

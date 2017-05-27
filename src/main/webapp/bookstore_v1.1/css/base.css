@@ -232,9 +232,33 @@ nav{
 }
 .header-items>li{
 	float:left;
-	width:8%;
+	width:7%;
+	padding:0 10px;
 	height:100%;
 	text-align:center;
+}
+.header-items>li:nth-child(5),.header-items>li:nth-child(6),.header-items>li:nth-child(10){
+	width:10%;
+	padding:0 10px;
+}
+.header-items>li:nth-child(9),.header-items>li:nth-child(11){
+	width:9%;
+	padding:0 10px;
+}
+.aside-items>li{
+	float:left;
+	width:7%;
+	padding:0 5px;
+	height:100%;
+	text-align:center;
+}
+.aside-items>li:nth-child(5),.aside-items>li:nth-child(6),.aside-items>li:nth-child(10){
+	width:10%;
+	padding:0 5px;
+}
+.aside-items>li:nth-child(9),.aside-items>li:nth-child(11){
+	width:8%;
+	padding:0 5px;
 }
 .header-items a{
 	padding:6px 1px;

@@ -28,17 +28,17 @@
 								<span>
 									<select class="book-cate-select">
 										<option data-id="0">--请选择--</option>
-										<option data-id="1">教育</option>
-										<option  data-id="2">小说</option>
+										<option data-id="1">少儿</option>
+										<option  data-id="2">教育</option>
 										<option data-id="3">文艺</option>
-										<option data-id="4">青春</option>
-										<option data-id="5">童书</option>
+										<option data-id="4">经管励志</option>
+										<option data-id="5">人文社科</option>
 										<option data-id="6">生活</option>
-										<option data-id="7">人文社科</option>
-										<option data-id="8">经管</option>
-										<option data-id="9">励志</option>
-										<option data-id="10">科技</option>
-										<option data-id="11">工具书</option>
+										<option data-id="7">科技</option>
+										<option data-id="8">电子书</option>
+										<option data-id="9">英文原版</option>
+										<option data-id="10">工具书</option>
+										<option data-id="11">考试</option>
 									</select>
 								</span>
 								<span>
@@ -73,6 +73,11 @@
 								<span>出版商：</span>
 								<span class="book-info-input"><input type="text" class="add-book-input" placeholder="请输入出版商" data-veri="bookPublisher" ng-model="book.publisher"/></span>
 								<span><i class="book-add-hint publisher-hint"></i></span>
+							</li>
+							<li>
+								<span>库存：</span>
+								<span class="book-info-input"><input type="text" class="add-book-input" placeholder="请输入库存" data-veri="bookNumber" ng-model="book.quantity"/></span>
+								<span><i class="book-add-hint book-number-hint"></i></span>
 							</li>
 							<li>
 								<span class="brief-text">简介：</span>
